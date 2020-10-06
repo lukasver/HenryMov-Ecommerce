@@ -4,7 +4,7 @@ const { conn } = require('../db.js');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('product', {
+sequelize.define('product', {
     name: {
       type: DataTypes.STRING(45),
       allowNull: false,
@@ -40,10 +40,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-      	isUrl: true
-      }
+      allowNull: false
     },
   } , {
   	timestamps: false
