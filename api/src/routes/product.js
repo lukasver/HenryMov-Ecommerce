@@ -12,7 +12,6 @@ server.get('/', (req, res, next) => {
 //========================================		
 });
 
-<<<<<<< HEAD
 server.get('/product/:id', (req, res, next)=>{
 //=============================================
 //  Obtener por producto por id (unico) (fijarse si funciona sin 'id:id')
@@ -30,7 +29,6 @@ server.get('/product/:id', (req, res, next)=>{
 		res.status(404).send(<h1>error...product not found</h1>)
 	})
 })
-=======
 //------- Searchs any product by name or description--------// 
 server.get('/search', (req, res, next) => {
 	const { product } = req.query;
@@ -55,6 +53,5 @@ server.get('/search', (req, res, next) => {
 			res.status(404).send('Producto no encontrado')
 		});
 });
->>>>>>> 415c3fcf04f153660b0b9de233579a07ea78ccf1
 
 module.exports = server;
