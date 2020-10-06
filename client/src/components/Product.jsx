@@ -16,4 +16,3 @@ export default function Product({productId, name, description, price, availabili
 			</article>
 		</div>
 	);
-}
