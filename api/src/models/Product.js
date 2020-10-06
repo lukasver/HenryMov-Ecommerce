@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
       	isNumeric: true
       }
     },
-    Image: {
+    image: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
