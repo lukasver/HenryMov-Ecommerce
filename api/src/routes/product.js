@@ -6,11 +6,10 @@ server.get('/products', (req, res, next) => {
 		.then(products => {
 			res.json(products);
 		})
-
 		.catch(err => {
 			console.log(err);
 			next()
-		});
+		});	
 });
 
 server.get('/product/:id', (req, res, next)=>{
@@ -35,10 +34,10 @@ server.get('/search', (req, res, next) => {
 	const { product } = req.query;
 	Product.findAll({
 		where: {
-			$or: [{
-				name: {
-					$iLike: '%' + product + '%'
-				}
+			$or: [
+			{
+				name: { 
+					$iLike: '%' + product + '%'}
 			},
 			{
 				description: {
