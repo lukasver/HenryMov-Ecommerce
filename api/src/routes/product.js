@@ -26,7 +26,7 @@ server.get('/product/:id', (req, res, next)=>{
 		res.status(200).json(product);
 	})
 	.catch(error =>{
-		res.status(404).send(<h1>error...product not found</h1>)
+		res.status(404).send('<h1>error...product not found</h1>')
 	})
 })
 //------- Searchs any product by name or description--------// 
