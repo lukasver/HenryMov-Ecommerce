@@ -3,9 +3,7 @@ import React from 'react';
 export default function Product({productId, name, description, price, availability, stock, quantity, image}) {
 	return (
 		<div>
-			<aside>
-				<img src={image} alt="product image">
-			</aside>
+			<img src={image} alt="product image"/>
 			<article>
 				<h2>{name}</h2>				
 				<p>{description}</p>
@@ -15,4 +13,4 @@ export default function Product({productId, name, description, price, availabili
 				<h5>{quantity}</h5>
 			</article>
 		</div>
-	);
+	)};
