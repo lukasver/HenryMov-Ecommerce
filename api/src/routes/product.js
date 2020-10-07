@@ -1,14 +1,14 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 
-server.get('/', (req, res, next) => {
+server.get('/products', (req, res, next) => {
 	Product.findAll()
 		.then(products => {
-			res.send(products);
+			res.json(products);
 		})
 		.catch(next);
 //========================================
-		//Falta invocar next si hay error
+		//Falta invocar next dentro de catch si hay error en la ejecucion (quiebra)
 //========================================		
 });
 
@@ -34,10 +34,10 @@ server.get('/search', (req, res, next) => {
 	const { product } = req.query;
 	Product.findAll({
 		where: {
-			$or: [{
-				name: {
-					$iLike: '%' + product + '%'
-				}
+			$or: [
+			{
+				name: { 
+					$iLike: '%' + product + '%'}
 			},
 			{
 				description: {
