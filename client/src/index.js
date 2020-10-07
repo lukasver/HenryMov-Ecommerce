@@ -1,16 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router} from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Catalog from './components/Catalog';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
 	  <Router>
-	    <Route path="/" component={App} />
-	    <Route path="/products" component={Catalog} />
+	    <App />
 	  </Router>
   </React.StrictMode>,
   document.getElementById('root')
