@@ -1,11 +1,11 @@
 import React from 'react';
 import ProductCard from './ProductCard.jsx'
 
-export default function ProductCatalogue({productCatalogue}) {
-	if (productCatalogue) {
+export default function Catalogue({catalogue}) {
+	if (catalogue) {
 		return (
 			<div>
-				{productCatalogue.map(pc => <ProductCard
+				{catalogue.map(pc => <ProductCard
 					key={pc.producId}
 					name={pc.name}
 					description={pc.description}
