@@ -1,14 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Catalog from './components/Catalog';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
 	  <Router>
-	    <App />
+	    <Route path="/" component={App} />
+	    <Route path="/products" component={Catalog} />
 	  </Router>
   </React.StrictMode>,
   document.getElementById('root')
@@ -18,3 +20,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+ 
