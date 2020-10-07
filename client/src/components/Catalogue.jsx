@@ -5,6 +5,7 @@ export default function Catalogue({catalogue}) {
 	if (catalogue) {
 		return (
 			<div>
+	//=======Ver si la tarjeta del catalogo necesita tanta info============
 				{catalogue.map(pc => <ProductCard
 					key={pc.producId}
 					name={pc.name}
@@ -15,7 +16,7 @@ export default function Catalogue({catalogue}) {
 					quantity={pc.quantity}
 					image={pc.image}					
 				/> )}
-			</div> <!-- row.// -->
+			</div>
 		);
 	} else {
 		<h3>Without products.</h3>

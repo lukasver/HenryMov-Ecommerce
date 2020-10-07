@@ -6,10 +6,10 @@ server.get('/products', (req, res, next) => {
 		.then(products => {
 			res.json(products);
 		})
-		.catch(next);
-//========================================
-		//Falta invocar next dentro de catch si hay error en la ejecucion (quiebra)
-//========================================		
+		.catch(err => {
+			console.log(err);
+			next()
+		});	
 });
 
 server.get('/product/:id', (req, res, next)=>{
