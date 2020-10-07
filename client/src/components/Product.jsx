@@ -11,6 +11,6 @@ export default function Product({productId, name, description, price, availabili
 				<h5>{availability}</h5>
 				<h5>{stock}</h5>
 				<h5>{quantity}</h5>
-			</article>
+			</article> 
 		</div>
 	)};
