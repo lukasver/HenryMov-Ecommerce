@@ -1,0 +1,26 @@
+.bg-dark {
+    background-color: #111111!important;
+}
+.navbar-dark .navbar-brand {
+    float: left;
+}
+.barraSuperiorSearch {
+    margin-top: 13px;
+}
+.linkIcons {
+    color: white;
+}
+.linkIcons:hover {
+    color: #ffaf00;
+}
+a:hover {
+    text-decoration: none;
+    color: #ffaf00;
+}
+a { color: white; }
+.nav-item {
+    padding: 0px 10px;
+}
+.menuSkate {
+    border-top: 1px solid #232222;
+}
