@@ -18,7 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { Product , conn } = require('./src/db.js');
+const { Product, Category, conn } = require('./src/db.js');
 
 // const port = serv.process.env
 
@@ -80,8 +80,17 @@ conn.sync({ force: true }).then(() => {
 	  		stock: 100,
 	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
 	  	}))
+	  	await Category.create({
+	  		name: 'Categoría1',
+	  		description: 'Descripción1',
+	  		status: 'Activado'
+	  	}).then(Category.create({
+	  		name: 'Categoría2',
+	  		description: 'Descripción2',
+	  		status: 'Activado'
+	  	}))
 	  };
 	  precarga();
-	  console.log("Productos precargados");
+	  console.log("Productos y Categorias precargadas");
   });
 });
