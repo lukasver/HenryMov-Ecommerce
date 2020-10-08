@@ -8,7 +8,7 @@ import Slider from './components/Slider';
 function App() {
   return (
     <div className="App">
-      <Route
+      {/* <Route
         path="/"
         render={() => <Nav />}
       />
@@ -16,7 +16,8 @@ function App() {
       <Route
         exact path="products/:id"
         render={<Product />}
-      />
+      /> */}
+      <Product />
     </div>
   );
 }
