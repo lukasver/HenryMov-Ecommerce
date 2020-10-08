@@ -29,7 +29,10 @@ server.get('/product/:id', (req, res, next)=>{
 		res.status(404).send('<h1>error...product not found</h1>')
 	})
 })
-//------- Searchs any product by name or description--------// 
+
+//==============================================
+//	Busca un producta por nombre o descripcion
+//============================================== 
 server.get('/search', (req, res, next) => {
 	const { product } = req.query;
 	Product.findAll({

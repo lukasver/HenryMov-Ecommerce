@@ -1,1 +1,43 @@
-// aca va el css de product
+.card {
+    max-width: 540px
+}
+
+.col{
+    display: flex
+}
+
+.js-quantity{
+    display: flex;
+    width: 50px;
+}
+.card-title {
+    font-family: "Montserrat", Sans-serif;
+    color: #0c6c1c;
+}
+
+.form-control{
+    width: auto;
+    border: solid 1px
+}
+
+.card-text{
+    color: aqua;
+}
+
+.js-addtocart{
+    background-color: black;
+    border: none;
+    width: auto;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-top: 9px;
+}
+
+
+.js-addtocart:hover{
+    background-color: #ffaf00;
+    color: black
+}
