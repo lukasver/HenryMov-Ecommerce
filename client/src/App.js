@@ -8,11 +8,11 @@ import Catalogue from './components/Catalogue';
 
 function App() {
   return (
-    <div className="App">
-      <Route path="/" render={Nav}/>
-      <Route exact path="/" render={Slider}>
-      <Route exact path="/products" render={Catalogue}/>
-      <Route exact path="/products/:id" render={Product}/>
+  	<div>
+		<Route path="/" render={() => <Nav/>}/>
+		<Route exact path="/" render={() => <Slider/>}/>
+		<Route exact path="/products" render={() => <Catalogue/>}/>
+		<Route exact path="/products/:id" render={() => <Product/>}/>
     </div>
   );
 }
