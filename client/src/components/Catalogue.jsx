@@ -4,6 +4,7 @@ import ProductCard from './ProductCard.jsx';
 import './Catalogue.css';
 import loading from '../img/loading.gif';
 import { counter } from '../utils/utils';
+import styled from 'styled-components';
 
 function Catalogue (props) {
 	const [productos, setProductos] = useState(null)
@@ -12,9 +13,28 @@ function Catalogue (props) {
 
 
 // =================================================
-//		Carga de productos desde la BD
+//		Styled components
 // =================================================
 
+const Button = styled.button`
+  background: black;
+  color: white;
+  border-radius: 3px;
+  border: 2px solid orange;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+  border-radius: 5px;
+
+  &:hover {
+  	 background: orange;
+ 	 color: black;
+ 	 border: 2px solid black;
+  }
+`
+
+// =================================================
+//		Carga de productos desde la BD
+// =================================================
 
 useEffect(() => {
 	axios.get('http://localhost:3001/products')
@@ -27,6 +47,10 @@ useEffect(() => {
 	})
 	.catch(err => new Error(err))
 },[]) // este array vacío es para cortar el loop de useEffect
+
+// handleBrowseAll = () => {
+// 	console.log('hola')
+// }
 
 
 
@@ -50,14 +74,14 @@ let checkFor = counter()
 			<div className="grid">
 					<div className="gridsearch">
 						<div className="sticky">
-							<h2>Categorias</h2>
+							<h2>Categorías:</h2>
 							{categories.map(category => 					
-								<div class="custom-control custom-checkbox">
-					 			 <input type="checkbox" class="custom-control-input" id={`customCheck${checkId()}`}/>
-					 			 <label class="custom-control-label" for={`customCheck${checkFor()}`}>{category}</label>
+								<div className="custom-control custom-checkbox">
+					 			 <input type="checkbox" className="custom-control-input" id={`selection${checkId()}`}/>
+					 			 <label className="custom-control-label" for={`selection${checkFor()}`}>{category}</label>
 								</div>
 								)}
-							<button type="button" class="btn btn-dark">Browse All</button>
+							<Button type="button">Browse All</Button>
 						</div>
 					</div>
 					<div className="gridcards">
