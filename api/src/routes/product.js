@@ -59,6 +59,30 @@ server.get('/search', (req, res, next) => {
 			res.status(404).send('Producto no encontrado')
 		});
 });
+//==============================================
+//       Modificar o crear Categoria
+//============================================== 
+
+server.post('/products', (req, res, next) => {
+	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
+	if(!name || !description || !price || !availability || !stock || !image) {
+    return res.sendStatus(400);
+  }
+  Product.create(req.body).then(createdProduct => {
+  		createdProduct.setCategories(categories);
+  	}).then(() => {
+  		res.status(201).send(req.body);
+  	})
+});
+//==============================================
+//	        Eliminar categoria
+//==============================================
+
+
+//==============================================
+//	        Modificar categoria
+//============================================== 
+
 
 // Ruta para crear/agregar producto.
 server.post('/products', (req, res, next) => {
