@@ -1,11 +1,12 @@
-import Sequelize from 'sequelize';
-import db from './db.js';
-const S = Sequelize;
+const { DataTypes } = require('sequelize') ;
+const { conn } = require('../db.js');
 
-const Category = db.define('category', {
-	name: {type: S.STRING(45), allowNull: false, unique: true},
-	description: {type: S.STRING(255)},
-	status: {type: S.ENUM('Activado', 'Desactivado')}
-});
+module.exports = (sequelize) => {
+	sequelize.define('category', {
+		name: {type: DataTypes.STRING(45), allowNull: false, unique: true},
+		description: {type: DataTypes.STRING(255)},
+		status: {type: DataTypes.ENUM('Activado', 'Desactivado')}
+	    });
+	}
 
-export default Category;
+	
