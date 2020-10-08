@@ -16,61 +16,39 @@ export default function Product(props) {
 		// 		<h5>1</h5>
 		// 	</article> 
 		// </div>
-		<div className="card mb-3" >
-			<div className="row no-gutters">
-				<div className="col-md-4">
+		<div className="container">
+			<div className="main row single-page">
+				<br /><br />
+				<div className="col-md-7">
 					<img src={image} className="card-img" alt="Product Image" />
 				</div>
-				<div className="col-md-8">
-					<div className="card-body">
-						<h5 className="card-title">Patineta</h5>
-						<div >
-							<span >$1799</span>
-						</div>
-						<div className='col'>
-							<div className="col-4">
-								<div className="form-group js-quantity form-quantity">
-									<div className="form-row m-0 align-items-center">
-										<span className="js-quantity-down form-quantity-icon btn">
-											<svg className="icon-inline icon-w-12 icon-lg" xmlns="http://www.w3.org/2000/svg"
-												viewBox="0 0 384 512">
-												<path d="M368 224H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h352c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z">
-												</path>
-											</svg>
-										</span>
-										<div className="form-control-container col">
-											<input type="number" className="form-control js-quantity-input form-control-inline"
-												autocorrect="off" autocapitalize="off" name="quantity" value="1" min="1"
-												aria-label="Cambiar cantidad" />
-										</div>
-										<span className="js-quantity-up form-quantity-icon btn">
-											<svg className="icon-inline icon-w-12 icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-												<path d="M368 224H224V80c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v144H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 
-											16h144v144c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V288h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z">
-												</path>
-											</svg>
-										</span>
-									</div>
+				<div className="col-md-5 content-rigth">
+					<p>Gorra Fallen Risen Patch Importadas Originales Summer 20</p>
+					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">Gorra Fallen Risen Patch Importadas Originales Summer 20</h1>
+					<h2 className="precio-producto">$1.099</h2>
+					<div className="row buttom-comprar">
+						<div className="col-md-4">
+							<div className="input-group mb-2 mr-sm-2">
+								<div className="input-group-prepend">
+									<button className="btn btn-outline-secondary buttom-left" type="button">-</button>
+								</div>
+								<input type="text" className="form-control cantidades" id="inlineFormInputGroupUsername2" placeholder="0" />
+								<div className="input-group-prepend">
+									<button className="btn btn-outline-secondary buttom-right" type="button">+</button>
 								</div>
 							</div>
-							<div>
-								<input type='submit' className='js-addtocart js-prod-submit-form btn btn-primary btn-block mb-4 cart' value='Agregar al Carrito' />
-							</div>
 						</div>
-						<p className="card-text">
-							<span>Description</span>
-							<br />
-							This is a wider card with supporting text below as a natural lead-in to additional content.
-							This content is a little bit longer.
-						</p>
-						<p className="card-text">
-							<small className="text-muted">
-								Last updated 3 mins ago
-							</small>
-						</p>
+						<div className="col-md-8">
+							<input type="submit" className="js-addtocart js-prod-submit-form btn btn-primary btn-block mb-4 cart" value="Agregar al carrito" />
+						</div>
 					</div>
-
-
+					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>
+					<div className="form-row mb-4 ">						
+						<div className="col-11 form-label">
+							<div className="mb-1 font-weight-bold">Enviamos a todo el país</div>
+							<div>Entregamos a todo el pais por meracdo envios, despachamos dentro de las 24hs de recibida tu compra.</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

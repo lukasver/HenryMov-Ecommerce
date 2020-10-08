@@ -19,7 +19,7 @@ function Nav({ onSearch }) {
                     onSearch={onSearch}
                 />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-3 utilidades">
                 <div className="main row">
                     <div className="col-md-4">
                         <Link to='/ayuda'>
