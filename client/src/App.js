@@ -15,6 +15,7 @@ function App() {
     axios.get(`http://localhost:3001/search?product=${search}`)
       .then(recurso => {
         setProducts(recurso.data);
+        console.log(recurso.data);
         return recurso.data;
       });
   }
