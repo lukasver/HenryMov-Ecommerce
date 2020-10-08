@@ -20,12 +20,14 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Route path="/" render={() => <Nav onSearch={onSearch} />} />
-      <Route exact path="/" render={Slider} />
-      <Route exact path="/search" render={() => <ProductCard products={products} />} />
-      <Route exact path="/products" render={Catalogue} />
-      <Route exact path="/products/:id" render={Product} />
+
+  	    <div className="App">
+     <Route path="/" render={() => <Nav onSearch={onSearch} />} />
+	  <Route exact path="/search" render={() => <ProductCard products={products} />} />
+		<Route exact path="/" render={() => <Slider/>}/>
+		<Route exact path="/products" render={() => <Catalogue/>}/>
+		<Route exact path="/products/:id" render={() => <Product/>}/>
+
     </div>
   );
 }
