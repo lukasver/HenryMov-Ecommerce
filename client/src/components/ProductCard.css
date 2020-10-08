@@ -3,4 +3,27 @@
 }
 .card-text {
 	color: black;
+
+}
+
+img:hover {
+	border-radius: 10%;
+}
+
+.card-group {
+	margin-top: 30px;
+}
+
+.card-img-top:hover {
+	width: 90%;	
+    margin: -20px 0 0 -5px;
+}
+
+.card-img-top {
+	width: 85%;	
+}
+
+.card {
+	align-items: center;
+
 }
