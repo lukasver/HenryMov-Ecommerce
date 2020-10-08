@@ -1,4 +1,4 @@
-.card {
+/* .card {
     max-width: 540px
 }
 
@@ -14,15 +14,15 @@
     font-family: "Montserrat", Sans-serif;
     color: #0c6c1c;
 }
-
+/* 
 .form-control{
     width: auto;
     border: solid 1px
-}
+} */
 
-.card-text{
+/* .card-text{
     color: aqua;
-}
+} */
 
 .js-addtocart{
     background-color: black;
@@ -40,4 +40,56 @@
 .js-addtocart:hover{
     background-color: #ffaf00;
     color: black
+} */
+
+.input-group mb-2 mr-sm-2 {
+    width: 120px;
+}
+
+.buttom-left {
+    border-right: none;
+    border-radius: 0px;
+}
+
+.buttom-right {
+    border-left: none;
+    border-radius: 0px;
+}
+
+
+.cantidades {
+    border-left: none;
+    border-right: none;
+    width: 30px !important;
+    flex: 0.3 1 auto !important;
+    text-align: center;
+}
+
+.btn-outline-secondary {
+    border-color: #d4d4d4;
+}
+
+.buttom-comprar {
+    display: flex;
+    align-items: baseline;
+}
+
+.single-page {
+    margin-top: 4%;
+}
+
+.content-rigth {
+    text-align: left;
+}
+
+.titulo-producto {
+    font-weight: 700;
+    font-size: 2.3em;
+    padding: 15px 0px;
+}
+
+.precio-producto {
+    font-size: 2.8em;
+    font-weight: 700;
+    padding: 5px 0px 20px;
 }

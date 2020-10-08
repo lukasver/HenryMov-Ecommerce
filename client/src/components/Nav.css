@@ -1,9 +1,6 @@
 .bg-dark {
     background-color: #111111!important;
 }
-.navbar-dark .navbar-brand {
-    float: left;
-}
 .barraSuperiorSearch {
     margin-top: 13px;
 }
@@ -23,4 +20,7 @@ a { color: white; }
 }
 .menuSkate {
     border-top: 1px solid #232222;
+}
+.utilidades {
+    padding: 0 2%;
 }
