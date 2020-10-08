@@ -60,6 +60,7 @@ server.get('/search', (req, res, next) => {
 		});
 });
 
+// Ruta para crear/agregar producto.
 server.post('/products', (req, res, next) => {
 	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
 	if(!name || !description || !price || !availability || !stock || !image) {
@@ -69,7 +70,16 @@ server.post('/products', (req, res, next) => {
   		createdProduct.setCategories(categories);
   	}).then(() => {
   		res.status(201).send(req.body);
-  	})
+  	});
+});
+
+// Ruta para eliminar un producto.
+server.delete('/products/:id', (req, res, next) => {
+  Product.destroy({
+  	where: {id: req.params.id}
+  }).then(deletedProduct => {
+  	res.sendStatus(200);
+  });
 });
 
 module.exports = server;
