@@ -1,0 +1,120 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+/*Just the background stuff */
+span.s1 {
+  position: absolute;
+  top: 0;
+  font-size: 15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #3C4447;
+}
+
+span.s2 {
+  font-weight: 800;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 15rem;
+  text-transform: uppercase;
+  color: #3C4447;
+}
+
+/*My hum... body.. yeah.. */
+body {
+  background-color: #353B3F;
+  font-family: "Roboto", sans-serif;
+}
+
+/* The card */
+.card {
+  position: relative;
+  height: 450px;
+  width: 900px;
+  margin: 50px auto;
+  background-color: #FFF;
+  -webkit-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+}
+
+/* Image on the left side */
+.thumbnail {
+  float: left;
+  position: relative;
+  left: 10px;
+  top: -10px;
+  height: 320px;
+  width: 530px;
+  -webkit-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  
+}
+
+/*object-fit: cover; */
+/*object-position: center; */
+img.left {
+  position: absolute;
+  left: 40%;
+  top: 40%;
+  height: auto;
+  width: auto;
+  -webkit-transform: translate(-70%, -70%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-30%, -20%);
+  border-radius: 40px;
+  box-shadow: 10px 10px 5px #ccc;
+}
+
+/* Right side of the card */
+.right {
+  margin-left: 590px;
+  margin-right: 20px;
+}
+
+h1 {
+  padding-top: 15px;
+  color: #4B4B4B;
+}
+
+.author {
+  background-color:rgb(91, 128, 248);
+  height: 30px;
+  width: 110px;
+  border-radius: 20px;
+  font-family: cursive;
+  font-size: 3px;
+  box-shadow: 8px 8px 3px #ccc;
+ 
+}
+
+h2 {
+  padding-top: 8px;
+  margin-right: 6px;
+  text-align: right;
+  font-size: 0.8rem;
+}
+
+.separator {
+  margin-top: 10px;
+  border: 1px solid #C3C3C3;
+}
+
+p {
+  text-align: justify;
+  padding-top: 10px;
+  font-size: 0.95rem;
+  line-height: 150%;
+  color: #4B4B4B;
+}
+
+/* DATE of release */
+h5 {
+    position: inherit;
+    left: 30px;
+    font-size: 4rem;
+    color: #C3C3C3;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-inline-end: 80px;
+}
