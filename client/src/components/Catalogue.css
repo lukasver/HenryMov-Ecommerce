@@ -1,0 +1,22 @@
+.grid {
+	display: grid;
+	grid-template-columns: 3fr 9fr;
+	align-items: center;
+	height: auto;
+	background-color: #DDDDDD;
+}
+
+.gridcards {
+	display: grid;
+	grid-template-columns: 3fr 3fr 3fr;
+	gap: 1rem;
+}
+
+.grid div {
+	background-color: #DDDDDD;
+}
+
+.categorycol {
+	font-size: 20px;
+	align-self: center;
+}
