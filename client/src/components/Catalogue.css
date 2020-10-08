@@ -1,5 +1,6 @@
 .grid {
 	padding-top: 1rem;
+	padding-bottom: 1rem;
     display: grid;
     grid-template-columns: 3fr 9fr;
     align-items: center;
@@ -24,5 +25,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-right: 2px solid orange;
+    margin-right: 2rem;
 }
 
+div.sticky {
+    position: fixed;
+    top: 50%;
+    background-color: #DDDDDD;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2rem;
+
+}

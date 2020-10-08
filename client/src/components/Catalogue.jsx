@@ -3,6 +3,7 @@ import axios from 'axios';
 import ProductCard from './ProductCard.jsx';
 import './Catalogue.css';
 import loading from '../img/loading.gif';
+import { counter } from '../utils/utils';
 
 function Catalogue (props) {
 	const [productos, setProductos] = useState(null)
@@ -34,16 +35,30 @@ useEffect(() => {
 // ==================================================
 
 if (productos === null) {
-	return <img className="card-img" src={loading}/>
+	return <img className="rounded mx-auto d-block" src={loading}/>
 }
+
+// ==================================================
+//	Counters para los checkboxes
+// ==================================================
+
+let checkId = counter()
+let checkFor = counter()
 
 
 	return (
 			<div className="grid">
 					<div className="gridsearch">
-						<h2>Categorias</h2>
-						{categories.map(category => <div>{category}  <input type='checkbox'/></div>)}
-						<button>Browse All</button>
+						<div className="sticky">
+							<h2>Categorias</h2>
+							{categories.map(category => 					
+								<div class="custom-control custom-checkbox">
+					 			 <input type="checkbox" class="custom-control-input" id={`customCheck${checkId()}`}/>
+					 			 <label class="custom-control-label" for={`customCheck${checkFor()}`}>{category}</label>
+								</div>
+								)}
+							<button type="button" class="btn btn-dark">Browse All</button>
+						</div>
 					</div>
 					<div className="gridcards">
 					{productos.map(prod => 
@@ -57,9 +72,11 @@ if (productos === null) {
 							image={prod.image}
 							/>
 						</div>)}
+
 					</div>
 				</div>
 				)
 }
 
 export default Catalogue;
+
