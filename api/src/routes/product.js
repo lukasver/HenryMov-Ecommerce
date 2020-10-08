@@ -57,4 +57,16 @@ server.get('/search', (req, res, next) => {
 		});
 });
 
+server.post('/products', (req, res, next) => {
+	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
+	if(!name || !description || !price || !availability || !stock || !image) {
+    return res.sendStatus(400);
+  }
+  Product.create(req.body).then(createdProduct => {
+  		createdProduct.setCategories(categories);
+  	}).then(() => {
+  		res.status(201).send(req.body);
+  	})
+});
+
 module.exports = server;
