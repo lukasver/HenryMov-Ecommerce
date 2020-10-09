@@ -81,14 +81,22 @@ conn.sync({ force: true }).then(() => {
 	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
 	  	}))
 	  	await Category.create({
-	  		name: 'Categoría1',
+	  		name: 'Scooters',
 	  		description: 'Descripción1',
 	  		status: 'Activado'
 	  	}).then(Category.create({
-	  		name: 'Categoría2',
+	  		name: 'Skates',
 	  		description: 'Descripción2',
 	  		status: 'Activado'
-	  	}))
+	  	})).then(Category.create({
+	  		name: 'Windsurf',
+	  		description: 'Descripción3',
+	  		status: 'Activado'
+	  	})).then(Category.create({
+	  		name: 'Bikes',
+	  		description: 'Descripción4',
+	  		status: 'Activado'
+	  	}));
 	  };
 	  precarga();
 	  console.log("Productos y Categorias precargadas");
