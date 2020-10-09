@@ -7,6 +7,7 @@ import ProductCard from './components/ProductCard.jsx';
 import Slider from './components/Slider';
 import Catalogue from './components/Catalogue';
 import axios from 'axios';
+import AddProduct from './components/AddProduct';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -29,6 +30,7 @@ function App() {
 		<Route exact path="/" render={() => <Slider/>}/>
 		<Route exact path="/products" render={() => <Catalogue/>}/>
 		<Route exact path="/products/:id" render={() => <Product/>}/>
+    <Route exact path= "/product/add" render={()=><AddProduct/>}/>
 
     </div>
   );
