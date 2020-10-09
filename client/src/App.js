@@ -24,6 +24,7 @@ function App() {
 
   return (
 
+SearchBar
     <div className="App">
       <Route path="/" render={() => <Nav onSearch={onSearch} />} />
       <Route exact path="/search" render={() => <ProductCard products={products} />} />
