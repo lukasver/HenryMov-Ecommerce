@@ -6,7 +6,9 @@ module.exports = (sequelize) => {
 		name: {type: DataTypes.STRING(45), allowNull: false, unique: true},
 		description: {type: DataTypes.STRING(255)},
 		status: {type: DataTypes.ENUM('Activado', 'Desactivado')}
-	    });
-	}
+	},{
+	  timestamps: false
+	});
+}
 
 	
