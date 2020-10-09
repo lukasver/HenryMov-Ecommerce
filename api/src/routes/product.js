@@ -57,20 +57,45 @@ server.get('/search', (req, res, next) => {
 		});
 });
 
-// Ruta para crear/agregar producto.
+//==============================================
+//	Ruta para crear/agregar un producto.
+//============================================== 
 server.post('/products', (req, res, next) => {
 	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
 	if(!name || !description || !price || !availability || !stock || !image) {
     return res.sendStatus(400);
   }
   Product.create(req.body).then(createdProduct => {
-  		createdProduct.setCategories(categories);
-  	}).then(() => {
-  		res.status(201).send(req.body);
-  	});
+		createdProduct.setCategories(categories);
+	}).then(() => {
+		res.status(201).send(req.body);
+	});
 });
 
-// Ruta para eliminar un producto.
+//==============================================
+//	Ruta para modificar un producto.
+//============================================== 
+server.put('/products/:id', (req, res, next) => {
+	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
+	if(!name || !description || !price || !availability || !stock || !image) {
+    return res.sendStatus(400);
+  }
+  Product.update(req.body, {
+  	where: {id: req.params.id}
+  }).then(result => {
+  	if (result.length < 1) {
+  		return res.sendStatus(404);
+  	}
+  	return Product.findByPk(req.params.id)
+  }).then(modifiedProduct => {
+  	modifiedProduct.setCategories(categories);
+  	res.sendStatus(200);
+  });
+});
+
+//==============================================
+//	Ruta para eliminar un producto.
+//============================================== 
 server.delete('/products/:id', (req, res, next) => {
   Product.destroy({
   	where: {id: req.params.id}
