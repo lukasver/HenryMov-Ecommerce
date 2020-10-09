@@ -6,12 +6,18 @@ import Product from './components/Product.jsx';
 import ProductCard from './components/ProductCard.jsx';
 import Slider from './components/Slider';
 import Catalogue from './components/Catalogue';
+import ContentSearch from './components/ContentSearch';
 import axios from 'axios';
+import AddProduct from './components/AddProduct';
 
 
 function App() {
   const [products, setProducts] = useState([]);
+<<<<<<< HEAD
   const [totalProductos,setTotalprods] = useState([]);
+=======
+  const [totalProds,setTotalprods] = useState([]);
+>>>>>>> master
 
   let history = useHistory();
 
@@ -55,10 +61,16 @@ function App() {
   return (
     <div className="App">
         <Route path="/" render={() => <Nav onSearch={onSearch} />} />
-        <Route exact path="/search" render={() => <ProductCard products={products} />} />
+        <Route exact path="/search" render={() => <ContentSearch products={products} />} />
         <Route exact path="/" render={() => <Slider/>}/>
+<<<<<<< HEAD
         <Route exact path="/products" render={() => <Catalogue listado={totalProductos}/>}/>
         <Route exact path="/products/:productId" render={({match}) => <Product product={onFilter(match.params.productId)}/>}/>
+=======
+        <Route exact path="/products" render={() => <Catalogue listado={totalProds}/>}/>
+        <Route exact path="/products/:productId" render={({match}) => <Product product={onFilter(match.params.productId)}/>}/>
+        <Route exact path= "/product/add" render={()=><AddProduct/>}/>
+>>>>>>> master
     </div>
   );
 }

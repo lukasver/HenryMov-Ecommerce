@@ -1,0 +1,13 @@
+.card-img-top:hover {
+	width: 90%;	
+    margin: -20px 0 0 -5px;
+}
+
+.card-img-top {
+	width: 85%;	
+}
+
+.card {
+	align-items: center;
+
+}
