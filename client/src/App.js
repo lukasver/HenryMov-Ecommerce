@@ -12,7 +12,7 @@ import AddProduct from './components/AddProduct';
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [totalProds,setTotalprods] = useState(null);
+  const [totalProds,setTotalprods] = useState([]);
 
   let history = useHistory();
 
@@ -53,7 +53,7 @@ function App() {
         <Route exact path="/search" render={() => <ContentSearch products={products} />} />
         <Route exact path="/" render={() => <Slider/>}/>
         <Route exact path="/products" render={() => <Catalogue listado={totalProds}/>}/>
-        <Route exact path="/products/:productId" render={({match}) => <Product product={match.params.productId}/>}/>
+        <Route exact path="/products/:productId" render={({match}) => <Product product={onFilter(match.params.productId)}/>}/>
         <Route exact path= "/product/add" render={()=><AddProduct/>}/>
     </div>
   );
