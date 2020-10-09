@@ -1,10 +1,12 @@
 import React from 'react';
-import image from '../img/patinetaPrueba.png'
+
 import './Product.css'
 
 export default function Product(props) {
 	console.log(props)
 	//const img = image;
+	const { name, image, price, description, id} = props
+	//console.log(props.product)
 	return (
 		// <div>
 		// 	<img src={image} alt="product image"/>
@@ -17,6 +19,7 @@ export default function Product(props) {
 		// 		<h5>1</h5>
 		// 	</article> 
 		// </div>
+
 		<div className="container">
 			<div className="main row single-page">
 				<br /><br />
@@ -24,9 +27,10 @@ export default function Product(props) {
 					<img src={image} className="card-img" alt="Product Image" />
 				</div>
 				<div className="col-md-5 content-rigth">
-					<p>Gorra Fallen Risen Patch Importadas Originales Summer 20</p>
-					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">Gorra Fallen Risen Patch Importadas Originales Summer 20</h1>
-					<h2 className="precio-producto">$1.099</h2>
+					<p>{name}</p>
+					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
+					<h2>{description}</h2>
+					<h3 className="precio-producto">{price}</h3>
 					<div className="row buttom-comprar">
 						<div className="col-md-4">
 							<div className="input-group mb-2 mr-sm-2">
