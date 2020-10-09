@@ -4,7 +4,7 @@ import SearchBar from './SearchBar.jsx';
 import './Nav.css';
 import { Link } from 'react-router-dom';
 
-function Nav({ onSearch }) {
+function Nav({ onSearch }) {   
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="col-md-3">

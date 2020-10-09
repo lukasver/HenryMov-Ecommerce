@@ -1,22 +1,40 @@
 .grid {
-	display: grid;
-	grid-template-columns: 3fr 9fr;
-	align-items: center;
-	height: auto;
-	background-color: #DDDDDD;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    align-items: center;
+    height: auto;
+    background-color: #DDDDDD;
 }
 
 .gridcards {
 	display: grid;
-	grid-template-columns: 3fr 3fr 3fr;
+	grid-template-columns: repeat(3, auto);
+	grid-template-rows: repeat(2, auto);
+	justify-content: space-evenly;
+    align-content: center;
 	gap: 1rem;
 }
 
-.grid div {
-	background-color: #DDDDDD;
+.gridsearch {
+    background-color: #DDDDDD;
+    height: 100%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px solid orange;
+    margin-right: 2rem;
 }
 
-.categorycol {
-	font-size: 20px;
-	align-self: center;
+div.sticky {
+    position: fixed;
+    top: 50%;
+    background-color: #DDDDDD;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2rem;
+
 }
