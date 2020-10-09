@@ -82,17 +82,21 @@ conn.sync({ force: true }).then(() => {
 	  	}));
 
 	  	await Category.create({
-	  		name: 'Categoria1',
-	  		description: 'Descripcion1',
+	  		name: 'Scooters',
+	  		description: 'Descripción 1',
 	  		status: 'Activado'
 	  	}).then(Category.create({
-	  		name: 'Categoria2',
-	  		description: 'Descripcion2',
+	  		name: 'Skates',
+	  		description: 'Descripción 2',
 	  		status: 'Activado'
 	  	})).then(Category.create({
-	  		name: 'Categoria3',
-	  		description: 'Descripcion3',
-	  		status: 'Desactivado'
+	  		name: 'Windsurf',
+	  		description: 'Descripción 3',
+	  		status: 'Activado'
+	  	})).then(Category.create({
+	  		name: 'Bikes',
+	  		description: 'Descripción 4',
+	  		status: 'Activado'
 	  	}));
 	  };
 	  precarga();
