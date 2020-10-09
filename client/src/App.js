@@ -6,6 +6,7 @@ import Product from './components/Product.jsx';
 import ProductCard from './components/ProductCard.jsx';
 import Slider from './components/Slider';
 import Catalogue from './components/Catalogue';
+import ContentSearch from './components/ContentSearch';
 import axios from 'axios';
 
 function App() {
@@ -48,7 +49,7 @@ function App() {
   return (
     <div className="App">
         <Route path="/" render={() => <Nav onSearch={onSearch} />} />
-        <Route exact path="/search" render={() => <ProductCard products={products} />} />
+        <Route exact path="/search" render={() => <ContentSearch products={products} />} />
         <Route exact path="/" render={() => <Slider/>}/>
         <Route exact path="/products" render={() => <Catalogue listado={totalProds}/>}/>
         <Route exact path="/products/:productId" render={({match}) => <Product product={match.params.productId}/>}/>
