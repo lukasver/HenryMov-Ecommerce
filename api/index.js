@@ -23,7 +23,7 @@ const { port } = process.env // agregar port a tu variable de entorno .env
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(port, () => {
+  server.listen(port || 3001, () => {
     console.log(`%s listening at ${port}`); // eslint-disable-line no-console
     const precarga = async function () {
 
