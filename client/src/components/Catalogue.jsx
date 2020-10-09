@@ -4,107 +4,92 @@ import ProductCard from './ProductCard.jsx';
 import './Catalogue.css';
 import loading from '../img/loading.gif';
 import { counter } from '../utils/utils';
-import styled from 'styled-components';
 
-function Catalogue (props) {
+function Catalogue(props) {
 	// const [productos, setProductos] = useState(null)
-	const [categories, setCategories] = useState(['Scooters','Skates','Windsurf','Bikes'])
+	const [categories, setCategories] = useState(['Scooters', 'Skates', 'Windsurf', 'Bikes'])
 
-if(props.listado === null){
-	return <img className="rounded mx-auto d-block" src={loading}/>
-} else {
+	if (props.listado === null) {
+		return <img className="rounded mx-auto d-block" src={loading} />
+	} else {
 
 
-// =================================================
-//		Styled components
-// =================================================
+		// =================================================
+		//		Styled components
+		// =================================================
 
-const Button = styled.button`
-  background: black;
-  color: white;
-  border-radius: 3px;
-  border: 2px solid orange;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  border-radius: 5px;
+		// =================================================
+		//		Carga de productos desde la BD
+		// =================================================
 
-  &:hover {
-  	 background: orange;
- 	 color: black;
- 	 border: 2px solid black;
-  }
-`
+		// useEffect(() => {
+		// 	axios.get('http://localhost:3001/products')
+		// 	.then(productosDB => {
+		// 		const {data} = productosDB
+		// 		return data
+		// 	})
+		// 	.then(listadoProductos => {
+		// 		setProductos(listadoProductos)
+		// 	})
+		// 	.catch(err => new Error(err))
+		// },[]) // este array vacío es para cortar el loop de useEffect
 
-// =================================================
-//		Carga de productos desde la BD
-// =================================================
-
-// useEffect(() => {
-// 	axios.get('http://localhost:3001/products')
-// 	.then(productosDB => {
-// 		const {data} = productosDB
-// 		return data
-// 	})
-// 	.then(listadoProductos => {
-// 		setProductos(listadoProductos)
-// 	})
-// 	.catch(err => new Error(err))
-// },[]) // este array vacío es para cortar el loop de useEffect
-
-// handleBrowseAll = () => {
-// 	console.log('hola')
-// }
+		// handleBrowseAll = () => {
+		// 	console.log('hola')
+		// }
 
 
 
-// ==================================================
-//	Loading Screen hasta que se resuelve la peticion
-// ==================================================
+		// ==================================================
+		//	Loading Screen hasta que se resuelve la peticion
+		// ==================================================
 
-// if (props === null) {
-// 	return <img className="rounded mx-auto d-block" src={loading}/>
-// } 
+		// if (props === null) {
+		// 	return <img className="rounded mx-auto d-block" src={loading}/>
+		// } 
 
-// ==================================================
-//	Counters para los checkboxes
-// ==================================================
+		// ==================================================
+		//	Counters para los checkboxes
+		// ==================================================
 
-let checkId = counter()
-let checkFor = counter()
+		let checkId = counter()
+		let checkFor = counter()
 
 
-	return (
-			<div className="grid">
-					<div className="gridsearch">
+		return (
+			<div className="container">
+				<div className="main row">
+					<div className="col-md-3">
 						<div className="sticky">
 							<h2>Categorías:</h2>
-							{categories.map(category => 					
+							{categories.map(category =>
 								<div className="custom-control custom-checkbox">
-					 			 <input type="checkbox" className="custom-control-input" id={`selection${checkId()}`}/>
-					 			 <label className="custom-control-label" for={`selection${checkFor()}`}>{category}</label>
+									<input type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
+									<label className="custom-control-label" for={`selection${checkFor()}`}>{category}</label>
 								</div>
-								)}
-							<Button type="button">Browse All</Button>
+							)}
+							<button type="button" className="btn btn-primary">Browse All</button>
 						</div>
 					</div>
-					<div className="gridcards">
-
-					{props.listado.map(prod => 
-						<div>
-							<ProductCard
-							key={prod.id}
-							id={prod.id}
-							name={prod.name}
-							description={prod.description}
-							price={prod.price}
-							image={prod.image}
-							/>
-						</div>)}
-
+					<div className="col-md-9 row">
+						{props.listado.map(prod =>
+							<div className="card-group col-md-3">
+								<ProductCard
+									key={prod.id}
+									id={prod.id}
+									name={prod.name}
+									description={prod.description}
+									price={prod.price}
+									image={prod.image}
+								/>
+							</div>)}
 					</div>
 				</div>
-				)
-}}
+
+			</div>
+		)
+	}
+}
 
 export default Catalogue;
 
