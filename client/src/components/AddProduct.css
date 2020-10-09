@@ -1,11 +1,12 @@
-.row{
-    display: flex;
-    justify-content: center;
-}
-.container1{
-    border: solid black 2px;
-   margin-bottom: 5px;
-    margin-top: 5px;
-    border-radius: 50px;
+.formulario{
+    display: table-caption;
     
+}
+.contenidoForm{
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 60px;
+    border: solid blue 2px;
+    border-radius: 40px;
+
 }
