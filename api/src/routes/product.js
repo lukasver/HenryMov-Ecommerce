@@ -1,7 +1,11 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, Category } = require('../db.js');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
+
+//==============================================
+//	Ruta para devolver todos los productos.
+//============================================== 
 
 server.get('/products', (req, res, next) => {
 	Product.findAll()
@@ -15,7 +19,7 @@ server.get('/products', (req, res, next) => {
 });
 
 //=============================================
-//  Obtener por producto por id (unico) (fijarse si funciona sin 'id:id')
+//  Obtener un producto por id (unico) (fijarse si funciona sin 'id:id')
 //=============================================
 server.get('/product/:id', (req, res, next) => {	
 	const { id } = req.params;
@@ -33,7 +37,7 @@ server.get('/product/:id', (req, res, next) => {
 })
 
 //==============================================
-//	Busca un producta por nombre o descripcion
+//	Busca un producto por nombre o descripcion.
 //============================================== 
 server.get('/search', (req, res, next) => {
 	const { product } = req.query;
@@ -58,6 +62,21 @@ server.get('/search', (req, res, next) => {
 		.catch(error => {
 			res.status(404).send('Producto no encontrado')
 		});
+});
+
+//==============================================
+//	Ruta para devolver todos los productos de X categoria.
+//============================================== 
+server.get('/products/category/:categoryName', (req, res, next) => {
+	Product.findAll({
+		include: {
+			model: Category,
+			where: {name: req.params.categoryName}
+		}
+	}).then(result => {
+		console.log('RESULT:', result);
+		res.status(200).send(result);
+	});
 });
 
 //==============================================
