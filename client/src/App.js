@@ -7,6 +7,7 @@ import ProductCard from './components/ProductCard.jsx';
 import Slider from './components/Slider';
 import Catalogue from './components/Catalogue';
 import axios from 'axios';
+import AddProduct from './components/AddProduct';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -52,6 +53,7 @@ function App() {
         <Route exact path="/" render={() => <Slider/>}/>
         <Route exact path="/products" render={() => <Catalogue listado={totalProds}/>}/>
         <Route exact path="/products/:productId" render={({match}) => <Product product={match.params.productId}/>}/>
+        <Route exact path= "/product/add" render={()=><AddProduct/>}/>
     </div>
   );
 }
