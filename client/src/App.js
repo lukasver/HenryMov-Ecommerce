@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import Nav from './components/Nav.jsx';
 import Product from './components/Product.jsx';
 import ProductCard from './components/ProductCard.jsx';
@@ -12,11 +12,13 @@ function App() {
   const [products, setProducts] = useState([]);
   const [totalProds,setTotalprods] = useState(null);
 
+  let history = useHistory();
+
   function onSearch(search) {
     axios.get(`http://localhost:3001/search?product=${search}`)
       .then(recurso => {
         setProducts(recurso.data);
-        console.log(recurso.data);
+        history.push("/search");
         return recurso.data;
       });
   }
