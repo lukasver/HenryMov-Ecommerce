@@ -61,7 +61,7 @@ function App() {
         <Route exact path="/" render={() => <Slider/>}/>
         <Route exact path="/products" render={() => <Catalogue listado={totalProds}/>}/>
         <Route exact path="/products/:productId" render={({match}) => <Product product={onFilter(match.params.productId)}/>}/>
-        <Route exact path= "/product/add" render={()=><AddProduct/>}/>
+        <Route exact path= "/product/add" render={() => <AddProduct/>}/>
         <Route exact path= "/category/add" render={()=><AddCategory/>}/>
     </div>
   );
