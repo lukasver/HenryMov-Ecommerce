@@ -9,7 +9,7 @@ export default function ProductCard(props) {
     <div className="card">
       <img className="card-img-top" src={image} alt="imagen producto" />
       <div className="card-body">
-        <Link to='/products/name'>
+        <Link className="title-product" to={`/products/${id}`}>
         <h5 className="card-title">{name}</h5>
         </Link>
         <p className="card-text">{description}</p>

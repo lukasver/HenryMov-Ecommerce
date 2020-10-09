@@ -9,7 +9,7 @@ function Catalogue(props) {
 	// const [productos, setProductos] = useState(null)
 	const [categories, setCategories] = useState(['Scooters', 'Skates', 'Windsurf', 'Bikes'])
 
-	if (props.listado === null) {
+	if (props.listado.length === 0) {
 		return <img className="rounded mx-auto d-block" src={loading} />
 	} else {
 

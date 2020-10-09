@@ -6,10 +6,10 @@
 
 }
 
-img:hover {
-	border-radius: 10%;
-}
-
 .card-group {
 	margin-top: 30px;
+}
+
+.title-product {
+	color: orange;
 }
