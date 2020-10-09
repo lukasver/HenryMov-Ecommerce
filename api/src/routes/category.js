@@ -13,4 +13,15 @@ server.post('/products/category', (req, res, next) => {
 	});
 });
 
+//==============================================
+//	Ruta para eliminar una categoría.
+//============================================== 
+server.delete('/products/category/:id', (req, res, next) => {
+  Category.destroy({
+  	where: {id: req.params.id}
+  }).then(deletedCategory => {
+  	res.sendStatus(200);
+  });
+});
+
 module.exports = server;
