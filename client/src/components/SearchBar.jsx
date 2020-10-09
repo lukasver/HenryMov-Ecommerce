@@ -17,7 +17,7 @@ export default function SearchBar({ onSearch }) {
                     type='text'
                     placeholder='¿Qué estás buscando?'
                     value={search}
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={e => { setSearch(e.target.value); return onSearch(e.target.value);} }
                     className="form-control"
                 />
                 <div class="input-group-append">

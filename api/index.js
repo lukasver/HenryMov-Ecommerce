@@ -19,21 +19,21 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { Product, Category, conn } = require('./src/db.js');
-
-// const port = serv.process.env
+const { port } = process.env // agregar port a tu variable de entorno .env
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+  server.listen(port || 3001, () => {
+    console.log(`%s listening at ${port}`); // eslint-disable-line no-console
     const precarga = async function () {
+
 	  	await Product.create({
 	  		name: 'patineta',
 	  		description: 'un longboard negro de 4 ruedas',
 	  		price: 70,
 	  		availability: true,
 	  		stock: 100,
-	  		image: 'img/test1.jpg'
+	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
 	  	}).then(Product.create({
 	  		name: 'Vela Windsurf',
 	  		description: 'un shortboard blanco de 4 ruedas',
@@ -79,22 +79,23 @@ conn.sync({ force: true }).then(() => {
 	  		availability: false,
 	  		stock: 100,
 	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
-	  	}))
+	  	}));
+
 	  	await Category.create({
 	  		name: 'Scooters',
-	  		description: 'Descripción1',
+	  		description: 'Descripción 1',
 	  		status: 'Activado'
 	  	}).then(Category.create({
 	  		name: 'Skates',
-	  		description: 'Descripción2',
+	  		description: 'Descripción 2',
 	  		status: 'Activado'
 	  	})).then(Category.create({
 	  		name: 'Windsurf',
-	  		description: 'Descripción3',
+	  		description: 'Descripción 3',
 	  		status: 'Activado'
 	  	})).then(Category.create({
 	  		name: 'Bikes',
-	  		description: 'Descripción4',
+	  		description: 'Descripción 4',
 	  		status: 'Activado'
 	  	}));
 	  };
