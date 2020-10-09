@@ -13,11 +13,7 @@ import AddProduct from './components/AddProduct';
 
 function App() {
   const [products, setProducts] = useState([]);
-<<<<<<< HEAD
-  const [totalProductos,setTotalprods] = useState([]);
-=======
   const [totalProds,setTotalprods] = useState([]);
->>>>>>> master
 
   let history = useHistory();
 
@@ -47,7 +43,7 @@ function App() {
 
 
   function onFilter(productId) {
-    let filtro = totalProductos.filter(c => c.id === parseInt(productId));
+    let filtro = totalProds.filter(c => c.id === parseInt(productId));
     if(filtro.length > 0) {
         return filtro[0];
     } else {
@@ -63,14 +59,9 @@ function App() {
         <Route path="/" render={() => <Nav onSearch={onSearch} />} />
         <Route exact path="/search" render={() => <ContentSearch products={products} />} />
         <Route exact path="/" render={() => <Slider/>}/>
-<<<<<<< HEAD
-        <Route exact path="/products" render={() => <Catalogue listado={totalProductos}/>}/>
-        <Route exact path="/products/:productId" render={({match}) => <Product product={onFilter(match.params.productId)}/>}/>
-=======
         <Route exact path="/products" render={() => <Catalogue listado={totalProds}/>}/>
         <Route exact path="/products/:productId" render={({match}) => <Product product={onFilter(match.params.productId)}/>}/>
         <Route exact path= "/product/add" render={()=><AddProduct/>}/>
->>>>>>> master
     </div>
   );
 }

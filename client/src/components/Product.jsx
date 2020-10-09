@@ -2,14 +2,11 @@ import React from 'react';
 
 import './Product.css'
 
-<<<<<<< HEAD
-export default function Product(props) {
-	console.log(props)
-=======
+
 export default function Product({ product }) {
 
 	if(!product) {return <h1>Loading...</h1>}
->>>>>>> master
+
 	//const img = image;
 	const { name, image, price, description, id} = product
 	//console.log(props.product)
