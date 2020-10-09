@@ -14,6 +14,23 @@ server.post('/products/category', (req, res, next) => {
 });
 
 //==============================================
+//	Ruta para modificar una categoría.
+//============================================== 
+server.put('/products/category/:id', (req, res, next) => {
+	if(!req.body.name) {
+    return res.sendStatus(400);
+  }
+  Category.update(req.body, {
+  	where: {id: req.params.id}
+  }).then(result => {
+  	if (result.length < 1) {
+  		return res.sendStatus(404);
+  	}
+  	res.sendStatus(200);
+  });
+});
+
+//==============================================
 //	Ruta para eliminar una categoría.
 //============================================== 
 server.delete('/products/category/:id', (req, res, next) => {
