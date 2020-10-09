@@ -8,9 +8,10 @@ import Slider from './components/Slider';
 import Catalogue from './components/Catalogue';
 import axios from 'axios';
 
+
 function App() {
   const [products, setProducts] = useState([]);
-  const [totalProds,setTotalprods] = useState(null);
+  const [totalProductos,setTotalprods] = useState([]);
 
   let history = useHistory();
 
@@ -19,30 +20,36 @@ function App() {
       .then(recurso => {
         setProducts(recurso.data);
         history.push("/search");
+        console.log(recurso.data)
         return recurso.data;
       });
   }
 
-  function onFilter(productId) {
-    let skate = totalProds.filter(c => c.id === parseInt(productId));
-    if(skate.length > 0) {
-        return skate[0];
-    } else {
-        return null;
-    }
-  }
-
-  useEffect(async () => {
+    useEffect(async () => {
     await axios.get('http://localhost:3001/products')
     .then(productosDB => {
       const {data} = productosDB
       return data
     })
     .then(listadoProductos => {
-      setTotalprods(listadoProductos)
+      setTotalprods(listadoProductos
+
+        )
     })
     .catch(err => new Error(err))
   },[]) 
+
+
+  function onFilter(productId) {
+    let filtro = totalProductos.filter(c => c.id === parseInt(productId));
+    if(filtro.length > 0) {
+        return filtro[0];
+    } else {
+        return null;
+    }
+  }
+
+
 
 
   return (
@@ -50,8 +57,8 @@ function App() {
         <Route path="/" render={() => <Nav onSearch={onSearch} />} />
         <Route exact path="/search" render={() => <ProductCard products={products} />} />
         <Route exact path="/" render={() => <Slider/>}/>
-        <Route exact path="/products" render={() => <Catalogue listado={totalProds}/>}/>
-        <Route exact path="/products/:productId" render={({match}) => <Product product={match.params.productId}/>}/>
+        <Route exact path="/products" render={() => <Catalogue listado={totalProductos}/>}/>
+        <Route exact path="/products/:productId" render={({match}) => <Product product={onFilter(match.params.productId)}/>}/>
     </div>
   );
 }

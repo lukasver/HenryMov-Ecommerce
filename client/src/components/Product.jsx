@@ -3,6 +3,7 @@ import image from '../img/patinetaPrueba.png'
 import './Product.css'
 
 export default function Product(props) {
+	console.log(props)
 	//const img = image;
 	return (
 		// <div>
