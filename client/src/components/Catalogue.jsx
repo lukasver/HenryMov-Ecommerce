@@ -7,9 +7,12 @@ import { counter } from '../utils/utils';
 import styled from 'styled-components';
 
 function Catalogue (props) {
-	const [productos, setProductos] = useState(null)
+	// const [productos, setProductos] = useState(null)
 	const [categories, setCategories] = useState(['Scooters','Skates','Windsurf','Bikes'])
 
+if(props.listado === null){
+	return <img className="rounded mx-auto d-block" src={loading}/>
+} else {
 
 
 // =================================================
@@ -36,17 +39,17 @@ const Button = styled.button`
 //		Carga de productos desde la BD
 // =================================================
 
-useEffect(() => {
-	axios.get('http://localhost:3001/products')
-	.then(productosDB => {
-		const {data} = productosDB
-		return data
-	})
-	.then(listadoProductos => {
-		setProductos(listadoProductos)
-	})
-	.catch(err => new Error(err))
-},[]) // este array vacío es para cortar el loop de useEffect
+// useEffect(() => {
+// 	axios.get('http://localhost:3001/products')
+// 	.then(productosDB => {
+// 		const {data} = productosDB
+// 		return data
+// 	})
+// 	.then(listadoProductos => {
+// 		setProductos(listadoProductos)
+// 	})
+// 	.catch(err => new Error(err))
+// },[]) // este array vacío es para cortar el loop de useEffect
 
 // handleBrowseAll = () => {
 // 	console.log('hola')
@@ -58,9 +61,9 @@ useEffect(() => {
 //	Loading Screen hasta que se resuelve la peticion
 // ==================================================
 
-if (productos === null) {
-	return <img className="rounded mx-auto d-block" src={loading}/>
-}
+// if (props === null) {
+// 	return <img className="rounded mx-auto d-block" src={loading}/>
+// } 
 
 // ==================================================
 //	Counters para los checkboxes
@@ -85,7 +88,8 @@ let checkFor = counter()
 						</div>
 					</div>
 					<div className="gridcards">
-					{productos.map(prod => 
+
+					{props.listado.map(prod => 
 						<div>
 							<ProductCard
 							key={prod.id}
@@ -100,7 +104,7 @@ let checkFor = counter()
 					</div>
 				</div>
 				)
-}
+}}
 
 export default Catalogue;
 

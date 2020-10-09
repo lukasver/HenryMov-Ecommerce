@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { Product, Category, conn } = require('./src/db.js');
-const { port } = process.env
+const { port } = process.env // agregar port a tu variable de entorno .env
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
