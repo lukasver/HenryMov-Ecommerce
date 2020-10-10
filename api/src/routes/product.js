@@ -11,6 +11,7 @@ const Op = Sequelize.Op;
 
 server.get('/products', (req, res, next) => {
 	Product.findAll({
+		order: ['id'],
 		include: { model: Category }
 	})
 		.then(products => {
@@ -23,7 +24,7 @@ server.get('/products', (req, res, next) => {
 			console.log(err);
 			next()
 		});
-});
+}); 
 
 //=============================================
 //  Obtener un producto por id (unico) 
@@ -49,7 +50,7 @@ server.get('/products/:id', (req, res, next) => {
 })
 
 //==========================================================
-//	Ruta para agregar nueva categoría a un producto
+//	Ruta para agregar nueva categoría a un producto específico
 //==========================================================
 
 server.post('/products/:idProducto/category/add', (req,res,next) => {
@@ -81,9 +82,12 @@ server.post('/products/:idProducto/category/add', (req,res,next) => {
 })
 
 
-//==============================================
-//	Ruta para eliminar categoría de un producto
-//==============================================
+//==================================================================
+//	Ruta para eliminar categoría de un producto específico
+//==================================================================
+
+
+// BUGGEEDDDd!!!!! Borra toda la ´categoría, no desasocia la categoria intermedia
 
 server.delete('/products/:idProducto/category/delete', (req,res,next) => {
 
@@ -94,10 +98,19 @@ server.delete('/products/:idProducto/category/delete', (req,res,next) => {
 		return res.status(400).send('Categoria debe ser un valor numerico');
 	}
 
-	Category.findOne({
-		where: {id: categoryId},
-		include: [{model: Product, where: {id: idProducto}}]
+	productCategory.findOne({
+		where: {
+			[Op.an]: [
+			{
+				categoryId
+			},
+			{
+				productId: idProducto
+			}],
+		include: [{model: Product},{model: Category}]
+		}
 	}).then(response => {
+		console.log(response)
 		if(!response === null) {
 			return res.status(404).end()
 		}
@@ -109,6 +122,13 @@ server.delete('/products/:idProducto/category/delete', (req,res,next) => {
 		return res.status(404).end()
 	})
 	res.end()
+
+
+
+	// Category.findOne({
+	// 	where: {id: categoryId},
+	// 	include: [{model: Product, where: {id: idProducto}}]
+	// }).
 })
 
 //==============================================

@@ -1,3 +1,9 @@
+SELECT * FROM products;
+
+SELECT * FROM categories;
+
+
+
 /*llama en la BD todos los productos y categorías con ID*/
 
 SELECT "categoryId", c.name, "productId", p.name FROM "productCategory" 
