@@ -7,7 +7,7 @@ const { Category } = require('../db.js');
 server.get('/products/category', (req, res, next) => {	
 	Category.findAll()
 		.then(category => {
-			res.json(category);
+			res.json(category.dataValues.categories);
 		})
 		.catch(err => {
 			console.log(err);

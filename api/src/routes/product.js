@@ -1,6 +1,6 @@
 const server = require('express').Router();
 
-const { Product} = require('../db.js');
+const { Product, Category, productCategory } = require('../db.js');
 
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
@@ -24,7 +24,7 @@ server.get('/products', (req, res, next) => {
 //=============================================
 //  Obtener un producto por id (unico) (fijarse si funciona sin 'id:id')
 //=============================================
-server.get('/product/:id', (req, res, next) => {	
+server.get('/products/:id', (req, res, next) => {	
 	const { id } = req.params;
 	Product.findOne({
 		where: {
@@ -37,6 +37,68 @@ server.get('/product/:id', (req, res, next) => {
 		.catch(error => {
 			res.status(404).send('<h1>error...product not found</h1>')
 		})
+})
+
+//==========================================================
+//	Ruta para agregar nueva categoría a un producto
+//==========================================================
+
+server.post('/products/:idProducto/category/add', (req,res,next) => {
+
+	const { idProducto } = req.params;
+	const { categoryId } = req.body;
+
+	if (typeof categoryId !== "number") {
+		return res.status(401).send('Categoria debe ser un valor numerico');
+	}
+
+	Product.findOne({
+		where: {
+			id: idProducto 
+		},
+		include: [{ model: Category }]
+	}).then(response => {
+		let prod = response;
+		prod.addCategories([categoryId])
+		res.status(200)
+	}).catch(err => {
+		console.log(err)
+		return res.status(404).end()
+	})
+	res.end()
+})
+
+
+//==============================================
+//	Ruta para eliminar categoría a un producto
+//==============================================
+
+server.delete('/products/:idProducto/category/delete', (req,res,next) => {
+
+	const { idProducto } = req.params;
+	const { categoryId } = req.body;
+
+	if (typeof categoryId !== "number") {
+		return res.status(401).send('Categoria debe ser un valor numerico');
+	}
+
+	Product.findOne({
+		where: {id: idProducto},
+		include: [{model: Category, where: {id: categoryId}}]
+		// where: {
+		// 	{id: idProducto} 
+		// },
+		// include: [{ model: Category }]
+	}).then(response => {
+		let prod = response;
+		console.log(response)
+		prod.destroy(); // muy drastico 
+		res.status(200)
+	}).catch(err => {
+		console.log(err)
+		return res.status(404).end()
+	})
+	res.end()
 })
 
 //==============================================
@@ -59,7 +121,6 @@ server.get('/search', (req, res, next) => {
 		}
 	})
 		.then(product => {
-			console.log('producto')
 			res.json(product)
 		})
 		.catch(error => {
@@ -67,9 +128,9 @@ server.get('/search', (req, res, next) => {
 		});
 });
 
-//==============================================
+//=========================================================
 //	Ruta para devolver todos los productos de X categoria.
-//============================================== 
+//============================================== ==========
 server.get('/products/category/:categoryName', (req, res, next) => {
 	Product.findAll({
 		include: {
@@ -77,7 +138,6 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 			where: {name: req.params.categoryName}
 		}
 	}).then(result => {
-		console.log('RESULT:', result);
 		res.status(200).send(result);
 	});
 });
