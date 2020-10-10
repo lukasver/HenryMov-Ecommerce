@@ -2,137 +2,172 @@ import React, { useState, handleChange, handleSubmit, useEffect } from 'react';
 import './AddProduct.css'
 import axios from 'axios';
 
+const urlBack='http://localhost:3001'
+
 export default function AddProduct() {
     const [titulo, setTitulo] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [cantidad, setCantidad] = useState(0)
     const [disponible, setDisponible] = useState(true)
-    const [categorias,setCategorias] = useState()
-    
-   
-   Category(()=>{
-       await axios.get(`http://localhost:3001/category`)
-          .then(res => {
-            const categorias = res.data;
-            return setCategorias({categorias});
-        });
-    })
-    
-    
-    
+    const [categorias, setCategorias] = useState('')
+    const [precio, setPrecio] = useState(0)
+    const [imagen, setImagen] = useState('')
+
+    const fileInput = React.createRef();
+
+
+
     function handleChange(e) {
         setTitulo({ value: e.target.value });
-        setDescripcion({value: e.value})
-        if (cantidad >=0){
-            setCantidad({value: e.value})
-        }
+        setDescripcion({ value: e.value })
+        setPrecio({ value: e.value })
+        console.log(titulo)
     }
     
-    
-    function handleSubmit(e) {
+
+     async function handleSubmit(e) {
         e.preventDefault();
-    }
-    function  handleInputChange(e) {
-        const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        setDisponible({value})
-    }
+       
+      
+     }
+
+
+        const handleAdd = async event => {
+            event.preventDefault();
+            
+            let newProducto = {
+                name:  'titulo.value',
+                description:  'descripcion.value',
+                price: '2323232' ,
+                availability: true,
+                stock:  '0' ,
+                image: ' imagen.value',
+                categories: 'categorias.value',
+              
+            }
+            console.log(newProducto)
+           
+    
+             try {
+                // Creates the new product
+                await axios.post(`${urlBack}/products`, newProducto);
+            } catch (error) {
+               console.log(error);
+            }
+        };
+     
+    
+    
+    function handleInputChange(e) {
+                    const target = e.target;
+                    const value = target.type === 'checkbox' ? target.checked : target.value;
+                    const name = target.name;
+                    setDisponible({ value })
+                }
     
     return (
-        <div className='contenidoForm'>
-           
-        <h1>Agregar Producto</h1>
-        <form class = 'formulario' onSubmit={handleSubmit}>
-            <label>
-                Titulo del producto
-        <input type="text" value={descripcion.value} onChange={handleChange} />
-            </label>
-            <label>
-                Descripcion
+
+            <div className='contenidoForm'>
+
+                <h1>Agregar Producto</h1>
+                <form class='formulario' onSubmit={handleSubmit} >
+                    <label>
+                        Titulo del producto
+        <input type="text" value={titulo.value} onChange={handleChange} />
+                    </label>
+                    <label>
+                        Descripcion
           <textarea value={descripcion.value} onChange={handleChange} />
-            </label>
-            <br/>
-            <label>Categoria</label>
-            <select>
-            
-                {categorias.map(c=>
-                <option key={c.id}>{c.name}</option>)}
-            </select>
-            <label>
-          Disponible:
+                    </label>
+                    <br />
+                    <label>Categoria</label>
+                    <select>
+                        <option default value='Skates' >Skates</option>
+                        <option value='Scooters'>Scooters</option>
+                        <option value='Windsurf'>Windsurf</option>
+                        <option value='Bikes'>Bikes</option>
+                        <option value='Electric'>Electric</option>
+                    </select>
+                    <label>
+                        Disponible:
           <input
-            name="disponible"
-            type="checkbox"
-            checked={disponible.value}
-            onChange={handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Cantidad:
+                            name="disponible"
+                            type="checkbox"
+                            checked={disponible.value}
+                            onChange={handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Cantidad:
           <input
-            name="cantidad"
-            type="number"
-            value={cantidad.value}
-            onChange={handleChange} />
-        </label>
-            <input type="file" />
-            <button>Agregar</button>
-        </form>
+                            name="cantidad"
+                            type="number"
+                            />
+                    </label>
+                    <label>
+                        Precio:
+          <input
+                            name="number"
+                            value={precio.value}
+                            onChange={handleChange} />
+                    </label>
+                    <input type="file" ref={fileInput} />
+                    <button onClick={handleAdd}>Agregar</button>
+                </form>
 
-        </div>
+            </div>
 
-      
-//         <form className='contenidoForm'>
-//       <h1>Agregar Producto</h1>
-//   <div class="form-group">
-//     <label for="inputAddress">Titulo</label>
-//     <input type="text" class="form-control" id="inputAddress" placeholder="Titulo con el que se va a presentar el producto"/>
-//   </div>
-//   <div class="form-row">
-//     <div class="form-group col-md-6">
-//       <label for="inputEmail4">Email</label>
-//       <input type="email" class="form-control" id="inputEmail4"/>
-//     </div>
-//     <div class="form-group col-md-6">
-//       <label for="inputPassword4">Password</label>
-//       <input type="password" class="form-control" id="inputPassword4"/>
-//     </div>
-//   </div>
-//   <div class="form-group">
-//     <label for="inputAddress2">Address 2</label>
-//     <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"/>
-//   </div>
-//   <div class="form-row">
-//     <div class="form-group col-md-6">
-//       <label for="inputCity">City</label>
-//       <input type="text" class="form-control" id="inputCity"/>
-//     </div>
-//     <div class="form-group col-md-4">
-//       <label for="inputState">State</label>
-//       <select id="inputState" class="form-control">
-//         <option selected>Choose...</option>
-//         <option>...</option>
-//       </select>
-//     </div>
-//     <div class="form-group col-md-2">
-//       <label for="inputZip">Zip</label>
-//       <input type="text" class="form-control" id="inputZip"/>
-//     </div>
-//   </div>
-//   <div class="form-group">
-//     <div class="form-check">
-//       <input class="form-check-input" type="checkbox" id="gridCheck"/>
-//       <label class="form-check-label" for="gridCheck">
-//         Check me out
-//       </label>
-//     </div>
-//   </div>
-//   <button type="submit" class="btn btn-primary">Sign in</button>
-// </form>
 
-    )
-}
+            //         <form className='contenidoForm'>
+            //       <h1>Agregar Producto</h1>
+            //   <div class="form-group">
+            //     <label for="inputAddress">Titulo</label>
+            //     <input type="text" class="form-control" id="inputAddress" placeholder="Titulo con el que se va a presentar el producto"/>
+            //   </div>
+            //   <div class="form-row">
+            //     <div class="form-group col-md-6">
+            //       <label for="inputEmail4">Email</label>
+            //       <input type="email" class="form-control" id="inputEmail4"/>
+            //     </div>
+            //     <div class="form-group col-md-6">
+            //       <label for="inputPassword4">Password</label>
+            //       <input type="password" class="form-control" id="inputPassword4"/>
+            //     </div>
+            //   </div>
+            //   <div class="form-group">
+            //     <label for="inputAddress2">Address 2</label>
+            //     <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"/>
+            //   </div>
+            //   <div class="form-row">
+            //     <div class="form-group col-md-6">
+            //       <label for="inputCity">City</label>
+            //       <input type="text" class="form-control" id="inputCity"/>
+            //     </div>
+            //     <div class="form-group col-md-4">
+            //       <label for="inputState">State</label>
+            //       <select id="inputState" class="form-control">
+            //         <option selected>Choose...</option>
+            //         <option>...</option>
+            //       </select>
+            //     </div>
+            //     <div class="form-group col-md-2">
+            //       <label for="inputZip">Zip</label>
+            //       <input type="text" class="form-control" id="inputZip"/>
+            //     </div>
+            //   </div>
+            //   <div class="form-group">
+            //     <div class="form-check">
+            //       <input class="form-check-input" type="checkbox" id="gridCheck"/>
+            //       <label class="form-check-label" for="gridCheck">
+            //         Check me out
+            //       </label>
+            //     </div>
+            //   </div>
+            //   <button type="submit" class="btn btn-primary">Sign in</button>
+            // </form>
+
+        )
+    }
 
 
 //<input type="submit" value="Submit" />

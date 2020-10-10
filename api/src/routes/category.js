@@ -13,7 +13,7 @@ server.get('/category', (req, res, next) => {
 			console.log(err);
 			next()
 		});
-
+	})	
 //==============================================
 //	Ruta para crear/agregar una categoría.
 //============================================== 
