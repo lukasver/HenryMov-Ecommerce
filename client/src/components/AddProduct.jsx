@@ -4,7 +4,8 @@ import axios from 'axios';
 
 const urlBack = 'http://localhost:3001'
 
-export default function AddProduct() {
+export default function AddProduct() {   
+
 
     const [addProd, setAddProd] = useState({
         name: '',
@@ -15,6 +16,7 @@ export default function AddProduct() {
         image: '',
         categories: ''
     })
+
 
     function handleChange(e) {
         setAddProd({

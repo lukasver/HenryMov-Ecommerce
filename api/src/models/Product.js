@@ -22,7 +22,8 @@ sequelize.define('product', {
     },
     availability: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: true,
     },
     stock: {
       type: DataTypes.INTEGER,
@@ -34,13 +35,14 @@ sequelize.define('product', {
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      defaultValue: 0, //ver la forma de que sea el mismo que stock 
       validate: {
       	isNumeric: true
       }
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
   } , {
   	timestamps: false
