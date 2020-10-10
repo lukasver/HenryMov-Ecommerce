@@ -4,10 +4,10 @@ const { Category } = require('../db.js');
 //==============================================
 //	Ruta para traer las categorias.
 //==============================================
-server.get('/products/category', (req, res, next) => {	
+server.get('/category', (req, res, next) => {	
 	Category.findAll()
 		.then(category => {
-			res.json(category.dataValues.categories);
+			res.json(category);
 		})
 		.catch(err => {
 			console.log(err);
@@ -18,7 +18,7 @@ server.get('/products/category', (req, res, next) => {
 //==============================================
 //	Ruta para crear/agregar una categoría.
 //============================================== 
-server.post('/products/category', (req, res, next) => {
+server.post('/category', (req, res, next) => {
 	if(!req.body.name) {
     return res.sendStatus(400);
   }
@@ -34,7 +34,7 @@ server.post('/products/category', (req, res, next) => {
 //==============================================
 //	Ruta para modificar una categoría.
 //============================================== 
-server.put('/products/category/:id', (req, res, next) => {
+server.put('/category/:id', (req, res, next) => {
 
 	if(!req.body.name) {
     return res.sendStatus(400);
@@ -46,13 +46,13 @@ server.put('/products/category/:id', (req, res, next) => {
   		return res.status(404).send('ID no encontrado');
   	}
   	res.status(200).send('Categoria modificada');
-  }).catch(err => {res.status(400).send('Error random')})
+  }).catch(err => {res.status(400).send('ERROR - es posible que la categoría que este creando ya exista')})
 });
 
 //==============================================
 //	Ruta para eliminar una categoría.
 //============================================== 
-server.delete('/products/category/:id', (req, res, next) => {
+server.delete('/category/:id', (req, res, next) => {
   Category.destroy({
   	where: {id: req.params.id}
   }).then(deletedCategory => {
