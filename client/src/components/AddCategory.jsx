@@ -20,15 +20,25 @@ export default function AddCategory() {
         console.log(state);
     }
 
+    
     function onSubmit(e) {
         e.preventDefault()
-        axios.post('http://localhost:3001/products/category', state)
+        axios.post('http://localhost:3001/category', state)
             .then((data) => {
-                return console.log(data);
+                return data;
+
+
+
             })
             .catch(function (error) {
                 console.log(error);
             });
+
+        setState({
+            name: '',
+            description: ''
+        })
+
     }
 
     return (
@@ -49,3 +59,4 @@ export default function AddCategory() {
         </div>
     );
 };
+
