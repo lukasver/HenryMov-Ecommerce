@@ -1,5 +1,4 @@
 
-
 import React, { useState, handleChange, handleSubmit, useEffect } from 'react';
 import './AddProduct.css'
 import axios from 'axios';
@@ -83,7 +82,9 @@ export default function AddProduct() {
                     <option id='Electric' onChange={Categoria}>Electric</option>
                 </select>
                 <label> Disponible:
-                    <input
+
+                     <input
+
                         id="availability"
                         type="checkbox"
                         checked={addProd.availability}

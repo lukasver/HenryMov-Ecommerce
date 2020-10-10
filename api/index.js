@@ -28,29 +28,44 @@ conn.sync({ force: true }).then(() => {
     const precarga = async function () {
 
 	  	await Product.create({
-	  		name: 'patineta',
-	  		description: 'un longboard negro de 4 ruedas',
-	  		price: 70,
+	  		name: 'Vela de Windsurf',
+	  		description: 'un vela para tabla de windsurf de color celeste',
+	  		price: 23000,
 	  		availability: true,
-	  		stock: 100,
+	  		stock: 3,
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
 	  	}).then(Product.create({
-	  		name: 'Vela Windsurf',
-	  		description: 'un shortboard blanco de 4 ruedas',
-	  		price: 140,
+	  		name: 'Tabla para Skate Downhill',
+	  		description: 'Base de reemplazo para skate',
+	  		price: 1000,
 	  		availability: true,
-	  		stock: 100,
+	  		stock: 20,
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}))
 	  	.then(Product.create({
 	  		name: 'Gorra',
-	  		description: 'un hoverboard azul de 2 ruedas',
+	  		description: 'Gorro skate - Made in China',
+	  		price: 210,
+	  		availability: true,
+	  		stock: 100,
+	  		image: 'https://sc02.alicdn.com/kf/H55756b6151c748328ed7791a02a36fbcQ.jpg'
+	  	})).then(Product.create({
+	  		name: 'Scooter',
+	  		description: 'Scooter eléctrico gris/negro de 2 ruedas',
+	  		price: 140,
+	  		availability: true,
+	  		stock: 100,
+	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
+	  	}))
+	  	.then(Product.create({
+	  		name: 'Hoverboard',
+	  		description: 'un hoverboard blanco de 2 ruedas',
 	  		price: 210,
 	  		availability: false,
 	  		stock: 100,
-	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
+	  		image: 'https://i.pinimg.com/originals/ea/2b/84/ea2b84b6d1358a047ccd9925003620d8.jpg'
 	  	})).then(Product.create({
-	  		name: 'longboard',
+	  		name: 'Skate',
 	  		description: 'un shortboard blanco de 4 ruedas',
 	  		price: 140,
 	  		availability: true,
@@ -58,27 +73,12 @@ conn.sync({ force: true }).then(() => {
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}))
 	  	.then(Product.create({
-	  		name: 'hoverboard',
-	  		description: 'un hoverboard azul de 2 ruedas',
+	  		name: 'Electric Bike',
+	  		description: 'Bicicleta electrica',
 	  		price: 210,
 	  		availability: false,
 	  		stock: 100,
-	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
-	  	})).then(Product.create({
-	  		name: 'skate',
-	  		description: 'un shortboard blanco de 4 ruedas',
-	  		price: 140,
-	  		availability: true,
-	  		stock: 100,
-	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
-	  	}))
-	  	.then(Product.create({
-	  		name: 'bike',
-	  		description: 'un hoverboard azul de 2 ruedas',
-	  		price: 210,
-	  		availability: false,
-	  		stock: 100,
-	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
+	  		image: 'https://ebikebc.com/wp-content/uploads/2019/11/ebikeBC-ebikes-banner-product-smaller.jpg'
 	  	}));
 
 	  	await Category.create({
