@@ -97,7 +97,11 @@ conn.sync({ force: true }).then(() => {
 	  		name: 'Bikes',
 	  		description: 'Descripción 4',
 	  		status: 'Activado'
-	  	}));
+	  	})).then(Category.create({
+			name: 'Electric',
+			description: 'Descripción 5',
+			status: 'Activado'
+		}));
 	  };
 	  precarga();
 	  console.log("Productos y Categorias precargadas");
