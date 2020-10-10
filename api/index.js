@@ -98,7 +98,6 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Descripción 4',
 	  		status: 'Activado'
 	  	}));
-
 	  };
 	  precarga();
 	  console.log("Productos y Categorias precargadas");

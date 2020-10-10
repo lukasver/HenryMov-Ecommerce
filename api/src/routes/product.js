@@ -1,7 +1,7 @@
 const server = require('express').Router();
 
-const { Product, Category, productCategory } = require('../db.js');
 
+const { Product, Category, productCategory } = require('../db.js');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -24,7 +24,6 @@ server.get('/products', (req, res, next) => {
 			next()
 		});
 });
-
 
 //=============================================
 //  Obtener un producto por id (unico) 
@@ -217,7 +216,5 @@ server.delete('/products/:id', (req, res, next) => {
   	return res.end()
   });
 });
-
-
 
 module.exports = server;
