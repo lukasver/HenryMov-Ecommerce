@@ -161,15 +161,20 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 //==============================================
 //	Ruta para crear/agregar un producto.
 //============================================== 
+//recordar que la categoría a recibir por body debe ser un id correspondiente a una categoria creada
+//pendiente validar un handler error si se le pasa un id de una categoria invalida
 server.post('/products', (req, res, next) => {
 	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
+	console.log(categories)
 	if(!name || !description || !price || !availability || !stock ) {
     return res.sendStatus(400);
   }
   Product.create(req.body).then(createdProduct => {
 		createdProduct.setCategories(categories);
-	}).then(() => {
-		res.status(201).send(req.body);
+	}).then(()=> {
+		return res.status(201).send(req.body);
+	}).catch(err => {
+		return res.end();
 	});
 });
 
@@ -177,20 +182,26 @@ server.post('/products', (req, res, next) => {
 //	Ruta para modificar un producto.
 //============================================== 
 server.put('/products/:id', (req, res, next) => {
+
+	//revisar este codigo, se deberia poder modificar un producto sin necesidad dem andar toda esa info validadora dentro del if
+
 	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
-	if(!name || !description || !price || !availability || !stock || !image) {
-    return res.sendStatus(400);
-  }
+	// if(!name || !description || !price || !availability || !stock || !image) {
+ //    return res.sendStatus(400);
+ //  }
+
   Product.update(req.body, {
   	where: {id: req.params.id}
   }).then(result => {
-  	if (result.length < 1) {
+  	if (result[0] === 0) {
   		return res.sendStatus(404);
   	}
-  	return Product.findByPk(req.params.id)
+  	return Product.findByPk(req.params.id) //buen workarround!
   }).then(modifiedProduct => {
   	modifiedProduct.setCategories(categories);
   	res.sendStatus(200);
+  }).catch(err => {
+  	return res.end()
   });
 });
 
@@ -202,6 +213,8 @@ server.delete('/products/:id', (req, res, next) => {
   	where: {id: req.params.id}
   }).then(deletedProduct => {
   	res.sendStatus(200);
+  }).catch(err => {
+  	return res.end()
   });
 });
 

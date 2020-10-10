@@ -10,13 +10,13 @@ export default function AddProduct() {
     const [categorias,setCategorias] = useState()
     
    
-   Category(()=>{
+   async function Category() {
        await axios.get(`http://localhost:3001/category`)
           .then(res => {
             const categorias = res.data;
             return setCategorias({categorias});
         });
-    })
+    }
     
     
     
