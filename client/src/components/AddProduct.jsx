@@ -4,9 +4,9 @@ import axios from 'axios';
 
 const urlBack = 'http://localhost:3001'
 
-export default function AddProduct() {   
+export default function AddProduct(props ) {   
 
-
+    
     const [addProd, setAddProd] = useState({
         name: '',
         description: '',
@@ -14,7 +14,7 @@ export default function AddProduct() {
         availability: 'false',
         stock: ' 0',
         image: '',
-        categories: ''
+        categories: []
     })
 
 
@@ -26,8 +26,8 @@ export default function AddProduct() {
     }
 
     const handleAdd = e => {
-        e.preventDefault();
         console.log(addProd)
+        e.preventDefault();
         try {
             // Creates the new product
             axios.post(`${urlBack}/products`, addProd);
@@ -38,18 +38,17 @@ export default function AddProduct() {
 
     function handleInputChange(e) {
         e.preventDefault()
-        const target = e.target.value;
-        const value = target.type === 'checkbox' ? 'true' : 'false';
-        setAddProd({
-            ...addProd, availability: value
-        })
+        // const target = e.target.value;
+        // const value = target.type === 'checkbox' ? 'false' : 'true';
+        // setAddProd({
+        //     ...addProd, availability: value
+        // })
     }
 
-    function Categoria(e) {
+    function handleSelect(e){
         e.preventDefault()
-        console.log(addProd)
         console.log(e.target.value)
-        setAddProd({ ...addProd, categories: e.target.value })
+        setAddProd({...addProd, categories: e.target.value})
     }
 
     function UpImagen(e) {
@@ -73,12 +72,12 @@ export default function AddProduct() {
                 </label>
                 <br />
                 <label>Categoria</label>
-                <select onChange={Categoria} >
-                    <option default id='Skates' value='Skates' onChange={Categoria} >Skates</option>
-                    <option id='Scooters' onChange={Categoria}>Scooters</option>
-                    <option id='Windsurf' onChange={Categoria}>Windsurf</option>
-                    <option id='Bikes' onChange={Categoria}>Bikes</option>
-                    <option id='Electric' onChange={Categoria}>Electric</option>
+                <select  onClick={handleSelect} >
+                    {props.categories.map(cat =>
+                        <option value={cat.id} onClick={handleSelect}>{cat.name}</option>
+                    )
+
+                    }
                 </select>
                 <label> Disponible:
                      <input
