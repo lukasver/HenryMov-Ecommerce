@@ -86,9 +86,6 @@ server.post('/products/:idProducto/category/add', (req,res,next) => {
 //	Ruta para eliminar categoría de un producto específico
 //==================================================================
 
-
-// BUGGEEDDDd!!!!! Borra toda la ´categoría, no desasocia la categoria intermedia
-
 server.delete('/products/:idProducto/category/delete', (req,res,next) => {
 
 	const { idProducto } = req.params;
@@ -98,37 +95,22 @@ server.delete('/products/:idProducto/category/delete', (req,res,next) => {
 		return res.status(400).send('Categoria debe ser un valor numerico');
 	}
 
-	productCategory.findOne({
-		where: {
-			[Op.an]: [
-			{
-				categoryId
-			},
-			{
-				productId: idProducto
-			}],
-		include: [{model: Product},{model: Category}]
-		}
+	Category.findOne({
+		where: {id: categoryId},
+		include: [{model: Product, where: {id: idProducto}}]
 	}).then(response => {
-		console.log(response)
-		if(!response === null) {
+		if(!response) {
 			return res.status(404).end()
 		}
 		let categ = response;
-		categ.destroy();  
-		res.status(200)
+		categ.removeProduct(idProducto)
+		res.status(200).end()
+		return
 	}).catch(err => {
 		console.log(err)
 		return res.status(404).end()
 	})
 	res.end()
-
-
-
-	// Category.findOne({
-	// 	where: {id: categoryId},
-	// 	include: [{model: Product, where: {id: idProducto}}]
-	// }).
 })
 
 //==============================================
