@@ -10,6 +10,7 @@ import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
+import PutProduct from "./components/PutProduct";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -82,6 +83,7 @@ function App() {
         )}
       />
       <Route exact path='/product/add' render={() => <AddProduct categories={categories} />} />
+      <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
       <Route exact path='/category/add' render={() => <AddCategory />} />
     </div>
   );

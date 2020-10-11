@@ -12,6 +12,9 @@ export default function ProductCard(props) {
         <Link className="titulo-link" to={`/products/${id}`}>
           <h5 className="card-title">{name}</h5>
         </Link>
+        <Link className="titulo-link" to={`/product/put/${id}`}>
+          <button type="button" className="btn btn-outline-warning">Modificar</button>
+        </Link>
         <p className="card-text">{description}</p>
         <p className="card-text">{`$ ${price}`}</p>
       </div>
