@@ -33,7 +33,7 @@ export default function PutProduct({product, categories}) {
         })
     }
 
-    const handleAdd = e => {
+    const handlePut = e => {
         e.preventDefault();
         console.log(productId)
         try {
@@ -111,7 +111,7 @@ export default function PutProduct({product, categories}) {
                 </label>
                 <img src={image}/>
                 <input type="file" onChange={UpImagen} />
-                <button onClick={handleAdd}>Agregar</button>
+                <button onClick={handlePut}>Agregar</button>
             </form>
         </div>
     )
