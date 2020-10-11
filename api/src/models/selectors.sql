@@ -16,7 +16,7 @@ ORDER BY c.id;
 /* INSERTAR VALORES A TABLA productCategory - VINCULTAR PRODUCTO CON CATEGORIA */
 
 INSERT INTO "productCategory" ("productId","categoryId")
-VALUES (1,3), (2,2), (4,1), (5,1), (5,2), (6,2), (7,4), (7,1); --INSERTO VALORES HARDCODEADOS A LA BD
+VALUES (1,3), (2,2),(3,3), (4,1), (5,1), (5,2), (6,2), (7,4), (7,1); --INSERTO VALORES HARDCODEADOS A LA BD
 
 
 
