@@ -83,7 +83,7 @@ function App() {
         )}
       />
       <Route exact path='/product/add' render={() => <AddProduct categories={categories} />} />
-      <Route exact path='/product/add' render={() => <PutProduct categories={categories} products={products} />} />
+      <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
       <Route exact path='/category/add' render={() => <AddCategory />} />
     </div>
   );
