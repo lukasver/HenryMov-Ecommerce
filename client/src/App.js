@@ -19,6 +19,20 @@ function App() {
 
   let history = useHistory();
 
+  function filterbyCategory(categorySearch){
+    axios 
+    .get(`http://localhost:3001/products/category/${categorySearch}`)
+    .then(product => setTotalprods(product.data))
+    .catch(error => console.log(error))
+  }
+  
+  function getProducts(){
+    axios
+    .get(`http://localhost:3001/products`)
+    .then(products => setTotalprods(products.data))
+    .catch(error => console.log(error))
+  }
+
   function onSearch(search) {
     axios
       .get(`http://localhost:3001/search?product=${search}`)
@@ -44,7 +58,6 @@ function App() {
     await axios
       .get("http://localhost:3001/category")
       .then((recurso) => {
-        console.log(recurso.data)
         setCategories(recurso.data);
       })
       .catch((error) => {
@@ -73,7 +86,7 @@ function App() {
       <Route
         exact
         path='/products'
-        render={() => <Catalogue listado={totalProds} />}
+        render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />}
       />
       <Route
         exact

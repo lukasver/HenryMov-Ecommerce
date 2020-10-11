@@ -5,57 +5,51 @@ import './Catalogue.css';
 import loading from '../img/loading.gif';
 import { counter } from '../utils/utils';
 
-function Catalogue(props) {
-	// const [productos, setProductos] = useState(null)
-	const [categories, setCategories] = useState(['Scooters', 'Skates', 'Windsurf', 'Bikes'])
+function Catalogue({categories, listado, filterbyCategory, getProducts}) {
+	
+	
+	
+	// =================================================
+	//		handle SACA TODOS LOS FILTROS 
+	// a travez de getProducts() obtenemos la lista completa de productos 
+	// =================================================
+	function handle(){
+		for (let j=0;j<categories.length;j++){
+			let elementByParameter = document.getElementById(`selection${j+1}`)	
+			if (!!elementByParameter.checked){
+				elementByParameter.checked = false
+			}
+		}
+		getProducts()
+	}
+	// =================================================
+	//		handlecheck busca por categoria
+	//	busca segun los filtros seleccionados usando la ruta de /products/category/categoryName 
+	//	que tenemos en la parte del backend y luego borra los checkbox sobrantes (ya que por ahora 
+	// 	buscamos por 1 categoria) 
+	// =================================================
 
-	if (props.listado.length === 0) {
+	function handlecheck(e){			
+		let elementByParameter = document.getElementById(e.target.id)
+		for (let j=0;j<categories.length;j++){
+			let elementByLoop = document.getElementById(`selection${j+1}`); 
+			if (elementByLoop.checked){
+				filterbyCategory(categories[j].name)
+			}
+			if( elementByLoop !== elementByParameter){
+				elementByLoop.checked = false
+			}
+		}
+	}
+	
+	// =================================================
+
+	if (listado.length === 0) {
 		return <img className="rounded mx-auto d-block" src={loading} />
 	} else {
 
-
-		// =================================================
-		//		Styled components
-		// =================================================
-
-		// =================================================
-		//		Carga de productos desde la BD
-		// =================================================
-
-		// useEffect(() => {
-		// 	axios.get('http://localhost:3001/products')
-		// 	.then(productosDB => {
-		// 		const {data} = productosDB
-		// 		return data
-		// 	})
-		// 	.then(listadoProductos => {
-		// 		setProductos(listadoProductos)
-		// 	})
-		// 	.catch(err => new Error(err))
-		// },[]) // este array vacío es para cortar el loop de useEffect
-
-		// handleBrowseAll = () => {
-		// 	console.log('hola')
-		// }
-
-
-
-		// ==================================================
-		//	Loading Screen hasta que se resuelve la peticion
-		// ==================================================
-
-		// if (props === null) {
-		// 	return <img className="rounded mx-auto d-block" src={loading}/>
-		// } 
-
-		// ==================================================
-		//	Counters para los checkboxes
-		// ==================================================
-
 		let checkId = counter()
 		let checkFor = counter()
-
-
 		return (
 			<div className="container">
 				<div className="main row">
@@ -64,15 +58,15 @@ function Catalogue(props) {
 							<h2>Categorías:</h2>
 							{categories.map(category =>
 								<div className="custom-control custom-checkbox">
-									<input type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
-									<label className="custom-control-label" for={`selection${checkFor()}`}>{category}</label>
+									<input onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
+									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>
 								</div>
 							)}
-							<button type="button" className="btn btn-primary">Browse All</button>
+							<button onClick={handle} type="button" className="btn btn-primary">Browse All</button>
 						</div>
 					</div>
 					<div className="col-md-9 row">
-						{props.listado.map(prod =>
+						{listado.map(prod =>
 							<div className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}
