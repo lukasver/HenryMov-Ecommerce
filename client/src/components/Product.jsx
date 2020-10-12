@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 
 import './Product.css'
 
 
 export default function Product({ product }) {
 
+	const [count, setCount] = useState(1);
+
 	if(!product) {return <h1>Loading...</h1>}
 
 	//const img = image;
 	const { name, image, price, description, id} = product
 	//console.log(props.product)
+
+	
 	return (
 		// <div>
 		// 	<img src={image} alt="product image"/>
@@ -32,16 +37,20 @@ export default function Product({ product }) {
 				<div className="col-md-5 content-rigth">
 					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
 					<h2>{description}</h2>
-					<h3 className="precio-producto">{price}</h3>
+					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
 					<div className="row buttom-comprar">
 						<div className="col-md-4">
 							<div className="input-group mb-2 mr-sm-2">
 								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-left" type="button">-</button>
+									<button className="btn btn-outline-secondary buttom-left" type="button" onClick={() => {
+										if(count === 1) {
+											return 1
+										}
+										setCount(count - 1)}}>-</button>
 								</div>
-								<input type="text" className="form-control cantidades" id="inlineFormInputGroupUsername2" placeholder="0" />
+								<input type="text" className="form-control cantidades" id="inlineFormInputGroupUsername2" placeholder="0" value={count}/>
 								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-right" type="button">+</button>
+									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() => setCount(count + 1)}>+</button>
 								</div>
 							</div>
 						</div>
