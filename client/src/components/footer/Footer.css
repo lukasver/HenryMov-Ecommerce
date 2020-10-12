@@ -1,5 +1,53 @@
-.col-md-2 {
-  
-    flex: 0 0 16.666667%;
-   
+.col-md-2 {  
+    flex: 0 0 16.666667%;   
+}
+.footer {
+    padding: 60px 0px !important;
+}
+.tituloH5 {
+    font-weight: 300 !important;
+    font-size: 28px;
+}
+.h5-center {
+    text-align: center;
+    padding-left: 15px;
+}
+.textoDatos {
+    color: #a2a2a2;
+}
+.menus {
+    color: #a2a2a2;
+}
+.copyright, .copyright a {
+    color: #f9ab1f94;
+}
+
+.copyright a:hover {
+    color: #f9ab1f;
+}
+.btn-floating {
+    color: #777777;
+}
+.webft05 {
+    font-weight: 700;
+}
+.img-footer {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+.img-footer:hover {
+    opacity: 1;
+}
+.div-img-4 {
+    padding-bottom: 10px;
+}
+.div-webft {
+    padding-right: 100px !important;
+}
+.lista-redes {
+    border-top: 1px solid #1a1a1a;
+    padding-top: 40px;
+    margin-top: 30px;
 }
