@@ -150,6 +150,7 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 			where: {name: req.params.categoryName}
 		}
 	}).then(result => {
+		console.log(result);
 		if(!result.length) return res.status(400).send('<h1>NOT FOUND!</h1>')
 		res.status(200).send(result);
 		return
