@@ -44,7 +44,7 @@ export default function Panel({ tablaAccion }) {
     }
 
     function getProduct(id) {
-        axios.get(`http://localhost:3001/product/${id}`)
+        axios.get(`http://localhost:3001/products/${id}`)
             .then(producto => producto.data)
             .then(data => setProduct(data))
             .catch((error) => {
@@ -62,21 +62,21 @@ export default function Panel({ tablaAccion }) {
     };
 
     function modProduct(modProduct) {    
-        // let updateProducts = adminProducts;
+        let updateProducts = adminProducts;
         axios.put(`http://localhost:3001/products/${modProduct.id}`, modProduct)
             .then(data => {
-                // updateProducts.map(dato => {
-                //     if(dato.id == modProduct.id){
-                //         dato.name = modProduct.name;
-                //         dato.availability = modProduct.availability;
-                //         dato.description = modProduct.description;
-                //         dato.image = modProduct.image;
-                //         dato.price = modProduct.price;
-                //         dato.quantity = modProduct.quantity;
-                //         dato.stock = modProduct.stock;
-                //     }
-                // });
-                console.log(data)
+                updateProducts.map(dato => {
+                    if(dato.id == modProduct.id){
+                        dato.name = modProduct.name;
+                        dato.availability = modProduct.availability;
+                        dato.description = modProduct.description;
+                        dato.image = modProduct.image;
+                        dato.price = modProduct.price;
+                        dato.quantity = modProduct.quantity;
+                        dato.stock = modProduct.stock;
+                    }
+                });
+                setAdminProducts(updateProducts);
             })
             .catch(error => {
                 console.log(error);
