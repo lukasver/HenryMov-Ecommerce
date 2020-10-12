@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Route, useHistory } from "react-router-dom";
+import { Route, useHistory, Switch } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
 import Product from "./components/Product.jsx";
 import ProductCard from "./components/ProductCard.jsx";
@@ -10,6 +10,7 @@ import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
+import Admin from './components/admin/Admin.js'
 
 
 function App({ location }) {
@@ -30,8 +31,8 @@ function App({ location }) {
       });
   }
 
-  useEffect(async () => {
-    await axios
+  useEffect(() => {
+    axios
       .get("http://localhost:3001/products")
       .then((productosDB) => {
         const { data } = productosDB;
@@ -41,10 +42,9 @@ function App({ location }) {
         setTotalprods(listadoProductos);
       })
       .catch((err) => new Error(err));
-    await axios
+    axios
       .get("http://localhost:3001/category")
       .then((recurso) => {
-        console.log(recurso.data)
         setCategories(recurso.data);
       })
       .catch((error) => {
