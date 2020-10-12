@@ -95,8 +95,6 @@ export default function Productos({ productos, categories, deleteProduct, getPro
         } else {
             setModProd({ ...modProd, availability: checked });
         }
-
-
     }
 
     return (
