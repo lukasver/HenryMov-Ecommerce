@@ -60,53 +60,69 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 	  		stock: 3,
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
-	  	})
-	  	.then(Product.create({
+	  	}).then(createdProduct => {
+				createdProduct.setCategories([3]);
+			})
+	  	await Product.create({
 	  		name: 'Tabla para Skate Downhill',
 	  		description: 'Base de reemplazo para skate',
 	  		price: 1000,
 	  		availability: true,
 	  		stock: 20,
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
-	  	}))
-	  	.then(Product.create({
+	  	}).then(createdProduct => {
+				createdProduct.setCategories([2]);
+			})
+	  	await Product.create({
 	  		name: 'Gorra',
 	  		description: 'Gorro skate - Made in China',
 	  		price: 210,
 	  		availability: true,
 	  		stock: 100,
 	  		image: 'https://sc02.alicdn.com/kf/H55756b6151c748328ed7791a02a36fbcQ.jpg'
-	  	})).then(Product.create({
+	  	}).then(createdProduct => {
+				createdProduct.setCategories([6]);
+			})
+	  	await Product.create({
 	  		name: 'Scooter',
 	  		description: 'Scooter eléctrico gris/negro de 2 ruedas',
 	  		price: 140,
 	  		availability: true,
 	  		stock: 100,
 	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
-	  	}))
-	  	.then(Product.create({
+	  	}).then(createdProduct => {
+				createdProduct.setCategories([1]);
+			})
+	  	await Product.create({
 	  		name: 'Hoverboard',
 	  		description: 'un hoverboard blanco de 2 ruedas',
 	  		price: 210,
 	  		availability: false,
 	  		stock: 100,
 	  		image: 'https://i.pinimg.com/originals/ea/2b/84/ea2b84b6d1358a047ccd9925003620d8.jpg'
-	  	})).then(Product.create({
+	  	}).then(createdProduct => {
+				createdProduct.setCategories([5]);
+			})
+	  	await Product.create({
 	  		name: 'Skate',
 	  		description: 'un shortboard blanco de 4 ruedas',
 	  		price: 140,
 	  		availability: true,
 	  		stock: 100,
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
-	  	}))
-	  	.then(Product.create({
+	  	}).then(createdProduct => {
+				createdProduct.setCategories([2]);
+			})
+	  	await Product.create({
 	  		name: 'Electric Bike',
 	  		description: 'Bicicleta electrica',
 	  		price: 210,
 	  		availability: false,
 	  		stock: 100,
 	  		image: 'https://ebikebc.com/wp-content/uploads/2019/11/ebikeBC-ebikes-banner-product-smaller.jpg'
-	  	}));
+	  	}).then(createdProduct => {
+				createdProduct.setCategories([4]);
+			})
 
 	  };
 	  precarga();
