@@ -25,7 +25,33 @@ const { port } = process.env // agregar port a tu variable de entorno .env
 conn.sync({ force: true }).then(() => {
   server.listen(port || 3001, () => {
     console.log(`%s listening at ${port}`); // eslint-disable-line no-console
-    const precarga = async function () {
+    const precarga = async function () {	  	
+
+	  	await Category.create({
+	  		name: 'Scooters',
+	  		description: 'Descripción 1',
+	  		status: 'Activado'
+	  	}).then(Category.create({
+	  		name: 'Skates',
+	  		description: 'Descripción 2',
+	  		status: 'Activado'
+	  	})).then(Category.create({
+	  		name: 'Windsurf',
+	  		description: 'Descripción 3',
+	  		status: 'Activado'
+	  	})).then(Category.create({
+	  		name: 'Bikes',
+	  		description: 'Descripción 4',
+	  		status: 'Activado'
+	  	})).then(Category.create({
+	  		name: 'Hoverboards',
+	  		description: 'Descripción 5',
+	  		status: 'Activado'
+	  	})).then(Category.create({
+	  		name: 'Hats',
+	  		description: 'Descripción 6',
+	  		status: 'Activado'
+	  	}));
 
 	  	await Product.create({
 	  		name: 'Vela de Windsurf',
@@ -34,7 +60,8 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 	  		stock: 3,
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
-	  	}).then(Product.create({
+	  	})
+	  	.then(Product.create({
 	  		name: 'Tabla para Skate Downhill',
 	  		description: 'Base de reemplazo para skate',
 	  		price: 1000,
@@ -81,23 +108,6 @@ conn.sync({ force: true }).then(() => {
 	  		image: 'https://ebikebc.com/wp-content/uploads/2019/11/ebikeBC-ebikes-banner-product-smaller.jpg'
 	  	}));
 
-	  	await Category.create({
-	  		name: 'Scooters',
-	  		description: 'Descripción 1',
-	  		status: 'Activado'
-	  	}).then(Category.create({
-	  		name: 'Skates',
-	  		description: 'Descripción 2',
-	  		status: 'Activado'
-	  	})).then(Category.create({
-	  		name: 'Windsurf',
-	  		description: 'Descripción 3',
-	  		status: 'Activado'
-	  	})).then(Category.create({
-	  		name: 'Bikes',
-	  		description: 'Descripción 4',
-	  		status: 'Activado'
-	  	}));
 	  };
 	  precarga();
 	  console.log("Productos y Categorias precargadas");
