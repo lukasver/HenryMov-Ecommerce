@@ -30,7 +30,6 @@ export default function Product({ product }) {
 					<img src={image} className="card-img" alt="Product Image" />
 				</div>
 				<div className="col-md-5 content-rigth">
-					<p>{name}</p>
 					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
 					<h2>{description}</h2>
 					<h3 className="precio-producto">{price}</h3>

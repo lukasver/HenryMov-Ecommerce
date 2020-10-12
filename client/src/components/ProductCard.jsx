@@ -7,16 +7,14 @@ export default function ProductCard(props) {
 
   return (
     <div className="card">
-      <img className="card-img-top" src={image} alt="imagen producto" />
-      <div className="card-body">
-        <Link className="titulo-link" to={`/products/${id}`}>
+      <Link className="titulo-link" to={`/products/${id}`}>
+        <img className="card-img" src={image} alt="imagen producto" />
+        <div className="card-body">
           <h5 className="card-title">{name}</h5>
-        </Link>
-        <Link className="titulo-link" to={`/product/put/${id}`}>
-        </Link>
-        <p className="card-text">{description}</p>
-        <p className="card-text">{`$ ${price}`}</p>
-      </div>
+          <p className="card-text">{description}</p>
+          <p className="card-text">{`$ ${price}`}</p>
+        </div>
+      </Link>
     </div>
   )
 }

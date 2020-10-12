@@ -28,9 +28,7 @@
 }
 
 div.sticky {
-    position: block;
     margin-top: 2rem;
-    top: 50%;
     border: 2px solid black;
     border-radius: 5px;
     padding: 2rem;
@@ -38,4 +36,9 @@ div.sticky {
 }
 .container1{
     margin-bottom: 2rem;
+}
+
+.filter{
+    display: grid;
+    place-items: center start;
 }
