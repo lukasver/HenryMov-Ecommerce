@@ -1,0 +1,14 @@
+.descktop {
+    background-image: url('https://wallpaperaccess.com/full/2099515.jpg');
+    background-position: center center;
+    padding: 0;
+    background-size: auto;
+    justify-content: center;
+    display: flex;
+}
+.descktop a, #logoDescktop {
+    top: 80%;
+    position: absolute;
+    align-content: center;
+    margin-left: -17%;
+}
