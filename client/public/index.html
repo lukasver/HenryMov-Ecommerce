@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -25,9 +24,103 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script>
+        // Data
+        var data = {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [{
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [65, 59, 80, 81, 56, 55, 40]
+            }, {
+                label: "My Second dataset",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [28, 48, 40, 19, 86, 27, 90]
+            }]
+        };
+
+
+
+
+        var data2 = [{
+                value: 300,
+                color: "#F7464A",
+                highlight: "#FF5A5E",
+                label: "Red"
+            }, {
+                value: 50,
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Green"
+            }, {
+                value: 100,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: "Yellow"
+            }, {
+                value: 40,
+                color: "#949FB1",
+                highlight: "#A8B3C5",
+                label: "Grey"
+            }, {
+                value: 120,
+                color: "#4D5360",
+                highlight: "#616774",
+                label: "Dark Grey"
+            }
+
+        ];
+
+
+        // Global + Custom Chart Config Options
+
+        var options = {
+            bezierCurve: false,
+            animation: true,
+            animationEasing: "easeOutQuart",
+            showScale: false,
+            tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+            tooltipCornerRadius: 3,
+            pointDot: true,
+            pointDotRadius: 4,
+            datasetFill: true,
+            scaleShowLine: true,
+            animationEasing: "easeOutBounce",
+            animateRotate: true,
+            animateScale: true,
+        };
+
+
+        // Load Chart
+
+        var ctx1 = document.getElementById("myLineChart").getContext("2d");
+        var ctx = document.getElementById("myDonutChart").getContext("2d");
+
+        var myLineChart = new Chart(ctx1).Line(data, options);
+        // var myBarChart = new Chart(ctx).Bar(data, options);
+        // var myRadarChart = new Chart(ctx).Radar(data, options);
+        // new Chart(ctx).PolarArea(data2, options);
+
+        // For a pie chart
+        // var myPieChart = new Chart(ctx).Pie(data2,options);
+
+        // And for a doughnut chart
+        var myDoughnutChart = new Chart(ctx).Doughnut(data2, options);
+    </script>
     <title>React App</title>
-  </head>
-  <body>
+</head>
+
+<body class="admin">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -45,5 +138,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
+
+<script
+  src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"
+  crossorigin></script>
+
+<script
+  src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
+  crossorigin></script>
+</body>
+
 </html>

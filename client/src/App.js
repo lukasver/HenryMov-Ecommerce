@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Route, useHistory } from "react-router-dom";
+
+import { Route, useHistory, Switch } from "react-router-dom";
+
 import Nav from "./components/Nav.jsx";
 import Product from "./components/Product.jsx";
 import ProductCard from "./components/ProductCard.jsx";
@@ -10,9 +12,12 @@ import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
-import PutProduct from "./components/PutProduct";
 
-function App() {
+import Admin from './components/admin/Admin.js'
+
+
+
+function App({ location }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories]= useState([])
   const [totalProds, setTotalprods] = useState([]);
@@ -44,8 +49,9 @@ function App() {
       });
   }
 
-  useEffect(async () => {
-    await axios
+  useEffect(() => {
+    axios
+
       .get("http://localhost:3001/products")
       .then((productosDB) => {
         const { data } = productosDB;
@@ -55,7 +61,9 @@ function App() {
         setTotalprods(listadoProductos);
       })
       .catch((err) => new Error(err));
-    await axios
+
+    axios
+
       .get("http://localhost:3001/category")
       .then((recurso) => {
         setCategories(recurso.data);
@@ -75,28 +83,18 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <Route path='/' render={() => <Nav onSearch={onSearch} />} />
-      <Route
-        exact
-        path='/search'
-        render={() => <ContentSearch products={products} />}
-      />
-      <Route exact path='/' render={() => <Slider />} />
-      <Route
-        exact
-        path='/products'
-        render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />}
-      />
-      <Route
-        exact
-        path='/products/:productId'
-        render={({ match }) => (
-          <Product product={onFilter(match.params.productId)} />
-        )}
-      />
-      <Route exact path='/product/add' render={() => <AddProduct categories={categories} />} />
-      <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
+
+    <div className="App">
+      <Switch>
+        <Route path="/admin" render={() => <Admin />} />
+        <Route path="/" render={() => <Nav onSearch={onSearch} />} />
+      </Switch>
+      <Route exact path="/search" render={() => <ContentSearch products={products} />} />
+      <Route exact path="/" render={() => <Slider />} />
+      <Route exact path="/products" render={() => <Catalogue listado={totalProds} />} />
+      <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} />} />
+      <Route exact path="/product/add" render={() => <AddProduct />} />
+
       <Route exact path='/category/add' render={() => <AddCategory />} />
     </div>
   );

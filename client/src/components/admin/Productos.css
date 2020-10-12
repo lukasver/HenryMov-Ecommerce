@@ -1,0 +1,27 @@
+.form-productos {
+    background-color: #343a40;
+}
+.custom-file-label {
+    text-align: left;
+}
+.custom-file {
+    margin: 0px 15px 20px;
+}
+.iconTable:hover {
+    color: #ffaf00;
+}
+.custom-file {
+    overflow: hidden;
+    height: 100%;
+}
+.custom-file img {
+    margin: 25px 10px 0px;
+}
+.textDisponible {
+    float: left;
+    color: white;
+}
+.form-check-input {
+    float: right;
+    margin-left: 10px;
+}
