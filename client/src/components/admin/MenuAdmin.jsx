@@ -8,7 +8,7 @@ export default function MenuAdmin() {
         <div className="col-md-2 panel-left">
             <ul className="list-group ul-dark">
                 <li className="list-group-item">
-                    <i class="fas fa-snowboarding"></i>
+                    <i className="fas fa-snowboarding"></i>
                     <h4>Henry-Mov</h4>
                     <h5>Admin</h5>
                 </li>

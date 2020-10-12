@@ -10,11 +10,11 @@ function Admin() {
 
   return (
     <div className="Admin">
-      <Route exact path="/admin" render={() => <Panel tablaAccion='Escritorio' />} />
+      <Route exact path="/admin" render={() => <Panel tablaAccion='Desktop' />} />
       <Switch>        
-        <Route path="/admin/categorias" render={() => <Panel tablaAccion='Categorias' />} />
-        <Route path="/admin/usuarios" render={() => <Panel tablaAccion='Usuarios' />} />
-        <Route path="/admin/productos" render={() => <Panel tablaAccion='Productos' />} />
+        <Route path="/admin/categorys" render={() => <Panel tablaAccion='Categorys' />} />
+        <Route path="/admin/users" render={() => <Panel tablaAccion='Users' />} />
+        <Route path="/admin/products" render={() => <Panel tablaAccion='Products' />} />
       </Switch>
     </div>
   );
