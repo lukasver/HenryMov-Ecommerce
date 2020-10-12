@@ -1,0 +1,40 @@
+  .asign .parent {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .asign .top {
+  	background: linear-gradient(360deg, rgba(255,255,255,1) 0%, rgba(124,124,124,1) 68%, rgba(87,87,87,1) 84%, rgba(20,20,20,1) 100%);
+  	padding-top: 3rem;
+  	-webkit-text-stroke: 1px grey;
+
+    color: black;
+    font-size: 3rem;
+  }
+
+  .asign .middle {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+  }
+
+
+
+  .ex9 .parent {
+    display: grid;
+    place-items: center;
+  }
+
+  .ex9 .card {
+    width: clamp(23ch, 50%, 46ch);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .ex9 .visual {
+      height: 125px;
+      width: 100%;
+    }
+  
+  

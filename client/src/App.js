@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-
 import { Route, useHistory, Switch } from "react-router-dom";
-
 import Nav from "./components/Nav.jsx";
 import Product from "./components/Product.jsx";
 import ProductCard from "./components/ProductCard.jsx";
@@ -12,10 +10,11 @@ import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
+import PutProduct from "./components/PutProduct";
+import AsignCategory from "./components/AsignCategory";
 import Footer from "./components/footer/Footer";
 import Admin from './components/admin/Admin.js';
-import Preguntas from './components/footer/Preguntas'
-
+import Preguntas from './components/footer/Preguntas';
 
 
 function App({ location }) {
@@ -92,10 +91,13 @@ function App({ location }) {
       </Switch>
       <Route exact path="/search" render={() => <ContentSearch products={products} />} />
       <Route exact path="/" render={() => <Slider />} />
-      <Route exact path="/products" render={() => <Catalogue listado={totalProds} />} />
+      <Route exact path="/products" render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />} />
       <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} />} />
-      <Route exact path="/product/add" render={() => <AddProduct />} />
+      <Route exact path="/product/add" render={() => <AddProduct categories={categories} />} />
+      <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
+      <Route path ='/product/put/' render={() => <AsignCategory/>}/>
       <Route exact path='/category/add' render={() => <AddCategory />} />
+      <Route exact path='/category/add' render={() => <AsignCategory />} />
       <Route exact path="/preguntas" render={()=> <Preguntas/>}/>
       <Route path="/" render={()=> <Footer/>}/>
     </div>

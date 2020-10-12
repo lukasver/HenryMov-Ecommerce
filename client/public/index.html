@@ -148,7 +148,19 @@
 <script
   src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
   crossorigin></script>
-
+<script>
+  window.watsonAssistantChatOptions = {
+      integrationID: "747d8b43-8cc8-4ee9-9dfd-4e5d4d129a98", // The ID of this integration.
+      region: "us-south", // The region your integration is hosted in.
+      serviceInstanceID: "0c27b141-8422-4ebb-b9e8-665418afc54b", // The ID of your service instance.
+      onLoad: function(instance) { instance.render(); }
+    };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+    document.head.appendChild(t);
+  });
+</script>
 </body>
 
 </html>
