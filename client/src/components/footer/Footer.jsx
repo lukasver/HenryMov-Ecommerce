@@ -27,7 +27,7 @@ export default function Footer() {
                                 <a href="#!">Como comprar</a>
                             </li>
                             <li>
-                                <a href="#!">Preguntas frecuentes</a>
+                                <a href="/Preguntas">Preguntas frecuentes</a>
                             </li>
                             <li>
                                 <a href="#!">Cambios y devoluciones</a>
