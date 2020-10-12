@@ -11,6 +11,7 @@ import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
 import PutProduct from "./components/PutProduct";
+import AsignCategory from "./components/AsignCategory";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -97,6 +98,7 @@ function App() {
       />
       <Route exact path='/product/add' render={() => <AddProduct categories={categories} />} />
       <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
+      <Route path ='/product/put/' render={() => <AsignCategory/>}/>
       <Route exact path='/category/add' render={() => <AddCategory />} />
     </div>
   );
