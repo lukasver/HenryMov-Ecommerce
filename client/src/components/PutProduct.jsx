@@ -1,14 +1,19 @@
-
 import React, { useState, handleChange, handleSubmit, useEffect } from 'react';
-import './AddProduct.css'
+import { Link } from 'react-router-dom';
+import './PutProduct.css'
 import axios from 'axios';
 
 const urlBack = 'http://localhost:3001'
 
-export default function AddProduct(props ) {   
+export default function PutProduct({product, categories}) {  
 
+  
+
+    const { name, image, price, description, id ,stock} = product
+    const productId = id
     
     const [addProd, setAddProd] = useState({
+        id:'',
         name: '',
         description: '',
         price: '0',
@@ -18,20 +23,22 @@ export default function AddProduct(props ) {
         categories: []
     })
 
-
+    
+    
     function handleChange(e) {
         setAddProd({
             ...addProd,
-            [e.target.id]: e.target.value
+            [e.target.id]: e.target.value,
+            id: id
         })
     }
 
-    const handleAdd = e => {
-        console.log(addProd)
+    const handlePut = e => {
         e.preventDefault();
+        console.log(productId)
         try {
-            // Creates the new product
-            axios.post(`${urlBack}/products`, addProd);
+            axios.put(`${urlBack}/products/${productId}`, addProd);
+            console.log(addProd)
         } catch (error) {
             console.log(error);
         }
@@ -48,7 +55,6 @@ export default function AddProduct(props ) {
 
     function handleSelect(e){
         e.preventDefault()
-        console.log(e.target.value)
         setAddProd({...addProd, categories: e.target.value})
     }
 
@@ -63,18 +69,18 @@ export default function AddProduct(props ) {
     return (
 
         <div className='contenidoForm'>
-            <h1>Agregar Producto</h1>
+            <h1>Modificar Producto</h1>
             <form class='formulario' onSubmit={handleSubmit}  >
                 <label> Titulo del producto
-                    <input type="text" id='name' onChange={handleChange} />
+                    <input type="text" id='name' placeholder={name} onChange={handleChange} />
                 </label>
                 <label> Descripcion
-                    <textarea id='description' onChange={handleChange} />
+                    <textarea id='description' placeholder={description} onChange={handleChange} />
                 </label>
                 <br />
                 <label>Categoria</label>
                 <select  onClick={handleSelect} >
-                    {props.categories.map(cat =>
+                    {categories.map(cat =>
                         <option value={cat.id} onClick={handleSelect}>{cat.name}</option>
                     )
 
@@ -94,15 +100,18 @@ export default function AddProduct(props ) {
                     <input
                         id="stock"
                         type="number"
+                        placeholder={stock}
                         onChange={handleChange} />
                 </label>
                 <label> Precio:
                     <input
                         id="price"
+                        placeholder={price}
                         onChange={handleChange} />
                 </label>
+                <img src={image}/>
                 <input type="file" onChange={UpImagen} />
-                <button onClick={handleAdd}>Agregar</button>
+                <button onClick={handlePut}>Agregar</button>
             </form>
         </div>
     )

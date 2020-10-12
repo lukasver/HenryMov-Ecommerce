@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+
 import { Route, useHistory, Switch } from "react-router-dom";
+
 import Nav from "./components/Nav.jsx";
 import Product from "./components/Product.jsx";
 import ProductCard from "./components/ProductCard.jsx";
@@ -10,7 +12,9 @@ import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
+
 import Admin from './components/admin/Admin.js'
+
 
 
 function App({ location }) {
@@ -19,6 +23,20 @@ function App({ location }) {
   const [totalProds, setTotalprods] = useState([]);
 
   let history = useHistory();
+
+  function filterbyCategory(categorySearch){
+    axios 
+    .get(`http://localhost:3001/products/category/${categorySearch}`)
+    .then(product => setTotalprods(product.data))
+    .catch(error => console.log(error))
+  }
+  
+  function getProducts(){
+    axios
+    .get(`http://localhost:3001/products`)
+    .then(products => setTotalprods(products.data))
+    .catch(error => console.log(error))
+  }
 
   function onSearch(search) {
     axios
@@ -33,6 +51,7 @@ function App({ location }) {
 
   useEffect(() => {
     axios
+
       .get("http://localhost:3001/products")
       .then((productosDB) => {
         const { data } = productosDB;
@@ -42,7 +61,9 @@ function App({ location }) {
         setTotalprods(listadoProductos);
       })
       .catch((err) => new Error(err));
+
     axios
+
       .get("http://localhost:3001/category")
       .then((recurso) => {
         setCategories(recurso.data);
@@ -62,6 +83,7 @@ function App({ location }) {
   }
 
   return (
+
     <div className="App">
       <Switch>
         <Route path="/admin" render={() => <Admin />} />
@@ -72,6 +94,7 @@ function App({ location }) {
       <Route exact path="/products" render={() => <Catalogue listado={totalProds} />} />
       <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} />} />
       <Route exact path="/product/add" render={() => <AddProduct />} />
+
       <Route exact path='/category/add' render={() => <AddCategory />} />
     </div>
   );
