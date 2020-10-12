@@ -12,8 +12,8 @@ import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
-
-import Admin from './components/admin/Admin.js'
+import Footer from "./components/Footer";
+import Admin from './components/admin/Admin.js';
 
 
 
@@ -94,8 +94,8 @@ function App({ location }) {
       <Route exact path="/products" render={() => <Catalogue listado={totalProds} />} />
       <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} />} />
       <Route exact path="/product/add" render={() => <AddProduct />} />
-
       <Route exact path='/category/add' render={() => <AddCategory />} />
+      <Route path="/" render={()=> <Footer/>}/>
     </div>
   );
 }
