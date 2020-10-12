@@ -93,6 +93,11 @@ function App({ location }) {
       <Route exact path="/" render={() => <Slider />} />
       <Route exact path="/products" render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />} />
       <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} />} />
+<<<<<<< HEAD
+      <Route exact path="/product/add" render={() => <AddProduct />} />
+
+      <Route exact path='/category/add' render={() => <AddCategory />} />
+=======
       <Route exact path="/product/add" render={() => <AddProduct categories={categories} />} />
       <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
       <Route path ='/product/put/' render={() => <AsignCategory/>}/>
@@ -100,6 +105,7 @@ function App({ location }) {
       <Route exact path='/category/add' render={() => <AsignCategory />} />
       <Route exact path="/preguntas" render={()=> <Preguntas/>}/>
       <Route path="/" render={()=> <Footer/>}/>
+>>>>>>> master
     </div>
   );
 }
