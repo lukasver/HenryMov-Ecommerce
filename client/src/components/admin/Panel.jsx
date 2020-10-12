@@ -44,7 +44,7 @@ export default function Panel({ tablaAccion }) {
     }
 
     function getProduct(id) {
-        axios.get(`http://localhost:3001/product/${id}`)
+        axios.get(`http://localhost:3001/products/${id}`)
             .then(producto => producto.data)
             .then(data => setProduct(data))
             .catch((error) => {
