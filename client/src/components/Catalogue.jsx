@@ -57,7 +57,7 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 		let checkId = counter()
 		let checkFor = counter()
 		return (
-			<div className="container">
+			<div className="container1">
 				<div className="main row">
 					<div className="col-md-3">
 						<div className="sticky">

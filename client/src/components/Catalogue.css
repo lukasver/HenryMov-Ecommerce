@@ -28,10 +28,14 @@
 }
 
 div.sticky {
-    position: fixed;
+    position: block;
+    margin-top: 2rem;
     top: 50%;
     border: 2px solid black;
     border-radius: 5px;
     padding: 2rem;
 
+}
+.container1{
+    margin-bottom: 2rem;
 }
