@@ -1,0 +1,88 @@
+.form {
+    background: #fff;
+    padding: 30px 20px;
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
+    border-radius: 6px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.form-heading {
+    margin-top: -70px;
+    padding: 20px;
+    background: #9c27b0;
+    margin-bottom: 40px;
+    border-radius: 3px;
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+.text-center {
+    text-align: center!important;
+}
+input[type=email], input[type=text], input[type=password] {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 30px;
+    width: 100%;
+    display: block;
+    border: none;
+    padding: 10px 0;
+    border-bottom: solid 1px #d2d2d2;
+    will-change: background-position;
+    transition: all .3s cubic-bezier(.64, .09, .08, 1);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #9c27b0 96%);
+    background-position: -1920px 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: #000;
+    font-size: 14px;
+    font-weight: 100;
+}
+.col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.col-md-12 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.adam-button {
+    margin-top: 20px;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    float: right;
+    background: #9c27b0;
+    border-radius: 3px;
+    color: #fff;
+    border: 1px solid #9c27b0;
+    font-weight: 300;
+    font-size: 14px;
+    transition: all .3s cubic-bezier(.64, .09, .08, 1);
+    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
+}
+.label {
+    color: #898989;
+    font-size: 14px;
+    font-weight: 300;
+    transition: all .3s cubic-bezier(.64, .09, .08, 1);
+    margin: 30px 0 30px;
+    display: inline-block;
+}
+.contenido {
+    margin-bottom: 0px;
+    padding: 50px 15px;
+    background: #fff;
+    border-radius: 6px;
+}

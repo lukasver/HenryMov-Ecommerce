@@ -12,8 +12,14 @@ import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
+<<<<<<< HEAD
 import PutProduct from "./components/PutProduct";
 import Admin from './components/admin/Admin.js';
+=======
+import Footer from "./components/footer/Footer";
+import Admin from './components/admin/Admin.js';
+import Preguntas from './components/footer/Preguntas'
+>>>>>>> 042a83b5dafb5774ae80ccc27b210431af0a083d
 
 
 
@@ -96,6 +102,8 @@ function App({ location }) {
       <Route exact path="/product/add" render={() => <AddProduct categories={categories} />} />
       <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
       <Route exact path='/category/add' render={() => <AddCategory />} />
+      <Route exact path="/preguntas" render={()=> <Preguntas/>}/>
+      <Route path="/" render={()=> <Footer/>}/>
     </div>
   );
 }
