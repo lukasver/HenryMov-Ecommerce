@@ -57,9 +57,9 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 		let checkId = counter()
 		let checkFor = counter()
 		return (
-			<div className="container">
+			<div className="container1">
 				<div className="main row">
-					<div className="col-md-3">
+					<div className="col-md-3 filter">
 						<div className="sticky">
 							<h2>Categorías:</h2>
 							{categories.map(category =>
@@ -68,7 +68,7 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>
 								</div>
 							)}
-							<button onClick={handle} type="button" className="btn btn-primary">Browse All</button>
+							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
 					</div>
 					<div className="col-md-9 row">
