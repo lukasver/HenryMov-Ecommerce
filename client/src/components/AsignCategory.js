@@ -3,8 +3,8 @@ import './AsignCategory.css';
 
 export default function () {
 
-	// const [idProducto , setIdProducto] = useState('');
-	// const [accion, setAccion] = useState('');
+	const [compare, setCompare] = useState('');
+
 	let accion = ''
 	let method = ''
 	function handle(e) {
@@ -16,7 +16,6 @@ export default function () {
 		} else {
 		return
 		}
-
 	}
 	
 	const idProducto = null;
@@ -27,15 +26,15 @@ export default function () {
     	<hr/>
     	<div className="middle section" contenteditable>
     	<h2>Asignar/Eliminar categoría:</h2>
-    	<div class="form-check">
-			  <input onClick={handle} class="form-check-input" type="radio" name="changecategory" id="addCategory" value='add'/>
-			  <label class="form-check-label" for="exampleRadios1">
+    	<div className="form-check">
+			  <input onClick={handle} className="form-check-input" type="radio" name="changecategory" id="addCategory" value='add'/>
+			 	<label className="form-check-label" for="exampleRadios1">
 			    Asignar categoría
 			  </label>
 		</div>
-			<div class="form-check">
-			  <input onClick={handle} class="form-check-input" type="radio" name="changecategory" id="changecategory" value='delete'/>
-			  <label class="form-check-label" for="exampleRadios2">
+			<div className="form-check">
+			  <input onClick={handle} className="form-check-input" type="radio" name="changecategory" id="changecategory" value='delete'/>
+			  <label className="form-check-label" for="exampleRadios2">
 			    Eliminar categoría
 			  </label>
 			</div>

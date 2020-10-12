@@ -95,6 +95,7 @@ function App({ location }) {
       <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
       <Route path ='/product/put/' render={() => <AsignCategory/>}/>
       <Route exact path='/category/add' render={() => <AddCategory />} />
+      <Route exact path='/category/add' render={() => <AsignCategory />} />
     </div>
   );
 }
