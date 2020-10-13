@@ -125,7 +125,6 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                                     <td>
                                         <a className="iconTable"><i className="far fa-edit" id={dato.id} style={{ marginRight: '10px' }} onClick={(e) => {
                                             e.preventDefault();
-                                            console.log('pasa: ',dato, product);
                                             getProduct(dato.id)
                                             setTextButton('Modificar');
                                             setModProd(product);                                            

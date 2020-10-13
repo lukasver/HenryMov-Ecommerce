@@ -27,8 +27,22 @@ server.post('/category', (req, res, next) => {
 		res.status(201).send(createdCategory);
 	}).catch(err => {
     res.sendStatus(400);
-  })
-  ;
+  });
+});
+
+//==============================================
+//	Obtener Categoria por ID (unico)
+//============================================== 
+server.get('/category/:id', (req, res, next) => {
+  const { id } = req.params;
+  Category.findByPk(id)
+    .then(result => {
+  	if (!result) {
+  		return res.status(404).send('ID no encontrado');
+  	}
+  	res.status(200).json(result);
+  }).catch(err => {
+    res.status(400).send('<h1>error...category not found</h1>')})
 });
 
 //==============================================
