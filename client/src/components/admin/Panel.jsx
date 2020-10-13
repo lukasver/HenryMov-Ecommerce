@@ -14,6 +14,7 @@ export default function Panel({ tablaAccion }) {
     const [adminProducts, setAdminProducts] = useState([]);
     const [adminCategories, setCategories] = useState([]);
     const [product, setProduct] = useState([]);
+    const [category, setCategory] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost:3001/products')
@@ -43,6 +44,14 @@ export default function Panel({ tablaAccion }) {
             });
     }
 
+    function deleteCategory(id) {
+        axios.delete(`http://localhost:3001/category/${id}`)
+            .then(data => setCategories(adminCategories.filter(cat => cat.id != id)))
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     function getProduct(id) {
         axios.get(`http://localhost:3001/products/${id}`)
             .then(producto => producto.data)
@@ -52,10 +61,26 @@ export default function Panel({ tablaAccion }) {
             });
     }
 
+    function getCategory(id) {
+        axios.get(`http://localhost:3001/category/${id}`)
+            .then(producto => producto.data)
+            .then(data => setCategory(data))
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     function addProduct(newProduct) {
-        console.log('ingresa: ', newProduct);
         axios.post(`http://localhost:3001/products`, newProduct)
             .then(data => adminProducts)
+            .catch(error => {
+                console.log(error);
+            })
+    };
+
+    function addCategory(newCategory) {
+        axios.post(`http://localhost:3001/category`, newCategory)
+            .then(data => adminCategories)
             .catch(error => {
                 console.log(error);
             })
@@ -83,12 +108,30 @@ export default function Panel({ tablaAccion }) {
             })
     };
 
+    function modCategory(modCat) {    
+        let updateCategories = adminProducts;
+        axios.put(`http://localhost:3001/category/${modCat.id}`, modCat)
+            .then(data => {
+                updateCategories.map(dato => {
+                    if(dato.id == modCat.id){
+                        dato.name = modCat.name;
+                        dato.status = modCat.status;
+                        dato.description = modCat.description;
+                    }
+                });
+                setCategory(updateCategories);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    };
+
     return (
         <div className="container-fluid">
             <div className="main row">
                 <MenuAdmin />
                 {tablaAccion === 'Desktop' && <Escritorio />}
-                {tablaAccion === 'Categorys' && <Categorias />}
+                {tablaAccion === 'Categorys' && <Categorias categorias={adminCategories} deleteCategory={deleteCategory} category={category} getCategory={getCategory} addCategory={addCategory} modCategory={modCategory}/>}
                 {tablaAccion === 'Users' && <Usuarios />}
                 {tablaAccion === 'Products' && <Productos productos={adminProducts} categories={adminCategories} deleteProduct={deleteProduct} getProduct={getProduct} product={product} addProduct={addProduct} modProduct={modProduct} />}
             </div>
