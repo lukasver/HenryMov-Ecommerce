@@ -51,11 +51,31 @@ conn.sync({ force: true }).then(() => {
 	  		name: 'Hats',
 	  		description: 'Descripción 6',
 	  		status: 'Activado'
-	  	}));
+	  	})).then(Category.create({
+			name: 'Patines',
+			description: 'Descripción 7',
+			status: 'Activado'
+		})).then(Category.create({
+			name: 'Skates Electricos',
+			description: 'Descripción 8',
+			status: 'Activado'
+		})).then(Category.create({
+			name: 'Zapatillas',
+			description: 'Descripción 9',
+			status: 'Activado'
+		})).then(Category.create({
+			name: 'Indumentaria',
+			description: 'Descripción 10',
+			status: 'Activado'
+		})).then(Category.create({
+			name: 'Accesorios',
+			description: 'Descripción 11',
+			status: 'Activado'
+		}));
 
 	  	await Product.create({
 	  		name: 'Vela de Windsurf',
-	  		description: 'un vela para tabla de windsurf de color celeste',
+	  		description: 'Un vela para tabla de windsurf de color celeste',
 	  		price: 23000,
 	  		availability: true,
 	  		stock: 3,
