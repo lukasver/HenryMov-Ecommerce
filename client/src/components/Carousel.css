@@ -1,0 +1,32 @@
+.img-testimonio {
+    width: 100%;
+}
+.perfil {
+    font-weight: 700;
+    color: #555555;
+}
+.test-text {
+    font-style: italic;
+    font-size: 14px;
+}
+.test-izq {
+    padding-right: 40px;
+}
+.test-der {
+    padding-right: 40px;
+}
+.img-testimonial {
+    width: 85px;
+}
+.testimonial-cuadro {
+    background-color:#dfad31;
+    background-image: linear-gradient(180deg, #dfad31 10%, #d27f3f 100%);
+    padding: 50px 110px;
+}
+.titulo-testimonial {
+    color: #383838bd;
+    line-height: 30px;
+}
+.h3-testimonial {
+    color: #363636;
+}
