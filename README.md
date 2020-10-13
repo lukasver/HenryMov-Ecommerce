@@ -191,6 +191,7 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 
 ## En ./client
 - ( npm install  react redux react-redux redux-devtools react-router-dom redux-thunkaxios)
+
 - npm install redux
 - npm install react
 - npm install react-redux

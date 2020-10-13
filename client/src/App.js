@@ -8,8 +8,8 @@ import Slider from "./components/Slider";
 import Catalogue from "./components/Catalogue";
 import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
-import AddProduct from "./components/AddProduct";
-import AddCategory from "./components/AddCategory";
+
+
 import PutProduct from "./components/PutProduct";
 import AsignCategory from "./components/AsignCategory";
 import Footer from "./components/footer/Footer";
@@ -110,10 +110,8 @@ function App({ location }) {
       <Route exact path="/" render={() => <Slider />} />
       <Route exact path="/products" render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />} />
       <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} addcount={addcount} removecount={removecount}/>} />
-      <Route exact path="/product/add" render={() => <AddProduct categories={categories} />} />
       <Route exact path='/product/put/:productId' render={({ match }) => <PutProduct categories={categories} products={products} />} />
       <Route path='/product/put/' render={() => <AsignCategory />} />
-      <Route exact path='/category/add' render={() => <AddCategory />} />
       <Route exact path='/category/add' render={() => <AsignCategory />} />
       <Route exact path="/preguntas" render={() => <Preguntas />} />
       <Route exact path="/" render={() => <Carousel randomProduct={randomProduct} prodDes={prodDes} />} />
