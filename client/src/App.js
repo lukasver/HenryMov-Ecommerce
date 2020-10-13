@@ -47,7 +47,6 @@ function App({ location }) {
       .then((recurso) => {
         setProducts(recurso.data);
         history.push("/search");
-        console.log(recurso.data);
         return recurso.data;
       });
   }

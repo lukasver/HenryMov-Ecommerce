@@ -9,7 +9,6 @@ import './Product.css'
 
 export default function Product({ product, addcount, removecount}) {
 	const count = useSelector(store => store.count)
-	console.log(count)
 	const dispatch = useDispatch()
 	
 
