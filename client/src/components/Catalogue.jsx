@@ -59,11 +59,11 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 		return (
 			<div className="container1">
 				<div className="main row">
-					<div className="col-md-3 filter">
+					<div className="col-md-3 sidebar-left">
 						<div className="sticky">
 							<h2>Categorías:</h2>
 							{categories.map(category =>
-								<div className="custom-control custom-checkbox">
+								<div className="custom-control custom-checkbox categoryList">
 									<input name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
 									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>
 								</div>
