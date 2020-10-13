@@ -16,6 +16,7 @@ import Footer from "./components/footer/Footer";
 import Admin from './components/admin/Admin.js';
 import Preguntas from './components/footer/Preguntas';
 import Carousel from "./components/Carousel";
+import {removecount , addcount} from './redux/Action';
 
 
 function App({ location }) {
@@ -109,7 +110,7 @@ function App({ location }) {
       <Route exact path="/search" render={() => <ContentSearch products={products} />} />
       <Route exact path="/" render={() => <Slider />} />
       <Route exact path="/products" render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />} />
-      <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} />} />
+      <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} addcount={addcount} removecount={removecount}/>} />
       <Route exact path="/product/add" render={() => <AddProduct categories={categories} />} />
       <Route exact path='/product/put/:productId' render={({ match }) => <PutProduct categories={categories} products={products} />} />
       <Route path='/product/put/' render={() => <AsignCategory />} />

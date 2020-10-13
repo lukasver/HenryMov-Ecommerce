@@ -1,33 +1,25 @@
 import React, { useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import * as action from '../redux/Action'
+
 
 
 import './Product.css'
 
 
-export default function Product({ product }) {
-
-	const [count, setCount] = useState(1);
+export default function Product({ product, addcount, removecount}) {
+	const count = useSelector(store => store.count)
+	console.log(count)
+	const dispatch = useDispatch()
+	
 
 	if(!product) {return <h1>Loading...</h1>}
 
 	//const img = image;
 	const { name, image, price, description, id} = product
 	//console.log(props.product)
-
 	
 	return (
-		// <div>
-		// 	<img src={image} alt="product image"/>
-		// 	<article>
-		// 		<h2>hola</h2>				
-		// 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus excepturi atque alias esse cumque provident nisi velit, adipisci praesentium, laborum eius, perspiciatis facilis vel hic. Libero omnis cum provident voluptatibus?</p>
-		// 		<h3>39</h3>
-		// 		<h5>Habilitado: Si</h5>
-		// 		<h5>10 unidades</h5>
-		// 		<h5>1</h5>
-		// 	</article> 
-		// </div>
-
 		<div className="container">
 			<div className="main row single-page">
 				<br /><br />
@@ -46,11 +38,11 @@ export default function Product({ product }) {
 										if(count === 1) {
 											return 1
 										}
-										setCount(count - 1)}}>-</button>
+										dispatch(action.removecount())}}>-</button>
 								</div>
 								<input type="text" className="form-control cantidades" id="inlineFormInputGroupUsername2" placeholder="0" value={count}/>
 								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() => setCount(count + 1)}>+</button>
+									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() =>dispatch(action.addcount())}>+</button>
 								</div>
 							</div>
 						</div>
