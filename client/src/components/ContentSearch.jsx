@@ -1,11 +1,20 @@
 import React from 'react';
 import ProductCard from './ProductCard.jsx';
 import './ContentSearch.css';
-import loading from '../img/loading.gif';
+
 
 function ContentSearch(props) {
-    if (props.listado === null) {
-        return <img className="rounded mx-auto d-block" src={loading} />
+
+    if (props.products.length === 0) {
+        return (
+            <div className="jumbotron jumbotron-fluid">
+                <div className="container">
+                    <h2 className="display-4">Producto no encontrado</h2>
+                    <p className="lead">Vuelva a intentar con otra consulta.</p>
+                    <img src="https://media0.giphy.com/media/NPKysZyYTbSY8/giphy.gif" alt="Goofy Skeyng"/>
+                </div>
+            </div>
+        )
     } else {
         return (
             <div className="container">
