@@ -12,7 +12,9 @@ import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
 import PutProduct from "./components/PutProduct";
 import AsignCategory from "./components/AsignCategory";
+import Footer from "./components/footer/Footer";
 import Admin from './components/admin/Admin.js';
+import Preguntas from './components/footer/Preguntas';
 
 
 function App({ location }) {
@@ -96,6 +98,8 @@ function App({ location }) {
       <Route path ='/product/put/' render={() => <AsignCategory/>}/>
       <Route exact path='/category/add' render={() => <AddCategory />} />
       <Route exact path='/category/add' render={() => <AsignCategory />} />
+      <Route exact path="/preguntas" render={()=> <Preguntas/>}/>
+      <Route path="/" render={()=> <Footer/>}/>
     </div>
   );
 }

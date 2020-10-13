@@ -4,11 +4,17 @@ import ProductCard from './ProductCard.jsx';
 import './Catalogue.css';
 import loading from '../img/loading.gif';
 import { counter } from '../utils/utils';
+import Categorias from './admin/Categorias.jsx';
 
 function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 	
+	const [listadoProductos, setListadoProductos] = useState([])
+
+	useEffect(()=>{
+		setListadoProductos(listado)
+	},[listado,listadoProductos])
 	
-	
+
 	// =================================================
 	//		handle SACA TODOS LOS FILTROS 
 	// a travez de getProducts() obtenemos la lista completa de productos 
@@ -26,16 +32,16 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 	//		handlecheck busca por categoria
 	//	busca segun los filtros seleccionados usando la ruta de /products/category/categoryName 
 	//	que tenemos en la parte del backend y luego borra los checkbox sobrantes (ya que por ahora 
-	// 	buscamos por 1 categoria) 
+	// 	buscamos por 1 categoria, luego) 
 	// =================================================
-
-	function handlecheck(e){			
+	function handlecheck(e){
 		let elementByParameter = document.getElementById(e.target.id)
+		elementByParameter.checked = true
+		if (elementByParameter.checked){
+			filterbyCategory(e.target.name)
+		}
 		for (let j=0;j<categories.length;j++){
-			let elementByLoop = document.getElementById(`selection${j+1}`); 
-			if (elementByLoop.checked){
-				filterbyCategory(categories[j].name)
-			}
+			let elementByLoop = document.getElementById(`selection${j+1}`);
 			if( elementByLoop !== elementByParameter){
 				elementByLoop.checked = false
 			}
@@ -51,22 +57,22 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 		let checkId = counter()
 		let checkFor = counter()
 		return (
-			<div className="container">
+			<div className="container1">
 				<div className="main row">
-					<div className="col-md-3">
+					<div className="col-md-3 filter">
 						<div className="sticky">
 							<h2>Categorías:</h2>
 							{categories.map(category =>
 								<div className="custom-control custom-checkbox">
-									<input onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
+									<input name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
 									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>
 								</div>
 							)}
-							<button onClick={handle} type="button" className="btn btn-primary">Browse All</button>
+							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
 					</div>
 					<div className="col-md-9 row">
-						{listado.map(prod =>
+						{listadoProductos.map(prod =>
 							<div className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}

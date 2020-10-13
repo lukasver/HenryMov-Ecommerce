@@ -95,19 +95,17 @@ export default function Productos({ productos, categories, deleteProduct, getPro
         } else {
             setModProd({ ...modProd, availability: checked });
         }
-
-
     }
 
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
             <div className="col-md-7 col-lg-8">
                 <h2>Todos los Productos</h2>
-                <p>Elija el producto a modificar</p>
+                <p>Elija el producto a modificar</p>   
                 <table className="table table-hover table-dark">
                     <thead>
                         <tr>
-                            <th scope="col"># Id</th>
+                            <th scope="col">Id</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Precio</th>
@@ -127,9 +125,10 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                                     <td>
                                         <a className="iconTable"><i className="far fa-edit" id={dato.id} style={{ marginRight: '10px' }} onClick={(e) => {
                                             e.preventDefault();
+                                            console.log('pasa: ',dato, product);
                                             getProduct(dato.id)
-                                            setModProd(product);
                                             setTextButton('Modificar');
+                                            setModProd(product);                                            
                                         }}></i></a>
                                         <a className="iconTable"><i className="far fa-trash-alt" id={dato.id} onClick={(e) => {
                                             e.preventDefault();

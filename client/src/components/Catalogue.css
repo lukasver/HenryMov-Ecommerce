@@ -28,10 +28,17 @@
 }
 
 div.sticky {
-    position: fixed;
-    top: 50%;
+    margin-top: 2rem;
     border: 2px solid black;
     border-radius: 5px;
     padding: 2rem;
 
+}
+.container1{
+    margin-bottom: 2rem;
+}
+
+.filter{
+    display: grid;
+    place-items: center start;
 }
