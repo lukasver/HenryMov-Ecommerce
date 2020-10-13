@@ -1,24 +1,36 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './AsignCategory.css';
 
 export default function () {
 
-	const [compare, setCompare] = useState('');
+	const [valor, setValor] = useState('');
+	const [idProducto, setIdProducto] = useState('');
+	const [method, setMethod] = useState('');
+	const [accion, setAccion] = useState('');
 
-	let accion = ''
-	let method = ''
 	function handle(e) {
-		accion = document.getElementById(e.target.id).getAttribute('value')
+		setAccion(document.getElementById(e.target.id).getAttribute('value'))
 		if (accion === 'add') {
-			method = 'POST'
+			setMethod('POST')
+			console.log(method)
 		} else if (accion === 'delete') {
-			method = 'DELETE'
+			setMethod('delete')
+			console.log(method)
 		} else {
 		return
 		}
 	}
+
+	async function handleChange(e) {
+		setValor(e.target.value);
+		const product = await axios.get(`http://localhost:3001/products/${e.target.value}`);
+		setIdProducto(product.data.name)
+		;
+	}
+
+
 	
-	const idProducto = null;
 
 	return (
 	<div className="asign parent">
@@ -27,13 +39,13 @@ export default function () {
     	<div className="middle section" contenteditable>
     	<h2>Asignar/Eliminar categoría:</h2>
     	<div className="form-check">
-			  <input onClick={handle} className="form-check-input" type="radio" name="changecategory" id="addCategory" value='add'/>
+			  <input onClick={e => handle(e)} className="form-check-input moveleft" type="radio" name="changecategory" id="addCategory" value='add'/>
 			 	<label className="form-check-label" for="exampleRadios1">
 			    Asignar categoría
 			  </label>
 		</div>
 			<div className="form-check">
-			  <input onClick={handle} className="form-check-input" type="radio" name="changecategory" id="changecategory" value='delete'/>
+			  <input onClick={e => handle(e)} className="form-check-input moveleft" type="radio" name="changecategory" id="changecategory" value='delete'/>
 			  <label className="form-check-label" for="exampleRadios2">
 			    Eliminar categoría
 			  </label>
@@ -41,24 +53,27 @@ export default function () {
     	</div>
     	<hr/>
 
-
     	<main className="bottom section" contenteditable></main>
 
-			<form 	className="middle section" 
+			<form 	onSubmit={e => e.preventDefault}
+					className="middle section" 
 					method={`${method}`} 
-					action={`/products/${idProducto}/category/${accion}`}> {/*ìngresar id prod a eliminar*/}
+					action={`/products/${valor}/category/${accion}`}> {/*ìngresar id prod a eliminar*/}
 
 				    <div className="form-group">
-				      <label for="idProducto">ID de Producto</label>
+				      <label>ID de Producto</label>
 				      <div>
-				        <input name="idProducto" type="numbre"/>
+				        <input onChange={e => handleChange(e)}type="numbre"/>
 				      </div>
+			      	{idProducto && (
+		      		<p className='danger'>{idProducto}</p>
+		      		)}
 				    </div>
 
 				    <div className="form-group">
-				      <label for="idCategoria">Categoría</label>
+				      <label>Categoría</label>
 				      <div>
-				        <input name="idCategoria" type="numbre"/>
+				        <input type="numbre"/>
 				      </div>
 				    </div>
 

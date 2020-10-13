@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: column;
     place-items: center;
+    padding-bottom: 3rem;
   }
 
 
@@ -35,6 +36,10 @@
   .ex9 .visual {
       height: 125px;
       width: 100%;
+    }
+
+    .moveleft {
+      margin-left: -1.25rem !important;
     }
   
   
