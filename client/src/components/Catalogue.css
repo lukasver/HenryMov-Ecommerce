@@ -38,7 +38,18 @@ div.sticky {
     margin-bottom: 2rem;
 }
 
-.filter{
-    display: grid;
-    place-items: center start;
+.sticky {
+    top: 20%;
+    position: sticky;
+
 }
+
+.categoryList {
+    text-align: left;
+}
+
+.sidebar-left {
+    padding: 0px 3.5%;
+}
+
+
