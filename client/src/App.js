@@ -15,27 +15,29 @@ import AsignCategory from "./components/AsignCategory";
 import Footer from "./components/footer/Footer";
 import Admin from './components/admin/Admin.js';
 import Preguntas from './components/footer/Preguntas';
+import Carousel from "./components/Carousel";
 
 
 function App({ location }) {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories]= useState([])
+  const [categories, setCategories] = useState([])
   const [totalProds, setTotalprods] = useState([]);
+  const [prodDes, setProdDes] = useState([]);
 
   let history = useHistory();
 
-  function filterbyCategory(categorySearch){
-    axios 
-    .get(`http://localhost:3001/products/category/${categorySearch}`)
-    .then(product => setTotalprods(product.data))
-    .catch(error => console.log(error))
-  }
-  
-  function getProducts(){
+  function filterbyCategory(categorySearch) {
     axios
-    .get(`http://localhost:3001/products`)
-    .then(products => setTotalprods(products.data))
-    .catch(error => console.log(error))
+      .get(`http://localhost:3001/products/category/${categorySearch}`)
+      .then(product => setTotalprods(product.data))
+      .catch(error => console.log(error))
+  }
+
+  function getProducts() {
+    axios
+      .get(`http://localhost:3001/products`)
+      .then(products => setTotalprods(products.data))
+      .catch(error => console.log(error))
   }
 
   function onSearch(search) {
@@ -82,6 +84,21 @@ function App({ location }) {
     }
   }
 
+  function randomProduct() {
+    let arrayDes = [];
+    let value;
+    axios.get("http://localhost:3001/products")
+      .then((products) => {
+        for (let i = 0; i < 4; i++) {
+          value = Math.floor(Math.random() * products.data.length);
+          arrayDes.push(products.data[value]);
+          products.data.splice(value, 1);
+        }
+        setProdDes(arrayDes);
+      })
+      .catch((err) => new Error(err));
+  }
+
   return (
 
     <div className="App">
@@ -94,12 +111,16 @@ function App({ location }) {
       <Route exact path="/products" render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />} />
       <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} />} />
       <Route exact path="/product/add" render={() => <AddProduct categories={categories} />} />
-      <Route exact path='/product/put/:productId' render={({match}) => <PutProduct categories={categories} products={products} />} />
-      <Route path ='/product/put/' render={() => <AsignCategory/>}/>
+      <Route exact path='/product/put/:productId' render={({ match }) => <PutProduct categories={categories} products={products} />} />
+      <Route path='/product/put/' render={() => <AsignCategory />} />
       <Route exact path='/category/add' render={() => <AddCategory />} />
       <Route exact path='/category/add' render={() => <AsignCategory />} />
-      <Route exact path="/preguntas" render={()=> <Preguntas/>}/>
-      <Route path="/" render={()=> <Footer/>}/>
+      <Route exact path="/preguntas" render={() => <Preguntas />} />
+      <Route exact path="/" render={() => <Carousel randomProduct={randomProduct} prodDes={prodDes} />} />
+      <Switch>
+        <Route path="/admin" render={console.log('Ruta Admin')} />
+        <Route path="/" render={() => <Footer />} />
+      </Switch>
     </div>
   );
 }
