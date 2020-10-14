@@ -11,7 +11,6 @@ import axios from "axios";
 
 
 import PutProduct from "./components/PutProduct";
-import AsignCategory from "./components/AsignCategory";
 import Footer from "./components/footer/Footer";
 import Admin from './components/admin/Admin.js';
 import Preguntas from './components/footer/Preguntas';
@@ -111,12 +110,10 @@ function App({ location }) {
       <Route exact path="/products" render={() => <Catalogue getProducts={getProducts} filterbyCategory={filterbyCategory} categories={categories} listado={totalProds} />} />
       <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)} addcount={addcount} removecount={removecount}/>} />
       <Route exact path='/product/put/:productId' render={({ match }) => <PutProduct categories={categories} products={products} />} />
-      <Route path='/product/put/' render={() => <AsignCategory />} />
-      <Route exact path='/category/add' render={() => <AsignCategory />} />
       <Route exact path="/preguntas" render={() => <Preguntas />} />
       <Route exact path="/" render={() => <Carousel randomProduct={randomProduct} prodDes={prodDes} />} />
       <Switch>
-        <Route path="/admin" render={console.log('Ruta Admin')} />
+        <Route path="/admin"/>
         <Route path="/" render={() => <Footer />} />
       </Switch>
     </div>
