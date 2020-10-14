@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ProductCard from './ProductCard';
 import {useDispatch, useSelector} from 'react-redux';
 import * as action from '../redux/Action'
 import './Carousel.css';
 
 export default function Carousel() {
+    const totalProds = useSelector(store => store.totalProds)
+    const prodcutrandom = useSelector(store => store.prodcutrandom)
+    const dispatch = useDispatch()  
     
-    const prodDes = useSelector(store => store.prodDes)
-    const dispatch = useDispatch()
-
-    const [randomDes, setRandomDes] = useState([]);
     
-    useEffect(() => {
-        if(prodDes.length === 0) {
-           dispatch(action.randomProduct);            
-        } else {
-            setRandomDes(prodDes);
-        }
-    },[prodDes])
+    console.log('estado de componente',prodcutrandom)
+    console.log('estado de componente',totalProds)
+    dispatch(action.prodcutrandom)
+    
     
     return (
         <div className="container">
             <br /><br /><br /><br /><br />
             <h3>Productos Destacados</h3>
             <br />
-            <div className="main row">                
-                {randomDes.map(prod =>
+            <div className="main row">  
+           
+            
+                {/* {prodcutrandom.map(prod =>
                     <div className="card-group col-md-3">
                         <ProductCard
                             key={prod.id}
@@ -35,7 +33,7 @@ export default function Carousel() {
                             price={prod.price}
                             image={prod.image}
                         />
-                    </div>)}
+                    </div>)} */}
             </div>
             <br /><br /><br /><br /><br /><br />
             <h3>Testimonios</h3>
