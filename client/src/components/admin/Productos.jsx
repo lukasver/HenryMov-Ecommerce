@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Checkbox } from 'react-router-dom';
 import axios from 'axios';
 import './Productos.css';
@@ -27,6 +27,17 @@ export default function Productos({ productos, categories, deleteProduct, getPro
         categories: ''
     });
 
+
+    const [catProdId, setCatProdId] = useState({
+        idProducto: '',
+        categoryId: ''
+    })
+
+        const [catProdName, setCatProdName] = useState({
+        productoName: '',
+        categoriaName: ''
+    })
+
     const [textButton, setTextButton] = useState('Agregar')
 
     useEffect(() => {
@@ -35,6 +46,46 @@ export default function Productos({ productos, categories, deleteProduct, getPro
     }, [productos, product, textButton])
 
     //Agrega al estado los datos que se van ingresando
+
+
+
+    // =======================================================
+    //      MANEJAN ASIGNACION DE CATEGORÍA A PRODUCTO
+    // =======================================================
+
+    function handleCatProdId(e) {
+        setCatProdId({ ...catProdId,
+        [e.target.id]: e.target.value})
+        }
+
+    async function handleCatProdName(e) {
+        if(e.target.id === 'idProducto') {
+            const prodName = await axios.get(`http://localhost:3001/products/${e.target.value}`)
+            await setCatProdName({...catProdName, productoName: prodName.data.name});
+            return prodName;
+        }
+        if(e.target.id === 'categoryId') {
+            const catName = await axios.get(`http://localhost:3001/category/${e.target.value}`)
+            await setCatProdName({...catProdName, categoriaName: catName.data.name});
+            return catName;
+        }
+    }
+
+    function linkCatProds(e) {
+        e.preventDefault()
+        const {idProducto, categoryId} = catProdId
+        console.log({categoryId: Number(categoryId)});
+        axios.post(`http://localhost:3001/products/${idProducto}/category/add`, {categoryId: Number(categoryId)})
+        .then(res => {console.log(res.status)}).catch(err => {console.log('Error:', err)});
+        setCatProdId({
+        idProducto: "",
+        categoryId: ""
+    })
+    }
+    // =======================================================
+
+
+
     function handleChange(e) {
         e.preventDefault();
         if (textButton === 'Agregar') {
@@ -49,6 +100,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
             });
         }
     }
+
 
     function handleChangeImage(e) {
         e.preventDefault();
@@ -118,7 +170,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                             productos.length > 0 && productos.map(dato => {
                                 return (<tr key={dato.id} >
                                     <th scope="row">{dato.id}</th>
-                                    <td style={{ textAlign: 'left' }}>{dato.name}</td>
+                                    <td id='producto'style={{ textAlign: 'left' }}>{dato.name}</td>
                                     <td style={{ textAlign: 'left' }}>{dato.description}</td>
                                     <td>{dato.price}</td>
                                     <td>{dato.stock}</td>
@@ -180,6 +232,34 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                         if (textButton === 'Agregar') addProduct(addProd);
                         if (textButton === 'Modificar') modProduct(modProd);
                     }}>{textButton}</button>
+                </form>
+                <br/>
+                <form className="text-center border border-light p-5 form-productos"
+                      onSubmit={linkCatProds}>
+                    <h2 style={{color: 'white'}}>Asignar categoría a producto</h2>
+                    <label style={{color: 'white'}}>>Ingresar ID de producto</label>
+                    <input type="number" 
+                           id="idProducto" 
+                           value={catProdId.idProducto}
+                           className="form-control mb-4" 
+                           placeholder="ID de Producto" 
+                           onChange={(e) => {handleCatProdId(e); handleCatProdName(e)}} 
+                           />
+                    {catProdName.productoName && (
+                    <p className="bg-danger text-white">{catProdName.productoName}</p>
+                    )}
+                    <label  style={{color: 'white'}}>> Ingresar ID de categoría</label>
+                    <input type="number" 
+                           id="categoryId" 
+                           className="form-control mb-4" 
+                           placeholder="ID de Producto"
+                           value={catProdId.categoryId} 
+                           onChange={(e) => {handleCatProdId(e); handleCatProdName(e)}} 
+                           />
+                    {catProdName.categoriaName && (
+                    <p className="bg-danger text-white">{catProdName.categoriaName}</p>
+                    )}
+                    <button className="btn btn-info btn-block my-4 buttonAddMod">Asociar</button>
                 </form>
             </div>
         </div>
