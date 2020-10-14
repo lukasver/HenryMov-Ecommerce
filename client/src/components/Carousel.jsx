@@ -4,54 +4,6 @@ import axios from 'axios';
 import './Carousel.css';
 
 export default function Carousel() {
-<<<<<<< HEAD
-    const totalProds = useSelector(store => store.totalProds)
-    const prodcutrandom = useSelector(store => store.prodcutrandom)
-    const dispatch = useDispatch()  
-    
-    
-    console.log('estado de componente',prodcutrandom)
-    console.log('estado de componente',totalProds)
-    dispatch(action.prodcutrandom)
-    
-    
-    return (
-        <div className="container">
-            <br /><br /><br /><br /><br />
-            <h3>Productos Destacados</h3>
-            <br />
-            <div className="main row">  
-           
-            
-                {/* {prodcutrandom.map(prod =>
-                    <div className="card-group col-md-3">
-                        <ProductCard
-                            key={prod.id}
-                            id={prod.id}
-                            name={prod.name}
-                            description={prod.description}
-                            price={prod.price}
-                            image={prod.image}
-                        />
-                    </div>)} */}
-            </div>
-            <br /><br /><br /><br /><br /><br />
-            <h3>Testimonios</h3>
-            <br />
-            <div className="main row">
-                <div className="col-md-6 row test-izq">
-                    <div className="col-md-6">
-                        <img className="img-testimonio" src="https://www.jovenesprogramadores.cl/wp/wp-content/uploads/2020/07/foto-tertimonio-1.png" />
-                    </div>
-                    <div className="col-md-6">
-                        <br />
-                        <h5>Carla Basaul</h5>
-                        <p className="perfil">Programmer</p>
-                        <p className="test-text">
-                            “Supe de ustedes por un amigo. Quiero actualizar y adquirir conocimientos en lenguajes que no conocía o que conocía pero por muchos años no practiqué y ya no recuerdo.
-					</p>
-                    </div>
-=======
 
     const [randomDes, setRandomDes] = useState([]);
 
@@ -95,7 +47,6 @@ return (
             <div className="col-md-6 row test-izq">
                 <div className="col-md-6">
                     <img className="img-testimonio" src="https://www.jovenesprogramadores.cl/wp/wp-content/uploads/2020/07/foto-tertimonio-1.png" />
->>>>>>> a7a40f1b34c08f20ff769d54a96697e0b22b6f35
                 </div>
                 <div className="col-md-6">
                     <br />

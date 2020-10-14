@@ -46,24 +46,6 @@ export function counterReducer(state = initialState, action) {
         ...state,
         totalProds: action.payload,
       };
-<<<<<<< HEAD
-    case RANDOM:
-      console.log("esto entra a RANDOM", state  );
-      return {
-        ...state,
-        prodcutrandom: action.payload.value
-      };
-    case TOTAL_PRODUCT:
-      return {
-        ...state,
-        totalProds: action.payload,
-      };
-    case CATEGORIES:
-      return {
-        ...state,
-        categories: action.payload,
-      };
-=======
     case TOTAL_PRODUCT:
       return {
         ...state,
@@ -74,7 +56,6 @@ export function counterReducer(state = initialState, action) {
         ...state,
         categories: action.payload
       }
->>>>>>> a7a40f1b34c08f20ff769d54a96697e0b22b6f35
     default:
       return {
         state
@@ -84,11 +65,4 @@ export function counterReducer(state = initialState, action) {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-<<<<<<< HEAD
-export default createStore(
-  counterReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
-=======
 export default createStore(counterReducer, composeEnhancers(applyMiddleware(thunk)));
->>>>>>> a7a40f1b34c08f20ff769d54a96697e0b22b6f35
