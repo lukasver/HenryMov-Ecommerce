@@ -14,37 +14,35 @@ const initialState = {
   totalProds: [],
   categories: [],
   products: [],
-  prodcutrandom: [],
   count: 1,
 };
 
 export function counterReducer(state = initialState, action) {
-  console.log('Estado de store',state)
   switch (action.type) {
     case ADD_COUNT:
       return {
         ...state,
-        count: state.count + 1,
+        count: state.count + 1
       };
     case REMOVE_COUNT:
       return {
         ...state,
-        count: state.count - 1,
+        count: state.count - 1
       };
     case FILTER_BY_CATEGORY:
       return {
         ...state,
-        totalProds: action.payload,
+        totalProds: action.payload
       };
     case ON_SEARCH:
       return {
         ...state,
-        products: action.payload,
+        products: action.payload
       };
     case GET_PRODUCT:
       return {
         ...state,
-        totalProds: action.payload,
+        totalProds: action.payload
       };
     case TOTAL_PRODUCT:
       return {
@@ -57,8 +55,7 @@ export function counterReducer(state = initialState, action) {
         categories: action.payload
       }
     default:
-      return 
-        state
+      return state;
   }
 }
 
