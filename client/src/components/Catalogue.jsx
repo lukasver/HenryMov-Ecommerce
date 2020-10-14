@@ -1,18 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import ProductCard from './ProductCard.jsx';
 import './Catalogue.css';
 import loading from '../img/loading.gif';
 import { counter } from '../utils/utils';
-import Categorias from './admin/Categorias.jsx';
+import {useDispatch, useSelector} from 'react-redux';
+import * as action from '../redux/Action'
 
-function Catalogue({categories, listado, filterbyCategory, getProducts}) {
+function Catalogue() {
+	
+	const totalProds = useSelector(store => store.totalProds) //get productos and filter and listado
+	const categories = useSelector(store => store.categories) // categories
+	const dispatch = useDispatch()
+
 	
 	const [listadoProductos, setListadoProductos] = useState([])
 
 	useEffect(()=>{
-		setListadoProductos(listado)
-	},[listado,listadoProductos])
+		setListadoProductos(totalProds)
+	},[totalProds,listadoProductos])
 	
 
 	// =================================================
@@ -26,7 +31,7 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 				elementByParameter.checked = false
 			}
 		}
-		getProducts()
+		dispatch(action.getProducts)
 	}
 	// =================================================
 	//		handlecheck busca por categoria
@@ -38,7 +43,8 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 		let elementByParameter = document.getElementById(e.target.id)
 		elementByParameter.checked = true
 		if (elementByParameter.checked){
-			filterbyCategory(e.target.name)
+			let name = e.target.name
+			dispatch(action.filterbyCategory(name))
 		}
 		for (let j=0;j<categories.length;j++){
 			let elementByLoop = document.getElementById(`selection${j+1}`);
@@ -50,7 +56,7 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 	
 	// =================================================
 
-	if (listado.length === 0) {
+	if (totalProds.length === 0) {
 		return <img className="rounded mx-auto d-block" src={loading} />
 	} else {
 
@@ -72,7 +78,7 @@ function Catalogue({categories, listado, filterbyCategory, getProducts}) {
 						</div>
 					</div>
 					<div className="col-md-9 row">
-						{listadoProductos.map(prod =>
+						{totalProds.map(prod =>
 							<div className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import * as action from '../redux/Action'
-
-
-
 import './Product.css'
 
 
-export default function Product({ product, addcount, removecount}) {
+export default function Product({ product}) {
+	
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 	
