@@ -52,16 +52,6 @@ export function filterbyCategory(categorySearch) {
    .catch(error => console.log(error))
 } 
 
-// export function filterbyCategory(categorySearch) {
-
-//     axios
-//       .get(`http://localhost:3001/products/category/${categorySearch}`)
-//       .then(product =>{
-//           return{type:FILTER_BY_CATEGORY, payload: product.data }
-//         })
-//       .catch(error => console.log(error))
-//   }
-
   export function getProducts() {
     axios
       .get(`http://localhost:3001/products`)
@@ -86,15 +76,6 @@ export function filterbyCategory(categorySearch) {
      })
      .catch(error => console.log(error))
   } 
-
-  // export function onSearch(search) {
-  //   axios
-  //   .get(`http://localhost:3001/search?product=${search}`)
-  //   .then((recurso) => {
-  //       return {type:ON_SEARCH, payload:recurso.data}
-  //     });
-  // }
-
  export function randomProduct() {
     let arrayDes = [];
     let value;
