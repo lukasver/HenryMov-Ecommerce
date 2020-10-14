@@ -1,29 +1,3 @@
-/* .card {
-    max-width: 540px
-}
-
-.col{
-    display: flex
-}
-
-.js-quantity{
-    display: flex;
-    width: 50px;
-}
-.card-title {
-    font-family: "Montserrat", Sans-serif;
-    color: #0c6c1c;
-}
-/* 
-.form-control{
-    width: auto;
-    border: solid 1px
-} */
-
-/* .card-text{
-    color: aqua;
-} */
-
 .js-addtocart{
     background-color: black;
     border: none;
@@ -76,6 +50,7 @@
 
 .single-page {
     margin-top: 4%;
+    padding: 60px 0px 100px !important;
 }
 
 .content-rigth {
