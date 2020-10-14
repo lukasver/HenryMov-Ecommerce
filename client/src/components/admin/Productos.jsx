@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Checkbox } from 'react-router-dom';
-import axios from 'axios';
 import './Productos.css';
-import Product from '../Product';
 
 export default function Productos({ productos, categories, deleteProduct, getProduct, product, addProduct, modProduct }) {
 
@@ -10,7 +7,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
         name: '',
         description: '',
         price: 0,
-        availability: false,
+        availability: true,
         stock: 0,
         image: 'http://localhost:3000/static/media/logoHenry.52bea35a.png',
         categories: ''
@@ -21,7 +18,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
         name: '',
         description: '',
         price: 0,
-        availability: false,
+        availability: true,
         stock: 0,
         image: 'http://localhost:3000/static/media/logoHenry.52bea35a.png',
         categories: ''
@@ -31,7 +28,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
 
     useEffect(() => {
         setAddProd({ ...addProd, id: productos.length > 0 && productos[productos.length - 1].id + 1 });
-        setModProd( product );
+        setModProd(product);
     }, [productos, product, textButton])
 
     //Agrega al estado los datos que se van ingresando
@@ -52,7 +49,8 @@ export default function Productos({ productos, categories, deleteProduct, getPro
 
     function handleChangeImage(e) {
         e.preventDefault();
-        const imagenUrl = window.btoa([e.target.files[0]]);
+
+        const imagenUrl = e.target.files[0];
         if (textButton === 'Agregar') {
             setAddProd({
                 ...addProd,
@@ -101,7 +99,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
             <div className="col-md-7 col-lg-8">
                 <h2>Todos los Productos</h2>
-                <p>Elija el producto a modificar</p>   
+                <p>Elija el producto a modificar</p>
                 <table className="table table-hover table-dark">
                     <thead>
                         <tr>
@@ -127,7 +125,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                                             e.preventDefault();
                                             getProduct(dato.id)
                                             setTextButton('Modificar');
-                                            setModProd(product);                                            
+                                            setModProd(product);
                                         }}></i></a>
                                         <a className="iconTable"><i className="far fa-trash-alt" id={dato.id} onClick={(e) => {
                                             e.preventDefault();
@@ -166,7 +164,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                             <input type="number" id="stock" className="form-control mb-4" placeholder="1" onChange={handleChange} value={textButton == 'Agregar' ? addProd.stock : modProd.stock} />
                         </div>
                         <div className="custom-file">
-                            <input type="file" onChange={handleChangeImage} />
+                            <input type="file" name="image" onChange={handleChangeImage} />
                             <div id="preview">{
                                 modProd && <img src={modProd.image} width={120} />
                             }</div>
@@ -177,8 +175,17 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                     </div>
                     <button className="btn btn-info btn-block my-4 buttonAddMod" onClick={(e) => {
                         //e.preventDefault();
-                        if (textButton === 'Agregar') addProduct(addProd);
-                        if (textButton === 'Modificar') modProduct(modProd);
+                        const formData = new FormData();
+                        if (textButton === 'Modificar') formData.set('id', modProd.id);
+                        formData.set('name', textButton == 'Agregar' ? addProd.name : modProd.name);
+                        formData.set('description', textButton == 'Agregar' ? addProd.description : modProd.description);
+                        formData.set('price', textButton == 'Agregar' ? addProd.price : modProd.price);
+                        formData.set('availability', textButton == 'Agregar' ? addProd.availability : modProd.availability);
+                        formData.set('stock', textButton == 'Agregar' ? addProd.stock : modProd.stock);
+                        formData.set('categories', textButton == 'Agregar' ? addProd.categories : modProd.categories);
+                        formData.append('image', textButton == 'Agregar' ? addProd.image : modProd.image);
+                        if (textButton === 'Agregar') addProduct(formData);
+                        if (textButton === 'Modificar') modProduct(formData);
                     }}>{textButton}</button>
                 </form>
             </div>

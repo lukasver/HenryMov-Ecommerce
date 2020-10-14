@@ -71,8 +71,13 @@ export default function Panel({ tablaAccion }) {
     }
 
     function addProduct(newProduct) {
-        axios.post(`http://localhost:3001/products`, newProduct)
-            .then(data => adminProducts)
+        axios({
+            method: 'post',
+            url: 'http://localhost:3001/products',
+            data: newProduct,
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+        }).then(data => {
+                return adminProducts})
             .catch(error => {
                 console.log(error);
             })

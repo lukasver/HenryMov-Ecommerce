@@ -1,6 +1,4 @@
 const server = require('express').Router();
-
-
 const { Product, Category, productCategory } = require('../db.js');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
@@ -15,7 +13,7 @@ server.get('/products', (req, res, next) => {
 		include: { model: Category }
 	})
 		.then(products => {
-			if(!products) {
+			if (!products) {
 				return res.send('<h1>No hay prooductos cargados</h1>')
 			}
 			res.json(products);
@@ -24,13 +22,13 @@ server.get('/products', (req, res, next) => {
 			console.log(err);
 			next()
 		});
-}); 
+});
 
 //=============================================
 //  Obtener un producto por id (unico) 
 //=============================================
 
-server.get('/products/:id', (req, res, next) => {	
+server.get('/products/:id', (req, res, next) => {
 	const { id } = req.params;
 	Product.findOne({
 		where: {
@@ -39,7 +37,7 @@ server.get('/products/:id', (req, res, next) => {
 		include: { model: Category }
 	})
 		.then(product => {
-			if(!product) {
+			if (!product) {
 				return res.send('<h1>No se encontro producto</h1>')
 			}
 			res.status(200).json(product);
@@ -53,7 +51,7 @@ server.get('/products/:id', (req, res, next) => {
 //	Ruta para agregar nueva categoría a un producto específico
 //==========================================================
 
-server.post('/products/:idProducto/category/add', (req,res,next) => {
+server.post('/products/:idProducto/category/add', (req, res, next) => {
 
 	const { idProducto } = req.params;
 	const { categoryId } = req.body;
@@ -64,11 +62,11 @@ server.post('/products/:idProducto/category/add', (req,res,next) => {
 
 	Product.findOne({
 		where: {
-			id: idProducto 
+			id: idProducto
 		},
 		include: [{ model: Category }]
 	}).then(response => {
-		if(!response) {
+		if (!response) {
 			return res.status(404).end()
 		}
 		let prod = response;
@@ -86,7 +84,7 @@ server.post('/products/:idProducto/category/add', (req,res,next) => {
 //	Ruta para eliminar categoría de un producto específico
 //==================================================================
 
-server.delete('/products/:idProducto/category/delete', (req,res,next) => {
+server.delete('/products/:idProducto/category/delete', (req, res, next) => {
 
 	const { idProducto } = req.params;
 	const { categoryId } = req.body;
@@ -96,10 +94,10 @@ server.delete('/products/:idProducto/category/delete', (req,res,next) => {
 	}
 
 	Category.findOne({
-		where: {id: categoryId},
-		include: [{model: Product, where: {id: idProducto}}]
+		where: { id: categoryId },
+		include: [{ model: Product, where: { id: idProducto } }]
 	}).then(response => {
-		if(!response) {
+		if (!response) {
 			return res.status(404).end()
 		}
 		let categ = response;
@@ -121,15 +119,16 @@ server.get('/search', (req, res, next) => {
 	Product.findAll({
 		where: {
 			[Op.or]: [
-			{
-				name: { 
-					[Op.iLike]: '%' + product + '%'}
-			},
-			{
-				description: {
-					[Op.iLike]: '%' + product + '%'
-				}
-			}]
+				{
+					name: {
+						[Op.iLike]: '%' + product + '%'
+					}
+				},
+				{
+					description: {
+						[Op.iLike]: '%' + product + '%'
+					}
+				}]
 		}
 	})
 		.then(product => {
@@ -147,11 +146,11 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 	Product.findAll({
 		include: {
 			model: Category,
-			where: {name: req.params.categoryName}
+			where: { name: req.params.categoryName }
 		}
 	}).then(result => {
 		console.log(result);
-		if(!result.length) return res.status(400).send('<h1>NOT FOUND!</h1>')
+		if (!result.length) return res.status(400).send('<h1>NOT FOUND!</h1>')
 		res.status(200).send(result);
 		return
 	}).catch(err => {
@@ -160,20 +159,26 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 	})
 });
 
+
 //==============================================
 //	Ruta para crear/agregar un producto.
 //============================================== 
 //recordar que la categoría a recibir por body debe ser un id correspondiente a una categoria creada
 //pendiente validar un handler error si se le pasa un id de una categoria invalida
 server.post('/products', (req, res, next) => {
-	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
-	console.log(categories)
-	if(!name || !description || !price || !availability || !stock ) {
-    return res.sendStatus(400);
-  }
-  Product.create(req.body).then(createdProduct => {
+
+	const { name, description, price, availability, stock, quantity, image, categories } = req.body;
+
+	let bodyComplete = {};
+	if (!image) bodyComplete = { ...req.body, image: `http://localhost:3001/uploads/${req.file.originalname}` };
+
+	if (!name || !description || !price || !availability || !stock) {
+		return res.sendStatus(400);
+	}
+
+	Product.create(bodyComplete).then(createdProduct => {
 		createdProduct.setCategories(categories);
-	}).then(()=> {
+	}).then(() => {
 		return res.status(201).send(req.body);
 	}).catch(err => {
 		return res.end();
@@ -187,37 +192,37 @@ server.put('/products/:id', (req, res, next) => {
 
 	//revisar este codigo, se deberia poder modificar un producto sin necesidad dem andar toda esa info validadora dentro del if
 
-	const {name, description, price, availability, stock, quantity, image, categories} = req.body;
+	const { name, description, price, availability, stock, quantity, image, categories } = req.body;
 	// if(!name || !description || !price || !availability || !stock || !image) {
- //    return res.sendStatus(400);
- //  }
+	//    return res.sendStatus(400);
+	//  }
 
-  Product.update(req.body, {
-  	where: {id: req.params.id}
-  }).then(result => {
-  	if (result[0] === 0) {
-  		return res.sendStatus(404);
-  	}
-  	return Product.findByPk(req.params.id) //buen workarround!
-  }).then(modifiedProduct => {
-  	modifiedProduct.setCategories(categories);
-  	res.sendStatus(200);
-  }).catch(err => {
-  	return res.end()
-  });
+	Product.update(req.body, {
+		where: { id: req.params.id }
+	}).then(result => {
+		if (result[0] === 0) {
+			return res.sendStatus(404);
+		}
+		return Product.findByPk(req.params.id) //buen workarround!
+	}).then(modifiedProduct => {
+		modifiedProduct.setCategories(categories);
+		res.sendStatus(200);
+	}).catch(err => {
+		return res.end()
+	});
 });
 
 //==============================================
 //	Ruta para eliminar un producto.
 //============================================== 
 server.delete('/products/:id', (req, res, next) => {
-  Product.destroy({
-  	where: {id: req.params.id}
-  }).then(deletedProduct => {
-  	res.sendStatus(200);
-  }).catch(err => {
-  	return res.end()
-  });
+	Product.destroy({
+		where: { id: req.params.id }
+	}).then(deletedProduct => {
+		res.sendStatus(200);
+	}).catch(err => {
+		return res.end()
+	});
 });
 
 module.exports = server;
