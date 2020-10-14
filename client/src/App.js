@@ -7,21 +7,18 @@ import Slider from "./components/Slider";
 import Catalogue from "./components/Catalogue";
 import ContentSearch from "./components/ContentSearch";
 import axios from "axios";
-import AsignCategory from "./components/AsignCategory";
 import Footer from "./components/footer/Footer";
-import Admin from './components/admin/Admin.js';
-import Preguntas from './components/footer/Preguntas';
+import Admin from "./components/admin/Admin.js";
+import Preguntas from "./components/footer/Preguntas";
 import Carousel from "./components/Carousel";
-import {useDispatch, useSelector} from 'react-redux';
-import * as action from './redux/Action'
-
+import { useDispatch, useSelector } from "react-redux";
+import * as action from "./redux/Action";
 
 function App() {
-  
-  const totalProds = useSelector(store => store.totalProds)
-  const categories =useSelector(store=> store.categories)
-  const dispatch = useDispatch()
-  
+  const totalProds = useSelector((store) => store.totalProds);
+  const categories = useSelector((store) => store.categories);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     axios
 
@@ -31,7 +28,7 @@ function App() {
         return data;
       })
       .then((listadoProductos) => {
-           dispatch(action.totalProds(listadoProductos))
+        dispatch(action.totalProds(listadoProductos));
       })
       .catch((err) => new Error(err));
 
@@ -46,7 +43,6 @@ function App() {
       });
   }, []);
 
-  
   function onFilter(productId) {
     let filtro = totalProds.filter((c) => c.id === parseInt(productId));
     if (filtro.length > 0) {
@@ -56,25 +52,27 @@ function App() {
     }
   }
 
-
   return (
-
-    <div className="App">
+    <div className='App'>
       <Switch>
-        <Route path="/admin" render={() => <Admin />} />
-        <Route path="/" render={() => <Nav />} />
+        <Route path='/admin' render={() => <Admin />} />
+        <Route path='/' render={() => <Nav />} />
       </Switch>
-      <Route exact path="/search" render={() => <ContentSearch />} />
-      <Route exact path="/" render={() => <Slider />} />
-      <Route exact path="/products" render={() => <Catalogue />} />
-      <Route exact path="/products/:productId" render={({ match }) => <Product product={onFilter(match.params.productId)}/>} />
-      <Route path='/product/put/' render={() => <AsignCategory />} />
-      <Route exact path='/category/add' render={() => <AsignCategory />} />
-      <Route exact path="/preguntas" render={() => <Preguntas />} />
-      <Route exact path="/" render={() => <Carousel/>} />
+      <Route exact path='/search' render={() => <ContentSearch />} />
+      <Route exact path='/' render={() => <Slider />} />
+      <Route exact path='/products' render={() => <Catalogue />} />
+      <Route
+        exact
+        path='/products/:productId'
+        render={({ match }) => (
+          <Product product={onFilter(match.params.productId)} />
+        )}
+      />
+      <Route exact path='/preguntas' render={() => <Preguntas />} />
+      <Route exact path='/' render={() => <Carousel />} />
       <Switch>
-      <Route path="/admin" render={console.log('')} />
-        <Route path="/" render={() => <Footer />} />
+        <Route path='/admin' />
+        <Route path='/' render={() => <Footer />} />
       </Switch>
     </div>
   );
