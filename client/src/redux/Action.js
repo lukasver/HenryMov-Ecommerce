@@ -1,12 +1,4 @@
-import axios from "axios";
-export const ADD_COUNT = "ADD_COUNT";
-export const REMOVE_COUNT = "REMOVE_COUNT";
-export const GET_PRODUCT = "GET_PRODUCT";
-export const ON_SEARCH = "ON_SEARCH";
-export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
-export const RANDOM = "RANDOM";
-export const TOTAL_PRODUCT = "TOTAL_PRODUCT";
-export const CATEGORIES = "CATEGORIES";
+
 
 import axios from 'axios';
 export const ADD_COUNT = 'ADD_COUNT';
