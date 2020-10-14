@@ -7,7 +7,7 @@ import {
   GET_PRODUCT,
   FILTER_BY_CATEGORY,
   TOTAL_PRODUCT,
-  CATEGORIES,
+  CATEGORIES
 } from "./Action";
 
 const initialState = {
@@ -57,9 +57,8 @@ export function counterReducer(state = initialState, action) {
         categories: action.payload
       }
     default:
-      return {
+      return 
         state
-      };
   }
 }
 
