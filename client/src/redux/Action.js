@@ -53,7 +53,7 @@ export function filterbyCategory(categorySearch) {
 } 
 
   export function getProducts() {
-    axios
+    return axios
       .get(`http://localhost:3001/products`)
       .then(products =>{ return {type:GET_PRODUCT , payload:products.data}})
       .catch(error => console.log(error))
