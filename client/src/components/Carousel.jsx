@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './Carousel.css';
 import ProductCard from './ProductCard';
+import {useDispatch, useSelector} from 'react-redux';
+import * as action from '../redux/Action'
+import './Carousel.css';
 
-export default function Carousel({randomProduct, prodDes}) {
+export default function Carousel() {
+    
+    const prodDes = useSelector(store => store.prodDes)
+    const dispatch = useDispatch()
 
     const [randomDes, setRandomDes] = useState([]);
     
     useEffect(() => {
         if(prodDes.length === 0) {
-            randomProduct();            
+           dispatch(action.randomProduct);            
         } else {
             setRandomDes(prodDes);
         }
