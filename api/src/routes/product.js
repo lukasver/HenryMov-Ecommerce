@@ -84,18 +84,18 @@ server.post('/products/:idProducto/category/add', (req, res, next) => {
 //	Ruta para eliminar categoría de un producto específico
 //==================================================================
 
-server.delete('/products/:idProducto/category/delete', (req, res, next) => {
 
-	const { idProducto } = req.params;
-	const { categoryId } = req.body;
+server.delete('/products/:idProducto/category/:categoryId', (req,res,next) => {
 
-	if (typeof categoryId !== "number") {
-		return res.status(400).send('Categoria debe ser un valor numerico');
-	}
+
+	const { idProducto, categoryId } = req.params;
+	const numCatId = Number(categoryId)
 
 	Category.findOne({
-		where: { id: categoryId },
-		include: [{ model: Product, where: { id: idProducto } }]
+
+		where: {id: numCatId},
+		include: [{model: Product, where: {id: idProducto}}]
+
 	}).then(response => {
 		if (!response) {
 			return res.status(404).end()

@@ -1,10 +1,10 @@
 import React from 'react';
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
-import './Nav.css';
 import { Link } from 'react-router-dom';
+import './Nav.css';
 
-function Nav({ onSearch }) {   
+function Nav() {  
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="col-md-3">
@@ -15,9 +15,7 @@ function Nav({ onSearch }) {
                 </Link>
             </div>
             <div className="col-md-6 barraSuperiorSearch" >
-                <SearchBar
-                    onSearch={onSearch}
-                />
+                <SearchBar/>
             </div>
             <div className="col-md-3 utilidades">
                 <div className="main row">

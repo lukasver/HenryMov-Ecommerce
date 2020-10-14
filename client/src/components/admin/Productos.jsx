@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { Checkbox } from 'react-router-dom';
+import axios from 'axios';
+
 import './Productos.css';
 
 export default function Productos({ productos, categories, deleteProduct, getProduct, product, addProduct, modProduct }) {
@@ -24,6 +28,19 @@ export default function Productos({ productos, categories, deleteProduct, getPro
         categories: ''
     });
 
+
+    const [catProdId, setCatProdId] = useState({
+        idProducto: '',
+        categoryId: ''
+    })
+
+        const [catProdName, setCatProdName] = useState({
+        productoName: '',
+        categoriaName: ''
+    })
+
+    const [check, setCheck] = useState('add')
+
     const [textButton, setTextButton] = useState('Agregar')
 
     useEffect(() => {
@@ -32,6 +49,46 @@ export default function Productos({ productos, categories, deleteProduct, getPro
     }, [productos, product, textButton])
 
     //Agrega al estado los datos que se van ingresando
+
+
+
+    // =======================================================
+    //      MANEJAN ASIGNACION DE CATEGORÍA A PRODUCTO
+    // =======================================================
+
+    function handleCatProdId(e) {
+        setCatProdId({ ...catProdId,
+        [e.target.id]: e.target.value})
+        }
+
+    async function handleCatProdName(e) {
+        if(e.target.id === 'idProducto') {
+            const prodName = await axios.get(`http://localhost:3001/products/${e.target.value}`)
+            await setCatProdName({...catProdName, productoName: prodName.data.name});
+            return prodName;
+        }
+        if(e.target.id === 'categoryId') {
+            const catName = await axios.get(`http://localhost:3001/category/${e.target.value}`)
+            await setCatProdName({...catProdName, categoriaName: catName.data.name});
+            return catName;
+        }
+    }
+
+    function linkCatProds(e) {
+        e.preventDefault()
+        const {idProducto, categoryId} = catProdId
+        if (check === 'add') axios.post(`http://localhost:3001/products/${idProducto}/category/add`, {categoryId: Number(categoryId)})
+        if (check === 'delete') axios.delete(`http://localhost:3001/products/${idProducto}/category/${categoryId}`)
+        .then(res => {console.log(res.status)}).catch(err => {console.log('Error:', err)});
+        setCatProdId({
+        idProducto: "",
+        categoryId: ""
+    })
+    }
+    // =======================================================
+
+
+
     function handleChange(e) {
         e.preventDefault();
         if (textButton === 'Agregar') {
@@ -46,6 +103,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
             });
         }
     }
+
 
     function handleChangeImage(e) {
         e.preventDefault();
@@ -116,12 +174,13 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                             productos.length > 0 && productos.map(dato => {
                                 return (<tr key={dato.id} >
                                     <th scope="row">{dato.id}</th>
-                                    <td style={{ textAlign: 'left' }}>{dato.name}</td>
+                                    <td id='producto'style={{ textAlign: 'left' }}>{dato.name}</td>
                                     <td style={{ textAlign: 'left' }}>{dato.description}</td>
                                     <td>{dato.price}</td>
                                     <td>{dato.stock}</td>
                                     <td>
-                                        <a className="iconTable"><i className="far fa-edit" id={dato.id} style={{ marginRight: '10px' }} onClick={(e) => {
+                                        <a className="iconTable"><i className="far fa-edit" id={dato.id} 
+                                            style={{ marginRight: '10px' }} onClick={(e) => {
                                             e.preventDefault();
                                             getProduct(dato.id)
                                             setTextButton('Modificar');
@@ -145,8 +204,10 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                 <h2>Agregar Producto</h2>
                 <p>Rellene todos los campos</p>
                 <form className="text-center border border-light p-5 form-productos">
-                    <input type="text" id="name" className="form-control mb-4" placeholder="Titulo" onChange={handleChange} value={textButton == 'Agregar' ? addProd.name : modProd.name} />
-                    <input type="description" id="description" className="form-control mb-4" placeholder="Descripcion" onChange={handleChange} value={textButton == 'Agregar' ? addProd.description : modProd.description} />
+                    <input type="text" id="name" className="form-control mb-4" placeholder="Titulo" onChange={handleChange} 
+                            value={textButton == 'Agregar' ? addProd.name : modProd.name} />
+                    <input type="description" id="description" className="form-control mb-4" placeholder="Descripcion" onChange={handleChange} 
+                            value={textButton == 'Agregar' ? addProd.description : modProd.description} />
                     <select className="browser-default custom-select" onClick={handleSelect}>
                         <option defaultValue="Seleccione Categoria">Seleccione Categoria</option>
                         {
@@ -158,10 +219,12 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                     <br /><br />
                     <div className="row">
                         <div className="col-md-6">
-                            <input type="text" id="price" className="form-control mb-4" placeholder="$ 1.00" onChange={handleChange} value={textButton == 'Agregar' ? addProd.price : modProd.price} />
+                            <input type="text" id="price" className="form-control mb-4" placeholder="$ 1.00" onChange={handleChange} 
+                                    value={textButton == 'Agregar' ? addProd.price : modProd.price} />
                         </div>
                         <div className="col-md-6">
-                            <input type="number" id="stock" className="form-control mb-4" placeholder="1" onChange={handleChange} value={textButton == 'Agregar' ? addProd.stock : modProd.stock} />
+                            <input type="number" id="stock" className="form-control mb-4" placeholder="1" onChange={handleChange} 
+                                    value={textButton == 'Agregar' ? addProd.stock : modProd.stock} />
                         </div>
                         <div className="custom-file">
                             <input type="file" name="image" onChange={handleChangeImage} />
@@ -171,7 +234,9 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                         </div>
                         <label className="textDisponible"> Disponible: </label>
 
-                        <input className="form-check-input position-static" type="checkbox" id="availability" onClick={e => onClick(e.target.checked)} defaultChecked={textButton === 'Agregar' ? addProd.availability : modProd.availability} />
+                        <input className="form-check-input position-static" 
+                                type="checkbox" id="availability" onClick={e => onClick(e.target.checked)} 
+                                defaultChecked={textButton === 'Agregar' ? addProd.availability : modProd.availability} />
                     </div>
                     <button className="btn btn-info btn-block my-4 buttonAddMod" onClick={(e) => {
                         //e.preventDefault();
@@ -188,6 +253,66 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                         if (textButton === 'Modificar') modProduct(formData);
                     }}>{textButton}</button>
                 </form>
+                <br/>
+
+                 {/* ASIGNAR O ELIMINAR CATEGORIAS DE PRODUCTOS*/}
+
+                {check === "add" ? (
+                <form className="text-center border border-light p-5 form-productos">
+                    <button class="badge badge-warning" onClick={(e) => {e.preventDefault(); setCheck('delete'); console.log(e)}}>Toggle to {check === 'add' ? "Delete" : "Assign"}</button>
+                    <h3 style={{color: 'white'}}>Asignar categoría a producto</h3>
+                    <label style={{color: 'white'}}>>Ingresar ID de producto</label>
+                    <input type="number" 
+                           id="idProducto" 
+                           value={catProdId.idProducto}
+                           className="form-control mb-4" 
+                           placeholder="ID..." 
+                           onChange={(e) => {handleCatProdId(e); handleCatProdName(e)}} 
+                           />
+                    {catProdName.productoName && (
+                    <p className="bg-success text-white">{catProdName.productoName}</p>
+                    )}
+                    <label  style={{color: 'white'}}>> Ingresar ID de categoría</label>
+                    <input type="number" 
+                           id="categoryId" 
+                           className="form-control mb-4" 
+                           placeholder="ID..."
+                           value={catProdId.categoryId} 
+                           onChange={(e) => {handleCatProdId(e); handleCatProdName(e)}} 
+                           />
+                    {catProdName.categoriaName && (
+                    <p className="bg-success text-white">{catProdName.categoriaName}</p>
+                    )}
+                    <button className="btn btn-info btn-block my-4 buttonAddMod" onClick={linkCatProds}>Asociar</button>
+                </form>) : (
+                <form className="text-center border border-light p-5 form-productos">
+                    <button class="badge badge-warning" onClick={(e) => {e.preventDefault(); setCheck('add')}}>Toggle to {check === 'add' ? "Delete" : "Assign"}</button>
+                    <h3 style={{color: 'white'}}>Eliminar categoría de producto</h3>
+                        <label style={{color: 'white'}}>>Ingresar ID de producto</label>
+                        <input type="number" 
+                               id="idProducto" 
+                               value={catProdId.idProducto}
+                               className="form-control mb-4" 
+                               placeholder="ID..." 
+                               onChange={(e) => {handleCatProdId(e); handleCatProdName(e)}} 
+                               />
+                        {catProdName.productoName && (
+                        <p className="bg-danger text-white">{catProdName.productoName}</p>
+                        )}
+                        <label  style={{color: 'white'}}>> Ingresar ID de categoría</label>
+                        <input type="number" 
+                               id="categoryId" 
+                               className="form-control mb-4" 
+                               placeholder="ID..."
+                               value={catProdId.categoryId} 
+                               onChange={(e) => {handleCatProdId(e); handleCatProdName(e)}} 
+                               />
+                        {catProdName.categoriaName && (
+                        <p className="bg-danger text-white">{catProdName.categoriaName}</p>
+                        )}
+                        <button className="btn btn-info btn-block my-4 buttonAddMod" onClick={linkCatProds}>{check === 'Add' ? "Asociar" : "Desasociar"}</button>
+                    </form>)}
+
             </div>
         </div>
     )

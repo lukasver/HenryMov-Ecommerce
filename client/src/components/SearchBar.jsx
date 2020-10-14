@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import * as action from '../redux/Action'
 import './SearchBar.css';
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar() {
+    
+    const onSearch = useSelector(store => store.onSearch)
+    const dispatch = useDispatch()
 
     const [search, setSearch] = useState('')
+    
+    function handleChance(e){
+        console.log('esto es:'+e.target.id)
+        setSearch(e.target.value)
+        dispatch(action.onSearch(e.target.value))
 
+    }
     return (
         <div>
             <form onSubmit={(e) => {
                 e.preventDefault();
-                onSearch(search);
+                dispatch(action.onSearch(search));
                 setSearch('');
             }} className="input-group mb-3">
                 <input
+                  
                     name='searchBar'
                     type='text'
                     placeholder='¿Qué estás buscando?'
                     value={search}
-                    onChange={e => { setSearch(e.target.value); return onSearch(e.target.value);} }
+                    onChange= {handleChance} 
                     className="form-control"
                 />
                 <div class="input-group-append">

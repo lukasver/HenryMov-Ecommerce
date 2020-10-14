@@ -1,11 +1,15 @@
 import React from 'react';
 import ProductCard from './ProductCard.jsx';
+import {useDispatch, useSelector} from 'react-redux';
+import * as action from '../redux/Action'
 import './ContentSearch.css';
 
 
-function ContentSearch(props) {
+function ContentSearch() {
 
-    if (props.products.length === 0) {
+    const products = useSelector(store => store.products)
+
+    if (products.length === 0) {
         return (
             <div className="jumbotron jumbotron-fluid">
                 <div className="container-not-found">
@@ -20,7 +24,7 @@ function ContentSearch(props) {
             <div className="container">
                 <div className="main row">
                     {
-                        props.products.map(prod =>
+                        products.map(prod =>
                             <div className="card-group col-md-3">
                                 <ProductCard
                                     key={prod.id}
