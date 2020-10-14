@@ -13,11 +13,11 @@ function Catalogue() {
 	const dispatch = useDispatch()
 
 	
-	const [listadoProductos, setListadoProductos] = useState([])
+	// const [listadoProductos, setListadoProductos] = useState([])
 
-	useEffect(()=>{
-		setListadoProductos(totalProds)
-	},[totalProds,listadoProductos])
+	// useEffect(()=>{
+	// 	setListadoProductos(totalProds)
+	// },[totalProds,listadoProductos])
 	
 
 	// =================================================
@@ -26,12 +26,12 @@ function Catalogue() {
 	// =================================================
 	function handle(){
 		for (let j=0;j<categories.length;j++){
-			let elementByParameter = document.getElementById(`selection${j+1}`)	
-			if (!!elementByParameter.checked){
-				elementByParameter.checked = false
+			let elementByLoop = document.getElementById(`selection${j+1}`);
+			if (elementByLoop.checked){
+				elementByLoop.checked = false;
 			}
 		}
-		dispatch(action.getProducts)
+		action.getProducts().then(a => dispatch(a))
 	}
 	// =================================================
 	//		handlecheck busca por categoria
