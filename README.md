@@ -186,3 +186,22 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
     + Los usuarios pueden hacer el checkout.
     + Los admins pueden ver las ordenes pendientes.
     + Los usuarios reciben mails de notificaciones.
+
+    #### Modulos a instalar para que funcione
+
+## En ./client
+- ( npm install  react redux react-redux redux-devtools react-router-dom redux-thunkaxios)
+
+- npm install redux
+- npm install react
+- npm install react-redux
+- npm install redux-devtools
+- npm install react-router-dom
+- npm install redux-thunk
+- npm axios
+
+## En ./api
+- npm install
+- npm install sequelize
+- npm install cors
+
