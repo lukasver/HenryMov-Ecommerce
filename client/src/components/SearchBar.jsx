@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import * as action from '../redux/Action'
 import './SearchBar.css';
 
 export default function SearchBar() {
-    
-    const onSearch = useSelector(store => store.onSearch)
-    const dispatch = useDispatch()
 
-    const [search, setSearch] = useState('')
-    
-    function handleChance(e){
-        console.log('esto es:'+e.target.id)
+    const dispatch = useDispatch();
+    const [search, setSearch] = useState('');
+
+    let history = useHistory();
+
+    function handleChance(e) {
         setSearch(e.target.value)
         dispatch(action.onSearch(e.target.value))
-
+        history.push('/search');
     }
     return (
         <div>
@@ -24,12 +24,11 @@ export default function SearchBar() {
                 setSearch('');
             }} className="input-group mb-3">
                 <input
-                  
                     name='searchBar'
                     type='text'
                     placeholder='¿Qué estás buscando?'
                     value={search}
-                    onChange= {handleChance} 
+                    onChange={(e) => handleChance(e)}
                     className="form-control"
                 />
                 <div class="input-group-append">

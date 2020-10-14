@@ -1,9 +1,7 @@
 import React from 'react';
 import ProductCard from './ProductCard.jsx';
-import {useDispatch, useSelector} from 'react-redux';
-import * as action from '../redux/Action'
+import { useSelector } from 'react-redux';
 import './ContentSearch.css';
-
 
 function ContentSearch() {
 
@@ -15,7 +13,7 @@ function ContentSearch() {
                 <div className="container-not-found">
                     <h2 className="display-4">Producto no encontrado</h2>
                     <p className="lead">Vuelva a intentar con otra consulta.</p>
-                    <img src="https://media0.giphy.com/media/NPKysZyYTbSY8/giphy.gif" alt="Goofy Skeyng"/>
+                    <img src="https://media0.giphy.com/media/NPKysZyYTbSY8/giphy.gif" alt="Goofy Skeyng" />
                 </div>
             </div>
         )

@@ -2,8 +2,8 @@
 	border: solid 1px orange;
 }
 .card-text {
-	color: black;
-
+	color: #222222;
+	font-size: 14px;
 }
 
 .card-group {
@@ -12,4 +12,11 @@
 
 .titulo-link {
 	color: #222222;
+}
+.ver-mas {
+	font-weight: 500;
+	color: #838383;
+}
+.card-img {
+	padding: 6%;
 }
