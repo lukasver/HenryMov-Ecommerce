@@ -75,6 +75,7 @@ export function onSearch(search) {
             payload: data,
           }
         )
+
       })
       .catch(error => console.log(error))
   }
