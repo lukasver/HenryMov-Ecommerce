@@ -8,7 +8,7 @@ import {
   FILTER_BY_CATEGORY,
   RANDOM,
   TOTAL_PRODUCT,
-  CATEGORIES
+  CATEGORIES,
 } from "./Action";
 
 const initialState = {
@@ -16,10 +16,12 @@ const initialState = {
   totalProds: [],
   categories: [],
   products: [],
+  prodcutrandom: [],
   count: 1,
 };
 
 export function counterReducer(state = initialState, action) {
+  console.log('Estado de store',state)
   switch (action.type) {
     case ADD_COUNT:
       return {
@@ -39,7 +41,7 @@ export function counterReducer(state = initialState, action) {
     case ON_SEARCH:
       return {
         ...state,
-        products: action.payload
+        products: action.payload,
       };
     case GET_PRODUCT:
       return {
@@ -47,25 +49,31 @@ export function counterReducer(state = initialState, action) {
         totalProds: action.payload,
       };
     case RANDOM:
+      console.log("esto entra a RANDOM", state  );
       return {
         ...state,
-        prodDes: action.payload,
+        prodcutrandom: action.payload.value
       };
-      case TOTAL_PRODUCT:
-          return{
-              ...state,
-              totalProds: action.payload
-          }
-        case CATEGORIES:
-            return{
-                ...state,
-                categories: action.payload
-            }
+    case TOTAL_PRODUCT:
+      return {
+        ...state,
+        totalProds: action.payload,
+      };
+    case CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
+      };
     default:
-      return state;
+      return {
+        state
+      };
   }
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default createStore(counterReducer, composeEnhancers (applyMiddleware(thunk)));
+export default createStore(
+  counterReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
