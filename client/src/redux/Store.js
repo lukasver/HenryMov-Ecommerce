@@ -6,13 +6,11 @@ import {
   ON_SEARCH,
   GET_PRODUCT,
   FILTER_BY_CATEGORY,
-  RANDOM,
   TOTAL_PRODUCT,
   CATEGORIES
 } from "./Action";
 
 const initialState = {
-  prodDes: [],
   totalProds: [],
   categories: [],
   products: [],
@@ -46,21 +44,16 @@ export function counterReducer(state = initialState, action) {
         ...state,
         totalProds: action.payload,
       };
-    case RANDOM:
+    case TOTAL_PRODUCT:
       return {
         ...state,
-        prodDes: action.payload,
-      };
-      case TOTAL_PRODUCT:
-          return{
-              ...state,
-              totalProds: action.payload
-          }
-        case CATEGORIES:
-            return{
-                ...state,
-                categories: action.payload
-            }
+        totalProds: action.payload
+      }
+    case CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
+      }
     default:
       return state;
   }
@@ -68,4 +61,4 @@ export function counterReducer(state = initialState, action) {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default createStore(counterReducer, composeEnhancers (applyMiddleware(thunk)));
+export default createStore(counterReducer, composeEnhancers(applyMiddleware(thunk)));

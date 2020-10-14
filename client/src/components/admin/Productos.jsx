@@ -261,7 +261,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                 <form className="text-center border border-light p-5 form-productos">
                     <button class="badge badge-warning" onClick={(e) => {e.preventDefault(); setCheck('delete'); console.log(e)}}>Toggle to {check === 'add' ? "Delete" : "Assign"}</button>
                     <h3 style={{color: 'white'}}>Asignar categoría a producto</h3>
-                    <label style={{color: 'white'}}>>Ingresar ID de producto</label>
+                    <label style={{color: 'white'}}>Ingresar ID de producto</label>
                     <input type="number" 
                            id="idProducto" 
                            value={catProdId.idProducto}
@@ -272,7 +272,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                     {catProdName.productoName && (
                     <p className="bg-success text-white">{catProdName.productoName}</p>
                     )}
-                    <label  style={{color: 'white'}}>> Ingresar ID de categoría</label>
+                    <label  style={{color: 'white'}}> Ingresar ID de categoría</label>
                     <input type="number" 
                            id="categoryId" 
                            className="form-control mb-4" 
@@ -288,7 +288,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                 <form className="text-center border border-light p-5 form-productos">
                     <button class="badge badge-warning" onClick={(e) => {e.preventDefault(); setCheck('add')}}>Toggle to {check === 'add' ? "Delete" : "Assign"}</button>
                     <h3 style={{color: 'white'}}>Eliminar categoría de producto</h3>
-                        <label style={{color: 'white'}}>>Ingresar ID de producto</label>
+                        <label style={{color: 'white'}}>Ingresar ID de producto</label>
                         <input type="number" 
                                id="idProducto" 
                                value={catProdId.idProducto}
@@ -299,7 +299,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                         {catProdName.productoName && (
                         <p className="bg-danger text-white">{catProdName.productoName}</p>
                         )}
-                        <label  style={{color: 'white'}}>> Ingresar ID de categoría</label>
+                        <label  style={{color: 'white'}}> Ingresar ID de categoría</label>
                         <input type="number" 
                                id="categoryId" 
                                className="form-control mb-4" 
