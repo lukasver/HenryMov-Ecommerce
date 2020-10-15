@@ -7,13 +7,16 @@ import {
   GET_PRODUCT,
   FILTER_BY_CATEGORY,
   TOTAL_PRODUCT,
-  CATEGORIES
+  CATEGORIES,
+  DELETE_FILTER,
+  totalProds
 } from "./Action";
 
 const initialState = {
   totalProds: [],
   categories: [],
   products: [],
+  totalProdsFilter: [],
   count: 1,
 };
 
@@ -32,7 +35,7 @@ export function counterReducer(state = initialState, action) {
     case FILTER_BY_CATEGORY:
       return {
         ...state,
-        totalProds: action.payload,
+        totalProdsFilter: state.totalProdsFilter.concat(action.payload),
       };
     case ON_SEARCH:
       return {
@@ -54,6 +57,11 @@ export function counterReducer(state = initialState, action) {
         ...state,
         categories: action.payload
       }
+      case DELETE_FILTER:
+        return {
+          ...state,
+          totalProdsFilter: []
+        }
     default:
       return state;
   }
