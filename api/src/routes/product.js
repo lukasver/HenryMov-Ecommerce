@@ -142,6 +142,7 @@ server.get('/search', (req, res, next) => {
 //=========================================================
 //	Ruta para devolver todos los productos de X categoria.
 //============================================== ==========
+
 server.get('/products/category/:categoryName', (req, res, next) => {
 	Product.findAll({
 		include: {
@@ -159,7 +160,33 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 	})
 });
 
+//=========================================================
+//	Ruta para devolver todos los productos por multiples categorias.
+//============================================== ==========
 
+// server.post('/products/category/filterOR', (req, res, next) => {
+// 	// =================Variables==================================
+// 	// Recibimos por body el array con los nombres de las categorias y lo llamamos categoryNames 
+// 	const categoryNames = req.body
+	
+// 	// =================Void==================================
+// 	// buscamos en la base de datos y comparamos para filtrar por categorias
+// 		Product.findAll({
+// 			include: {
+// 				model: Category,
+// 				where: { name: categoryNames}
+// 			}
+// 		})
+// 		.then(result =>{
+// 			res.status(200).json(result);
+// 			return 
+// 		})
+// 		.catch(err => {
+// 			res.status(404).end("ERROR 404");
+// 			return
+// 		})
+// 	});
+	
 //==============================================
 //	Ruta para crear/agregar un producto.
 //============================================== 

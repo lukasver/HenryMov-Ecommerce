@@ -10,28 +10,31 @@ function Catalogue() {
 	
 	const totalProds = useSelector(store => store.totalProds) //get productos and filter and listado
 	const categories = useSelector(store => store.categories) // categories
+	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
+	// const [listado, setListado] = useState([])
 
-	
-	// const [listadoProductos, setListadoProductos] = useState([])
-
+	let listado = [];
 	// useEffect(()=>{
 	// 	setListadoProductos(totalProds)
 	// },[totalProds,listadoProductos])
 	
-
+	// console.log(categories)
+	
+	console.log(totalProds)
 	// =================================================
 	//		handle SACA TODOS LOS FILTROS 
 	// a travez de getProducts() obtenemos la lista completa de productos 
 	// =================================================
-	function handle(){
+	function handle(e){
+		e.preventDefault()
 		for (let j=0;j<categories.length;j++){
 			let elementByLoop = document.getElementById(`selection${j+1}`);
 			if (elementByLoop.checked){
 				elementByLoop.checked = false;
 			}
 		}
-		action.getProducts().then(a => dispatch(a))
+		dispatch(action.deleteFilter())
 	}
 	// =================================================
 	//		handlecheck busca por categoria
@@ -39,19 +42,12 @@ function Catalogue() {
 	//	que tenemos en la parte del backend y luego borra los checkbox sobrantes (ya que por ahora 
 	// 	buscamos por 1 categoria, luego) 
 	// =================================================
+	
 	function handlecheck(e){
 		let elementByParameter = document.getElementById(e.target.id)
-		elementByParameter.checked = true
-		if (elementByParameter.checked){
-			let name = e.target.name
-			dispatch(action.filterbyCategory(name))
-		}
-		for (let j=0;j<categories.length;j++){
-			let elementByLoop = document.getElementById(`selection${j+1}`);
-			if( elementByLoop !== elementByParameter){
-				elementByLoop.checked = false
-			}
-		}
+		let name = e.target.name
+		dispatch(action.filterbyCategory(name))
+		return 
 	}
 	
 	// =================================================
@@ -59,6 +55,12 @@ function Catalogue() {
 	if (totalProds.length === 0) {
 		return <img className="rounded mx-auto d-block" src={loading} />
 	} else {
+		
+		if (totalProdsFilter.length == 0){
+			listado = totalProds
+		} else{
+			listado = totalProdsFilter
+		}
 
 		let checkId = counter()
 		let checkFor = counter()
@@ -70,7 +72,7 @@ function Catalogue() {
 							<h2>Categorías:</h2>
 							{categories.map(category =>
 								<div className="custom-control custom-checkbox categoryList">
-									<input name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
+									<input value={false} name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
 									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>
 								</div>
 							)}
@@ -78,7 +80,7 @@ function Catalogue() {
 						</div>
 					</div>
 					<div className="col-md-9 row">
-						{totalProds.map(prod =>
+						{listado.map(prod =>
 							<div className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}

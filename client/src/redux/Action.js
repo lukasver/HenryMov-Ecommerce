@@ -8,6 +8,7 @@ export const ON_SEARCH = 'ON_SEARCH';
 export const FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY';
 export const TOTAL_PRODUCT = 'TOTAL_PRODUCT';
 export const CATEGORIES = 'CATEGORIES';
+export const DELETE_FILTER = 'DELETE_FILTER';
 
 
 export function addcount() {
@@ -43,12 +44,20 @@ function receiveStates(data) {
   };
 }
 
+export function deleteFilter() {
+  return {
+    type: DELETE_FILTER
+  }
+}
+// [gorra, scooters, bikes, indumentaria, accesorios]
+
 export function filterbyCategory(categorySearch) {
   return dispatch =>
     axios
       .get(`http://localhost:3001/products/category/${categorySearch}`)
+      // .get('/products/category/filterOR',categorySearch)
       .then(product => {
-        return product.data
+        return product.data 
       })
       .then(data => {
         dispatch(receiveStates(data))
