@@ -18,14 +18,47 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { Product, Category, conn } = require('./src/db.js');
+const { Product, Category, User, Order, Cart, conn } = require('./src/db.js');
 const { port } = process.env // agregar port a tu variable de entorno .env
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(port || 3001, () => {
     console.log(`%s listening at ${port}`); // eslint-disable-line no-console
-    const precarga = async function () {	  	
+    const precarga = async function () {
+
+    	await User.create({
+    		name: 'Michael',
+    		lastname: 'Jackson',
+    		email: 'mjtheBEST@sony.com',
+    		phone: 12345678,
+			password: 'MJtheBest2020!',
+			birthdate: new Date('02/23/1960'), // este new Date es para sacar un warning de consola
+			role: 'Admin',
+    	}).then(User.create({
+    		name: 'Homero',
+    		lastname: 'Simpson',
+    		email: 'HomerJSimpson@yahoo.com',
+    		phone: 0011234256,
+			password: 'YoAmo@Marge123',
+			address: 'Calle Falsa 123, Springfield, FL, 90210, USA',
+			birthdate: new Date('05/12/1956'), // este new Date es para sacar un warning de consola
+			role: 'Cliente',
+    	}))
+
+    	await Order.create({
+    		shipping: 0,
+    		paymentMethod: 1,
+    		status: 'On Cart',
+    		received: "0",
+    		amount: 4533.23,
+    		quantity: 34,
+    		productId: 3,
+    	}, {
+    		include: [ Product ]
+    	}).then(res => {
+    		res.setUser(1)
+    	})
 
 	  	await Category.create({
 	  		name: 'Scooters',
