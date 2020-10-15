@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { conn } = require('../db.js');
 
 module.exports = (sequelize) => {
     sequelize.define('user', {
@@ -11,8 +12,8 @@ module.exports = (sequelize) => {
                     msg: "El nombre debe contener solo letras"
                 },
                 len: {
-                    args: [3, 45],
-                    msg: "El nombre debe contener minimo 3 letras"
+                    args: [4, 45],
+                    msg: "El nombre debe contener minimo 4 letras"
                 }
             }
         },
@@ -37,7 +38,7 @@ module.exports = (sequelize) => {
                 }
             }
         },
-        addres: {
+        address: {
             type: DataTypes.STRING,
             allowNull: true
         },
@@ -48,7 +49,6 @@ module.exports = (sequelize) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
             validate: {
                 is: {
                     args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,32}$/,
@@ -61,7 +61,9 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         role: {
-            type: DataTypes.ENUM(['Administrador', 'Cliente'])
+            type: DataTypes.ENUM(['Administrador', 'Cliente']),
+            defaultValue: 'Cliente',
+            allowNull: true
         }
     });
 };

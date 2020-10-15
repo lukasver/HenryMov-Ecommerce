@@ -6,6 +6,7 @@ const path = require('path');
 // import all routers;
 const productRouter = require('./product.js');
 const categoryRouter = require('./category.js');
+const userRouter = require('./user.js')
 
 const router = Router();
 
@@ -32,7 +33,7 @@ router.use(multer({
 // Permite que podamos acceder a esta ruta publica
 router.use(express.static(path.join(__dirname, '../public')))
 
-router.use('/', productRouter, categoryRouter);
+router.use('/', productRouter, categoryRouter, userRouter);
 
 
 module.exports = router;
