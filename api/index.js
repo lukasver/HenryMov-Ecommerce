@@ -18,7 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { Product, Category, User, Order, Cart, conn } = require('./src/db.js');
+const { Product, Category, User, Order, Orderline, conn } = require('./src/db.js');
 const { port } = process.env // agregar port a tu variable de entorno .env
 
 // Syncing all the models at once.
@@ -46,20 +46,7 @@ conn.sync({ force: true }).then(() => {
 			role: 'Cliente',
     	}))
 
-    	await Order.create({
-    		shipping: 0,
-    		paymentMethod: 1,
-    		status: 'On Cart',
-    		received: "0",
-    		amount: 4533.23,
-    		quantity: 34,
-    		productId: 3,
-    	}, {
-    		include: [ Product ]
-    	}).then(res => {
-    		res.setUser(1)
-    	})
-
+ 
 	  	await Category.create({
 	  		name: 'Scooters',
 	  		description: 'Descripción 1',
@@ -526,7 +513,39 @@ conn.sync({ force: true }).then(() => {
 			}).then(createdProduct => {
 				  createdProduct.setCategories([4]);
 			  })
-			  
+		
+		await Order.create({
+    		shipping: 0,
+    		paymentMethod: 1,
+    		status: 'On Cart',
+    		received: "0",
+    		amount: 4533.23, // deberia ser la suma de los amount de productos...
+    		quantity: 34, // deberia ser la suma de las quantities?...
+    		productId: 3,
+    	}, {
+    		include: [ Product ]
+    	}).then(res => {
+    		res.setUser(1);
+    		res.addProducts(1, { through: { quantity: 3, amount: 13000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(2, { through: { quantity: 1, amount: 500 }})
+    	})
+
+    	await Order.create({
+    		shipping: 1,
+    		paymentMethod: 2,
+    		status: 'Created',
+    		received: "0",
+    		amount: 4533.23,
+    		quantity: 34,
+    		productId: 3,
+    	}, {
+    		include: [ Product ]
+    	}).then(res => {
+    		res.setUser(1);
+    		res.addProducts(5, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(7, { through: { quantity: 5, amount: 8300 }})
+    	})
+
 	  };
 	  precarga();
   });
