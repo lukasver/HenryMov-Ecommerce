@@ -205,4 +205,5 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm install sequelize
 - npm install cors
 - npm install multer
+- npm install bcrypt
 

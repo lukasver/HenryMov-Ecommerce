@@ -35,7 +35,7 @@ sequelize.define('product', {
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: 0, //ver la forma de que sea el mismo que stock 
+      defaultValue: 1, //ver la forma de que sea el mismo que stock 
       validate: {
       	isNumeric: true
       }
