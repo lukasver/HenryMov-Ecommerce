@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
-import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import axios from "axios";
+import * as action from "./redux/Action";
 import Nav from "./components/Nav.jsx";
 import Product from "./components/Product.jsx";
 import Slider from "./components/Slider";
 import Catalogue from "./components/Catalogue";
 import ContentSearch from "./components/ContentSearch";
-import axios from "axios";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin.js";
 import Preguntas from "./components/footer/Preguntas";
 import Carousel from "./components/Carousel";
-import { useDispatch, useSelector } from "react-redux";
-import * as action from "./redux/Action";
+import Carrito from "./components/carrito/Carrito"
+import "./App.css";
 
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
@@ -61,6 +62,7 @@ function App() {
       <Route exact path='/products/:productId' render={({ match }) => (<Product product={onFilter(match.params.productId)} />)} />
       <Route exact path='/preguntas' render={() => <Preguntas />} />
       <Route exact path='/' render={() => <Carousel />} />
+      <Route exact path='/carrito' render={()=> <Carrito/>}/>
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />
