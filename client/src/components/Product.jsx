@@ -5,7 +5,7 @@ import './Product.css'
 
 
 export default function Product({ product}) {
-	
+
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 	
@@ -15,6 +15,10 @@ export default function Product({ product}) {
 	//const img = image;
 	const { name, image, price, description, id} = product
 	//console.log(props.product)
+
+	 function handleAdd(e){
+		dispatch(action.agregarCarrito(product))
+	}
 	
 	return (
 		<div className="container">
@@ -44,7 +48,8 @@ export default function Product({ product}) {
 							</div>
 						</div>
 						<div className="col-md-8">
-							<input type="submit" className="js-addtocart js-prod-submit-form btn btn-primary btn-block mb-4 cart" value="Agregar al carrito" />
+						<button type="button" class="btn btn-primary btn-m" onClick={handleAdd}>Agregar a su carrito</button>
+							{/* <input type="submit" className="js-addtocart js-prod-submit-form btn btn-primary btn-block mb-4 cart" value="Agregar al carrito" onClick={e=>handleAdd}/> */}
 						</div>
 					</div>
 					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>

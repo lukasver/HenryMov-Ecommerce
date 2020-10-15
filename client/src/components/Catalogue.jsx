@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import ProductCard from './ProductCard.jsx';
 import './Catalogue.css';
 import loading from '../img/loading.gif';
