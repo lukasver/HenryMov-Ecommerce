@@ -24,7 +24,7 @@ server.get('/users/:idUser/cart', async (req,res,next) => {
 	if (!usuario) return res.status(400).send('<h1>Usuario no encontrado o sin carrito con estado abierto<h1/>')
 	await res.json(usuario)
 		} catch (error) {
-			return res.status(400).send(error.name)
+			return res.status(400).send(error)
 		}
 
 })
