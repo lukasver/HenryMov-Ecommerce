@@ -13,7 +13,7 @@ function ContentSearch() {
                 <div className="container-not-found">
                     <h2 className="display-4">Producto no encontrado</h2>
                     <p className="lead">Vuelva a intentar con otra consulta.</p>
-                    <img src="https://media0.giphy.com/media/NPKysZyYTbSY8/giphy.gif" alt="Goofy Skeyng" />
+                    <img className="goofy" src="https://media0.giphy.com/media/NPKysZyYTbSY8/giphy.gif" alt="Goofy Skeyng" />
                 </div>
             </div>
         )
