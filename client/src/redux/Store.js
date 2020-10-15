@@ -22,17 +22,17 @@ export function counterReducer(state = initialState, action) {
     case ADD_COUNT:
       return {
         ...state,
-        count: state.count + 1,
+        count: state.count + 1
       };
     case REMOVE_COUNT:
       return {
         ...state,
-        count: state.count - 1,
+        count: state.count - 1
       };
     case FILTER_BY_CATEGORY:
       return {
         ...state,
-        totalProds: action.payload,
+        totalProds: action.payload
       };
     case ON_SEARCH:
       return {
@@ -42,7 +42,7 @@ export function counterReducer(state = initialState, action) {
     case GET_PRODUCT:
       return {
         ...state,
-        totalProds: action.payload,
+        totalProds: action.payload
       };
     case TOTAL_PRODUCT:
       return {
