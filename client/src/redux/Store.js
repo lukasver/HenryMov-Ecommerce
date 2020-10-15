@@ -18,7 +18,13 @@ const initialState = {
   categories: [],
   products: [],
   totalProdsFilter: [],
-  carrito: [],
+  carrito: [{
+    name: 'Vela de Windsurf',
+    description: 'Un vela para tabla de windsurf de color celeste',
+    price: 23000,
+    availability: true,
+    stock: 3,
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'}],
   count: 1,
 };
 
