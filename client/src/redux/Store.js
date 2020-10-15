@@ -9,7 +9,8 @@ import {
   TOTAL_PRODUCT,
   CATEGORIES,
   DELETE_FILTER,
-  totalProds
+  CARRITO,
+  DELETE_PROD
 } from "./Action";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   categories: [],
   products: [],
   totalProdsFilter: [],
+  carrito: [],
   count: 1,
 };
 
@@ -25,12 +27,12 @@ export function counterReducer(state = initialState, action) {
     case ADD_COUNT:
       return {
         ...state,
-        count: state.count + 1
+        count: state.count + 1,
       };
     case REMOVE_COUNT:
       return {
         ...state,
-        count: state.count - 1
+        count: state.count - 1,
       };
     case FILTER_BY_CATEGORY:
       return {
@@ -40,27 +42,37 @@ export function counterReducer(state = initialState, action) {
     case ON_SEARCH:
       return {
         ...state,
-        products: action.payload
+        products: action.payload,
       };
     case GET_PRODUCT:
       return {
         ...state,
-        totalProds: action.payload
+        totalProds: action.payload,
       };
     case TOTAL_PRODUCT:
       return {
         ...state,
-        totalProds: action.payload
-      }
+        totalProds: action.payload,
+      };
     case CATEGORIES:
       return {
         ...state,
-        categories: action.payload
-      }
-      case DELETE_FILTER:
-        return {
+        categories: action.payload,
+      };
+    case DELETE_FILTER:
+      return {
+        ...state,
+        totalProdsFilter: [],
+      };
+    case CARRITO:
+      return {
+        ...state,
+        carrito: state.carrito.concat(action.payload),
+      };
+      case DELETE_PROD:
+        return{
           ...state,
-          totalProdsFilter: []
+          carrito: state.carrito.filter(!action.payload)
         }
     default:
       return state;
@@ -69,4 +81,7 @@ export function counterReducer(state = initialState, action) {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default createStore(counterReducer, composeEnhancers(applyMiddleware(thunk)));
+export default createStore(
+  counterReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
