@@ -1,8 +1,18 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import * as action from "../../redux/Action"
 import './Carrito.css';
 
-export default function Carousel() {
+export default function Carrito() {
+    
+    const carrito = useSelector(store => store.carrito)
+    const dispatch = useDispatch()
+
+    function handleDelete(id){
+         dispatch(action.deleteProd(id))
+    }
+
     return (
         <div>
             <section className="jumbotron text-center">
@@ -19,7 +29,7 @@ export default function Carousel() {
                                 <thead>
                                     <tr>
                                         <th scope="col"> </th>
-                                        <th scope="col">ProductO</th>
+                                        <th scope="col">Producto</th>
                                         <th scope="col">Diponible</th>
                                         <th scope="col" className="text-center">Cantidad</th>
                                         <th scope="col" className="text-right">Precio</th>
@@ -27,30 +37,17 @@ export default function Carousel() {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {carrito.map(prod=>
                                     <tr>
-                                        <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                        <td>Product Name Dada</td>
-                                        <td>En stock o no</td>
+                                        <td><img src={prod.image} width={80}/> </td>
+                                        <h3 className='titulo'>{prod.name}</h3>
+                                        <td>{prod.availability}</td>
                                         <td><input className="form-control" type="text" value="1" /></td>
-                                        <td className="text-right">$ 124,90 </td>
-                                        <td className="text-right"><button className="btn btn-sm btn-danger"><i className="fa fa-trash"></i> </button> </td>
+                                        <td className="text-right_2">$ {prod.price} </td>
+                                        <td className="text-right_1"><button className="btn btn-sm btn-danger" id={prod.name} onClick={handleDelete}><i className="fa fa-trash"></i> </button> </td>
                                     </tr>
-                                    <tr>
-                                        <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                        <td>Nombre del Producto</td>
-                                        <td>En stock o no</td>
-                                        <td><input className="form-control" type="text" value="1" /></td>
-                                        <td className="text-right">$ 33,90 </td>
-                                        <td className="text-right"><button className="btn btn-sm btn-danger"><i className="fa fa-trash"></i> </button> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                        <td>Product Name Titi</td>
-                                        <td>En stock o no</td>
-                                        <td><input className="form-control" type="text" value="1" /></td>
-                                        <td className="text-right">$ 70,00 </td>
-                                        <td className="text-right"><button className="btn btn-sm btn-danger"><i className="fa fa-trash"></i> </button> </td>
-                                    </tr>
+)}                                   
+                               
                                     <tr>
                                         <td></td>
                                         <td></td>
