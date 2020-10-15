@@ -9,14 +9,14 @@ module.exports = (sequelize) => {
 			autoIncrement: true,
 			allowNull: false,
 		},
-		quantity: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			defaultValue: 1
-		},
 		amount: {
 			type: DataTypes.DECIMAL,
 			allowNull: false
+		},
+		quantity: { // cantidad de producto q viene de la asociacion de products 
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			defaultValue: 1
 		}
 
 	},{ timestamps: false })

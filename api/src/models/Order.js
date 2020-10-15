@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
 	sequelize.define('order', {
 		shipping: {
 			type: DataTypes.BOOLEAN,
-			defaultValue: "1",
+			defaultValue: "1", // hay que usar 1 como true porque sequelize no acepta true o false en este campo
 			allowNull: true
 		},
 		paymentMethod: {
@@ -20,12 +20,13 @@ module.exports = (sequelize) => {
 		},
 		received: { // cuando el cliente recibe o retira la compra debería setearse a true
 			type: DataTypes.BOOLEAN,
-			defaultValue: "0",
+			defaultValue: "0", // hay que usar 0 como false porque sequelize no acepta true o false en este campo
 			allowNull: true
 		},
 		buyDate: {
 			type: DataTypes.DATE,
-			defaultValue: DataTypes.NOW()
+			defaultValue: DataTypes.NOW,
+			allowNull: true,
 		}, // ver si esto se genera al momento de confirmar una orden o cuando
 
 	},{ timestamps: false })
