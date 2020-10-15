@@ -75,7 +75,6 @@ module.exports = (sequelize) => {
         {
         beforeValidate: function set(user) {
             user.birthdate = new Date(user.birthdate)
-            console.log(user.birthdate)
             },
         // beforeValidate: function set(user) {   // este hook es para manipular el campo fecha de birthday si quisieramos
         //     let fechaArg = moment(user.dataValues.birthdate).format('DD/MM/YYYY')
