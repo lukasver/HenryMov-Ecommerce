@@ -1,23 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import * as action from '../redux/Action'
 import './Product.css'
 
 
+
 export default function Product({ product}) {
+	localStorage.clear()
+	const useStateWithLocalStorage = (localStorageKey) => {
+		console.log('entra en la funcion', localStorageKey)
+		const [value, setValue] = useState(
+			[localStorage.getItem(localStorageKey)] 
+		);
+		 let aux = [localStorage.getItem(localStorageKey)]
+		 console.log('Auxiliar:', aux)
+		 localStorage.setItem(localStorageKey, (aux.concat(value)));
+		useEffect(() => {
+		}, [value]);
+	   
+		return [value, setValue];
+	  };
+	   
+	const [value, setValue] = useStateWithLocalStorage(
+		'myValueInLocalStorage'
+	  );
 
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 	
-
+	
 	if(!product) {return <h1>Loading...</h1>}
 
-	//const img = image;
 	const { name, image, price, description, id} = product
 	//console.log(props.product)
 
-	 function handleAdd(e){
-		dispatch(action.agregarCarrito(product))
+	 function handleAdd(){
+		
+		setValue(product.id)
+
+		console.log('este es el valor de localStore:', value)
+	
+		console.log('largo:',localStorage.getItem('myValueInLocalStorage').length)
 	}
 	
 	return (

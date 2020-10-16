@@ -5,12 +5,12 @@ import * as action from "../../redux/Action"
 import './Carrito.css';
 
 export default function Carrito() {
-    
+
     const carrito = useSelector(store => store.carrito)
     const dispatch = useDispatch()
-
-
-
+    
+    let esto = localStorage.getItem('myValueInLocalStorage')
+    console.log('este es el valor de loca en carrito en variable esto:', esto)
 
     function handleDelete(id){
          dispatch(action.deleteProd(id))
