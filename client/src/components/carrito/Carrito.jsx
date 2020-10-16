@@ -5,12 +5,17 @@ import * as action from "../../redux/Action"
 import './Carrito.css';
 
 export default function Carrito() {
-
-    const carrito = useSelector(store => store.carrito)
+	//localStorage.clear()
+    const products = useSelector(store => store.productsById)
     const dispatch = useDispatch()
     
-    let esto = localStorage.getItem('myValueInLocalStorage')
+    let esto = (localStorage.getItem('myValueInLocalStorage')).split(',')
+   
     console.log('este es el valor de loca en carrito en variable esto:', esto)
+        for (let index = 0; index < esto.length; index++) {
+            console.log('esto.index:', esto[index])
+                dispatch(action.onSearch(esto[index]))            
+        }
 
     function handleDelete(id){
          dispatch(action.deleteProd(id))
@@ -19,10 +24,10 @@ export default function Carrito() {
 
     function subTotal(act){
         let subtotal=0
-        if(carrito.length == 0){ 
+        if(products.length == 0){ 
             return 
         }  
-        carrito.map( precio =>
+        products.map( precio =>
             subtotal= subtotal + precio.price,
             )
         let envio= subtotal * 0.1
@@ -60,7 +65,7 @@ export default function Carrito() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {carrito.map(prod=>
+                                    {products.map(prod=>
                                     <tr>
                                         <td><img src={prod.image} width={80}/> </td>
                                         <h3 className='titulo'>{prod.name}</h3>

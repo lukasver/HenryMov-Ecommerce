@@ -6,24 +6,22 @@ import './Product.css'
 
 
 export default function Product({ product}) {
-	localStorage.clear()
-	const useStateWithLocalStorage = (localStorageKey) => {
-		console.log('entra en la funcion', localStorageKey)
-		const [value, setValue] = useState(
-			[localStorage.getItem(localStorageKey)] 
-		);
-		 let aux = [localStorage.getItem(localStorageKey)]
-		 console.log('Auxiliar:', aux)
-		 localStorage.setItem(localStorageKey, (aux.concat(value)));
-		useEffect(() => {
-		}, [value]);
+
+	// const useStateWithLocalStorage = (localStorageKey) => {
+	// 	const [value, setValue] = useState(
+	// 		localStorage.getItem(localStorageKey)
+	// 		);
+	// 		let aux = [localStorage.getItem(localStorageKey)]
+	// 	useEffect(() => {
+	// 			console.log('Auxiliar:', aux)
+	// 			console.log('entra en la funcion', localStorage.getItem(localStorageKey))
+	// 	 localStorage.setItem(localStorageKey,[aux,(value)]);
+	// 	}, [value, aux, localStorage]);
 	   
-		return [value, setValue];
-	  };
+	// 	return [value, setValue];
+	//   };
 	   
-	const [value, setValue] = useStateWithLocalStorage(
-		'myValueInLocalStorage'
-	  );
+	const [value, setValue] = useState([]);
 
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
@@ -35,10 +33,13 @@ export default function Product({ product}) {
 	//console.log(props.product)
 
 	 function handleAdd(){
-		
-		setValue(product.id)
+		 console.log('este es el valor de localStore:', value)
+		 console.log('product.name:', [product.name])
+		  let producto = value.concat([product.name])
+		  console.log('producto ya cocatenado:', producto)
+		setValue(producto)
+		localStorage.setItem('myValueInLocalStorage', value)
 
-		console.log('este es el valor de localStore:', value)
 	
 		console.log('largo:',localStorage.getItem('myValueInLocalStorage').length)
 	}
