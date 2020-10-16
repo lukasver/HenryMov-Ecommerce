@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Register.css'
 
 
@@ -15,19 +16,9 @@ export default function Register(){
                 <div className="form-heading tect-center">
                     <div className="title">Registrate</div>
                     <p className="title-description">¿Ya tienes una cuenta?
-                    <a href="#">Inicia sesion</a>
+                    <Link to='/logIn'>Inicia sesion</Link>
                     </p>
-                    <div className="social-line">
-                    <a href="#">
-                        <i className="fa fa-facebook-square">::before</i>
-                    </a>
-                    <a href="#">
-                        <i className="fa fa-twitter">::before</i>
-                    </a>
-                    <a href="#">
-                        <i className="fa fa-google-plus">::before</i>
-                    </a>
-                    </div>
+                    
                 </div>
                 <div className="row">
                     <div className="col-md-6">
@@ -59,14 +50,7 @@ export default function Register(){
                         <input type="password"/>
                     </div>
                 </div>
-                <div className="row">
-                <div className="col-md-12">
-                    <input className="checkbox"/>
-                    <label>Acepto
-                    <a href="#">terminos y condiciones</a>
-                    </label>
-                    </div>
-                </div>
+                
                 <div className="col-md-12">
                     <button className="adam-button">Crear cuenta</button>
                 </div>
