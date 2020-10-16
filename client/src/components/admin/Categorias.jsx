@@ -66,10 +66,9 @@ export default function Categorias({ categorias, deleteCategory, getCategory, ca
                             categorias.length > 0 && categorias.map(dato => {
                                 return (<tr key={dato.id} >
                                     <th scope="row">{dato.id}</th>
-                                    <td style={{ textAlign: 'left' }}>{dato.name}</td>
-                                    <td style={{ textAlign: 'left' }}>{dato.description}</td>
-                                    <td>{dato.price}</td>
-                                    <td>{dato.stock}</td>
+                                    <td>{dato.name}</td>
+                                    <td>{dato.description}</td>
+                                    <td>{dato.status}</td>
                                     <td>
                                         <a className="iconTable"><i className="far fa-edit" id={dato.id} style={{ marginRight: '10px' }} onClick={(e) => {
                                             e.preventDefault();
