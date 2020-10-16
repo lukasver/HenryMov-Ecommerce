@@ -1,4 +1,8 @@
 const server = require('express').Router();
+// ========================================================================
+// ============Get de todas las orders=====================================
+// ========================================================================
+
 const { Product, User, Order, Orderline } = require('../db.js');
 const { Sequelize } = require('sequelize');
 
@@ -41,8 +45,47 @@ server.get('/users/:id/orders', (req, res, next) => {
 		if (!orders) return res.sendStatus(404);
 		res.status(200).send(orders);
 	})
+    .then(orders => {
+        if (!orders) {
+            return res.send('<h1>No hay ordenes cargadas</h1>')
+        }
+        res.json(orders);
+    })
 });
 
+// ========================================================================
+// ============Get de las ordenes por status ==============================
+// ========================================================================
+server.get('/users/ordersByQuery', (req, res, next) => {
+    const { order } = req.query
+    Order.findAll({
+        order: ['id'],
+        where :{status: order }
+	})
+    .then(orders => {
+        if (!orders) {
+            return res.send('<h1>No hay ordenes cargadas</h1>')
+        }
+        res.json(orders);
+    })
+});
+
+// ========================================================================
+// ============Get de las ordenes por status ==============================
+// ========================================================================
+server.get('/users/ordersByQuery', (req, res, next) => {
+    const { order } = req.query
+    Order.findAll({
+        order: ['id'],
+        where :{status: order }
+	})
+    .then(orders => {
+        if (!orders) {
+            return res.send('<h1>No hay ordenes cargadas</h1>')
+        }
+        res.json(orders);
+    })
+});
 //==============================================
 //  Ruta para retornar una orden en particular
 //==============================================
@@ -72,20 +115,23 @@ server.put('/orders/:id', (req, res, next) => {
 });
 
 server.get('/users/orders', (req, res, next) => {
+
     const { order } = req.query
-    console.log(req.query)
     Order.findAll({
         order: ['id'],
         where :{status: order }
 	})
-		.then(orders => {
-			if (!orders) {
-				return res.send('<h1>No hay ordenes cargadas</h1>')
-			}
-			res.json(orders);
-            next()
-        })
+    .then(orders => {
+        if (!orders) {
+            return res.send('<h1>No hay ordenes cargadas</h1>')
+        }
+        res.json(orders);
+    })
 });
+
+// ========================================================================
+// ============Get todas las ordenes de cada usuario ======================
+// ========================================================================
 
 server.get('/users/:idUser/orders', async (req,res,next) => {
     const { idUser } = req.params

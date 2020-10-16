@@ -21,6 +21,9 @@ export default function MenuAdmin() {
                 <li className="list-group-item">
                     <Link className="link-admin" to={'/admin/users'}><h6>Usuarios</h6></Link>
                 </li>
+                <li className="list-group-item">
+                    <Link className="link-admin" to={'/admin/orders'}><h6>Ordenes</h6></Link>
+                </li>
             </ul>
         </div>
     )
