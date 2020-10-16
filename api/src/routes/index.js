@@ -35,8 +35,6 @@ router.use(multer({
 // Permite que podamos acceder a esta ruta publica
 router.use(express.static(path.join(__dirname, '../public')))
 
-router.use('/', productRouter, categoryRouter, userRouter, orderRouter);
-
 router.use('/', productRouter, categoryRouter, userRouter, orderRouter, carritoRouter);
 
 module.exports = router;

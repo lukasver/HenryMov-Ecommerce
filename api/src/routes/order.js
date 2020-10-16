@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Order, Orderline, User } = require('../db.js');
+const { Product, Order, Orderline, User } = require('../db.js');
 
 //==============================================
 //	Ruta para agregar item al carrito
@@ -30,6 +30,7 @@ server.post('/users/:idUser/cart', (req, res, next) => {
   });*/
 });
 
+
 //=======================================================
 //	Ruta para retornar todas las ordenes de los usuarios
 //=======================================================
@@ -41,6 +42,7 @@ server.get('/users/:id/orders', (req, res, next) => {
 		return res.status(201).send(orders);
 	})
 });
+
 
 server.get('/users/orders', (req, res, next) => {
     const { order } = req.query
