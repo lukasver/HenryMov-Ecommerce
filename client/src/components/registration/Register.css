@@ -86,3 +86,12 @@ input[type=email], input[type=text], input[type=password] {
     background: #fff;
     border-radius: 6px;
 }
+
+.danger{
+    color: red;
+    font-size: small;
+
+}
+.invisible{
+    display: none;
+}
