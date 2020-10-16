@@ -6,16 +6,16 @@ import './Product.css'
 
 
 export default function Product({ product}) {
-	
+	localStorage.clear()
 	const useStateWithLocalStorage = (localStorageKey) => {
 		console.log('entra en la funcion', localStorageKey)
 		const [value, setValue] = useState(
 			[localStorage.getItem(localStorageKey)] 
 		);
-		 let aux =[localStorage.getItem(localStorageKey)]
+		 let aux = [localStorage.getItem(localStorageKey)]
 		 console.log('Auxiliar:', aux)
+		 localStorage.setItem(localStorageKey, (aux.concat(value)));
 		useEffect(() => {
-		  localStorage.setItem(localStorageKey, (aux.concat(value)));
 		}, [value]);
 	   
 		return [value, setValue];
@@ -28,7 +28,7 @@ export default function Product({ product}) {
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 	
-
+	
 	if(!product) {return <h1>Loading...</h1>}
 
 	//const img = image;
@@ -36,10 +36,12 @@ export default function Product({ product}) {
 	//console.log(props.product)
 
 	 function handleAdd(){
-		setValue(product.name)
-		console.log('este es el product:', product)
+		
+		setValue(product.id)
+
 		console.log('este es el valor de localStore:', value)
-		console.log('este es el valor de loca:', localStorage.getItem('myValueInLocalStorage'))
+	
+		console.log('largo:',localStorage.getItem('myValueInLocalStorage').length)
 	}
 	
 	return (
