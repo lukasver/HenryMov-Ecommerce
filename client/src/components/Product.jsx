@@ -31,7 +31,6 @@ export default function Product({ product}) {
 	
 	if(!product) {return <h1>Loading...</h1>}
 
-	//const img = image;
 	const { name, image, price, description, id} = product
 	//console.log(props.product)
 

@@ -5,8 +5,7 @@ import * as action from "../../redux/Action"
 import './Carrito.css';
 
 export default function Carrito() {
-        
-    
+
     const carrito = useSelector(store => store.carrito)
     const dispatch = useDispatch()
     
