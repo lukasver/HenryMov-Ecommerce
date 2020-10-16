@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Order, Orderline, User } = require('../db.js');
+const { Product, Order, Orderline, User } = require('../db.js');
 
 //==============================================
 //	Ruta para agregar item al carrito
@@ -29,6 +29,20 @@ server.post('/users/:idUser/cart', (req, res, next) => {
     res.sendStatus(400);
   });*/
 });
+
+
+//=======================================================
+//	Ruta para retornar todas las ordenes de los usuarios
+//=======================================================
+server.get('/users/:id/orders', (req, res, next) => {
+	Order.findAll({
+		where: {userId: req.params.id}
+	}).then(orders => {
+		console.log('ORDERS:', orders);
+		return res.status(201).send(orders);
+	})
+});
+
 
 server.get('/users/orders', (req, res, next) => {
     const { order } = req.query
