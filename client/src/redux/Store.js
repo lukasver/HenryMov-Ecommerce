@@ -10,7 +10,8 @@ import {
   CATEGORIES,
   DELETE_FILTER,
   CARRITO,
-  DELETE_PROD
+  DELETE_PROD,
+  ON_SEARCH_ID,
 } from "./Action";
 
 const initialState = {
