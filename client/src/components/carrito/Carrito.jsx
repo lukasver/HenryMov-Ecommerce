@@ -1,33 +1,23 @@
 
 import React from 'react';
-import {useDispatch, useSelector, useHistory} from 'react-redux';
-import * as action from "../../redux/Action"
 import './Carrito.css';
 
 export default function Carrito() {
-	//localStorage.clear()
-    const products = useSelector(store => store.productsById)
-    const dispatch = useDispatch()
-    
-    let esto = (localStorage.getItem('myValueInLocalStorage')).split(',')
-   
-    console.log('este es el valor de loca en carrito en variable esto:', esto)
-        for (let index = 0; index < esto.length; index++) {
-            console.log('esto.index:', esto[index])
-                dispatch(action.onSearch(esto[index]))            
+
+        function handleDelete(id){
+            //      dispatch(action.deleteProd(id))
         }
+          
+         let product = JSON.parse(localStorage.getItem('prod'))
+        let otra = product 
+          console.log(product)
 
-    function handleDelete(id){
-         dispatch(action.deleteProd(id))
-    }
-
-
-    function subTotal(act){
+     function subTotal(act){
         let subtotal=0
-        if(products.length == 0){ 
+        if(product.length == 0){ 
             return 
         }  
-        products.map( precio =>
+        product.map( precio =>
             subtotal= subtotal + precio.price,
             )
         let envio= subtotal * 0.1
@@ -38,14 +28,14 @@ export default function Carrito() {
             case 3: return total;
             default: return;
         }
-        }
+         }
      
      
     return (
         <div>
             <section className="jumbotron text-center">
                 <div className="container">
-                    <h1 className="jumbotron-heading">SU CARRITO HENRY MOV</h1>
+                <h1 className="jumbotron-heading">CARRITO HENRY MOV</h1>
                 </div>
             </section>
 
@@ -65,7 +55,7 @@ export default function Carrito() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {products.map(prod=>
+                                     {product.map(prod=>
                                     <tr>
                                         <td><img src={prod.image} width={80}/> </td>
                                         <h3 className='titulo'>{prod.name}</h3>
@@ -74,7 +64,7 @@ export default function Carrito() {
                                         <td className="text-right_2">$ {prod.price} </td>
                                         <td className="text-right_1"><button className="btn btn-sm btn-danger" id={prod.name} onClick={handleDelete}><i className="fa fa-trash"></i> </button> </td>
                                     </tr>
-)}                                   
+)}                                    
                                
                                     <tr>
                                         <td></td>
