@@ -27,7 +27,7 @@
 .text-center {
     text-align: center!important;
 }
-input[type=email], input[type=text], input[type=password] {
+.user[type=email], .user[type=text], .user[type=password] {
     position: relative;
     z-index: 2;
     margin-bottom: 30px;
