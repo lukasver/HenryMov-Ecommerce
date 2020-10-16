@@ -5,6 +5,8 @@ import * as action from "../../redux/Action"
 import './Carrito.css';
 
 export default function Carrito() {
+
+    console.log('este es el valor de loca en carrito:', localStorage.getItem('myValueInLocalStorage'))
     
     const carrito = useSelector(store => store.carrito)
     const dispatch = useDispatch()
