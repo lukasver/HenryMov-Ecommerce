@@ -1,5 +1,6 @@
 // ========================= IMPORTS =================================================
 import React, { useEffect, useState } from 'react'
+import './Ordenes.css'
 // console.log(Orders())
 
 export default function Ordenes({ getOrders }){
@@ -14,8 +15,8 @@ export default function Ordenes({ getOrders }){
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
             <div className="col-md-11 col-lg-11">
-                <h2>Todas las Categorias</h2>
-                <p>Elija la categoria a modificar</p>
+                <h2 className="title">Todas las Ordenes</h2>
+                <p/>
                 <table className="table table-hover table-dark">
                     <thead>
                         <tr>
