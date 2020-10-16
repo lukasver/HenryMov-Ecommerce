@@ -30,4 +30,16 @@ server.post('/users/:idUser/cart', (req, res, next) => {
   });*/
 });
 
+//=======================================================
+//	Ruta para retornar todas las ordenes de los usuarios
+//=======================================================
+server.get('/users/:id/orders', (req, res, next) => {
+	Order.findAll({
+		where: {userId: req.params.id}
+	}).then(orders => {
+		console.log('ORDERS:', orders);
+		return res.status(201).send(orders);
+	})
+});
+
 module.exports = server;
