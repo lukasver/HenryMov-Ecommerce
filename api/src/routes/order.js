@@ -6,13 +6,12 @@ const server = require('express').Router();
 const { Product, User, Order, Orderline } = require('../db.js');
 const { Sequelize } = require('sequelize');
 
-
 //==============================================
 //	Ruta para agregar item al carrito
 //==============================================
 server.post('/users/:idUser/cart', (req, res, next) => {
 	const { amount, quantity, productId } = req.body;
-	if(!amount || !quantity) {
+	if(!amount || !quantity || !productId) {
     return res.sendStatus(400);
   }
   Order.findOne({
@@ -29,29 +28,22 @@ server.post('/users/:idUser/cart', (req, res, next) => {
   		productId
   	});
   }).then(createdOrderLine => {
-  	return res.status(201).send(createdOrderLine);
+  	res.status(201).send(createdOrderLine);
   });
   /*.catch(err => {
     res.sendStatus(400);
   });*/
 });
 
-
 //=======================================================
 //	Ruta para retornar todas las ordenes de los usuarios
 //=======================================================
-// server.get('/users/:id/orders', (req, res, next) => {
-// 	Order.findAll({
-// 		where: {userId: req.params.id}
-// 	}).then(orders => {
-// 		console.log('ORDERS:', orders);
-// 		return res.status(201).send(orders);
-// 	})
-// });
-
-server.get('/users/orders', (req, res, next) => {
-    Order.findAll({
-        order: ['id'],
+server.get('/users/:id/orders', (req, res, next) => {
+	Order.findAll({
+		where: {userId: req.params.id}
+	}).then(orders => {
+		if (!orders) return res.sendStatus(404);
+		res.status(200).send(orders);
 	})
     .then(orders => {
         if (!orders) {
@@ -65,6 +57,65 @@ server.get('/users/orders', (req, res, next) => {
 // ============Get de las ordenes por status ==============================
 // ========================================================================
 server.get('/users/ordersByQuery', (req, res, next) => {
+    const { order } = req.query
+    Order.findAll({
+        order: ['id'],
+        where :{status: order }
+	})
+    .then(orders => {
+        if (!orders) {
+            return res.send('<h1>No hay ordenes cargadas</h1>')
+        }
+        res.json(orders);
+    })
+});
+
+// ========================================================================
+// ============Get de las ordenes por status ==============================
+// ========================================================================
+server.get('/users/ordersByQuery', (req, res, next) => {
+    const { order } = req.query
+    Order.findAll({
+        order: ['id'],
+        where :{status: order }
+	})
+    .then(orders => {
+        if (!orders) {
+            return res.send('<h1>No hay ordenes cargadas</h1>')
+        }
+        res.json(orders);
+    })
+});
+//==============================================
+//  Ruta para retornar una orden en particular
+//==============================================
+server.get('/orders/:id', (req, res, next) => {
+  Order.findByPk(req.params.id).then(order => {
+    if (!order) return res.sendStatus(404);
+    res.status(200).send(order);
+  })
+});
+
+//==============================================
+//  Ruta para modificar una orden
+//==============================================
+server.put('/orders/:id', (req, res, next) => {
+  const { paymentMethod, status } = req.body;
+  if(!paymentMethod || !status) {
+    return res.sendStatus(400);
+  }
+  Order.update(req.body, {
+    where: { id: req.params.id }
+  }).then(result => {
+    if (result[0] === 0) {
+      return res.sendStatus(404);
+    }
+    res.status(200).send(result);
+  })
+});
+
+server.get('/users/orders', (req, res, next) => {
+
     const { order } = req.query
     Order.findAll({
         order: ['id'],
@@ -101,7 +152,6 @@ server.get('/users/:idUser/orders', async (req,res,next) => {
 
 })
 
-
 //======================================================================== 
 //  Ruta para devolver el último carrito abierto de un usuario registrado - GET
 //======================================================================== 
@@ -126,7 +176,6 @@ server.get('/users/:idUser/cart', async (req,res,next) => {
         }
 
 })
-//======================================================================== 
 
 //======================================================================== 
 //  Ruta para editar cantidad del carrito - PUT
@@ -176,7 +225,6 @@ server.put('/users/:idUser/cart', async (req,res,next) => {
         }
 
 })
-//======================================================================== 
 
 //======================================================================== 
 //  Ruta para vaciar el carrito de un usuario registrado - DELETE
@@ -203,6 +251,5 @@ server.delete('/users/:idUser/cart', async (req,res,next) => {
         }
 
 })
-//======================================================================== 
 
 module.exports = server;
