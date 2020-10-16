@@ -15,6 +15,7 @@ function Admin() {
         <Route path="/admin/categorys" render={() => <Panel tablaAccion='Categorys' />} />
         <Route path="/admin/users" render={() => <Panel tablaAccion='Users' />} />
         <Route path="/admin/products" render={() => <Panel tablaAccion='Products' />} />
+        <Route path="/admin/orders" render={() => <Panel tablaAccion='Orders' />} />
       </Switch>
     </div>
   );

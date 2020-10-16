@@ -8,6 +8,7 @@ import Escritorio from './Escritorio';
 import Usuarios from './Usuarios';
 import Categorias from './Categorias';
 import { Z_ASCII } from 'zlib';
+import Ordenes from './Ordenes';
 
 export default function Panel({ tablaAccion }) {
 
@@ -15,7 +16,7 @@ export default function Panel({ tablaAccion }) {
     const [adminCategories, setCategories] = useState([]);
     const [product, setProduct] = useState([]);
     const [category, setCategory] = useState([]);
-
+    
     useEffect(() => {
         axios.get('http://localhost:3001/products')
             .then(productos => {
@@ -130,7 +131,22 @@ export default function Panel({ tablaAccion }) {
                 console.log(error);
             })
     };
-
+    function getOrders(){
+        return axios
+        .get(`http://localhost:3001/users/orders`)
+        .then(orders => orders.data )
+        .then(data => data)
+        .catch(error => console.log(error))
+    }; 
+    
+    // const orders = async function (){
+    //     return await axios
+    //     .get(`http://localhost:3001/users/orders`)
+    //     .then(orders => orders.data )
+    //     .then(data => data)
+    //     .catch(error => console.log(error))
+    // }
+    
     return (
         <div className="container-fluid">
             <div className="main row">
@@ -139,6 +155,7 @@ export default function Panel({ tablaAccion }) {
                 {tablaAccion === 'Categorys' && <Categorias categorias={adminCategories} deleteCategory={deleteCategory} category={category} getCategory={getCategory} addCategory={addCategory} modCategory={modCategory}/>}
                 {tablaAccion === 'Users' && <Usuarios />}
                 {tablaAccion === 'Products' && <Productos productos={adminProducts} categories={adminCategories} deleteProduct={deleteProduct} getProduct={getProduct} product={product} addProduct={addProduct} modProduct={modProduct} />}
+                {tablaAccion === 'Orders' && <Ordenes getOrders={getOrders}/>}
             </div>
         </div>
     )
