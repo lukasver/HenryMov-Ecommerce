@@ -24,7 +24,7 @@ server.post('/users/:idUser/cart', (req, res, next) => {
   		productId
   	});
   }).then(createdOrderLine => {
-  	return res.status(201).send(createdOrderLine);
+  	res.status(201).send(createdOrderLine);
   });
   /*.catch(err => {
     res.sendStatus(400);
@@ -38,8 +38,8 @@ server.get('/users/:id/orders', (req, res, next) => {
 	Order.findAll({
 		where: {userId: req.params.id}
 	}).then(orders => {
-		console.log('ORDERS:', orders);
-		return res.status(201).send(orders);
+		if (!orders) return res.sendStatus(404);
+		res.status(201).send(orders);
 	})
 });
 
@@ -48,7 +48,7 @@ server.get('/users/:id/orders', (req, res, next) => {
 //==============================================
 server.get('/orders/:id', (req, res, next) => {
   Order.findByPk(req.params.id).then(order => {
-    console.log('ORDER:', order);
+    if (!order) return res.sendStatus(404);
     res.status(201).send(order);
   })
 });
