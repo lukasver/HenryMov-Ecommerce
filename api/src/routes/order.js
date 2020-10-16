@@ -70,22 +70,6 @@ server.get('/users/ordersByQuery', (req, res, next) => {
     })
 });
 
-// ========================================================================
-// ============Get de las ordenes por status ==============================
-// ========================================================================
-server.get('/users/ordersByQuery', (req, res, next) => {
-    const { order } = req.query
-    Order.findAll({
-        order: ['id'],
-        where :{status: order }
-	})
-    .then(orders => {
-        if (!orders) {
-            return res.send('<h1>No hay ordenes cargadas</h1>')
-        }
-        res.json(orders);
-    })
-});
 //==============================================
 //  Ruta para retornar una orden en particular
 //==============================================
@@ -119,7 +103,6 @@ server.get('/users/orders', (req, res, next) => {
     const { order } = req.query
     Order.findAll({
         order: ['id'],
-        where :{status: order }
 	})
     .then(orders => {
         if (!orders) {
