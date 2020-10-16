@@ -17,6 +17,7 @@ const initialState = {
   totalProds: [],
   categories: [],
   products: [],
+  productById:[],
   totalProdsFilter: [],
   carrito: [{
     name: 'Vela de Windsurf',
@@ -80,6 +81,11 @@ export function counterReducer(state = initialState, action) {
           ...state,
           carrito: state.carrito.filter(!action.payload)
         }
+        case ON_SEARCH_ID:
+          return {
+            ...state,
+            productById: state.productById.concat(action.payload)
+          }
     default:
       return state;
   }
