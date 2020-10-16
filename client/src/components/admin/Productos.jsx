@@ -175,7 +175,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                                 return (<tr key={dato.id} >
                                     <th scope="row">{dato.id}</th>
                                     <td id='producto'style={{ textAlign: 'left' }}>{dato.name}</td>
-                                    <td style={{ textAlign: 'left' }}>{dato.description}</td>
+                                    <td style={{ textAlign: 'left' }}>{dato.description.substring(0, 90)+'...'}</td>
                                     <td>{dato.price}</td>
                                     <td>{dato.stock}</td>
                                     <td>
