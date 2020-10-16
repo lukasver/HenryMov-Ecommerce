@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 import * as action from "./redux/Action";
 import Nav from "./components/Nav.jsx";
@@ -13,7 +13,9 @@ import Admin from "./components/admin/Admin.js";
 import Preguntas from "./components/footer/Preguntas";
 import Carousel from "./components/Carousel";
 import Carrito from "./components/carrito/Carrito"
+import Register from "./components/registration/Register"
 import "./App.css";
+import LoggedIn from "./components/registration/LoggedIn";
 
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
@@ -63,6 +65,8 @@ function App() {
       <Route exact path='/preguntas' render={() => <Preguntas />} />
       <Route exact path='/' render={() => <Carousel />} />
       <Route exact path='/carrito' render={()=> <Carrito/>}/>
+      <Route exact path='/register' render={()=> <Register/>} />
+      <Route exact path='/logIn' render={()=> <LoggedIn/>} />
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />

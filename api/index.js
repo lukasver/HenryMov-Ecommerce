@@ -35,7 +35,8 @@ conn.sync({ force: true }).then(() => {
 			password: 'MJtheBest2020!',
 			birthdate: new Date('02/23/1960'), // este new Date es para sacar un warning de consola
 			role: 'Admin',
-    	}).then(User.create({
+    	}).then(() => {
+    		return User.create({
     		name: 'Homero',
     		lastname: 'Simpson',
     		email: 'HomerJSimpson@yahoo.com',
@@ -43,8 +44,8 @@ conn.sync({ force: true }).then(() => {
 			password: 'YoAmo@Marge123',
 			address: 'Calle Falsa 123, Springfield, FL, 90210, USA',
 			birthdate: new Date('05/12/1956'), // este new Date es para sacar un warning de consola
-			role: 'Cliente',
-    	}))
+			role: 'Cliente'
+    	})})
 
  
 	  	await Category.create({

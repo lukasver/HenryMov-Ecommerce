@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, useHistory} from 'react-redux';
 import * as action from "../../redux/Action"
 import './Carrito.css';
 
@@ -9,10 +9,33 @@ export default function Carrito() {
     const carrito = useSelector(store => store.carrito)
     const dispatch = useDispatch()
 
+
+
+
     function handleDelete(id){
          dispatch(action.deleteProd(id))
     }
 
+
+    function subTotal(act){
+        let subtotal=0
+        if(carrito.length == 0){ 
+            return 
+        }  
+        carrito.map( precio =>
+            subtotal= subtotal + precio.price,
+            )
+        let envio= subtotal * 0.1
+        let total= subtotal + envio
+            switch (act){
+            case 1: return envio;
+            case 2: return subtotal;
+            case 3: return total;
+            default: return;
+        }
+        }
+     
+     
     return (
         <div>
             <section className="jumbotron text-center">
@@ -54,7 +77,7 @@ export default function Carrito() {
                                         <td></td>
                                         <td></td>
                                         <td>Sub-Total</td>
-                                        <td className="text-right">$ 255,90 </td>
+                                        <td className="text-right">$ {subTotal(2)} </td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -62,7 +85,7 @@ export default function Carrito() {
                                         <td></td>
                                         <td></td>
                                         <td>Envio</td>
-                                        <td className="text-right">$ 6,90 </td>
+                                        <td className="text-right">$ {subTotal(1)} </td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -70,7 +93,7 @@ export default function Carrito() {
                                         <td></td>
                                         <td></td>
                                         <td><strong>Total</strong></td>
-                                        <td className="text-right"><strong>$ 346,90 </strong></td>
+                                        <td className="text-right"><strong>$ {subTotal(3)} </strong></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -79,7 +102,7 @@ export default function Carrito() {
                     <div className="col mb-2">
                         <div className="row">
                             <div className="col-sm-12  col-md-6">
-                                <button className="btn btn-block btn-light">Continuar comprando</button>
+                                <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
                             <div className="col-sm-12 col-md-6 text-right">
                                 <button className="btn btn-lg btn-block btn-success text-uppercase">Pagar</button>
