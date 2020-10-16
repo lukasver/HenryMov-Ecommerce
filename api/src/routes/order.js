@@ -7,7 +7,7 @@ const { Sequelize } = require('sequelize');
 //==============================================
 server.post('/users/:idUser/cart', (req, res, next) => {
 	const { amount, quantity, productId } = req.body;
-	if(!amount || !quantity) {
+	if(!amount || !quantity || !productId) {
     return res.sendStatus(400);
   }
   Order.findOne({
@@ -39,7 +39,7 @@ server.get('/users/:id/orders', (req, res, next) => {
 		where: {userId: req.params.id}
 	}).then(orders => {
 		if (!orders) return res.sendStatus(404);
-		res.status(201).send(orders);
+		res.status(200).send(orders);
 	})
 });
 
@@ -49,7 +49,25 @@ server.get('/users/:id/orders', (req, res, next) => {
 server.get('/orders/:id', (req, res, next) => {
   Order.findByPk(req.params.id).then(order => {
     if (!order) return res.sendStatus(404);
-    res.status(201).send(order);
+    res.status(200).send(order);
+  })
+});
+
+//==============================================
+//  Ruta para modificar una orden
+//==============================================
+server.put('/orders/:id', (req, res, next) => {
+  const { paymentMethod, status } = req.body;
+  if(!paymentMethod || !status) {
+    return res.sendStatus(400);
+  }
+  Order.update(req.body, {
+    where: { id: req.params.id }
+  }).then(result => {
+    if (result[0] === 0) {
+      return res.sendStatus(404);
+    }
+    res.status(200).send(result);
   })
 });
 
