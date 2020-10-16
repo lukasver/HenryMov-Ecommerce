@@ -1,21 +1,21 @@
 // ========================= IMPORTS =================================================
 import React, { useEffect, useState } from 'react'
 import './Ordenes.css'
-// console.log(Orders())
+
+// ========================= COMPONENT =================================================
 
 export default function Ordenes({ getOrders }){
+    
     const [orders, setOrders] = useState([])
 
     useEffect(()=>{
         getOrders().then(a=> setOrders(a))
     },[])
 
-    // getOrders().then(a => console.log(a))
-   
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
             <div className="col-md-11 col-lg-11">
-                <h2 className="title">Todas las Ordenes</h2>
+                <h2 className="titleOrders">Todas las Ordenes</h2>
                 <p/>
                 <table className="table table-hover table-dark">
                     <thead>
