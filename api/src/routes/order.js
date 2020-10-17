@@ -79,21 +79,26 @@ server.get('/orders/:id', (req, res, next) => {
 });
 
 
-//==============================================
+//=============================================
 //  Ruta para retornar las orderlines de una orden particular
 //==============================================
 server.get('/orders/:id/cart', async (req, res, next) => {
   const { id } = req.params
 
-  Order.findOne({
-    where: {id},
-    include: [{ model: Product }, { model: User }],
-  })
-    
+      Order.findOne({
+      where: {id},
+      include: [
+      { model: Product, attributes: ['id','name','availability','stock'], through: {
+        attributes: ['amount','quantity'] // agregar 'id' si se quiere obtener el id de la orderline 
+      }},
+      { model: User, attributes:['id','name','lastname','email', 'address'] }],
+      group: Orderline.id
+    })
+      
   .then(carrito => {
       res.status(200).send(carrito)})
   .catch(err => {
-    console.log(err)
+    console.log(err.sql)
     res.sendStatus(404)})
 })
 
