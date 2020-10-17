@@ -8,21 +8,21 @@ import './Carrito.css';
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
-   
+
     const [prodId, setProdId] = useState('')
     const [ren, setRen] = useState(true)
-    
-    if(product!=null){  
-     product.sort(function (a, b) {
-		if (a.id > b.id){
-		  return 1;
-		}
-		if (a.id < b.id) {
-		  return -1;
-		}
-		return 0;
-	  })
-}
+
+    if (product != null) {
+        product.sort(function (a, b) {
+            if (a.id > b.id) {
+                return 1;
+            }
+            if (a.id < b.id) {
+                return -1;
+            }
+            return 0;
+        })
+    }
 
 
     function subTotal(act) {
@@ -61,37 +61,37 @@ export default function Carrito() {
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
-  
-    function aumentar(prod){
+
+    function aumentar(prod) {
         ren ? setRen(false) : setRen(true)
-         prod.count = prod.count+1
+        prod.count = prod.count + 1
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
         let newData = data.filter((data) => data.id !== prod.id)
         newData.push(prod)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
-    function disminuir(prod){
+    function disminuir(prod) {
         ren ? setRen(false) : setRen(true)
-        if (prod.count==1){
+        if (prod.count == 1) {
             return
         }
-        prod.count = prod.count-1
+        prod.count = prod.count - 1
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
         let newData = data.filter((data) => data.id !== prod.id)
         newData.push(prod)
         localStorage.setItem('prod', JSON.stringify(newData))
-       
+
     }
-function deleteAllProd(){
-            localStorage.setItem('count', 0)
-            localStorage.setItem('prod', null)
-            ren ? setRen(false) : setRen(true)
-            return  
+    function deleteAllProd() {
+        localStorage.setItem('count', 0)
+        localStorage.setItem('prod', [])
+        ren ? setRen(false) : setRen(true)
+        return
 
 
-}
+    }
 
 
 
@@ -122,16 +122,16 @@ function deleteAllProd(){
                                 </thead>
                                 <tbody>
                                     {
-                                        product ? 
+                                        product ?
                                             product.map(prod =>
                                                 <tr>
                                                     <td><img src={prod.image} width={80} /> </td>
-                                                    <h5 className='titulo'>{prod.name.substring(0,30)+'...'}</h5>
+                                                    <h5 className='titulo'>{prod.name.substring(0, 30) + '...'}</h5>
                                                     <td>{prod.availability}</td>
-                                                    <td><input type="button" class="btn btn-outline-primary" value='-' onClick={()=>{disminuir(prod)}}/>
-                                                     <input class="btn btn-primary" type="button" value={prod.count} />
-                                                     <input type="button" class="btn btn-outline-primary" value='+' onClick={()=>{aumentar(prod)}} />
-                                                     </td>
+                                                    <td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => { disminuir(prod) }} />
+                                                        <input class="btn btn-primary" type="button" value={prod.count} />
+                                                        <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
+                                                    </td>
                                                     <td className="text-right">$ {prod.price * prod.count} </td>
                                                     <td className="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
                                                 </tr>
@@ -142,10 +142,10 @@ function deleteAllProd(){
                                                 <div class="modal-header">
                                                     <h5 class="card-header bg-danger text-white " id="exampleModalLabel">IMPORTANTE</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <div class="spinner-grow text-danger" aria-hidden="true" role="status">
-                                                        <span class="sr-only" aria-hidden="true">&times;</span>
-                                                    </div>
-                                                        
+                                                        <div class="spinner-grow text-danger" aria-hidden="true" role="status">
+                                                            <span class="sr-only" aria-hidden="true">&times;</span>
+                                                        </div>
+
                                                     </button>
                                                 </div>
                                                 <div class="modal-body p-3 mb-2 bg-warning text-dark">
@@ -189,8 +189,33 @@ function deleteAllProd(){
                     <div className="col mb-2">
                         <div className="row">
                             <div className="col-sm-6  col-md-3">
-                                <button type="button" class="btn btn-outline-danger" onClick={deleteAllProd}>Vaciar el carrito</button>
+                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>
                             </div>
+                            <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h5 class="card-header bg-warning text-white " id="exampleModalLabel1">IMPORTANTE</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <div class="spinner-grow text-danger" aria-hidden="true" role="status">
+                                                    <span class="sr-only" aria-hidden="true">&times;</span>
+                                                </div>
+
+                                            </button>
+                                        </div>
+                                        <div class="modal-body p-3 mb-2  text-dark">
+                                            <p>Estas por vaciar todo tu carrito...</p><p>deseas continuar?</p>
+                                        </div>
+                                        <div class="modal-footer bg-danger">
+                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={deleteAllProd}> SI  </button>
+                                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <div className="col-sm-6  col-md-3">
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
@@ -210,7 +235,7 @@ function deleteAllProd(){
                                             Debes iniciar sesion para finalizar tu compra
       </div>
                                         <div class="modal-footer">
-                                            <a type="button" class="btn btn-outline-primary"  href="/register">Resgistrate</a>
+                                            <a type="button" class="btn btn-outline-primary" href="/register">Resgistrate</a>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">Iniciar sesion</button>
                                         </div>
                                     </div>
