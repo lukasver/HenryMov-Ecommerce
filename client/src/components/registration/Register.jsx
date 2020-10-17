@@ -33,13 +33,12 @@ export default function Register() {
 
     const handleSubmit = e => {
         const { name } = e.target;
-        console.log('antes del then===>', values)
-        console.log(error)
+       
         e.preventDefault();
         axios.post(`http://localhost:3001/user`, values)
         .then(values => {
             alert("Usuario creado con exito")
-            console.log('despues del then====>', values)
+            
             return values
         })
         
