@@ -7,6 +7,7 @@ import './Carrito.css';
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
+    
 
     function subTotal(act) {
         let subtotal = 0
@@ -38,6 +39,8 @@ export default function Carrito() {
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
         let newData = data.filter((data) => data.id !== id)
+        let countCart = newData.length
+		localStorage.setItem('count',countCart )
         localStorage.setItem('prod', JSON.stringify(newData))
     }
 

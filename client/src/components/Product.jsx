@@ -22,12 +22,14 @@ export default function Product({ product }) {
 		
 		
 		let recoveredData = localStorage.getItem('prod')
-	
 		let search = JSON.parse(recoveredData)
 	
 		if (!recoveredData) {
-					dispatch(action.countCart())
+			dispatch(action.countCart())
+			let countCart = 1
+			localStorage.setItem('count',countCart )
 			return localStorage.setItem('prod', JSON.stringify([product]))
+			
 		}
 
 		let fined = search.find(prod => prod.id == id)
@@ -44,7 +46,10 @@ export default function Product({ product }) {
 		let newProd = product
 		data.push(newProd)
 		dispatch(action.countCart())
+		let countCart = data.length
+		
 		localStorage.setItem('prod', JSON.stringify(data))
+		return localStorage.setItem('count',countCart )
 	}
 
 	return (
@@ -82,14 +87,14 @@ export default function Product({ product }) {
 						<div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
-									<div class="modal-header ">
-										<h6 class="modal-title p-3 mb-2 bg-primary text-white" id="exampleModalLongTitle">Henry Mov</h6>
+									<div class="modal-header-title ">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
+										<h6 class="modal-title p-3 mb-2 bg-primary text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
 									</div>
 									<div className="modal-body alert alert-success ">
-										Tu producto se agrego al carrito con exito!!!
+										Tu producto se agrego al carrito con exito
 										</div>
 
 								</div>

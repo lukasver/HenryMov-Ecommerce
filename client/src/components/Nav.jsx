@@ -3,11 +3,21 @@ import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import * as action from '../redux/Action'
 import './Nav.css';
+import { useEffect } from 'react';
 
 function Nav() {  
+   
+    // const aux = useSelector(store => store.countCart)
+    // let countCart = aux
+
+    let countCart =	localStorage.getItem('count')
+    !countCart ? countCart = 0 : countCart = countCart
+    useEffect(()=>{
+    },[countCart])
     
-    const countCart = useSelector(store => store.countCart)
+   
 	
 
     return (
