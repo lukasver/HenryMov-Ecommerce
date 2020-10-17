@@ -6,6 +6,7 @@ import {
   ON_SEARCH,
   GET_PRODUCT,
   FILTER_BY_CATEGORY,
+  REMOVE_BY_CATEGORY,
   TOTAL_PRODUCT,
   CATEGORIES,
   DELETE_FILTER,
@@ -45,7 +46,17 @@ export function counterReducer(state = initialState, action) {
     case FILTER_BY_CATEGORY:
       return {
         ...state,
-        totalProdsFilter: state.totalProdsFilter.concat(action.payload),
+        totalProdsFilter: state.totalProdsFilter.concat(action.payload)
+      };
+    case REMOVE_BY_CATEGORY:
+      // Hago un map del array con elementos a quitar y filtro sobre el estado totalProdsFilter cuando matchee el id
+      // del elemento a quitar con el elemento del estado totalProdsFilter
+        action.payload.map(x=>{
+            state.totalProdsFilter = state.totalProdsFilter.filter(f => f.id !== x.id)
+        })
+      return {
+        ...state,
+        totalProdsFilter: state.totalProdsFilter
       };
     case ON_SEARCH:
       return {
