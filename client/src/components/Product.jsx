@@ -6,11 +6,12 @@ import './Product.css'
 
 export default function Product({ product }) {
 
-	useEffect(()=>{
-		
-	},[])
+	const [ren, setRen] = useState(true)
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
+	useEffect(() => {
+
+	}, [ren])
 
 	if (!product) { return <h1>Loading...</h1> }
 
@@ -19,39 +20,38 @@ export default function Product({ product }) {
 	function counter() {
 		product.count = count
 	}
-	
+	let countCart =0
 	function handleAdd() {
-		
-		
+		ren ? setRen(false) : setRen(true)
+
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
-	
+
 		if (!recoveredData) {
 			dispatch(action.countCart())
-			let countCart = 1
-			localStorage.setItem('count',countCart )
+			countCart = 1
+			localStorage.setItem('count', countCart)
+			console.log('local:',localStorage.getItem('count'))
 			return localStorage.setItem('prod', JSON.stringify([product]))
-			
+
 		}
 
 		let fined = search.find(prod => prod.id == id)
-		
+
 		if (fined) {
-		
 			fined.count++
 			let cleanData = search.filter((data) => data.id !== product.id)
-		
 			cleanData.push(fined)
 			return localStorage.setItem('prod', JSON.stringify(cleanData))
 		}
 		let data = JSON.parse(recoveredData)
 		let newProd = product
 		data.push(newProd)
-		dispatch(action.countCart())
-		let countCart = data.length
-		
+		countCart = data.lengt
+		console.log('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
-		return localStorage.setItem('count',countCart )
+		 localStorage.setItem('count', countCart)
+		 console.log('local:',localStorage.getItem('count'))
 	}
 
 	return (

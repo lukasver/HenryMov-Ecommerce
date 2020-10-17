@@ -1,15 +1,28 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as action from '../../redux/Action'
 import './Carrito.css';
 
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
+   
     const [prodId, setProdId] = useState('')
     const [ren, setRen] = useState(true)
     
+   product.sort(function (a, b) {
+		if (a.id > b.id){
+		  return 1;
+		}
+		if (a.id < b.id) {
+		  return -1;
+		}
+		return 0;
+	  })
+
+
 
     function subTotal(act) {
         let subtotal = 0
@@ -29,25 +42,48 @@ export default function Carrito() {
         }
     }
     function dosDecimales(n) {
-        let t=n.toString();
-        let regex=/(\d*.\d{0,2})/;
+        let t = n.toString();
+        let regex = /(\d*.\d{0,2})/;
         return t.match(regex)[0];
-      }
+    }
 
     useEffect(() => {
     }, [ren, prodId])
 
     function handleDelete(id) {
-
         ren ? setRen(false) : setRen(true)
         dispatch(action.removecountCart())
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
         let newData = data.filter((data) => data.id !== id)
         let countCart = newData.length
-		localStorage.setItem('count',countCart )
+        localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
+  
+    function aumentar(prod){
+        ren ? setRen(false) : setRen(true)
+         prod.count = prod.count+1
+        let recoveredData = localStorage.getItem('prod')
+        let data = JSON.parse(recoveredData)
+        let newData = data.filter((data) => data.id !== prod.id)
+        newData.push(prod)
+        localStorage.setItem('prod', JSON.stringify(newData))
+    }
+    function disminuir(prod){
+        ren ? setRen(false) : setRen(true)
+        if (prod.count==0){
+            return
+        }
+        prod.count = prod.count-1
+        let recoveredData = localStorage.getItem('prod')
+        let data = JSON.parse(recoveredData)
+        let newData = data.filter((data) => data.id !== prod.id)
+        newData.push(prod)
+        localStorage.setItem('prod', JSON.stringify(newData))
+       
+    }
+
 
 
 
@@ -77,13 +113,16 @@ export default function Carrito() {
                                 </thead>
                                 <tbody>
                                     {
-                                        product ?
+                                        product ? 
                                             product.map(prod =>
                                                 <tr>
                                                     <td><img src={prod.image} width={80} /> </td>
                                                     <h3 className='titulo'>{prod.name}</h3>
                                                     <td>{prod.availability}</td>
-                                                    <td><input className="form-control" type="text" value={prod.count} /></td>
+                                                    <td><input type="button" class="btn btn-outline-primary" value='-' onClick={()=>{disminuir(prod)}}/>
+                                                     <input class="btn btn-primary" type="button" value={prod.count} />
+                                                     <input type="button" class="btn btn-outline-primary" value='+' onClick={()=>{aumentar(prod)}} />
+                                                     </td>
                                                     <td className="text-right">$ {prod.price * prod.count} </td>
                                                     <td className="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
                                                 </tr>
@@ -92,16 +131,19 @@ export default function Carrito() {
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title p-3 mb-2 bg-danger text-white" id="exampleModalLabel">IMPORTANTE</h5>
+                                                    <h5 class="card-header bg-danger text-white " id="exampleModalLabel">IMPORTANTE</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
+                                                    <div class="spinner-grow text-danger" aria-hidden="true" role="status">
+                                                        <span class="sr-only" aria-hidden="true">&times;</span>
+                                                    </div>
+                                                        
                                                     </button>
                                                 </div>
                                                 <div class="modal-body p-3 mb-2 bg-warning text-dark">
                                                     Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?
       </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}>SI</button>
+                                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}> SI  </button>
                                                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                                 </div>
                                             </div>
@@ -141,7 +183,26 @@ export default function Carrito() {
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
                             <div className="col-sm-12 col-md-6 text-right">
-                                <button className="btn btn-lg btn-block btn-success text-uppercase">Pagar</button>
+                                <button className="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#exampleModal1" >Pagar</button>
+                            </div>
+                            <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body p-3 mb-2 bg-warning text-dark">
+                                            Debes iniciar sesion para finalizar tu compra
+      </div>
+                                        <div class="modal-footer">
+                                            <Link type="button" class="btn btn-outline-primary" data-dismiss="modal" to="/register">Resgistrate</Link>
+                                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">Iniciar sesion</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
