@@ -6,8 +6,12 @@ import './Product.css'
 
 export default function Product({ product }) {
 
+	const [ren, setRen] = useState(true)
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
+	useEffect(() => {
+
+	}, [ren, count])
 
 	if (!product) { return <h1>Loading...</h1> }
 
@@ -16,29 +20,28 @@ export default function Product({ product }) {
 	function counter() {
 		product.count = count
 	}
-	
-	
+
 	function handleAdd() {
-		
-		
+		ren ? setRen(false) : setRen(true)
+
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
-	
+
 		if (!recoveredData) {
 			dispatch(action.countCart())
 			let countCart = 1
-			localStorage.setItem('count',countCart )
+			localStorage.setItem('count', countCart)
 			return localStorage.setItem('prod', JSON.stringify([product]))
-			
+
 		}
 
 		let fined = search.find(prod => prod.id == id)
-		
+
 		if (fined) {
-		
+
 			fined.count++
 			let cleanData = search.filter((data) => data.id !== product.id)
-		
+
 			cleanData.push(fined)
 			return localStorage.setItem('prod', JSON.stringify(cleanData))
 		}
@@ -47,9 +50,9 @@ export default function Product({ product }) {
 		data.push(newProd)
 		dispatch(action.countCart())
 		let countCart = data.length
-		
+
 		localStorage.setItem('prod', JSON.stringify(data))
-		return localStorage.setItem('count',countCart )
+		return localStorage.setItem('count', countCart)
 	}
 
 	return (

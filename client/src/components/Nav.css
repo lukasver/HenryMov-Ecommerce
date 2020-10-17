@@ -24,3 +24,10 @@ a { color: white; }
 .utilidades {
     padding: 0 2%;
 }
+.cart-counter{
+    background: #f9ab1f;
+    padding: 0px 6px;
+    border-radius: 50%;
+    color: black;
+    font-weight: 700;
+}
