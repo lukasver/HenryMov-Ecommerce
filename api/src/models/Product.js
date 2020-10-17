@@ -27,18 +27,18 @@ sequelize.define('product', {
     },
     stock: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-      	isNumeric: true
-      }
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: 1, //ver la forma de que sea el mismo que stock 
       validate: {
       	isNumeric: true
       }
+    // }, SE COMENTA POR SER INNECESARIO YA QUE EL CAMPO STOCK HACE LA FUNCION
+    // quantity: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    //   defaultValue: 1, 
+    //   validate: {
+    //   	isNumeric: true
+    //   }
     },
     image: {
       type: DataTypes.STRING,
