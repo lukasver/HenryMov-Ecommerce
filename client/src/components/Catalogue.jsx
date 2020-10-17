@@ -20,8 +20,6 @@ function Catalogue() {
 	// },[totalProds,listadoProductos])
 	
 	// console.log(categories)
-	
-	console.log(totalProds)
 	// =================================================
 	//		handle SACA TODOS LOS FILTROS 
 	// a travez de getProducts() obtenemos la lista completa de productos 
@@ -46,8 +44,8 @@ function Catalogue() {
 	function handlecheck(e){
 		let elementByParameter = document.getElementById(e.target.id)
 		let name = e.target.name
-		dispatch(action.filterbyCategory(name))
-		return 
+		dispatch(action.filterbyCategory(name,elementByParameter.checked))
+		return
 	}
 	
 	// =================================================

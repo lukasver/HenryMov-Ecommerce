@@ -4,12 +4,14 @@ export const REMOVE_COUNT = "REMOVE_COUNT";
 export const GET_PRODUCT = "GET_PRODUCT";
 export const ON_SEARCH = "ON_SEARCH";
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
+export const REMOVE_BY_CATEGORY = "REMOVE_BY_CATEGORY";
 export const TOTAL_PRODUCT = "TOTAL_PRODUCT";
 export const CATEGORIES = "CATEGORIES";
 export const DELETE_FILTER = "DELETE_FILTER";
 export const CARRITO = "CARRITO";
-export const DELETE_PROD ='DELETE_PROD'
-export const ON_SEARCH_ID ='ON_SEARCH_ID'
+export const DELETE_PROD = "DELETE_PROD";
+export const COUNT_CART = "COUNT_CART";
+export const REMOVE_COUNT_CART = "REMOVE_COUNT_CART";
 
 export function addcount() {
   return {
@@ -43,17 +45,34 @@ function receiveStates(data) {
     payload: data,
   };
 }
+export function removeByCategory(data) {
+  return {
+    type: REMOVE_BY_CATEGORY,
+    payload: data,
+  };
+}
 export function agregarCarrito(prod) {
   return {
     type: CARRITO,
     payload: prod,
   };
 }
-export function deleteProd(prod){
+export function deleteProd(prod) {
   return {
     type: DELETE_PROD,
-    payload: prod
-  }
+    payload: prod,
+  };
+}
+
+export function countCart() {
+  return {
+    type: COUNT_CART,
+  };
+}
+export function removecountCart() {
+  return {
+    type: REMOVE_COUNT_CART,
+  };
 }
 
 export function deleteFilter() {
@@ -61,9 +80,8 @@ export function deleteFilter() {
     type: DELETE_FILTER,
   };
 }
-// [gorra, scooters, bikes, indumentaria, accesorios]
 
-export function filterbyCategory(categorySearch) {
+export function filterbyCategory(categorySearch,bool) {
   return (dispatch) =>
     axios
       .get(`http://localhost:3001/products/category/${categorySearch}`)
@@ -72,8 +90,12 @@ export function filterbyCategory(categorySearch) {
         return product.data;
       })
       .then((data) => {
-        dispatch(receiveStates(data));
-      })
+        if (bool) dispatch(receiveStates(data));
+        if (!bool) dispatch(removeByCategory(data));
+        // console.log(typeof data)
+        // console.log(data)
+        return data
+      }).then(p => p)
       .catch((error) => console.log(error));
 }
 
@@ -102,21 +124,3 @@ export function onSearch(search) {
       .catch((error) => console.log(error));
   };
 }
-
-export function onSearchId(search) {
-  return (dispatch) => {
-    axios
-      .get(`http://localhost:3001/products/${search}`)
-      .then((product) => {
-        return product.data;
-      })
-      .then((data) => {
-        dispatch({
-          type: ON_SEARCH_ID,
-          payload: data,
-        });
-      })
-      .catch((error) => console.log(error));
-  };
-}
-

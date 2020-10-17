@@ -1,41 +1,57 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as action from '../../redux/Action'
 import './Carrito.css';
 
 export default function Carrito() {
+    const dispatch = useDispatch()
+    let product = JSON.parse(localStorage.getItem('prod'))
+    
 
-        function handleDelete(id){
-            //      dispatch(action.deleteProd(id))
+    function subTotal(act) {
+        let subtotal = 0
+        if (product == null) {
+            return 0
         }
-          
-         let product = JSON.parse(localStorage.getItem('prod'))
-        let otra = product 
-          console.log(product)
-
-     function subTotal(act){
-        let subtotal=0
-        if(product.length == 0){ 
-            return 
-        }  
-        product.map( precio =>
-            subtotal= subtotal + precio.price,
-            )
-        let envio= subtotal * 0.1
-        let total= subtotal + envio
-            switch (act){
+        product.map(precio =>
+            subtotal = subtotal + precio.price * precio.count,
+        )
+        let envio = subtotal * 0.1
+        let total = subtotal + envio
+        switch (act) {
             case 1: return envio;
             case 2: return subtotal;
             case 3: return total;
             default: return;
         }
-         }
-     
-     
+    }
+    const [prodId, setProdId] = useState('')
+    const [ren, setRen] = useState(true)
+
+    useEffect(() => {
+    }, [ren, prodId])
+
+    function handleDelete(id) {
+
+        ren ? setRen(false) : setRen(true)
+        dispatch(action.removecountCart())
+        let recoveredData = localStorage.getItem('prod')
+        let data = JSON.parse(recoveredData)
+        let newData = data.filter((data) => data.id !== id)
+        let countCart = newData.length
+		localStorage.setItem('count',countCart )
+        localStorage.setItem('prod', JSON.stringify(newData))
+    }
+
+
+
+
     return (
         <div>
             <section className="jumbotron text-center">
                 <div className="container">
-                <h1 className="jumbotron-heading">CARRITO HENRY MOV</h1>
+                    <h1 className="jumbotron-heading">CARRITO HENRY MOV</h1>
                 </div>
             </section>
 
@@ -55,17 +71,37 @@ export default function Carrito() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     {product.map(prod=>
-                                    <tr>
-                                        <td><img src={prod.image} width={80}/> </td>
-                                        <h3 className='titulo'>{prod.name}</h3>
-                                        <td>{prod.availability}</td>
-                                        <td><input className="form-control" type="text" value="1" /></td>
-                                        <td className="text-right_2">$ {prod.price} </td>
-                                        <td className="text-right_1"><button className="btn btn-sm btn-danger" id={prod.name} onClick={handleDelete}><i className="fa fa-trash"></i> </button> </td>
-                                    </tr>
-)}                                    
-                               
+                                    {
+                                        product ?
+                                            product.map(prod =>
+                                                <tr>
+                                                    <td><img src={prod.image} width={80} /> </td>
+                                                    <h3 className='titulo'>{prod.name}</h3>
+                                                    <td>{prod.availability}</td>
+                                                    <td><input className="form-control" type="text" value={prod.count} /></td>
+                                                    <td className="text-right">$ {prod.price * prod.count} </td>
+                                                    <td className="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
+                                                </tr>
+                                            ) : null}
+                                    <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title p-3 mb-2 bg-danger text-white" id="exampleModalLabel">IMPORTANTE</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body p-3 mb-2 bg-warning text-dark">
+                                                    Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?
+      </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}>SI</button>
+                                                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <tr>
                                         <td></td>
                                         <td></td>

@@ -6,27 +6,24 @@ import {
   ON_SEARCH,
   GET_PRODUCT,
   FILTER_BY_CATEGORY,
+  REMOVE_BY_CATEGORY,
   TOTAL_PRODUCT,
   CATEGORIES,
   DELETE_FILTER,
   CARRITO,
   DELETE_PROD,
-  ON_SEARCH_ID,
+  REMOVE_COUNT_CART,
+  COUNT_CART,
 } from "./Action";
 
 const initialState = {
   totalProds: [],
   categories: [],
   products: [],
-  productById:[],
+  productById: [],
   totalProdsFilter: [],
-  carrito: [{
-    name: 'Vela de Windsurf',
-    description: 'Un vela para tabla de windsurf de color celeste',
-    price: 23000,
-    availability: true,
-    stock: 3,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'}],
+  carrito: [],
+  countCart: 0,
   count: 1,
 };
 
@@ -45,7 +42,17 @@ export function counterReducer(state = initialState, action) {
     case FILTER_BY_CATEGORY:
       return {
         ...state,
-        totalProdsFilter: state.totalProdsFilter.concat(action.payload),
+        totalProdsFilter: state.totalProdsFilter.concat(action.payload)
+      };
+    case REMOVE_BY_CATEGORY:
+      // Hago un map del array con elementos a quitar y filtro sobre el estado totalProdsFilter cuando matchee el id
+      // del elemento a quitar con el elemento del estado totalProdsFilter
+        action.payload.map(x=>{
+            state.totalProdsFilter = state.totalProdsFilter.filter(f => f.id !== x.id)
+        })
+      return {
+        ...state,
+        totalProdsFilter: state.totalProdsFilter
       };
     case ON_SEARCH:
       return {
@@ -77,16 +84,21 @@ export function counterReducer(state = initialState, action) {
         ...state,
         carrito: state.carrito.concat(action.payload),
       };
-      case DELETE_PROD:
-        return{
-          ...state,
-          carrito: state.carrito.filter(!action.payload)
-        }
-        case ON_SEARCH_ID:
-          return {
-            ...state,
-            productById: state.productById.concat(action.payload)
-          }
+    case DELETE_PROD:
+      return {
+        ...state,
+        carrito: state.carrito.filter(!action.payload),
+      };
+    case COUNT_CART:
+      return {
+        ...state,
+        countCart: state.countCart + 1,
+      };
+    case REMOVE_COUNT_CART:
+      return {
+        ...state,
+        countCart: state.countCart - 1,
+      };
     default:
       return state;
   }

@@ -44,6 +44,11 @@ sequelize.define('product', {
       type: DataTypes.STRING,
       allowNull: true
     },
+    count:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue:1
+    }
   } , {
   	timestamps: false
   });
