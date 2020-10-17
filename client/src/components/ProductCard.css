@@ -20,3 +20,13 @@
 .card-img {
 	padding: 6%;
 }
+.btn-cart-add {
+	margin-bottom: 15px;
+	display: none;
+}
+.card:hover > .btn-cart-add {
+	display: block !important;
+	position: absolute;
+	right: 10px;
+    bottom: -7px;
+}
