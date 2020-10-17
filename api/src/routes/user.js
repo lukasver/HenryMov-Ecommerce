@@ -36,10 +36,12 @@ server.get('/user/:id', (req, res, next) => {
 //	Ruta para crear/agregar un usuario.
 //============================================== 
 server.post('/user', (req, res, next) => {
-    const { name, lastname, email, address, phone, password, birthdate } = req.body
+    const { name, lastname, email, address, phone, password, birthdate } = req.body;
+    console.log('Body====<>', req.body)
     if(!name) {
         return res.status(400).send("Faltan datos");
     }
+    console.log(req.body)
     User.create({
         name,
         lastname,
@@ -61,10 +63,10 @@ server.post('/user', (req, res, next) => {
 //===============================================
 server.put('/user/:id', (req, res, next) => {
     const { id } = req.params;
-    const { name, lastname, email, address, phone, password, birthdate } = req.body
+    const { name, lastName, email, address, phone, password, birthdate } = req.body
     User.update({
         name,
-        lastname,
+        lastName,
         email,
         address,
         phone,

@@ -4,6 +4,7 @@ export const REMOVE_COUNT = "REMOVE_COUNT";
 export const GET_PRODUCT = "GET_PRODUCT";
 export const ON_SEARCH = "ON_SEARCH";
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
+export const REMOVE_BY_CATEGORY = "REMOVE_BY_CATEGORY";
 export const TOTAL_PRODUCT = "TOTAL_PRODUCT";
 export const CATEGORIES = "CATEGORIES";
 export const DELETE_FILTER = "DELETE_FILTER";
@@ -43,6 +44,12 @@ function receiveStates(data) {
     payload: data,
   };
 }
+export function removeByCategory(data) {
+  return {
+    type: REMOVE_BY_CATEGORY,
+    payload: data,
+  };
+}
 export function agregarCarrito(prod) {
   return {
     type: CARRITO,
@@ -63,7 +70,7 @@ export function deleteFilter() {
 }
 // [gorra, scooters, bikes, indumentaria, accesorios]
 
-export function filterbyCategory(categorySearch) {
+export function filterbyCategory(categorySearch,bool) {
   return (dispatch) =>
     axios
       .get(`http://localhost:3001/products/category/${categorySearch}`)
@@ -72,8 +79,12 @@ export function filterbyCategory(categorySearch) {
         return product.data;
       })
       .then((data) => {
-        dispatch(receiveStates(data));
-      })
+        if (bool) dispatch(receiveStates(data));
+        if (!bool) dispatch(removeByCategory(data));
+        // console.log(typeof data)
+        // console.log(data)
+        return data
+      }).then(p => p)
       .catch((error) => console.log(error));
 }
 
