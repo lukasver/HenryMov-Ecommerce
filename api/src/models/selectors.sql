@@ -25,3 +25,19 @@ VALUES (1,3), (2,2),(3,3), (4,1), (5,1), (5,2), (6,2), (7,4), (7,1); --INSERTO V
 -- Skates = 2
 -- Windsurf = 3
 -- Bikes = 4
+
+SELECT products.name, orderlines."orderId" FROM products
+JOIN orderlines ON products.id = orderlines."productId"
+LIMIT 10;
+
+SELECT u.id , u.name, u.lastname, o.id as 'OrderlineId', o.amount, o.quantity, o."orderId", o."productId", p.name, p.availability, p.stock FROM orderlines AS o
+JOIN products AS p ON o."productId" = p.id
+JOIN orders ON orders.id = o."orderId"
+JOIN users AS u ON u.id = orders."userId";
+
+
+-- JOIN users AS u ON o."orderId" = u.id
+
+-- WHERE o."orderId" = 4
+LIMIT 10;
+

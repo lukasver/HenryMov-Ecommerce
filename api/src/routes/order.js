@@ -1,7 +1,7 @@
 const server = require('express').Router();
 
 const { Product, User, Order, Orderline } = require('../db.js');
-const { Sequelize } = require('sequelize');
+const { Sequelize, QueryTypes } = require('sequelize');
 
 //==============================================
 //	Ruta para agregar item al carrito
@@ -82,13 +82,19 @@ server.get('/orders/:id', (req, res, next) => {
 //==============================================
 //  Ruta para retornar las orderlines de una orden particular
 //==============================================
-server.get('/orders/:id/cart', (req, res, next) => {
+server.get('/orders/:id/cart', async (req, res, next) => {
   const { id } = req.params
-  Orderline.findAll({
-    where: {orderId: id}, 
+
+  Order.findOne({
+    where: {id},
+    include: [{ model: Product }, { model: User }],
   })
-  .then(carrito => {res.status(200).send(carrito)})
-  .catch(err => res.sendStatus(404))
+    
+  .then(carrito => {
+      res.status(200).send(carrito)})
+  .catch(err => {
+    console.log(err)
+    res.sendStatus(404)})
 })
 
 
