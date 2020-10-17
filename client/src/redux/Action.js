@@ -9,8 +9,9 @@ export const TOTAL_PRODUCT = "TOTAL_PRODUCT";
 export const CATEGORIES = "CATEGORIES";
 export const DELETE_FILTER = "DELETE_FILTER";
 export const CARRITO = "CARRITO";
-export const DELETE_PROD ='DELETE_PROD'
-export const ON_SEARCH_ID ='ON_SEARCH_ID'
+export const DELETE_PROD = "DELETE_PROD";
+export const COUNT_CART = "COUNT_CART";
+export const REMOVE_COUNT_CART = "REMOVE_COUNT_CART";
 
 export function addcount() {
   return {
@@ -56,11 +57,22 @@ export function agregarCarrito(prod) {
     payload: prod,
   };
 }
-export function deleteProd(prod){
+export function deleteProd(prod) {
   return {
     type: DELETE_PROD,
-    payload: prod
-  }
+    payload: prod,
+  };
+}
+
+export function countCart() {
+  return {
+    type: COUNT_CART,
+  };
+}
+export function removecountCart() {
+  return {
+    type: REMOVE_COUNT_CART,
+  };
 }
 
 export function deleteFilter() {
@@ -68,7 +80,6 @@ export function deleteFilter() {
     type: DELETE_FILTER,
   };
 }
-// [gorra, scooters, bikes, indumentaria, accesorios]
 
 export function filterbyCategory(categorySearch,bool) {
   return (dispatch) =>
@@ -113,21 +124,3 @@ export function onSearch(search) {
       .catch((error) => console.log(error));
   };
 }
-
-export function onSearchId(search) {
-  return (dispatch) => {
-    axios
-      .get(`http://localhost:3001/products/${search}`)
-      .then((product) => {
-        return product.data;
-      })
-      .then((data) => {
-        dispatch({
-          type: ON_SEARCH_ID,
-          payload: data,
-        });
-      })
-      .catch((error) => console.log(error));
-  };
-}
-
