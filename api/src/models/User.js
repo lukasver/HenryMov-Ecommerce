@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const { conn } = require('../db.js');
 const bcrypt = require('bcrypt');
 
+
 module.exports = (sequelize) => {
     sequelize.define('user', {
         name: {
@@ -24,7 +25,11 @@ module.exports = (sequelize) => {
             validate: {
                 isAlpha: {
                     args: true,
-                    msg: "El apellido debe contener solo letras"
+                    msg: "El nombre debe contener solo letras"
+                },
+                len: {
+                    args: [2, 45],
+                    msg: "El nombre debe contener minimo 2 letras"
                 }
             }
         },
@@ -40,11 +45,11 @@ module.exports = (sequelize) => {
             }
         },
         address: {
-            type: DataTypes.STRING(55),
+            type: DataTypes.STRING(100),
             allowNull: true
         },
         phone: {
-            type: DataTypes.STRING(10), // este campo no debe ser INTEGER, no son datos manipulables matematicamente
+            type: DataTypes.STRING(25), // este campo no debe ser INTEGER, no son datos manipulables matematicamente
             allowNull: false
         },
         password: {
@@ -66,7 +71,7 @@ module.exports = (sequelize) => {
             defaultValue: 'Cliente',
             allowNull: true
         },
-        creationDate: {
+        creationdate: {
             type: DataTypes.DATEONLY,
             allowNull: true,
             defaultValue: DataTypes.NOW,
@@ -74,14 +79,15 @@ module.exports = (sequelize) => {
     }, { hooks: 
         {
         beforeValidate: function set(user) {
-            user.birthdate = new Date(user.birthdate)
+            user.birthDate = new Date(user.birthDate)
             },
+        
         // beforeValidate: function set(user) {   // este hook es para manipular el campo fecha de birthday si quisieramos
         //     let fechaArg = moment(user.dataValues.birthdate).format('DD/MM/YYYY')
         //     user.setDataValue('birthdate', fechaArg)
         // },
         afterValidate: async function set(user) {
-           user.password = await bcrypt.hash(user.password, 9)
-       }
+            user.password = await bcrypt.hash(user.password, 9)
+        }
     }, timestamps: false });
 };
