@@ -1,0 +1,23 @@
+.total-order {
+    text-align: right;
+}
+.list-order {
+    padding: 1px 20px;
+    text-align: left;
+}
+.list-order-bottom {
+    border-bottom: 1px solid rgb(211 211 211 / 71%);
+}
+.ul-detalle {
+    padding-top: 15px;
+}
+.content-order {
+    padding: 60px;
+}
+.hover-list:hover {
+    background-color: #ffaf00 !important;
+}
+.list-order-top {
+    background: #111111;
+    color: white;
+}
