@@ -11,22 +11,18 @@ import {
   DELETE_FILTER,
   CARRITO,
   DELETE_PROD,
-  ON_SEARCH_ID,
+  REMOVE_COUNT_CART,
+  COUNT_CART,
 } from "./Action";
 
 const initialState = {
   totalProds: [],
   categories: [],
   products: [],
-  productById:[],
+  productById: [],
   totalProdsFilter: [],
-  carrito: [{
-    name: 'Vela de Windsurf',
-    description: 'Un vela para tabla de windsurf de color celeste',
-    price: 23000,
-    availability: true,
-    stock: 3,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'}],
+  carrito: [],
+  countCart: 0,
   count: 1,
 };
 
@@ -77,16 +73,21 @@ export function counterReducer(state = initialState, action) {
         ...state,
         carrito: state.carrito.concat(action.payload),
       };
-      case DELETE_PROD:
-        return{
-          ...state,
-          carrito: state.carrito.filter(!action.payload)
-        }
-        case ON_SEARCH_ID:
-          return {
-            ...state,
-            productById: state.productById.concat(action.payload)
-          }
+    case DELETE_PROD:
+      return {
+        ...state,
+        carrito: state.carrito.filter(!action.payload),
+      };
+    case COUNT_CART:
+      return {
+        ...state,
+        countCart: state.countCart + 1,
+      };
+    case REMOVE_COUNT_CART:
+      return {
+        ...state,
+        countCart: state.countCart - 1,
+      };
     default:
       return state;
   }

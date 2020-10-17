@@ -1,8 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as action from '../../redux/Action'
 import './Carrito.css';
 
 export default function Carrito() {
+    const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
 
     function subTotal(act) {
@@ -27,18 +30,18 @@ export default function Carrito() {
 
     useEffect(() => {
     }, [ren, prodId])
-   
-    function handleDelete(id) {
-        
-        ren ? setRen(false) : setRen(true)
 
+    function handleDelete(id) {
+
+        ren ? setRen(false) : setRen(true)
+        dispatch(action.removecountCart())
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
         let newData = data.filter((data) => data.id !== id)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
 
-  
+
 
 
     return (
@@ -66,17 +69,17 @@ export default function Carrito() {
                                 </thead>
                                 <tbody>
                                     {
-                                    product ?
-                                    product.map(prod =>
-                                        <tr>
-                                            <td><img src={prod.image} width={80} /> </td>
-                                            <h3 className='titulo'>{prod.name}</h3>
-                                            <td>{prod.availability}</td>
-                                    <td><input className="form-control" type="text" value={prod.count} /></td>
-                                            <td className="text-right">$ {prod.price * prod.count} </td>
-                                            <td className="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={()=>setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
-                                        </tr>
-                                    ): null}
+                                        product ?
+                                            product.map(prod =>
+                                                <tr>
+                                                    <td><img src={prod.image} width={80} /> </td>
+                                                    <h3 className='titulo'>{prod.name}</h3>
+                                                    <td>{prod.availability}</td>
+                                                    <td><input className="form-control" type="text" value={prod.count} /></td>
+                                                    <td className="text-right">$ {prod.price * prod.count} </td>
+                                                    <td className="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
+                                                </tr>
+                                            ) : null}
                                     <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -90,7 +93,7 @@ export default function Carrito() {
                                                     Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?
       </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={()=>handleDelete(prodId)}>SI</button>
+                                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}>SI</button>
                                                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                                 </div>
                                             </div>

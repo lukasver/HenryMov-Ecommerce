@@ -5,41 +5,46 @@ import './Product.css'
 
 
 export default function Product({ product }) {
-	
+
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 
 	if (!product) { return <h1>Loading...</h1> }
 
 	const { name, image, price, description, id } = product
+
+	function counter() {
+		product.count = count
+	}
 	
-   function counter(){
-	product.count = count
-   }
+	
 	function handleAdd() {
 		
-		let recoveredData = localStorage.getItem('prod')
-		console.log('esto es lo que quiebra',JSON.parse(recoveredData))
-		let search = JSON.parse(recoveredData)
-		console.log('antes search', search)
-		if (!recoveredData) {
-			return localStorage.setItem('prod', JSON.stringify([product]))
-		} 
 		
-		let fined = search.find(prod=> prod.id == id )
-			console.log('antes de la funcion')
-		if(fined){
-			console.log('despues de la funcion')
+		let recoveredData = localStorage.getItem('prod')
+	
+		let search = JSON.parse(recoveredData)
+	
+		if (!recoveredData) {
+					dispatch(action.countCart())
+			return localStorage.setItem('prod', JSON.stringify([product]))
+		}
+
+		let fined = search.find(prod => prod.id == id)
+		
+		if (fined) {
+		
 			fined.count++
 			let cleanData = search.filter((data) => data.id !== product.id)
-			console.log('para pushear fined:',cleanData)
+		
 			cleanData.push(fined)
 			return localStorage.setItem('prod', JSON.stringify(cleanData))
-		}		
-			let data = JSON.parse(recoveredData)
-			let newProd = product
-			data.push(newProd)
-			localStorage.setItem('prod', JSON.stringify(data))
+		}
+		let data = JSON.parse(recoveredData)
+		let newProd = product
+		data.push(newProd)
+		dispatch(action.countCart())
+		localStorage.setItem('prod', JSON.stringify(data))
 	}
 
 	return (
@@ -57,16 +62,16 @@ export default function Product({ product }) {
 						<div className="col-md-4">
 							<div className="input-group mb-2 mr-sm-2">
 								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-left" type="button"onChange={counter()} onClick={() => {
+									<button className="btn btn-outline-secondary buttom-left" type="button" onChange={counter()} onClick={() => {
 										if (count === 1) {
 											return 1
 										}
-										dispatch(action.removecount())  
+										dispatch(action.removecount())
 									}}>-</button>
 								</div>
 								<input type="text" className="form-control cantidades" id="inlineFormInputGroupUsername2" placeholder="0" value={count} />
 								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() => dispatch(action.addcount()) } onChange={counter()}>+</button>
+									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() => dispatch(action.addcount())} onChange={counter()}>+</button>
 								</div>
 							</div>
 						</div>
@@ -86,7 +91,7 @@ export default function Product({ product }) {
 									<div className="modal-body alert alert-success ">
 										Tu producto se agrego al carrito con exito!!!
 										</div>
-									
+
 								</div>
 							</div>
 						</div>
