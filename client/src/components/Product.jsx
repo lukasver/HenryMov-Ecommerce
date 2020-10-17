@@ -12,7 +12,10 @@ export default function Product({ product }) {
 	if (!product) { return <h1>Loading...</h1> }
 
 	const { name, image, price, description, id } = product
-
+	
+   function counter(){
+	product.count = count
+   }
 	function handleAdd() {
 		
 		let recoveredData = localStorage.getItem('prod')
@@ -54,16 +57,16 @@ export default function Product({ product }) {
 						<div className="col-md-4">
 							<div className="input-group mb-2 mr-sm-2">
 								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-left" type="button" onClick={() => {
+									<button className="btn btn-outline-secondary buttom-left" type="button"onChange={counter()} onClick={() => {
 										if (count === 1) {
 											return 1
 										}
-										dispatch(action.removecount())
+										dispatch(action.removecount())  
 									}}>-</button>
 								</div>
 								<input type="text" className="form-control cantidades" id="inlineFormInputGroupUsername2" placeholder="0" value={count} />
 								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() => dispatch(action.addcount())}>+</button>
+									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() => dispatch(action.addcount()) } onChange={counter()}>+</button>
 								</div>
 							</div>
 						</div>
