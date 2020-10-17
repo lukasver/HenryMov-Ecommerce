@@ -23,7 +23,7 @@ const initialState = {
   productById: [],
   totalProdsFilter: [],
   carrito: [],
-  countCart: 0,
+  countCart: '0',
   count: 1,
 };
 
@@ -92,7 +92,7 @@ export function counterReducer(state = initialState, action) {
     case COUNT_CART:
       return {
         ...state,
-        countCart: state.countCart + 1,
+        countCart: action.payload,
       };
     case REMOVE_COUNT_CART:
       return {

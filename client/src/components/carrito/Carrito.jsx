@@ -12,7 +12,8 @@ export default function Carrito() {
     const [prodId, setProdId] = useState('')
     const [ren, setRen] = useState(true)
     
-   product.sort(function (a, b) {
+    if(product!=null){  
+     product.sort(function (a, b) {
 		if (a.id > b.id){
 		  return 1;
 		}
@@ -21,7 +22,7 @@ export default function Carrito() {
 		}
 		return 0;
 	  })
-
+}
 
 
     function subTotal(act) {
@@ -83,6 +84,14 @@ export default function Carrito() {
         localStorage.setItem('prod', JSON.stringify(newData))
        
     }
+function deleteAllProd(){
+            localStorage.setItem('count', 0)
+            localStorage.setItem('prod', null)
+            ren ? setRen(false) : setRen(true)
+            return  
+
+
+}
 
 
 
@@ -179,7 +188,10 @@ export default function Carrito() {
                     </div>
                     <div className="col mb-2">
                         <div className="row">
-                            <div className="col-sm-12  col-md-6">
+                            <div className="col-sm-6  col-md-3">
+                                <button type="button" class="btn btn-outline-danger" onClick={deleteAllProd}>Vaciar el carrito</button>
+                            </div>
+                            <div className="col-sm-6  col-md-3">
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
                             <div className="col-sm-12 col-md-6 text-right">
@@ -198,7 +210,7 @@ export default function Carrito() {
                                             Debes iniciar sesion para finalizar tu compra
       </div>
                                         <div class="modal-footer">
-                                            <Link type="button" class="btn btn-outline-primary" data-dismiss="modal" to="/register">Resgistrate</Link>
+                                            <a type="button" class="btn btn-outline-primary"  href="/register">Resgistrate</a>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">Iniciar sesion</button>
                                         </div>
                                     </div>
@@ -241,7 +253,6 @@ export default function Carrito() {
                                 <li><a href="">Link 4</a></li>
                             </ul>
                         </div>
-
                         <div className="col-md-4 col-lg-3 col-xl-3 bg-dark">
                             <h5>Contact</h5>
                             <hr className="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />

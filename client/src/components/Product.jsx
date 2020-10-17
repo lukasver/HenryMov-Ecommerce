@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import * as action from '../redux/Action'
 import './Product.css'
 
@@ -28,9 +30,9 @@ export default function Product({ product }) {
 		let search = JSON.parse(recoveredData)
 
 		if (!recoveredData) {
-			dispatch(action.countCart())
 			let countCart = 1
 			localStorage.setItem('count', countCart)
+			dispatch(action.countCart())
 			return localStorage.setItem('prod', JSON.stringify([product]))
 
 		}
@@ -48,11 +50,11 @@ export default function Product({ product }) {
 		let data = JSON.parse(recoveredData)
 		let newProd = product
 		data.push(newProd)
-		dispatch(action.countCart())
 		let countCart = data.length
-
+		localStorage.setItem('count', countCart)
+		
 		localStorage.setItem('prod', JSON.stringify(data))
-		return localStorage.setItem('count', countCart)
+		dispatch(action.countCart())
 	}
 
 	return (
@@ -99,7 +101,7 @@ export default function Product({ product }) {
 									<div className="modal-body alert alert-success ">
 										Tu producto se agrego al carrito con exito
 										</div>
-
+										<a href="/carrito"  type="button" class="btn btn-outline-success"  >Ir al carrito</a>
 								</div>
 							</div>
 						</div>

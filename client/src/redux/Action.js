@@ -65,8 +65,10 @@ export function deleteProd(prod) {
 }
 
 export function countCart() {
+  let countCart =localStorage.getItem('count')
   return {
     type: COUNT_CART,
+    payload: countCart
   };
 }
 export function removecountCart() {
