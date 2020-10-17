@@ -21,14 +21,14 @@ export default function Usuarios({getUsers}) {
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">name</th>
-                            <th scope="col">lastname</th>
-                            <th scope="col">email</th>
-                            <th scope="col">address</th>
-                            <th scope="col">phone</th>
-                            <th scope="col">birthdate</th>
-                            <th scope="col">role</th>
-                            <th scope="col">creationDate</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Lastname</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Birthdate</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Creation date</th>
                         </tr>
                     </thead>
                     <tbody>
