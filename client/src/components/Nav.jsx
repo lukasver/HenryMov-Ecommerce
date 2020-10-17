@@ -11,15 +11,13 @@ function Nav() {
    
     // const aux = useSelector(store => store.countCart)
     // let countCart = aux
+    
 
     let countCart =	localStorage.getItem('count')
-    !countCart ? countCart = 0 : countCart = countCart
-    useEffect(()=>{
-    },[countCart])
+     !countCart ? countCart = 0 : countCart = countCart
     
    
-	
-
+    
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="col-md-3">
