@@ -33,6 +33,7 @@ export default function Register() {
 
     const handleSubmit = e => {
         const { name } = e.target;
+
         e.preventDefault();
         axios.post(`http://localhost:3001/user`, values)
         .then(values => {
