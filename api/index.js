@@ -99,7 +99,8 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Un vela para tabla de windsurf de color celeste',
 	  		price: 23000,
 	  		availability: true,
-	  		stock: 3,
+			stock: 3,
+			count: 1,   
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([3]);
@@ -109,7 +110,8 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Base de reemplazo para skate',
 	  		price: 1000,
 	  		availability: true,
-	  		stock: 20,
+			  stock: 20,
+			  count: 1,
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([2]);
@@ -119,7 +121,8 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Gorro skate - Made in China',
 	  		price: 210,
 	  		availability: true,
-	  		stock: 100,
+			  stock: 100,
+			  count: 1,
 	  		image: 'https://sc02.alicdn.com/kf/H55756b6151c748328ed7791a02a36fbcQ.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([6]);
@@ -129,7 +132,8 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Scooter eléctrico gris/negro de 2 ruedas',
 	  		price: 140,
 	  		availability: true,
-	  		stock: 100,
+			  stock: 100,
+			  count: 1,
 	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([1]);
@@ -139,7 +143,8 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Un hoverboard blanco de 2 ruedas',
 	  		price: 210,
 	  		availability: false,
-	  		stock: 100,
+			  stock: 100,
+			  count: 1,
 	  		image: 'https://i.pinimg.com/originals/ea/2b/84/ea2b84b6d1358a047ccd9925003620d8.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([5]);
@@ -149,7 +154,8 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Un shortboard blanco de 4 ruedas',
 	  		price: 140,
 	  		availability: true,
-	  		stock: 100,
+			  stock: 100,
+			  count: 1,
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([2]);
@@ -159,7 +165,8 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Bicicleta electrica',
 	  		price: 210,
 	  		availability: false,
-	  		stock: 100,
+			  stock: 100,
+			  count: 1,
 	  		image: 'https://ebikebc.com/wp-content/uploads/2019/11/ebikeBC-ebikes-banner-product-smaller.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([4]);
@@ -170,6 +177,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1399,
 				availability: false,
 				stock: 10,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/casco-noname-rosa-1-21-ffaebc33792f6e6e6415900886785140-640-0.jpg'
 		}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -180,6 +188,7 @@ conn.sync({ force: true }).then(() => {
 				price: 4490,
 				availability: false,
 				stock: 545 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/8621-3a9dc31491d38459a615887197486657-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -190,6 +199,7 @@ conn.sync({ force: true }).then(() => {
 				price: 4099,
 				availability: false,
 				stock: 23,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/zapatillas-huf-soto-black-31-76232f6b4c699e9eae15997728362910-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -200,6 +210,7 @@ conn.sync({ force: true }).then(() => {
 				price: 4990,
 				availability: false,
 				stock: 65,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/1661-3fb85721265fe466d815887005517584-640-0.jpg	'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -210,6 +221,7 @@ conn.sync({ force: true }).then(() => {
 				price: 4500,
 				availability: false,
 				stock: 34,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/3931-90e1bd9e6cd28b2a0815884478454641-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -220,6 +232,7 @@ conn.sync({ force: true }).then(() => {
 				price:5990 ,
 				availability: false,
 				stock: 32,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2141-8bba392f6d3979a3b315884422233072-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -228,6 +241,7 @@ conn.sync({ force: true }).then(() => {
 				name: 'Zapatillas Huf Galaxy Skate Urbana Negro / Azul',
 				description: 'Huf Galaxy con la mas fina combinación de gamuza y suela vulcanizada,Costuras en la parte delantera para mejorar el agarre de estas al pie y mejorar el grip al raspar.',
 				price: 4099,
+				count: 1,
 				availability: false,
 				stock: 43,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/wGorrasapp-image-2020-09-11-at-7-55-14-pm-11-63675c24f813f274bc16008106443232-640-0.jpeg'
@@ -240,6 +254,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1720,
 				availability: false,
 				stock:43 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/1811-68a374a4b8091df2ce15880342841356-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -250,6 +265,7 @@ conn.sync({ force: true }).then(() => {
 				price:1299 ,
 				availability: false,
 				stock:32 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2711-547008059e8ca6e0c515883835046272-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -260,6 +276,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1299,
 				availability: false,
 				stock: 21,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6201-2d4a0b42b2f3d6870815887072186453-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -268,6 +285,7 @@ conn.sync({ force: true }).then(() => {
 				name: 'Malla Bermuda Short De Baño Playa Quiksilver Techtonics Boys',
 				description: ' Board Shorts 4-way stretch Estampado con cintura en contraste Bragueta 4-way stretch Bolsillo trasero con parche Etiqueta en el bajo de la pierna izquierda Detalles de DC Largo 20" Composición 92% Poliéster Reciclado, 8% Elastano',
 				price:2599 ,
+				count: 1,
 				availability: false,
 				stock: 54,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/acero11-1bdcd6443ab65e6bb615879959523320-640-0.jpg'
@@ -280,6 +298,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1999,
 				availability: false,
 				stock: 64,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/81-09fe09b0cb4e4beeeb15879984952437-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -290,6 +309,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1600,
 				availability: false,
 				stock:12 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6551-bd082bb589e4fa5f0015887048790512-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -300,6 +320,7 @@ conn.sync({ force: true }).then(() => {
 				price:6299 ,
 				availability: false,
 				stock: 23,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/11211-18ad3ad0daa67bc69d15886296499645-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -310,6 +331,7 @@ conn.sync({ force: true }).then(() => {
 				price: 2490,
 				availability: false,
 				stock: 34,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/991-0fdf1ee8debca1764515886289931793-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -320,6 +342,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1500,
 				availability: false,
 				stock: 34,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/521-5a6bd3140b2a3b37f315886984024789-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -330,6 +353,7 @@ conn.sync({ force: true }).then(() => {
 				price:1950 ,
 				availability: false,
 				stock:32 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6821-ca82226cb7b86af19915884504558586-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -340,6 +364,7 @@ conn.sync({ force: true }).then(() => {
 				price: 575,
 				availability: false,
 				stock: 43,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/medias-huf-henry-crew1-63f2d8575f7a8f2bd216021925636092-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -350,6 +375,7 @@ conn.sync({ force: true }).then(() => {
 				price: 575 ,
 				availability: false,
 				stock:32 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/huf-og-logo_black-11-210afe5db5089c800e15911494614271-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -360,6 +386,7 @@ conn.sync({ force: true }).then(() => {
 				price: 8200,
 				availability: false,
 				stock: 23,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/skate-banga-skull1-4d10a1ae22b60579b016010598447465-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -370,6 +397,7 @@ conn.sync({ force: true }).then(() => {
 				price:9500 ,
 				availability: false,
 				stock:54 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/fms1sk0211-3fc80b140b19f4615316016590273659-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -380,6 +408,7 @@ conn.sync({ force: true }).then(() => {
 				price:9500 ,
 				availability: false,
 				stock:54 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/fms1sk011-8df4a708054824f61916016587162562-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -390,6 +419,7 @@ conn.sync({ force: true }).then(() => {
 				price:8500 ,
 				availability: false,
 				stock:12 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/3031-c0298f95fdb73c3f3915887963031044-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -400,6 +430,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1099,
 				availability: false,
 				stock:32,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/341-41b87472176de8c33915880178735099-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([6]);
@@ -410,6 +441,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1999,
 				availability: false,
 				stock:32 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6231-c152af4a1549763f0515884503288404-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([6]);
@@ -420,6 +452,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1799 ,
 				availability: false,
 				stock:23 ,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/841-aa37c4236ca9ef08b215884632016078-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([6]);
@@ -430,6 +463,7 @@ conn.sync({ force: true }).then(() => {
 				price: 1799,
 				availability: false,
 				stock: 43,
+				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/4211-8d897112cd5b4af29315880921728471-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([6]);
@@ -440,6 +474,7 @@ conn.sync({ force: true }).then(() => {
 				price: 37900,
 				availability: false,
 				stock: 32,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_728530-MLA43214211601_082020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([8]);
@@ -450,6 +485,7 @@ conn.sync({ force: true }).then(() => {
 				price: 32999 ,
 				availability: false,
 				stock:43 ,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_762822-MLA43481932680_092020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([8]);
@@ -460,6 +496,7 @@ conn.sync({ force: true }).then(() => {
 				price: 35000,
 				availability: false,
 				stock:23 ,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_859963-MLA43692366670_102020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([8]);
@@ -470,6 +507,7 @@ conn.sync({ force: true }).then(() => {
 				price: 4500,
 				availability: false,
 				stock:43 ,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_751798-MLA42802383909_072020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -480,6 +518,7 @@ conn.sync({ force: true }).then(() => {
 				price: 4500,
 				availability: false,
 				stock: 43,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_738191-MLA31112676292_062019-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -490,6 +529,7 @@ conn.sync({ force: true }).then(() => {
 				price:6399 ,
 				availability: false,
 				stock: 32,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_679560-MLA43168480883_082020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -500,6 +540,7 @@ conn.sync({ force: true }).then(() => {
 				price: 35000,
 				availability: false,
 				stock:32 ,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_737040-MLA32620021373_102019-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([4]);
@@ -510,6 +551,7 @@ conn.sync({ force: true }).then(() => {
 				price: 65000,
 				availability: false,
 				stock: 43,
+				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_974760-MLA41876665207_052020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([4]);
