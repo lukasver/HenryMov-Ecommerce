@@ -44,7 +44,7 @@ export default function Usuarios({getUsers}) {
                                     <td>{dato.phone}</td>
                                     <td>{dato.birthdate}</td>
                                     <td>{dato.role}</td>
-                                    <td>{dato.creationDate.toString()}</td>
+                                    <td>{dato.creationdate.toString()}</td>
                                 </tr>)
                             })
                         }
