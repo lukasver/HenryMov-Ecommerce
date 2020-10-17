@@ -14,9 +14,7 @@ function Nav() {
 
     let countCart =	localStorage.getItem('count')
     !countCart ? countCart = 0 : countCart = countCart
-    useEffect(()=>{
-    },[countCart])
-    
+   
    
 	
 

@@ -6,6 +6,9 @@ import './Product.css'
 
 export default function Product({ product }) {
 
+	useEffect(()=>{
+		
+	},[])
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 
@@ -16,7 +19,6 @@ export default function Product({ product }) {
 	function counter() {
 		product.count = count
 	}
-	
 	
 	function handleAdd() {
 		

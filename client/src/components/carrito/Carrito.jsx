@@ -7,6 +7,8 @@ import './Carrito.css';
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
+    const [prodId, setProdId] = useState('')
+    const [ren, setRen] = useState(true)
     
 
     function subTotal(act) {
@@ -20,14 +22,17 @@ export default function Carrito() {
         let envio = subtotal * 0.1
         let total = subtotal + envio
         switch (act) {
-            case 1: return envio;
+            case 1: return dosDecimales(envio);
             case 2: return subtotal;
-            case 3: return total;
+            case 3: return dosDecimales(total);
             default: return;
         }
     }
-    const [prodId, setProdId] = useState('')
-    const [ren, setRen] = useState(true)
+    function dosDecimales(n) {
+        let t=n.toString();
+        let regex=/(\d*.\d{0,2})/;
+        return t.match(regex)[0];
+      }
 
     useEffect(() => {
     }, [ren, prodId])
