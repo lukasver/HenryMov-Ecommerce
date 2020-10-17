@@ -1,41 +1,54 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carrito.css';
 
 export default function Carrito() {
 
-        function handleDelete(id){
-            //      dispatch(action.deleteProd(id))
-        }
-          
-         let product = JSON.parse(localStorage.getItem('prod'))
-        let otra = product 
-          console.log(product)
 
-     function subTotal(act){
-        let subtotal=0
-        if(product.length == 0){ 
-            return 
-        }  
-        product.map( precio =>
-            subtotal= subtotal + precio.price,
-            )
-        let envio= subtotal * 0.1
-        let total= subtotal + envio
-            switch (act){
+
+    let product = JSON.parse(localStorage.getItem('prod'))
+    console.log(product)
+
+    function subTotal(act) {
+        let subtotal = 0
+        if (product == null) {
+            return 0
+        }
+        product.map(precio =>
+            subtotal = subtotal + precio.price,
+        )
+        let envio = subtotal * 0.1
+        let total = subtotal + envio
+        switch (act) {
             case 1: return envio;
             case 2: return subtotal;
             case 3: return total;
             default: return;
         }
+    }
+    const [ren, setRen]= useState(true)
+    useEffect(()=>{
+
+    },[ren])
+    function handleDelete(id) {
+        console.log('id:', id)
+        console.log('aca borra')
+        ren ? setRen(false) : setRen(true)
+
+        let recoveredData = localStorage.getItem('prod')
+        console.log('recover data:', recoveredData)
+
+        let data = JSON.parse(recoveredData)
+        let newData = data.filter((data) => data.id !== id)
+        localStorage.setItem('prod', JSON.stringify(newData))
          }
-     
-     
+
+
     return (
         <div>
             <section className="jumbotron text-center">
                 <div className="container">
-                <h1 className="jumbotron-heading">CARRITO HENRY MOV</h1>
+                    <h1 className="jumbotron-heading">CARRITO HENRY MOV</h1>
                 </div>
             </section>
 
@@ -55,17 +68,17 @@ export default function Carrito() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     {product.map(prod=>
-                                    <tr>
-                                        <td><img src={prod.image} width={80}/> </td>
-                                        <h3 className='titulo'>{prod.name}</h3>
-                                        <td>{prod.availability}</td>
-                                        <td><input className="form-control" type="text" value="1" /></td>
-                                        <td className="text-right_2">$ {prod.price} </td>
-                                        <td className="text-right_1"><button className="btn btn-sm btn-danger" id={prod.name} onClick={handleDelete}><i className="fa fa-trash"></i> </button> </td>
-                                    </tr>
-)}                                    
-                               
+                                    {product.map(prod =>
+                                        <tr>
+                                            {console.log('img:', prod.img)}
+                                            <td><img src={prod.image} width={80} /> </td>
+                                            <h3 className='titulo'>{prod.name}</h3>
+                                            <td>{prod.availability}</td>
+                                            <td><input className="form-control" type="text" value="1" /></td>
+                                            <td className="text-right_2">$ {prod.price} </td>
+                                            <td className="text-right_1"><button className="btn btn-sm btn-danger" onClick={() => { handleDelete(prod.id) }}><i className="fa fa-trash"></i> </button> </td>
+                                        </tr>
+                                    )}
                                     <tr>
                                         <td></td>
                                         <td></td>
