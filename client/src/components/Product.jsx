@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
-import { useAlert } from 'react-alert'
 import './Product.css'
 
 
 export default function Product({ product }) {
-	const alert = useAlert()
+	
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 
@@ -15,20 +14,29 @@ export default function Product({ product }) {
 	const { name, image, price, description, id } = product
 
 	function handleAdd() {
-
-		let ProdListFav = [product]
-
+		
 		let recoveredData = localStorage.getItem('prod')
+		console.log('esto es lo que quiebra',JSON.parse(recoveredData))
+		let search = JSON.parse(recoveredData)
+		console.log('antes search', search)
 		if (!recoveredData) {
-			localStorage.setItem('prod', JSON.stringify(ProdListFav))
-		} else {
+			return localStorage.setItem('prod', JSON.stringify([product]))
+		} 
+		
+		let fined = search.find(prod=> prod.id == id )
+			console.log('antes de la funcion')
+		if(fined){
+			console.log('despues de la funcion')
+			fined.count++
+			let cleanData = search.filter((data) => data.id !== product.id)
+			console.log('para pushear fined:',cleanData)
+			cleanData.push(fined)
+			return localStorage.setItem('prod', JSON.stringify(cleanData))
+		}		
 			let data = JSON.parse(recoveredData)
 			let newProd = product
-
 			data.push(newProd)
 			localStorage.setItem('prod', JSON.stringify(data))
-		}
-
 	}
 
 	return (
