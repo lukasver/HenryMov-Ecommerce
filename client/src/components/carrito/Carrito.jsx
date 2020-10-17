@@ -72,7 +72,7 @@ export default function Carrito() {
     }
     function disminuir(prod){
         ren ? setRen(false) : setRen(true)
-        if (prod.count==0){
+        if (prod.count==1){
             return
         }
         prod.count = prod.count-1
@@ -117,7 +117,7 @@ export default function Carrito() {
                                             product.map(prod =>
                                                 <tr>
                                                     <td><img src={prod.image} width={80} /> </td>
-                                                    <h3 className='titulo'>{prod.name}</h3>
+                                                    <h5 className='titulo'>{prod.name.substring(0,30)+'...'}</h5>
                                                     <td>{prod.availability}</td>
                                                     <td><input type="button" class="btn btn-outline-primary" value='-' onClick={()=>{disminuir(prod)}}/>
                                                      <input class="btn btn-primary" type="button" value={prod.count} />
