@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
+import { useAlert } from 'react-alert'
 import './Product.css'
 
 
-
 export default function Product({ product }) {
-
+	const alert = useAlert()
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 
@@ -28,7 +28,7 @@ export default function Product({ product }) {
 			data.push(newProd)
 			localStorage.setItem('prod', JSON.stringify(data))
 		}
-	
+
 	}
 
 	return (
@@ -60,8 +60,24 @@ export default function Product({ product }) {
 							</div>
 						</div>
 						<div className="col-md-8">
-							<button type="button" class="btn btn-primary btn-m" onClick={handleAdd}>Agregar a su carrito</button>
+							<button type="button" class="btn btn-primary btn-m" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd} >Agregar a su carrito</button>
 							{/* <input type="submit" className="js-addtocart js-prod-submit-form btn btn-primary btn-block mb-4 cart" value="Agregar al carrito" onClick={e=>handleAdd}/> */}
+						</div>
+						<div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header ">
+										<h6 class="modal-title p-3 mb-2 bg-primary text-white" id="exampleModalLongTitle">Henry Mov</h6>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div className="modal-body alert alert-success ">
+										Tu producto se agrego al carrito con exito!!!
+										</div>
+									
+								</div>
+							</div>
 						</div>
 					</div>
 					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>
