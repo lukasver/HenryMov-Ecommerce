@@ -9,6 +9,7 @@ export const CATEGORIES = "CATEGORIES";
 export const DELETE_FILTER = "DELETE_FILTER";
 export const CARRITO = "CARRITO";
 export const DELETE_PROD ='DELETE_PROD'
+export const ON_SEARCH_ID ='ON_SEARCH_ID'
 
 export function addcount() {
   return {
@@ -101,3 +102,21 @@ export function onSearch(search) {
       .catch((error) => console.log(error));
   };
 }
+
+export function onSearchId(search) {
+  return (dispatch) => {
+    axios
+      .get(`http://localhost:3001/products/${search}`)
+      .then((product) => {
+        return product.data;
+      })
+      .then((data) => {
+        dispatch({
+          type: ON_SEARCH_ID,
+          payload: data,
+        });
+      })
+      .catch((error) => console.log(error));
+  };
+}
+

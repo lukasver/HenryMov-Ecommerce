@@ -19,7 +19,7 @@ export default function Register() {
 
     const handleOnChange = e => {
         const { name, value } = e.target;
-        
+
         setValues({
             ...values,
             [name]: value
@@ -33,13 +33,10 @@ export default function Register() {
 
     const handleSubmit = e => {
         const { name } = e.target;
-        console.log('antes del then===>', values)
-        console.log(error)
         e.preventDefault();
         axios.post(`http://localhost:3001/user`, values)
         .then(values => {
             alert("Usuario creado con exito")
-            console.log('despues del then====>', values)
             return values
         })
         
@@ -47,6 +44,7 @@ export default function Register() {
             ...values,
             [name]: ''
         }))
+
     }
 
 
@@ -67,9 +65,6 @@ export default function Register() {
 
         if (!input.lastname) {
             errors.lastname = 'Este campo es requerido';
-        }
-        else if (!(/^[a-zA-Z]+$/).test(input.lastname)) {
-            errors.lastname = 'El apellido solo puede contener letras'
         }
 
         if (!input.email) {
@@ -110,8 +105,8 @@ export default function Register() {
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-
                                 <input
+                                    className="user"
                                     onChange={handleOnChange}
                                     name='name'
                                     type="text"
@@ -121,28 +116,29 @@ export default function Register() {
                                 {error.name && <p className='danger'>{error.name}</p>}
                             </div>
                             <div className="col-md-6">
-                                <input
+                                    <input
                                     onChange={handleOnChange}
                                     name='lastname'
                                     type="text"
                                     id='Apellido'
                                     placeholder='Ingrese su apellido' 
                                     />
-                                {error.lastname && <p className='danger'>{error.lastname}</p>}
-                            </div>
+                                    {error.lastname && <p className='danger'>{error.lastname}</p>}
+                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-                                <input 
+                               <input 
                                 onChange={handleOnChange}
                                 name='address' 
                                 type="text" 
                                 id='Direccion' 
                                 placeholder='Av. Siempreviva 134'
                                 />
-                            </div>
+                           </div>
                             <div className="col-md-6">
                                 <input
+                                    className="user"
                                     onChange={handleOnChange}
                                     name='email'
                                     type="email"
@@ -171,12 +167,12 @@ export default function Register() {
                                     placeholder='12/05/1956' 
                                     />
                                 {error.birthdate && <p className='danger'>{error.birthdate}</p>}
-                            </div>
+                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-
                                 <input
+                                    className="user"
                                     onChange={handleOnChange}
                                     name='password'
                                     type="password"
@@ -186,8 +182,8 @@ export default function Register() {
                                 {error.password && <p className='danger'>{error.password}</p>}
                             </div>
                             <div className="col-md-6">
-
                                 <input
+                                    className="user"
                                     onChange={handleOnChange}
                                     name='confirmedPassword'
                                     type="password"

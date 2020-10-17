@@ -138,22 +138,20 @@ export default function Panel({ tablaAccion }) {
         .then(data => data)
         .catch(error => console.log(error))
     }; 
-    
-    // const orders = async function (){
-    //     return await axios
-    //     .get(`http://localhost:3001/users/orders`)
-    //     .then(orders => orders.data )
-    //     .then(data => data)
-    //     .catch(error => console.log(error))
-    // }
-    
+    function getUsers(){
+        return axios
+        .get(`http://localhost:3001/user`)
+        .then(orders => orders.data )
+        .then(data => data)
+        .catch(error => console.log(error))
+    }; 
     return (
         <div className="container-fluid">
             <div className="main row">
                 <MenuAdmin />
                 {tablaAccion === 'Desktop' && <Escritorio />}
                 {tablaAccion === 'Categorys' && <Categorias categorias={adminCategories} deleteCategory={deleteCategory} category={category} getCategory={getCategory} addCategory={addCategory} modCategory={modCategory}/>}
-                {tablaAccion === 'Users' && <Usuarios />}
+                {tablaAccion === 'Users' && <Usuarios getUsers={getUsers} />}
                 {tablaAccion === 'Products' && <Productos productos={adminProducts} categories={adminCategories} deleteProduct={deleteProduct} getProduct={getProduct} product={product} addProduct={addProduct} modProduct={modProduct} />}
                 {tablaAccion === 'Orders' && <Ordenes getOrders={getOrders}/>}
             </div>
