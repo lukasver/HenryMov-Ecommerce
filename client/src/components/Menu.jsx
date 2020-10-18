@@ -46,6 +46,7 @@ export default function Menu() {
                                         price={prod.price}
                                         image={prod.image}
                                         count={prod.count}
+                                        stock={prod.stock}
                                     />
                                 </div>)
                         }
