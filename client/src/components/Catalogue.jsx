@@ -13,20 +13,22 @@ function Catalogue() {
 	const categories = useSelector(store => store.categories) // categories
 	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
-	const [pageActual, setPageActual] = useState(1);
-    const [prodsPorPage, setProdsPorPage] = useState(12);
 
 	// =================================================
 	//	 PAGINACION
 	// =================================================
-	// const pageNumbers = []
- //    for (let i = 1; i <= Math.ceil(totalProds.length / prodsPorPage); i++) {
- //        pageNumbers.push(i);
- //    }
 
- //    const indexOfLastProd = pageActual * prodsPorPage;
- //    const indexOfFirstProd = indexOfLastProd - prodsPorPage;
- //    const currentProds = totalProds.slice(indexOfFirstProd, indexOfLastProd);
+	const [pageActual, setPageActual] = useState(1);
+    const [prodsPorPage, setProdsPorPage] = useState(12);
+
+	const pageNumbers = []
+    for (let i = 1; i <= Math.ceil(totalProds.length / prodsPorPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    const indexOfLastProd = pageActual * prodsPorPage;
+    const indexOfFirstProd = indexOfLastProd - prodsPorPage;
+    let currentProds = totalProds.slice(indexOfFirstProd, indexOfLastProd);
 
     // =================================================
     // =================================================
@@ -58,7 +60,7 @@ function Catalogue() {
 		categories.map(category =>{
 			if (categoriesIds.includes(category.id)) show.push(category)
 		})
-		
+		console.log('asd: ', show)
 		return show
 	}
 
@@ -70,9 +72,9 @@ function Catalogue() {
 	} else {
 		
 		if (!totalProdsFilter.length){
-			listado = totalProds
+			// currentProds = totalProds
 		} else {
-			listado = totalProdsFilter
+			currentProds = totalProdsFilter
 		}
 
 		if (!ValidatedCategories().length){
@@ -118,7 +120,7 @@ function Catalogue() {
 			<div className="container1">
 				<div className="main row">
 					<div className="col-md-3 sidebar-left">
-						<div className="sticky">
+						<div className="sticky" style={{position: "relative"}}>
 							<h2>Categorías:</h2>
 							{categorias.map(category =>
 								<div className="custom-control custom-checkbox categoryList">
@@ -129,7 +131,7 @@ function Catalogue() {
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
 						 {/* BOTONES DE PAGINACION */}
-		               {/* <nav className="sticky">
+		               <nav className="sticky mt-3" style={{position: "relative"}}>
 		                    <ul className="pagination d-flex justify-content-center">
 		                        {pageNumbers.map((numero, i) => (
 		                        	<li key={i} className="page-item">
@@ -137,10 +139,10 @@ function Catalogue() {
 		                        	</li>
 		                   		 ))}
 		                    </ul>
-		                </nav>*/}
+		                </nav>
 					</div>
-					<div className="col-md-9 row">
-						{listado.map(prod =>
+					<div className="col-md-9 row border-left">
+						{currentProds.map(prod =>
 							<div className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}
