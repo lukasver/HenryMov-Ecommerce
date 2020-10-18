@@ -18,8 +18,7 @@ export default function Product({ product }) {
 			<span class="sr-only">Loading...</span>
 		</div>
 	}
-
-
+	
 	const { name, image, price, description, id } = product
 
 	function handleAdd() {

@@ -11,7 +11,7 @@ export default function Carrito() {
     const count = useSelector(store => store.count)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
-
+console.log('PRODUCT:',product)
     useEffect(() => {
     
     }, [render,count])
@@ -93,6 +93,7 @@ export default function Carrito() {
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
+   
 
     return (
         <div>
@@ -125,7 +126,7 @@ export default function Carrito() {
                                                     <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
                                                     <td>{prod.availability}</td>
                                                     <td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => { disminuir(prod) }} />
-                                                        <input class="btn btn-primary" type="button" value={prod.count} />
+                                                        <input class="btn btn-primary" type="button" value={prod.count} placeholder={1} />
                                                         <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
                                                     </td>
                                                     <td className="text-right">$ {prod.price } </td>
@@ -184,7 +185,7 @@ export default function Carrito() {
                     <div className="col mb-2">
                         <div className="row">
                             <div className="col-sm-6  col-md-3">
-                             { product &&  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
+                             {product.length !==0 &&  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
                             </div>
                             <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -215,9 +216,9 @@ export default function Carrito() {
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
                             <div className="col-sm-12 col-md-6 text-right">
-                                <button className="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#exampleModal1" >Pagar</button>
+                                <button className="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#exampleModal2" >Pagar</button>
                             </div>
-                            <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
