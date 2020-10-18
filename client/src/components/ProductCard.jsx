@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
 
 export default function ProductCard(props) {
-  const { name, image, price, description, id } = props;
+  const { name, image, price, description, id, stock } = props;
   const [ren, setRen] = useState(true)
   const count = useSelector(store => store.count)
+  console.log(props)
 
 	const dispatch = useDispatch()
 	useEffect(() => {
@@ -70,7 +71,8 @@ export default function ProductCard(props) {
           <p className="card-text">{`$ ${price}`}</p>
         </div>
       </Link>
-      <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd} ><i className="fas fa-cart-plus"></i></button>
+      {stock > 0 && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd}><i className="fas fa-cart-plus"></i></button>}
+      {stock < 1 && <button type="button" className="btn btn-danger btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd}><i class="fas fa-times-circle"></i></button>}
     </div>
   )
 }

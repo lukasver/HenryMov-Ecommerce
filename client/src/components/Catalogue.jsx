@@ -14,6 +14,9 @@ function Catalogue() {
 	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
 
+	// console.log('1', totalProdsFilter[0])
+	// console.log('1', totalProds[0])
+
 	// =================================================
 	//	 PAGINACION
 	// =================================================
@@ -152,6 +155,7 @@ function Catalogue() {
 									description={prod.description}
 									price={prod.price}
 									image={prod.image}
+									stock={prod.stock}
 								/>
 							</div>)}
 					</div>
