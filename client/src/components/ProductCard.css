@@ -46,4 +46,20 @@
     font-weight: 450;
     width: 100.5%;
 }
+.nostockadv2 {
+	background-color:green;
+	border: 1px solid;
+	border-radius: 2px;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin-bottom: 10px;
+  	position: absolute;
+    top: 0px;
+    opacity: 40%;
+    border-color: #b21f2d;
+    color: white;
+    font-weight: 450;
+    width: 100.5%;
+}
+
 
