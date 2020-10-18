@@ -18,7 +18,7 @@ export default function Menu(){
         )
     } else {
         return (
-                <div className="container">
+                <div className="container mb-4">
                     <div className="main row">
                         {
                             products.map(prod =>
