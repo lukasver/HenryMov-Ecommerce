@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ProductCard from './ProductCard.jsx';
 import './Catalogue.css';
 import loading from '../img/loading.gif';
 import { counter } from '../utils/utils';
 import {useDispatch, useSelector} from 'react-redux';
-import * as action from '../redux/Action'
+import * as action from '../redux/Action';
+import LoadingBar from './LoadingBar.jsx';
 
 function Catalogue() {
 	
@@ -12,7 +13,25 @@ function Catalogue() {
 	const categories = useSelector(store => store.categories) // categories
 	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
-	// const [listado, setListado] = useState([])
+	const [pageActual, setPageActual] = useState(1);
+    const [prodsPorPage, setProdsPorPage] = useState(12);
+
+	// =================================================
+	//	 PAGINACION
+	// =================================================
+	// const pageNumbers = []
+ //    for (let i = 1; i <= Math.ceil(totalProds.length / prodsPorPage); i++) {
+ //        pageNumbers.push(i);
+ //    }
+
+ //    const indexOfLastProd = pageActual * prodsPorPage;
+ //    const indexOfFirstProd = indexOfLastProd - prodsPorPage;
+ //    const currentProds = totalProds.slice(indexOfFirstProd, indexOfLastProd);
+
+    // =================================================
+    // =================================================
+
+
 	
 	let listado = [];
 	let categorias = [];
@@ -44,7 +63,10 @@ function Catalogue() {
 	}
 
 	if (!totalProds.length) {
-		return <img className="rounded mx-auto d-block" src={loading} />
+		return <LoadingBar done="75"/>
+
+
+		// return <img className="rounded mx-auto d-block" src={loading} />
 	} else {
 		
 		if (!totalProdsFilter.length){
@@ -88,6 +110,7 @@ function Catalogue() {
 	
 	// =================================================
 
+
 		
 		let checkId = counter()
 		let checkFor = counter()
@@ -105,6 +128,16 @@ function Catalogue() {
 							)}
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
+						 {/* BOTONES DE PAGINACION */}
+		               {/* <nav className="sticky">
+		                    <ul className="pagination d-flex justify-content-center">
+		                        {pageNumbers.map((numero, i) => (
+		                        	<li key={i} className="page-item">
+		                         		<a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
+		                        	</li>
+		                   		 ))}
+		                    </ul>
+		                </nav>*/}
 					</div>
 					<div className="col-md-9 row">
 						{listado.map(prod =>

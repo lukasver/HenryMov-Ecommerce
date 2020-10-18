@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import * as action from '../redux/Action'
 import ProductCard from './ProductCard'
+import LoadingBar from './LoadingBar.jsx'
 
 // Este componente renderiza lo anteriormente filtrado por handleSelect en el componente nav
 export default function Menu(){
@@ -13,11 +14,7 @@ export default function Menu(){
     // },[products])
     if (products.length === 0) {
         return (
-            <div className="jumbotron jumbotron-fluid">
-                <div className="container-not-found">
-                    <h2 className="display-4 text-primary">Producto no encontrado</h2>
-                </div>
-            </div>
+            <LoadingBar done="80"/>
         )
     } else {
         return (
