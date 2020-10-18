@@ -6,7 +6,7 @@ import ProductCard from './ProductCard'
 import LoadingBar from './LoadingBar.jsx'
 
 // Este componente renderiza lo anteriormente filtrado por handleSelect en el componente nav
-export default function Menu(){
+export default function Menu() {
     const products = useSelector(store => store.totalProdsFilter)
 
     // =======================================================
@@ -27,6 +27,7 @@ export default function Menu(){
     // =======================================================
 
     if (currentPosts.length === 0) {
+
         return (
             <LoadingBar done="80"/>
         )
@@ -49,15 +50,15 @@ export default function Menu(){
                         }
                     </div>
                      {/* BOTONES DE PAGINACION */}
-                <nav className="mt-4">
-                    <ul className="pagination d-flex justify-content-center">
-                        {pageNumbers.map((numero, i) => (
-                        <li key={i} className="page-item">
-                         <a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
-                        </li>
-                    ))}
-                    </ul>
-                </nav>
+                    <nav className="mt-4">
+                        <ul className="pagination d-flex justify-content-center">
+                            {pageNumbers.map((numero, i) => (
+                            <li key={i} className="page-item">
+                             <a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
+                            </li>
+                        ))}
+                        </ul>
+                    </nav>
                 </div>
         )
     }

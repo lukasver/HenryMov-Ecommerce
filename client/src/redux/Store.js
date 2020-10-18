@@ -14,7 +14,8 @@ import {
   DELETE_PROD,
   REMOVE_COUNT_CART,
   COUNT_CART,
-  DELETE_COUNT,
+  ORDER_DETAIL,
+  DELETE_COUNT
 } from "./Action";
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   carrito: [],
   countCart: '0',
   count: 1,
+  orderDetail: []
 };
 
 export function counterReducer(state = initialState, action) {
@@ -53,9 +55,9 @@ export function counterReducer(state = initialState, action) {
     case REMOVE_BY_CATEGORY:
       // Hago un map del array con elementos a quitar y filtro sobre el estado totalProdsFilter cuando matchee el id
       // del elemento a quitar con el elemento del estado totalProdsFilter
-        action.payload.map(x=>{
-            state.totalProdsFilter = state.totalProdsFilter.filter(f => f.id !== x.id)
-        })
+      action.payload.map(x => {
+        state.totalProdsFilter = state.totalProdsFilter.filter(f => f.id !== x.id)
+      })
       return {
         ...state,
         totalProdsFilter: state.totalProdsFilter
@@ -104,6 +106,11 @@ export function counterReducer(state = initialState, action) {
       return {
         ...state,
         countCart: '0',
+      };
+    case ORDER_DETAIL:
+      return {
+        ...state,
+        orderDetail: action.payload
       };
     default:
       return state;

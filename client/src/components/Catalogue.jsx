@@ -123,9 +123,9 @@ function Catalogue() {
 						<div className="sticky" style={{position: "relative"}}>
 							<h2>Categorías:</h2>
 							{categorias.map(category =>
-								<div className="custom-control custom-checkbox categoryList">
+								<div className="custom-control custom-checkbox categoryList" key={category.id}>
 									<input value={false} name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
-									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>
+									<label className="custom-control-label" htmlFor={`selection${checkFor()}`}>{category.name}</label>
 								</div>
 							)}
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>

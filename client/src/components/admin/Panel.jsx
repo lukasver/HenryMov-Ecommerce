@@ -16,7 +16,7 @@ export default function Panel({ tablaAccion }) {
     const [adminCategories, setCategories] = useState([]);
     const [product, setProduct] = useState([]);
     const [category, setCategory] = useState([]);
-    
+
     useEffect(() => {
         axios.get('http://localhost:3001/products')
             .then(productos => {
@@ -78,7 +78,8 @@ export default function Panel({ tablaAccion }) {
             data: newProduct,
             config: { headers: { 'Content-Type': 'multipart/form-data' } }
         }).then(data => {
-                return adminProducts})
+            return adminProducts
+        })
             .catch(error => {
                 console.log(error);
             })
@@ -92,12 +93,18 @@ export default function Panel({ tablaAccion }) {
             })
     };
 
-    function modProduct(modProduct) {    
+    function modProduct(modProduct, id) {
         let updateProducts = adminProducts;
-        axios.put(`http://localhost:3001/products/${modProduct.id}`, modProduct)
-            .then(data => {
+        console.log('datos: ', modProduct);
+        axios({
+            method: 'put',
+            url: `http://localhost:3001/products/${id}`,
+            data: modProduct,
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+        }).then(data => {
+                 console.log('modddddddddd: ', modProduct.id);
                 updateProducts.map(dato => {
-                    if(dato.id == modProduct.id){
+                    if (dato.id == modProduct.id) {
                         dato.name = modProduct.name;
                         dato.availability = modProduct.availability;
                         dato.description = modProduct.description;
@@ -107,6 +114,8 @@ export default function Panel({ tablaAccion }) {
                         dato.stock = modProduct.stock;
                     }
                 });
+                
+                console.log('prod: ', data);
                 setAdminProducts(updateProducts);
             })
             .catch(error => {
@@ -114,12 +123,12 @@ export default function Panel({ tablaAccion }) {
             })
     };
 
-    function modCategory(modCat) {    
+    function modCategory(modCat) {
         let updateCategories = adminProducts;
         axios.put(`http://localhost:3001/category/${modCat.id}`, modCat)
             .then(data => {
                 updateCategories.map(dato => {
-                    if(dato.id == modCat.id){
+                    if (dato.id == modCat.id) {
                         dato.name = modCat.name;
                         dato.status = modCat.status;
                         dato.description = modCat.description;
@@ -131,29 +140,29 @@ export default function Panel({ tablaAccion }) {
                 console.log(error);
             })
     };
-    function getOrders(){
+    function getOrders() {
         return axios
-        .get(`http://localhost:3001/users/orders`)
-        .then(orders => orders.data )
-        .then(data => data)
-        .catch(error => console.log(error))
-    }; 
-    function getUsers(){
+            .get(`http://localhost:3001/users/orders`)
+            .then(orders => orders.data)
+            .then(data => data)
+            .catch(error => console.log(error))
+    };
+    function getUsers() {
         return axios
-        .get(`http://localhost:3001/user`)
-        .then(orders => orders.data )
-        .then(data => data)
-        .catch(error => console.log(error))
-    }; 
+            .get(`http://localhost:3001/user`)
+            .then(orders => orders.data)
+            .then(data => data)
+            .catch(error => console.log(error))
+    };
     return (
         <div className="container-fluid">
             <div className="main row">
                 <MenuAdmin />
                 {tablaAccion === 'Desktop' && <Escritorio />}
-                {tablaAccion === 'Categorys' && <Categorias categorias={adminCategories} deleteCategory={deleteCategory} category={category} getCategory={getCategory} addCategory={addCategory} modCategory={modCategory}/>}
+                {tablaAccion === 'Categorys' && <Categorias categorias={adminCategories} deleteCategory={deleteCategory} category={category} getCategory={getCategory} addCategory={addCategory} modCategory={modCategory} />}
                 {tablaAccion === 'Users' && <Usuarios getUsers={getUsers} />}
                 {tablaAccion === 'Products' && <Productos productos={adminProducts} categories={adminCategories} deleteProduct={deleteProduct} getProduct={getProduct} product={product} addProduct={addProduct} modProduct={modProduct} />}
-                {tablaAccion === 'Orders' && <Ordenes getOrders={getOrders}/>}
+                {tablaAccion === 'Orders' && <Ordenes getOrders={getOrders} />}
             </div>
         </div>
     )
