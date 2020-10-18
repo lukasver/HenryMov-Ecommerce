@@ -1,0 +1,13 @@
+.centradoLB {
+	margin-top: 10rem;
+	margin-bottom: 10rem ;
+}
+
+.progress {
+	border-radius: 50px;
+}
+
+.progress-bar {
+	border-radius: 50px;
+	padding-left: 50px;
+}

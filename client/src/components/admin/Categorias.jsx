@@ -16,6 +16,24 @@ export default function Categorias({ categorias, deleteCategory, getCategory, ca
         status: ''
     });
 
+    // =======================================================
+    //      PAGINACIÓN
+    // =======================================================
+
+    const [pageActual, setPageActual] = useState(1);
+    const [prodsPorPage, setProdsPorPage] = useState(10);
+
+    const pageNumbers = []
+    for (let i = 1; i <= Math.ceil(categorias.length / prodsPorPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    const indexOfLastPost = pageActual * prodsPorPage;
+    const indexOfFirstPost = indexOfLastPost - prodsPorPage;
+    const currentPosts = categorias.slice(indexOfFirstPost, indexOfLastPost);
+
+
+
     const [textButton, setTextButton] = useState('Agregar')
 
     useEffect(() => {
@@ -63,7 +81,7 @@ export default function Categorias({ categorias, deleteCategory, getCategory, ca
                     </thead>
                     <tbody>
                         {
-                            categorias.length > 0 && categorias.map(dato => {
+                            currentPosts.length > 0 && currentPosts.map(dato => {
                                 return (<tr key={dato.id} >
                                     <th scope="row">{dato.id}</th>
                                     <td>{dato.name}</td>
@@ -89,6 +107,16 @@ export default function Categorias({ categorias, deleteCategory, getCategory, ca
                         }
                     </tbody>
                 </table>
+                 {/* BOTONES DE PAGINACION */}
+                <nav>
+                    <ul className="pagination d-flex justify-content-center">
+                        {pageNumbers.map((numero, i) => (
+                        <li key={i} className="page-item">
+                         <a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
+                        </li>
+                    ))}
+                    </ul>
+                </nav>
             </div>
             <div className="col-md-5 col-lg-4">
                     <h2>{textButton === 'Agregar' ? 'Agregar Categoría' : 'Modificar Categoría'}</h2>
@@ -112,3 +140,4 @@ export default function Categorias({ categorias, deleteCategory, getCategory, ca
         </div>
     )
 }
+

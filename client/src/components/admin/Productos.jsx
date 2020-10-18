@@ -1,8 +1,10 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Checkbox } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 
+import * as action from '../../redux/Action'
 import './Productos.css';
 
 export default function Productos({ productos, categories, deleteProduct, getProduct, product, addProduct, modProduct }) {
@@ -49,6 +51,21 @@ export default function Productos({ productos, categories, deleteProduct, getPro
     }, [productos, product, textButton])
 
     //Agrega al estado los datos que se van ingresando
+
+    // =======================================================
+    //      PAGINACIÓN
+    // =======================================================
+
+    const [pageActual, setPageActual] = useState(1);
+    const [prodsPorPage, setProdsPorPage] = useState(10);
+    const pageNumbers = []
+    for (let i = 1; i <= Math.ceil(productos.length / prodsPorPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    const indexOfLastPost = pageActual * prodsPorPage;
+    const indexOfFirstPost = indexOfLastPost - prodsPorPage;
+    const currentPosts = productos.slice(indexOfFirstPost, indexOfLastPost);
 
 
 
@@ -173,8 +190,8 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                     </thead>
                     <tbody>
                         {
-                            productos.length > 0 && productos.map(dato => {
-                                return (<tr key={dato.id} >
+                            currentPosts.length > 0 && currentPosts.map(dato => {
+                                return (<tr className="altoprod" key={dato.id} >
                                     <th scope="row">{dato.id}</th>
                                     <td id='producto' style={{ textAlign: 'left' }}>{dato.name}</td>
                                     <td style={{ textAlign: 'left' }}>{dato.description.substring(0, 90) + '...'}</td>
@@ -201,6 +218,16 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                         }
                     </tbody>
                 </table>
+            {/* BOTONES DE PAGINACION */}
+                <nav>
+                    <ul className="pagination d-flex justify-content-center">
+                        {pageNumbers.map((numero, i) => (
+                        <li key={i} className="page-item">
+                         <a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
+                        </li>
+                    ))}
+                    </ul>
+                </nav>
             </div>
             <div className="col-md-5 col-lg-4">
                 <h2>Agregar Producto</h2>
