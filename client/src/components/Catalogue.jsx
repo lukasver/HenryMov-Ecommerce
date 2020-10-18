@@ -74,10 +74,9 @@ function Catalogue() {
 		dispatch(action.deleteFilter())
 	}
 	// =================================================
-	//		handlecheck busca por categoria
+	//	handlecheck busca por categoria
 	//	busca segun los filtros seleccionados usando la ruta de /products/category/categoryName 
-	//	que tenemos en la parte del backend y luego borra los checkbox sobrantes (ya que por ahora 
-	// 	buscamos por 1 categoria, luego) 
+	//	Podemos buscar por mas de una categoria !!
 	// =================================================
 	
 	function handlecheck(e){

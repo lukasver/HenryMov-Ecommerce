@@ -14,7 +14,7 @@ function Nav() {
      !countCart ? countCart = 0 : countCart = countCart
     
     let history = useHistory();
-    
+    // (handleSelect) cuando se clickea en algun 'a' se filtra con ese nombre y en el componente menu se muestra
     function handleSelect(e){
         let name = e.target.name
         dispatch(action.deleteFilter())

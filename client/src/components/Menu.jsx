@@ -4,13 +4,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as action from '../redux/Action'
 import ProductCard from './ProductCard'
 
+// Este componente renderiza lo anteriormente filtrado por handleSelect en el componente nav
 export default function Menu(){
     const products = useSelector(store => store.totalProdsFilter)
 
     // useEffect(()=>{
         
     // },[products])
-
     if (products.length === 0) {
         return (
             <div className="jumbotron jumbotron-fluid">
