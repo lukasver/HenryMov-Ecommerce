@@ -8,17 +8,17 @@ export default function Slider() {
 
     return (
         <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <ol className="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div className="carousel-inner">
                 <div className="carousel-item active">
                     <img className="d-block w-100" src={slider1} alt="First slide" />
-                    <div class="carousel-caption d-none d-md-block">
+                    <div className="carousel-caption d-none d-md-block">
                         <h1 className="tituloSlider">Plantillas Footprint</h1>
-                        <buttom className="btn btn-dark">Ver más</buttom>
+                        <button className="btn btn-dark">Ver más</button>
                     </div>
                 </div>
                 <div className="carousel-item">
