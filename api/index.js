@@ -244,7 +244,7 @@ conn.sync({ force: true }).then(() => {
 				count: 1,
 				availability: false,
 				stock: 43,
-				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/wGorrasapp-image-2020-09-11-at-7-55-14-pm-11-63675c24f813f274bc16008106443232-640-0.jpeg'
+				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/zapatillas-hufgalaxy-black-gum1-362068c23be1e83e0b15914002176559-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
 			  })
