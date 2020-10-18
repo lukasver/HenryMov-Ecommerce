@@ -1,10 +1,7 @@
 const server = require('express').Router();
-// ========================================================================
-// ============Get de todas las orders=====================================
-// ========================================================================
 
 const { Product, User, Order, Orderline } = require('../db.js');
-const { Sequelize } = require('sequelize');
+const { Sequelize, QueryTypes } = require('sequelize');
 
 //==============================================
 //	Ruta para agregar item al carrito
@@ -74,11 +71,38 @@ server.get('/users/ordersByQuery', (req, res, next) => {
 //  Ruta para retornar una orden en particular
 //==============================================
 server.get('/orders/:id', (req, res, next) => {
+
   Order.findByPk(req.params.id).then(order => {
     if (!order) return res.sendStatus(404);
     res.status(200).send(order);
   })
 });
+
+
+//=============================================
+//  Ruta para retornar las orderlines de una orden particular
+//==============================================
+server.get('/orders/:id/cart', async (req, res, next) => {
+  const { id } = req.params
+
+      Order.findOne({
+      where: {id},
+      include: [
+      { model: Product, attributes: ['id','name','availability','stock'], through: {
+        attributes: ['amount','quantity'] // agregar 'id' si se quiere obtener el id de la orderline 
+      }},
+      { model: User, attributes:['id','name','lastname','email', 'address'] }],
+      group: Orderline.id
+    })
+      
+  .then(carrito => {
+      res.status(200).send(carrito)})
+  .catch(err => {
+    console.log(err.sql)
+    res.sendStatus(404)})
+})
+
+
 
 //==============================================
 //  Ruta para modificar una orden
@@ -166,18 +190,36 @@ server.get('/users/:idUser/cart', async (req,res,next) => {
 
 server.put('/users/:idUser/cart', async (req,res,next) => {
 
-    // FRONT DEBE PASAR ID DE PRODUCTO A UPDATEAR, CANTIDAD Y PRECIO UNITARIO (OPCIONAL)
+    // FRONT DEBE PASAR UN [] CON {} QUE CONTENGAN: ID DE PRODUCTO A UPDATEAR, CANTIDAD Y PRECIO UNITARIO (OPCIONAL)
     const { idUser } = req.params
-    const { productId, quantity, amount } = req.body
+
+    // ARRAY QUE SE ENVIARA COMO RESPUESTA AL CLIENTE... CONTENDRÁ SÓLO DE LOS PRODUCTOS QUE SE MODIFICARON
+    let respuesta = [];
+
+    // POR CADA OBJETO QUE SE PASE (POR CADA LINEA DE ORDEN DEL CARRITO) SE HARA UN UPDT EN LA BD ...
+    await req.body.forEach( async (lineaproducto) => {
+
+    const { productId, quantity, amount } = lineaproducto;
+
 
     try{
-    // SI LA CANTIDAD SOLICITADA EXCEDE EL STOCK DISPONIBLE, SE RECHAZA EL PEDIDO...
-    const producto = await Product.findByPk(productId)
-    !producto ? res.status(406).send('<h1> Producto no presente en orderline </h1>') : null;
-    if (producto.get('stock') < quantity) return res.status(406).send('<h1> Stock insuficiente </h1>')
+    // SI EL productId NO EXISTE O NO HAY SUFICIENTE STOCK - SE ENVÍA AVISO EN EL JSON DE RTA...
+    let producto = await Product.findByPk(productId)
+
+    if (!producto && req.body.length == 1) return res.send(`El producto ${productId} no existe en la base de datos...`);
+    !producto ? respuesta.push([`${productId}`,`El Id de producto: ${productId} - No encontrado en la base de datos `]) : null;
+    if (producto && producto.get('stock') < quantity && req.body.length == 1) {
+       respuesta.push([`${productId}`,`El Id de producto: ${productId} - No cuenta con stock suficiente `]);
+       return res.send(respuesta)
+    }
+    if (producto && producto.get('stock') < quantity && req.body.length > 1) {
+      respuesta.push([]);
+      return
+    }
+
 
     // DEVUELVE EL CARRITO ABIERTO DEL USUARIO SOLICITADO - SI NO ENCUENTRA USUARIO, RECHAZA...
-    const usuario = await User.findOne({ 
+    let usuario = await User.findOne({ 
         where: {
             id: idUser,
         },
@@ -185,12 +227,16 @@ server.put('/users/:idUser/cart', async (req,res,next) => {
     })
     if (!usuario ) return res.status(400).send('<h1>Usuario no encontrado o sin carrito con estado abierto<h1/>')
 
-    // DEVUELVE LAS ORDERLINE QUE CORRESPONDAN A LA ORDENID DEL USUARIO - SI NO ENCUENTRA ORDERLINES, RECHAZA...
-    const carrito = await Orderline.findAll({
-        where: {orderId: usuario.orders[0].id}
+    // DEVUELVE LAS ORDERLINE QUE CORRESPONDAN A LA ORDENID DEL USUARIO - SI NO ENCUENTRA ORDERLINES...
+    // ... DEVUELVE U
+    let carrito = await Orderline.findAll({
+        where: {orderId: usuario.orders[0].id, productId: productId}
     })
-    if (!carrito ) return res.status(400).send('<h1>Orden sin orderlines existentes<h1/>')
-
+    if (carrito.length === 0 && req.body.length === 1) res.send('no hay orderline')
+    if (carrito.length === 0 ) {
+      respuesta.push(carrito)
+      return
+    }
 
     // UPDATEA CANTIDAD EN BD SI EL ID DEL PRODUCTO RECIBIDO X BODY MATCHEA CON ALGUNO EN LA ORDERLINE
     carrito.forEach(orderline => {  
@@ -202,12 +248,23 @@ server.put('/users/:idUser/cart', async (req,res,next) => {
             return;
     })
 
-    await res.json(carrito)
-        } catch (error) {
-            return res.status(400).send(error)
-        }
+    if (lineaproducto)  respuesta.push(lineaproducto)
+
+    if(req.body.length === respuesta.length) return res.json(respuesta)
+
+      } catch (error) {
+      return res.status(400).send(error)
+    }
+  })
+
+  // await res.send('no tenia q llegar aca...')
+
+  return
+  next();
 
 })
+
+
 
 //======================================================================== 
 //  Ruta para vaciar el carrito de un usuario registrado - DELETE
