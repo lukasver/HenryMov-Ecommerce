@@ -2,22 +2,27 @@ import React from 'react';
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import * as action from '../redux/Action'
+import {useDispatch, useSelector } from 'react-redux';
+import * as action from '../redux/Action';
 import './Nav.css';
 import { useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 
 function Nav() {  
-   
-    // const aux = useSelector(store => store.countCart)
-    // let countCart = aux
-    
-
+    const dispatch = useDispatch()
     let countCart =	localStorage.getItem('count')
      !countCart ? countCart = 0 : countCart = countCart
     
-   
+    let history = useHistory();
     
+    function handleSelect(e){
+        let name = e.target.name
+        dispatch(action.deleteFilter())
+        dispatch(action.filterbyCategory(name,true))
+        history.push('/Menu')
+        return;
+    }
+   
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="col-md-3">
@@ -71,34 +76,28 @@ function Nav() {
             </div>
 
             <div className="col-md-12 menuSkate">
+                
                 <ul className="nav justify-content-center">
                     <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">SKATES</a>
-                        <div className="dropdown-menu">
-                            <a className="dropdown-item" href="#">Completos</a>
-                            <a className="dropdown-item" href="#">Tablas</a>
-                            <a className="dropdown-item" href="#">Ruedas</a>
-                            <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#">Accesorios</a>
-                        </div>
+                        <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/products">PRODUCTOS</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">PATINES</a>
+                        <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">SKATES ELECTRICOS</a>
+                        <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>SKATES ELECTRICOS</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">ZAPATILLAS</a>
+                        <a className="nav-link" onClick={handleSelect} name='Zapatillas'>ZAPATILLAS</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">INDUMENTARIA</a>
+                        <a className="nav-link" onClick={handleSelect} name='Indumentaria'>INDUMENTARIA</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">ACCESORIOS</a>
+                        <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESORIOS</a>
                     </li>
                 </ul>
             </div>
