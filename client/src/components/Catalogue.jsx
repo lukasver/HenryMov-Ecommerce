@@ -60,7 +60,6 @@ function Catalogue() {
 		categories.map(category =>{
 			if (categoriesIds.includes(category.id)) show.push(category)
 		})
-		console.log('asd: ', show)
 		return show
 	}
 
@@ -74,6 +73,7 @@ function Catalogue() {
 		if (!totalProdsFilter.length){
 			// currentProds = totalProds
 		} else {
+			console.log(totalProdsFilter.length)
 			currentProds = totalProdsFilter
 		}
 
