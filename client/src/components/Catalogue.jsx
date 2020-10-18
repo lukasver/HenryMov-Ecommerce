@@ -13,20 +13,59 @@ function Catalogue() {
 	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
 	// const [listado, setListado] = useState([])
-
+	
 	let listado = [];
+	let categorias = [];
 	// useEffect(()=>{
 	// 	setListadoProductos(totalProds)
 	// },[totalProds,listadoProductos])
 	
-	// console.log(categories)
+	function ValidatedCategories(){
+		// categoriesIds son todos los id's de las categorias asignadas a productos
+		// show es el array con todas las categorias asignadas a productos que retorna la funcion
+		let show = [];
+		let categoriesIds = [];
+		
+		totalProds.map(x=>{
+			x.categories.map(cat =>{
+				if (!categoriesIds.includes(cat.id)){
+					categoriesIds.push(cat.id)
+				}
+			})
+		})
+		
+		categoriesIds.sort((a, b) => a - b)
+		
+		categories.map(category =>{
+			if (categoriesIds.includes(category.id)) show.push(category)
+		})
+		
+		return show
+	}
+
+	if (!totalProds.length) {
+		return <img className="rounded mx-auto d-block" src={loading} />
+	} else {
+		
+		if (!totalProdsFilter.length){
+			listado = totalProds
+		} else {
+			listado = totalProdsFilter
+		}
+
+		if (!ValidatedCategories().length){
+			 categorias = categories;
+		} else {
+			categorias = ValidatedCategories()
+		}
+
 	// =================================================
 	//		handle SACA TODOS LOS FILTROS 
 	// a travez de getProducts() obtenemos la lista completa de productos 
 	// =================================================
 	function handle(e){
 		e.preventDefault()
-		for (let j=0;j<categories.length;j++){
+		for (let j=0;j<categorias.length;j++){
 			let elementByLoop = document.getElementById(`selection${j+1}`);
 			if (elementByLoop.checked){
 				elementByLoop.checked = false;
@@ -35,10 +74,9 @@ function Catalogue() {
 		dispatch(action.deleteFilter())
 	}
 	// =================================================
-	//		handlecheck busca por categoria
+	//	handlecheck busca por categoria
 	//	busca segun los filtros seleccionados usando la ruta de /products/category/categoryName 
-	//	que tenemos en la parte del backend y luego borra los checkbox sobrantes (ya que por ahora 
-	// 	buscamos por 1 categoria, luego) 
+	//	Podemos buscar por mas de una categoria !!
 	// =================================================
 	
 	function handlecheck(e){
@@ -50,16 +88,7 @@ function Catalogue() {
 	
 	// =================================================
 
-	if (totalProds.length === 0) {
-		return <img className="rounded mx-auto d-block" src={loading} />
-	} else {
 		
-		if (totalProdsFilter.length == 0){
-			listado = totalProds
-		} else{
-			listado = totalProdsFilter
-		}
-
 		let checkId = counter()
 		let checkFor = counter()
 		return (
@@ -68,7 +97,7 @@ function Catalogue() {
 					<div className="col-md-3 sidebar-left">
 						<div className="sticky">
 							<h2>Categorías:</h2>
-							{categories.map(category =>
+							{categorias.map(category =>
 								<div className="custom-control custom-checkbox categoryList">
 									<input value={false} name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
 									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>

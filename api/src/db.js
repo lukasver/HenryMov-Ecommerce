@@ -34,13 +34,30 @@ const { Product, Category, productCategory, User, Order, Orderline } = sequelize
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+
+// 1a1
+// eventualmente podriamos incluir aca una tabla adress para desagregarla de la tabla user por la cant de datos...
+// User.HasOne(Adress);
+// Adress.BelongsTo(User); // se agregaría la FK de "userId" acá...
+
+// 1aN
+// == USUARIO PUEDE TENER MUCHAS ORDENES // CADA ORDEN PERTENECE A UN USUARIO ==
+User.hasMany(Order);
+Order.belongsTo(User); // se agrega FK "userId" en tabla Order que referencia al id del User.
+
+
+// NaM
+// == PRODUCTOS PUEDEN SER DE MUCHAS CATEGORIAS // CATEGORIAS TIENEN MUCHOS PRODUCTOS ==
+// == TABLA INTERMEDIA: productCategory
 Product.belongsToMany(Category, {through: 'productCategory', timestamps: false});
 Category.belongsToMany(Product, {through: 'productCategory'});
+
+// == PRODUCTOS ESTAN EN MUCHAS ORDENES // ORDENES TIENEN MUCHOS PRODUCTOS ==
+// == TABLA INTERMEDIA: Orderline
 Order.belongsToMany(Product, { through: Orderline, foreignKey: 'orderId' });
 Product.belongsToMany(Order, { through: Orderline, foreignKey: 'productId' });
 
-User.hasMany(Order);
-Order.belongsTo(User);
+// Product se vincula a users con tabla intermedia reviews?? habria q ver eso
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

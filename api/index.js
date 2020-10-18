@@ -589,6 +589,38 @@ conn.sync({ force: true }).then(() => {
     		res.addProducts(7, { through: { quantity: 5, amount: 8300 }})
     	})
 
+    	    await Order.create({
+    		shipping: 1,
+    		paymentMethod: 2,
+    		status: 'On Cart',
+    		received: "0",
+    		amount: 4533.23,
+    		quantity: 34,
+    		productId: 3,
+    	}, {
+    		include: [ Product ]
+    	}).then(res => {
+    		res.setUser(2);
+    		res.addProducts(5, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(7, { through: { quantity: 5, amount: 8300 }})
+    	})
+
+    	    await Order.create({
+    		shipping: 1,
+    		paymentMethod: 2,
+    		status: 'Processing',
+    		received: "0",
+    		amount: 4533.23,
+    		quantity: 34,
+    		productId: 3,
+    	}, {
+    		include: [ Product ]
+    	}).then(res => {
+    		res.setUser(2);
+    		res.addProducts(5, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(7, { through: { quantity: 5, amount: 8300 }})
+    	})
+
 	  };
 	  precarga();
   });
