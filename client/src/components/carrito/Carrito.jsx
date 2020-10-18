@@ -11,7 +11,6 @@ export default function Carrito() {
     const count = useSelector(store => store.count)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
-console.log('PRODUCT:',product)
     useEffect(() => {
     
     }, [render,count])

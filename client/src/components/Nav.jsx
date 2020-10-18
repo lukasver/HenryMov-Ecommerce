@@ -1,12 +1,12 @@
 import React from 'react';
-import Logo from '../img/logoHenry.png'
-import SearchBar from './SearchBar.jsx';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import * as action from '../redux/Action';
-import './Nav.css';
 import { useEffect } from 'react';
 import { useHistory } from "react-router-dom";
+import Logo from '../img/logoHenry.png'
+import SearchBar from './SearchBar.jsx';
+import * as action from '../redux/Action';
+import './Nav.css';
 
 function Nav() {
     const dispatch = useDispatch()
