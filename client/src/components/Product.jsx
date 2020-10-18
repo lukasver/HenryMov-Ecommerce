@@ -1,58 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import * as action from '../redux/Action'
 import './Product.css'
 
 
 export default function Product({ product }) {
 
-	const [ren, setRen] = useState(true)
+	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 	useEffect(() => {
+	}, [render, count])
+	if (!product) {
+		return <div class="spinner-border text-info" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	}
 
-	}, [ren, count])
-
-	if (!product) { return <h1>Loading...</h1> }
 
 	const { name, image, price, description, id } = product
 
-	function counter() {
-		product.count = count
-	}
-
 	function handleAdd() {
-		ren ? setRen(false) : setRen(true)
-
+		render ? setRen(false) : setRen(true)
+		product.count = count
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
 
 		if (!recoveredData) {
-			dispatch(action.countCart())
 			let countCart = 1
 			localStorage.setItem('count', countCart)
+			dispatch(action.countCart())
 			return localStorage.setItem('prod', JSON.stringify([product]))
-
 		}
 
 		let fined = search.find(prod => prod.id == id)
-
-		if (fined) {
-
+		if(fined){
 			fined.count++
 			let cleanData = search.filter((data) => data.id !== product.id)
-
 			cleanData.push(fined)
 			return localStorage.setItem('prod', JSON.stringify(cleanData))
 		}
 		let data = JSON.parse(recoveredData)
 		let newProd = product
 		data.push(newProd)
-		dispatch(action.countCart())
 		let countCart = data.length
-
+		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
-		return localStorage.setItem('count', countCart)
+		dispatch(action.countCart())
 	}
 
 	return (
@@ -68,20 +64,10 @@ export default function Product({ product }) {
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
 					<div className="row buttom-comprar">
 						<div className="col-md-4">
-							<div className="input-group mb-2 mr-sm-2">
-								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-left" type="button" onChange={counter()} onClick={() => {
-										if (count === 1) {
-											return 1
-										}
-										dispatch(action.removecount())
-									}}>-</button>
-								</div>
-								<input type="text" className="form-control cantidades" id="inlineFormInputGroupUsername2" placeholder="0" value={count} />
-								<div className="input-group-prepend">
-									<button className="btn btn-outline-secondary buttom-right" type="button" onClick={() => dispatch(action.addcount())} onChange={counter()}>+</button>
-								</div>
-							</div>
+							<td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => count > 1 && dispatch(action.removecount())} />
+								<input class="btn btn-primary" type="button" value={count} />
+								<input type="button" class="btn btn-outline-primary" value='+' onClick={() => dispatch(action.addcount())} />
+							</td>
 						</div>
 						<div className="col-md-8">
 							<button type="button" class="btn btn-primary btn-m" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd} >Agregar a su carrito</button>
@@ -99,7 +85,7 @@ export default function Product({ product }) {
 									<div className="modal-body alert alert-success ">
 										Tu producto se agrego al carrito con exito
 										</div>
-
+									<a href="/carrito" type="button" class="btn btn-outline-success"  >Ir al carrito</a>
 								</div>
 							</div>
 						</div>
