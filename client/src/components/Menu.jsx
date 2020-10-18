@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as action from '../redux/Action'
 import ProductCard from './ProductCard'
 import LoadingBar from './LoadingBar.jsx'
+import Carousel from './Carousel'
 
 // Este componente renderiza lo anteriormente filtrado por handleSelect en el componente nav
 export default function Menu() {
@@ -29,7 +30,7 @@ export default function Menu() {
     if (currentPosts.length === 0) {
 
         return (
-            <LoadingBar done="80"/>
+            <Carousel />
         )
     } else {
         return (
