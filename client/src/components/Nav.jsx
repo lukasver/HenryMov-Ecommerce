@@ -2,21 +2,22 @@ import React from 'react';
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as action from '../redux/Action'
 import './Nav.css';
 import { useState, useEffect } from 'react';
 
 function Nav() {
 
-    let countCart = localStorage.getItem('count')
-    let count = useSelector(store => store.countCart)
-
-
+    let countCart = localStorage.getItem('count') 
+    let count = useSelector(store => store.countCart)  
+    const dispatch =useDispatch()
     useEffect(() => {
-
-    }, [])
-
-
+    }, [count])
+    function render(){
+        dispatch(action.countCart(0))
+    } 
+    render()
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="col-md-3">

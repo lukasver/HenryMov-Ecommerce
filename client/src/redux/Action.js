@@ -12,6 +12,7 @@ export const CARRITO = "CARRITO";
 export const DELETE_PROD = "DELETE_PROD";
 export const COUNT_CART = "COUNT_CART";
 export const REMOVE_COUNT_CART = "REMOVE_COUNT_CART";
+export const DELETE_COUNT ="DELETE_COUNT";
 
 export function addcount() {
   return {
@@ -22,6 +23,11 @@ export function addcount() {
 export function removecount() {
   return {
     type: REMOVE_COUNT,
+  };
+}
+export function deletecount() {
+  return {
+    type: DELETE_COUNT,
   };
 }
 
@@ -64,11 +70,11 @@ export function deleteProd(prod) {
   };
 }
 
-export function countCart() {
+export function countCart(x) {
   let countCart =localStorage.getItem('count')
   return {
     type: COUNT_CART,
-    payload: countCart
+    payload: x
   };
 }
 export function removecountCart() {

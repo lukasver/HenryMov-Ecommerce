@@ -1,16 +1,20 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import * as action from '../../redux/Action'
 import './Carrito.css';
 
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
-
+    const count = useSelector(store => store.count)
     const [prodId, setProdId] = useState('')
-    const [ren, setRen] = useState(true)
+    const [render, setRender] = useState(true)
+
+    useEffect(() => {
+    
+    }, [render,count])
 
     if (product != null) {
         product.sort(function (a, b) {
@@ -48,22 +52,9 @@ export default function Carrito() {
         return t.match(regex)[0];
     }
 
-    useEffect(() => {
-    }, [ren, prodId])
-
-    function handleDelete(id) {
-        ren ? setRen(false) : setRen(true)
-        dispatch(action.removecountCart())
-        let recoveredData = localStorage.getItem('prod')
-        let data = JSON.parse(recoveredData)
-        let newData = data.filter((data) => data.id !== id)
-        let countCart = newData.length
-        localStorage.setItem('count', countCart)
-        localStorage.setItem('prod', JSON.stringify(newData))
-    }
-
+    
     function aumentar(prod) {
-        ren ? setRen(false) : setRen(true)
+        render ? setRender(false) : setRender(true)
         prod.count = prod.count + 1
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
@@ -72,7 +63,7 @@ export default function Carrito() {
         localStorage.setItem('prod', JSON.stringify(newData))
     }
     function disminuir(prod) {
-        ren ? setRen(false) : setRen(true)
+        render ? setRender(false) : setRender(true)
         if (prod.count == 1) {
             return
         }
@@ -82,23 +73,34 @@ export default function Carrito() {
         let newData = data.filter((data) => data.id !== prod.id)
         newData.push(prod)
         localStorage.setItem('prod', JSON.stringify(newData))
-
+        
+    }
+    function handleDelete(id) {
+        render ? setRender(false) : setRender(true)
+        dispatch(action.removecountCart())
+        let recoveredData = localStorage.getItem('prod')
+        let data = JSON.parse(recoveredData)
+        let newData = data.filter((data) => data.id !== id)
+        let countCart = newData.length
+        localStorage.setItem('count', countCart)
+        localStorage.setItem('prod', JSON.stringify(newData))
     }
     function deleteAllProd() {
-        ren ? setRen(false) : setRen(true)
-        localStorage.removeItem('count')
-        localStorage.removeItem('prod')
-        return
+        render ? setRender(false) : setRender(true)
+        dispatch(action.removecountCart())
+        let countCart = 0
+        let newData = []
+        localStorage.setItem('count', countCart)
+        localStorage.setItem('prod', JSON.stringify(newData))
     }
 
     return (
         <div>
-            <section className="jumbotron text-center">
+            <section className="text-center mb-4 mt-4">
                 <div className="container">
                     <h1 className="jumbotron-heading">CARRITO HENRY MOV</h1>
                 </div>
             </section>
-
             <div className="container mb-4">
                 <div className="row">
                     <div className="col-12">
@@ -116,8 +118,7 @@ export default function Carrito() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        product &&
+                                    {product &&
                                             product.map(prod =>
                                                 <tr>
                                                     <td><img src={prod.image} width={80} /> </td>
@@ -141,13 +142,11 @@ export default function Carrito() {
                                                         <div class="spinner-grow text-danger" aria-hidden="true" role="status">
                                                             <span class="sr-only" aria-hidden="true">&times;</span>
                                                         </div>
-
                                                     </button>
                                                 </div>
                                                 <div class="modal-body p-3 mb-2 bg-warning text-dark">
-                                                    Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?
-      </div>
-                                                <div class="modal-footer">
+                                                    Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?</div>
+                                                    <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}> SI  </button>
                                                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                                 </div>
@@ -203,7 +202,7 @@ export default function Carrito() {
                                             <p>Estas por vaciar todo tu carrito...</p><p>deseas continuar?</p>
                                         </div>
                                         <div class="modal-footer bg-danger">
-                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={deleteAllProd}> SI  </button>
+                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={()=>deleteAllProd()}> SI  </button>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                         </div>
                                     </div>
