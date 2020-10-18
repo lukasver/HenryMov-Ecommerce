@@ -14,7 +14,8 @@ import {
   DELETE_PROD,
   REMOVE_COUNT_CART,
   COUNT_CART,
-  ORDER_DETAIL
+  ORDER_DETAIL,
+  DELETE_COUNT
 } from "./Action";
 
 const initialState = {
@@ -24,7 +25,7 @@ const initialState = {
   productById: [],
   totalProdsFilter: [],
   carrito: [],
-  countCart: 0,
+  countCart: '0',
   count: 1,
   orderDetail: []
 };
@@ -39,8 +40,13 @@ export function counterReducer(state = initialState, action) {
     case REMOVE_COUNT:
       return {
         ...state,
-        count: state.count - 1,
+        count: state.count - 1
       };
+      case DELETE_COUNT:
+        return{
+          ...state,
+          count:1
+        }
     case FILTER_BY_CATEGORY:
       return {
         ...state,
@@ -94,12 +100,12 @@ export function counterReducer(state = initialState, action) {
     case COUNT_CART:
       return {
         ...state,
-        countCart: state.countCart + 1,
+        countCart: action.payload,
       };
     case REMOVE_COUNT_CART:
       return {
         ...state,
-        countCart: state.countCart - 1,
+        countCart: '0',
       };
     case ORDER_DETAIL:
       return {
