@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './ProductCard.css';
 import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
+import carrito from '../img/carrito.png'
 
 export default function ProductCard(product) {
 	
@@ -18,11 +19,13 @@ export default function ProductCard(product) {
 	}
 	
 	const { name, image, price, description, id } = product
+	 
+	 const imagen = product.image
+
 
 	function handleAdd(product) {
-		console.log('PRODUCT1:', product)
 		render ? setRen(false) : setRen(true)
-	
+		
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
 
@@ -30,6 +33,7 @@ export default function ProductCard(product) {
 			let countCart = 1
 			localStorage.setItem('count', countCart)
 			dispatch(action.countCart())
+			
 			return localStorage.setItem('prod', JSON.stringify([product]))
 		}
 
@@ -38,6 +42,7 @@ export default function ProductCard(product) {
 			fined.count++
 			let cleanData = search.filter((data) => data.id !== product.id)
 			cleanData.push(fined)
+		
 			return localStorage.setItem('prod', JSON.stringify(cleanData))
 		}
 		let data = JSON.parse(recoveredData)
@@ -47,9 +52,10 @@ export default function ProductCard(product) {
 		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
+
 	}
 
-  
+  console.log('Imagen:' ,image)
   return (
     <div className="card">
       <Link className="titulo-link" to={`/products/${id}`}>
@@ -64,7 +70,24 @@ export default function ProductCard(product) {
           <p className="card-text">{`$ ${price}`}</p>
         </div>
       </Link>
-      <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={()=>handleAdd(product)} ><i className="fas fa-cart-plus"></i></button>
+      <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter"  onClick={()=>handleAdd(product)}  ><i className="fas fa-cart-plus"></i></button>
+	  <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header-title ">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h6 class="modal-title p-3 mb-2 bg-primary text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
+									</div>
+									
+									<img className="cart-img" src={carrito}  alt="imagen producto" />
+									<div className="modal-body alert alert-success ">
+										Tu producto se agrego al carrito con exito
+							</div>
+						</div>
+					</div>
     </div>
+	</div>
   )
 }
