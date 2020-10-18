@@ -39,7 +39,7 @@ export default function Footer() {
                     </div>
                     <hr className="clearfix w-100 d-md-none" />
                     <div className="col-md-3 mx-auto div-webft">
-                        <h5 className="font-weight-bold text-muted text-uppercase mt-2 mb-4 tituloH5 h5-center">Webft05 <b className="webft05">G5</b></h5>
+                        <h4 className="font-weight-bold text-muted text-uppercase mt-2 mb-4 tituloH5 h5-center">Webft05 <b className="webft05">G5</b></h4>
                         <div className="row">
                             <div className="col-md-4 div-img-4">
                                 <a className="crsrlnk" href='https://www.linkedin.com/in/diegotolaba09/' target="_blank"><img className="img-footer" src={diego} /></a>
@@ -103,7 +103,7 @@ export default function Footer() {
 
             </ul>
             <div className="footer-copyright text-center py-3 copyright">© Copyright 2020 - Todos los derechos reservados a
-                <a href="http://localhost:3000/"> HenryMov</a>
+                <a href="http://localhost:3000/"> HenryMov 🚀</a>
             </div>
         </footer>
     )

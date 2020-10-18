@@ -34,7 +34,7 @@
 .nostockadv {
 	background-color: #bd2130;
 	border: 1px solid;
-	border-radius: 2px;
+	border-radius: 3px;
 	padding-left: 1rem;
 	padding-right: 1rem;
 	margin-bottom: 10px;
@@ -45,6 +45,7 @@
     color: white;
     font-weight: 450;
     width: 100.5%;
+    /*right: px;*/
 }
 .nostockadv2 {
 	background-color:green;
