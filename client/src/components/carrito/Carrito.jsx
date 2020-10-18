@@ -1,27 +1,32 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import * as action from '../../redux/Action'
 import './Carrito.css';
 
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
-   
+    const count = useSelector(store => store.count)
     const [prodId, setProdId] = useState('')
-    const [ren, setRen] = useState(true)
-    
-   product.sort(function (a, b) {
-		if (a.id > b.id){
-		  return 1;
-		}
-		if (a.id < b.id) {
-		  return -1;
-		}
-		return 0;
-	  })
+    const [render, setRender] = useState(true)
 
+    useEffect(() => {
+    
+    }, [render,count])
+
+    if (product != null) {
+        product.sort(function (a, b) {
+            if (a.id > b.id) {
+                return 1;
+            }
+            if (a.id < b.id) {
+                return -1;
+            }
+            return 0;
+        })
+    }
 
 
     function subTotal(act) {
@@ -47,11 +52,31 @@ export default function Carrito() {
         return t.match(regex)[0];
     }
 
-    useEffect(() => {
-    }, [ren, prodId])
-
+    
+    function aumentar(prod) {
+        render ? setRender(false) : setRender(true)
+        prod.count = prod.count + 1
+        let recoveredData = localStorage.getItem('prod')
+        let data = JSON.parse(recoveredData)
+        let newData = data.filter((data) => data.id !== prod.id)
+        newData.push(prod)
+        localStorage.setItem('prod', JSON.stringify(newData))
+    }
+    function disminuir(prod) {
+        render ? setRender(false) : setRender(true)
+        if (prod.count == 1) {
+            return
+        }
+        prod.count = prod.count - 1
+        let recoveredData = localStorage.getItem('prod')
+        let data = JSON.parse(recoveredData)
+        let newData = data.filter((data) => data.id !== prod.id)
+        newData.push(prod)
+        localStorage.setItem('prod', JSON.stringify(newData))
+        
+    }
     function handleDelete(id) {
-        ren ? setRen(false) : setRen(true)
+        render ? setRender(false) : setRender(true)
         dispatch(action.removecountCart())
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
@@ -60,42 +85,22 @@ export default function Carrito() {
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
-  
-    function aumentar(prod){
-        ren ? setRen(false) : setRen(true)
-         prod.count = prod.count+1
-        let recoveredData = localStorage.getItem('prod')
-        let data = JSON.parse(recoveredData)
-        let newData = data.filter((data) => data.id !== prod.id)
-        newData.push(prod)
+    function deleteAllProd() {
+        render ? setRender(false) : setRender(true)
+        dispatch(action.removecountCart())
+        let countCart = 0
+        let newData = []
+        localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
-    function disminuir(prod){
-        ren ? setRen(false) : setRen(true)
-        if (prod.count==1){
-            return
-        }
-        prod.count = prod.count-1
-        let recoveredData = localStorage.getItem('prod')
-        let data = JSON.parse(recoveredData)
-        let newData = data.filter((data) => data.id !== prod.id)
-        newData.push(prod)
-        localStorage.setItem('prod', JSON.stringify(newData))
-       
-    }
-
-
-
-
 
     return (
         <div>
-            <section className="jumbotron text-center">
+            <section className="text-center mb-4 mt-4">
                 <div className="container">
                     <h1 className="jumbotron-heading">CARRITO HENRY MOV</h1>
                 </div>
             </section>
-
             <div className="container mb-4">
                 <div className="row">
                     <div className="col-12">
@@ -107,42 +112,41 @@ export default function Carrito() {
                                         <th scope="col">Producto</th>
                                         <th scope="col">Diponible</th>
                                         <th scope="col" className="text-center">Cantidad</th>
-                                        <th scope="col" className="text-right">Precio</th>
+                                        <th scope="col" className="text-right">Precio Unit</th>
+                                        <th scope="col" className="text-right">Precio Final</th>
                                         <th> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        product ? 
+                                    {product &&
                                             product.map(prod =>
                                                 <tr>
                                                     <td><img src={prod.image} width={80} /> </td>
-                                                    <h5 className='titulo'>{prod.name.substring(0,30)+'...'}</h5>
+                                                    <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
                                                     <td>{prod.availability}</td>
-                                                    <td><input type="button" class="btn btn-outline-primary" value='-' onClick={()=>{disminuir(prod)}}/>
-                                                     <input class="btn btn-primary" type="button" value={prod.count} />
-                                                     <input type="button" class="btn btn-outline-primary" value='+' onClick={()=>{aumentar(prod)}} />
-                                                     </td>
+                                                    <td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => { disminuir(prod) }} />
+                                                        <input class="btn btn-primary" type="button" value={prod.count} />
+                                                        <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
+                                                    </td>
+                                                    <td className="text-right">$ {prod.price } </td>
                                                     <td className="text-right">$ {prod.price * prod.count} </td>
-                                                    <td className="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
+                                                    <td className="text-right"><button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
                                                 </tr>
-                                            ) : null}
+                                            ) }
                                     <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="card-header bg-danger text-white " id="exampleModalLabel">IMPORTANTE</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <div class="spinner-grow text-danger" aria-hidden="true" role="status">
-                                                        <span class="sr-only" aria-hidden="true">&times;</span>
-                                                    </div>
-                                                        
+                                                        <div class="spinner-grow text-danger" aria-hidden="true" role="status">
+                                                            <span class="sr-only" aria-hidden="true">&times;</span>
+                                                        </div>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body p-3 mb-2 bg-warning text-dark">
-                                                    Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?
-      </div>
-                                                <div class="modal-footer">
+                                                    Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?</div>
+                                                    <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}> SI  </button>
                                                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                                 </div>
@@ -179,7 +183,35 @@ export default function Carrito() {
                     </div>
                     <div className="col mb-2">
                         <div className="row">
-                            <div className="col-sm-12  col-md-6">
+                            <div className="col-sm-6  col-md-3">
+                             { product &&  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
+                            </div>
+                            <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h5 class="card-header bg-warning text-white " id="exampleModalLabel1">IMPORTANTE</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <div class="spinner-grow text-danger" aria-hidden="true" role="status">
+                                                    <span class="sr-only" aria-hidden="true">&times;</span>
+                                                </div>
+
+                                            </button>
+                                        </div>
+                                        <div class="modal-body p-3 mb-2  text-dark">
+                                            <p>Estas por vaciar todo tu carrito...</p><p>deseas continuar?</p>
+                                        </div>
+                                        <div class="modal-footer bg-danger">
+                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={()=>deleteAllProd()}> SI  </button>
+                                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div className="col-sm-6  col-md-3">
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
                             <div className="col-sm-12 col-md-6 text-right">
@@ -198,7 +230,7 @@ export default function Carrito() {
                                             Debes iniciar sesion para finalizar tu compra
       </div>
                                         <div class="modal-footer">
-                                            <Link type="button" class="btn btn-outline-primary" data-dismiss="modal" to="/register">Resgistrate</Link>
+                                            <a type="button" class="btn btn-outline-primary" href="/register">Resgistrate</a>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">Iniciar sesion</button>
                                         </div>
                                     </div>
@@ -209,7 +241,7 @@ export default function Carrito() {
                 </div>
             </div>
 
-            <footer className="text-light">
+            {/* <footer className="text-light">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-3 col-lg-4 col-xl-3 bg-dark">
@@ -241,7 +273,6 @@ export default function Carrito() {
                                 <li><a href="">Link 4</a></li>
                             </ul>
                         </div>
-
                         <div className="col-md-4 col-lg-3 col-xl-3 bg-dark">
                             <h5>Contact</h5>
                             <hr className="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />
@@ -260,7 +291,7 @@ export default function Carrito() {
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer> */}
         </div>
     )
 }
