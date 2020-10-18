@@ -6,8 +6,8 @@ import * as action from '../redux/Action'
 import carrito from '../img/carrito.png'
 
 
-export default function ProductCard(props, product) {
-  const { name, image, price, description, id, stock } = props;
+export default function ProductCard(product) {
+  const { name, image, price, description, id, stock } = product;
 
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
@@ -21,7 +21,7 @@ export default function ProductCard(props, product) {
 		</div>
 	}
 
-	// const imagen = product.image
+	const imagen = product.image
 
 
 	function handleAdd(product) {
