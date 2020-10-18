@@ -92,7 +92,7 @@ export default function Footer() {
                 </li>
                 <li className="list-inline-item">
                     <a className="btn-floating btn-gplus mx-1">
-                        <i className="fab fa-google-plus-g"> </i>
+                        <i className="fab fa-instagram"> </i>
                     </a>
                 </li>
                 <li className="list-inline-item">
