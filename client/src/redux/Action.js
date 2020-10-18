@@ -86,15 +86,12 @@ export function filterbyCategory(categorySearch,bool) {
   return (dispatch) =>
     axios
       .get(`http://localhost:3001/products/category/${categorySearch}`)
-      // .get('/products/category/filterOR',categorySearch)
       .then((product) => {
         return product.data;
       })
       .then((data) => {
         if (bool) dispatch(receiveStates(data));
         if (!bool) dispatch(removeByCategory(data));
-        // console.log(typeof data)
-        // console.log(data)
         return data
       }).then(p => p)
       .catch((error) => console.log(error));
