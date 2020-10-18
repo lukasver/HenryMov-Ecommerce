@@ -6,12 +6,8 @@ import * as action from '../redux/Action'
 import carrito from '../img/carrito.png'
 
 
-// export default function ProductCard(product) { por que modificar el nombre de lo q llega como props?
 
-export default function ProductCard(props) {
-  const { name, image, price, description, id, stock } = props;
-  const [ren, setRen] = useState(true)
-  const count = useSelector(store => store.count)
+export default function ProductCard(product) {
 
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
@@ -24,7 +20,7 @@ export default function ProductCard(props) {
 		</div>
 	}
 
-	const { name, image, price, description, id } = product
+	const { name, image, price, description, id, stock } = product
 
 	const imagen = product.image
 
@@ -74,10 +70,10 @@ export default function ProductCard(props) {
 					</p>
 					<p className="card-text">{`$ ${price}`}</p>
 				</div>
-        {stock > 0 && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd}><i className="fas fa-cart-plus"></i></button>}
-        {stock < 1 &&<div className="nostockadv">Sin Stock</div>}
+{/*        {stock > 0 && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd}><i className="fas fa-cart-plus"></i></button>}
+*/}        {stock < 1 &&<div className="nostockadv">Sin Stock</div>}
 			</Link>
-			<button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handleAdd(product)}  ><i className="fas fa-cart-plus"></i></button>
+			{stock >0 && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handleAdd(product)}  ><i className="fas fa-cart-plus"></i></button>}
 			<div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
