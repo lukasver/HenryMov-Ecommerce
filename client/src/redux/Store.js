@@ -15,7 +15,8 @@ import {
   REMOVE_COUNT_CART,
   COUNT_CART,
   ORDER_DETAIL,
-  DELETE_COUNT
+  DELETE_COUNT,
+  STOCK
 } from "./Action";
 
 const initialState = {
@@ -33,9 +34,16 @@ const initialState = {
 export function counterReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_COUNT:
+      if (action.payload > state.count){
       return {
         ...state,
         count: state.count + 1,
+        }
+      }else{
+        return {
+          ...state,
+          count : action.payload
+        }
       };
     case REMOVE_COUNT:
       return {
@@ -46,6 +54,11 @@ export function counterReducer(state = initialState, action) {
         return{
           ...state,
           count:1
+        }
+      case STOCK:
+        return{
+          ...state,
+          count : action.payload
         }
     case FILTER_BY_CATEGORY:
       return {

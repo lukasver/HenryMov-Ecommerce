@@ -14,10 +14,13 @@ export const COUNT_CART = "COUNT_CART";
 export const REMOVE_COUNT_CART = "REMOVE_COUNT_CART";
 export const ORDER_DETAIL = "ORDER_DETAIL";
 export const DELETE_COUNT ="DELETE_COUNT";
+export const STOCK = "STOCK";
 
-export function addcount() {
+
+export function addcount(stock) {
   return {
     type: ADD_COUNT,
+    payload: stock
   };
 }
 
@@ -30,6 +33,12 @@ export function deletecount() {
   return {
     type: DELETE_COUNT,
   };
+}
+export function stock(stock){
+  return{
+    type: stock,
+    payload: stock
+  }
 }
 
 export function totalProds(listadoProductos) {
