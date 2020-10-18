@@ -98,9 +98,9 @@ function Catalogue() {
 						<div className="sticky">
 							<h2>Categorías:</h2>
 							{categorias.map(category =>
-								<div className="custom-control custom-checkbox categoryList">
+								<div className="custom-control custom-checkbox categoryList" key={category.id}>
 									<input value={false} name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
-									<label className="custom-control-label" for={`selection${checkFor()}`}>{category.name}</label>
+									<label className="custom-control-label" htmlFor={`selection${checkFor()}`}>{category.name}</label>
 								</div>
 							)}
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
@@ -108,7 +108,7 @@ function Catalogue() {
 					</div>
 					<div className="col-md-9 row">
 						{listado.map(prod =>
-							<div className="card-group col-md-3">
+							<div className="card-group col-md-3" key={prod.id}>
 								<ProductCard
 									key={prod.id}
 									id={prod.id}

@@ -63,14 +63,14 @@ export default function ProductCard(props) {
         <div className="card-body">
           <h5 className="card-title">{name}</h5>
           <p className="card-text">{`${description.substring(0, 90)}... `}
-            <a className="ver-mas">
+            <span className="ver-mas">
               ver más
-            </a>
+            </span>
           </p>
           <p className="card-text">{`$ ${price}`}</p>
         </div>
       </Link>
-      <button type="button" class="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd} ><i class="fas fa-cart-plus"></i></button>
+      <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd} ><i className="fas fa-cart-plus"></i></button>
     </div>
   )
 }
