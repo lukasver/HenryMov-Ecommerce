@@ -12,8 +12,8 @@ export default function Carrito() {
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
     useEffect(() => {
-    
-    }, [render,count])
+
+    }, [render, count])
 
     if (product != null) {
         product.sort(function (a, b) {
@@ -51,15 +51,18 @@ export default function Carrito() {
         return t.match(regex)[0];
     }
 
-    
+
     function aumentar(prod) {
         render ? setRender(false) : setRender(true)
-        prod.count = prod.count + 1
-        let recoveredData = localStorage.getItem('prod')
-        let data = JSON.parse(recoveredData)
-        let newData = data.filter((data) => data.id !== prod.id)
-        newData.push(prod)
-        localStorage.setItem('prod', JSON.stringify(newData))
+        if (prod.count < prod.stock) {
+            prod.count = prod.count + 1
+            let recoveredData = localStorage.getItem('prod')
+            let data = JSON.parse(recoveredData)
+            let newData = data.filter((data) => data.id !== prod.id)
+            newData.push(prod)
+            localStorage.setItem('prod', JSON.stringify(newData))
+        }
+        return
     }
     function disminuir(prod) {
         render ? setRender(false) : setRender(true)
@@ -72,7 +75,7 @@ export default function Carrito() {
         let newData = data.filter((data) => data.id !== prod.id)
         newData.push(prod)
         localStorage.setItem('prod', JSON.stringify(newData))
-        
+
     }
     function handleDelete(id) {
         render ? setRender(false) : setRender(true)
@@ -92,7 +95,7 @@ export default function Carrito() {
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
-   
+
 
     return (
         <div>
@@ -119,20 +122,23 @@ export default function Carrito() {
                                 </thead>
                                 <tbody>
                                     {product &&
-                                            product.map(prod =>
-                                                <tr>
-                                                    <td><img src={prod.image} width={80} /> </td>
-                                                    <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
-                                                    <td>{prod.availability}</td>
-                                                    <td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => { disminuir(prod) }} />
-                                                        <input class="btn btn-primary" type="button" value={prod.count} placeholder={1} />
-                                                        <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
-                                                    </td>
-                                                    <td className="text-right">$ {prod.price } </td>
-                                                    <td className="text-right">$ {prod.price * prod.count} </td>
-                                                    <td className="text-right"><button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
-                                                </tr>
-                                            ) }
+                                        product.map(prod =>
+                                            <tr>
+                                                <td><img src={prod.image} width={80} /> </td>
+                                                <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
+                                                <td>{prod.count < prod.stock ? <div class="alert alert-success" role="alert">
+                                                    Disponible
+                                            </div> : <div class="alert alert-danger" role="alert">
+                                                        Sin stock</div>}</td>
+                                                <td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => { disminuir(prod) }} />
+                                                    <input class="btn btn-primary" type="button" value={prod.count} />
+                                                    <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
+                                                </td>
+                                                <td className="text-right">$ {prod.price} </td>
+                                                <td className="text-right">$ {prod.price * prod.count} </td>
+                                                <td className="text-right"><button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
+                                            </tr>
+                                        )}
                                     <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -146,7 +152,7 @@ export default function Carrito() {
                                                 </div>
                                                 <div class="modal-body p-3 mb-2 bg-warning text-dark">
                                                     Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?</div>
-                                                    <div class="modal-footer">
+                                                <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}> SI  </button>
                                                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                                 </div>
@@ -184,7 +190,7 @@ export default function Carrito() {
                     <div className="col mb-2">
                         <div className="row">
                             <div className="col-sm-6  col-md-3">
-                             {product.length !==0 &&  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
+                                {product.length !== 0 && <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
                             </div>
                             <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -202,7 +208,7 @@ export default function Carrito() {
                                             <p>Estas por vaciar todo tu carrito...</p><p>deseas continuar?</p>
                                         </div>
                                         <div class="modal-footer bg-danger">
-                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={()=>deleteAllProd()}> SI  </button>
+                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={() => deleteAllProd()}> SI  </button>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                         </div>
                                     </div>
