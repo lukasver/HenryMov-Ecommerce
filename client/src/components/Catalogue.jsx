@@ -13,6 +13,9 @@ function Catalogue() {
 	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
 
+	// console.log('1', totalProdsFilter[0])
+	// console.log('1', totalProds[0])
+
 	// =================================================
 	//	 PAGINACION
 	// =================================================
@@ -20,7 +23,7 @@ function Catalogue() {
 	const [pageActual, setPageActual] = useState(1);
     const [prodsPorPage, setProdsPorPage] = useState(12);
 
-	const pageNumbers = []
+	let pageNumbers = []
     for (let i = 1; i <= Math.ceil(totalProds.length / prodsPorPage); i++) {
         pageNumbers.push(i);
     }
@@ -73,7 +76,8 @@ function Catalogue() {
 			// currentProds = totalProds
 		} else {
 			console.log(totalProdsFilter.length)
-			currentProds = totalProdsFilter
+			currentProds = totalProdsFilter.slice(indexOfFirstProd, indexOfLastProd)
+			// pageNumbers = Math.ceil(totalProdsFilter.length / prodsPorPage)
 		}
 
 		if (!ValidatedCategories().length){
@@ -130,7 +134,7 @@ function Catalogue() {
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
 						 {/* BOTONES DE PAGINACION */}
-		               <nav className="sticky mt-3" style={{position: "relative"}}>
+		               <nav className="sticky mt-3" style={{position: "relative", "margin-bottom":"40px"}}>
 		                    <ul className="pagination d-flex justify-content-center">
 		                        {pageNumbers.map((numero, i) => (
 		                        	<li key={i} className="page-item">
@@ -151,6 +155,7 @@ function Catalogue() {
 									price={prod.price}
 									image={prod.image}
 									count={prod.count}
+									stock={prod.stock}
 								/>
 							</div>)}
 					</div>

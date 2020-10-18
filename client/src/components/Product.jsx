@@ -17,10 +17,10 @@ export default function Product({ product }) {
 			<span class="sr-only">Loading...</span>
 		</div>
 	}
-	
+
 
 	const { name, image, price, description, id, stock } = product
-
+  
 	function handleAdd() {
 		render ? setRen(false) : setRen(true)
 		product.count = count
@@ -50,19 +50,15 @@ export default function Product({ product }) {
 		dispatch(action.countCart())
 	}
 	function stocker(product) {
-		
 		let products = JSON.parse(localStorage.getItem('prod'))
 		if(product == null){
 			return
 		} 
 		let cleanData = products.filter((data) => data.id == product.id)
-		
 		console.log('stocke de clean', cleanData	)
 		if(cleanData.length != 0){
 			return setDisponible(false)
 		}
-		
-		console.log('stocke de producto', disponible)
 		return 
 	}
 
@@ -77,7 +73,11 @@ export default function Product({ product }) {
 					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
 					<h2>{description}</h2>
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
-					{ disponible ? 
+										
+				{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}
+					{stock < 1 && <button className="btn btn-danger" style={{"margin-bottom": "20px"}}>Producto sin Stock 😖 </button>}
+					{stock > 0 &&
+						disponible ? 
 					<div className="row buttom-comprar">
 						<div className="col-md-4">
 							<td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => count > 1 && dispatch(action.removecount())} />
@@ -105,11 +105,14 @@ export default function Product({ product }) {
 								</div>
 							</div>
 						</div>
-					</div>:
+					</div>
+					:
 					<div class="alert alert-success" role="alert">
 					Este producto ya esta en el carrito  <a type="button" class="btn btn-outline-primary" href='/carrito'>Ir al carrito</a>
 										</div> 
-}
+						
+					}
+					
 					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>
 					<div className="form-row mb-4 ">
 						<div className="col-11 form-label">
