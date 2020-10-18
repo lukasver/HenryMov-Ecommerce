@@ -60,19 +60,24 @@ export default function ProductCard(props) {
   return (
     <div className="card">
       <Link className="titulo-link" to={`/products/${id}`}>
-        <img className="card-img" src={image} alt="imagen producto" />
-        <div className="card-body">
-          <h5 className="card-title">{name}</h5>
-          <p className="card-text">{`${description.substring(0, 90)}... `}
-            <span className="ver-mas">
-              ver más
-            </span>
-          </p>
-          <p className="card-text">{`$ ${price}`}</p>
+      <div>
+	        <img className="card-img" src={image} alt="imagen producto" />
+	        <div className="card-body">
+	          <h5 className="card-title">{name}</h5>
+	          <p className="card-text">{`${description.substring(0, 90)}... `}
+	            <span className="ver-mas">
+	              ver más
+	            </span>
+	          </p>
+	          <p className="card-text">{`$ ${price}`}</p>
+          </div>
         </div>
       </Link>
       {stock > 0 && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd}><i className="fas fa-cart-plus"></i></button>}
+{/*      {stock < 1 && <label className="btn btn-danger btn-m">Sin Stock</label>}
+*/}      {stock < 1 &&<div className="nostockadv">Sin Stock</div>}
       {stock < 1 && <button type="button" className="btn btn-danger btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd}><i class="fas fa-times-circle"></i></button>}
     </div>
   )
 }
+

@@ -45,6 +45,7 @@ export default function Menu() {
                                         description={prod.description}
                                         price={prod.price}
                                         image={prod.image}
+                                        stock={prod.stock}
                                     />
                                 </div>)
                         }
