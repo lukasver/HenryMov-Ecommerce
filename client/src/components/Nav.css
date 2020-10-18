@@ -18,6 +18,9 @@ a { color: white; }
 .nav-item {
     padding: 0px 10px;
 }
+.nav-link:hover {
+    cursor: pointer
+}
 .menuSkate {
     border-top: 1px solid #232222;
 }

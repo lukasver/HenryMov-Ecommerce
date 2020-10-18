@@ -16,6 +16,7 @@ import Carrito from "./components/carrito/Carrito"
 import Register from "./components/registration/Register"
 import "./App.css";
 import LoggedIn from "./components/registration/LoggedIn";
+import Menu from "./components/Menu"
 
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
@@ -67,6 +68,7 @@ function App() {
       <Route exact path='/carrito' render={()=> <Carrito/>}/>
       <Route exact path='/register' render={()=> <Register/>} />
       <Route exact path='/logIn' render={()=> <LoggedIn/>} />
+      <Route exact path='/Menu' render={()=> <Menu />} />
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />
