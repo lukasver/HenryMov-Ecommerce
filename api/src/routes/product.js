@@ -224,7 +224,12 @@ server.put('/products/:id', (req, res, next) => {
 	//    return res.sendStatus(400);
 	//  }
 
-	Product.update(req.body, {
+	let bodyComplete = {};
+	if (image == undefined || image == '' ) bodyComplete = { ...req.body, image: `http://localhost:3001/uploads/${req.file.originalname}` };	
+
+	if(JSON.stringify(bodyComplete) == '{}') bodyComplete = req.body;
+	
+	Product.update(bodyComplete, {
 		where: { id: req.params.id }
 	}).then(result => {
 		if (result[0] === 0) {

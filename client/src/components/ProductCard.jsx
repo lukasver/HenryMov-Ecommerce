@@ -54,7 +54,8 @@ export default function ProductCard(props) {
 
 		// localStorage.setItem('prod', JSON.stringify(data))
 		// return localStorage.setItem('count', countCart)
-	}
+  }
+  
   return (
     <div className="card">
       <Link className="titulo-link" to={`/products/${id}`}>

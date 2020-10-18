@@ -12,6 +12,7 @@ export const CARRITO = "CARRITO";
 export const DELETE_PROD = "DELETE_PROD";
 export const COUNT_CART = "COUNT_CART";
 export const REMOVE_COUNT_CART = "REMOVE_COUNT_CART";
+export const ORDER_DETAIL = "ORDER_DETAIL";
 
 export function addcount() {
   return {
@@ -119,6 +120,24 @@ export function onSearch(search) {
         dispatch({
           type: ON_SEARCH,
           payload: data,
+        });
+      })
+      .catch((error) => console.log(error));
+  };
+}
+
+export function orderDetail(id) {
+  return (dispatch) => {
+    axios
+      .get(`http://localhost:3001/orders/${id}/cart`)
+      .then((orders) => {
+        console.log('ingresoooooo', orders);
+        return orders.data;
+      })
+      .then((data) => {
+        dispatch({
+          type: ORDER_DETAIL,
+          payload: data
         });
       })
       .catch((error) => console.log(error));
