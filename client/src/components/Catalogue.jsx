@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import ProductCard from './ProductCard.jsx';
-import './Catalogue.css';
-import loading from '../img/loading.gif';
 import { counter } from '../utils/utils';
 import {useDispatch, useSelector} from 'react-redux';
-import * as action from '../redux/Action';
+import ProductCard from './ProductCard.jsx';
 import LoadingBar from './LoadingBar.jsx';
+import * as action from '../redux/Action';
+import './Catalogue.css';
 
 function Catalogue() {
 	
@@ -155,6 +154,7 @@ function Catalogue() {
 									description={prod.description}
 									price={prod.price}
 									image={prod.image}
+									count={prod.count}
 									stock={prod.stock}
 								/>
 							</div>)}

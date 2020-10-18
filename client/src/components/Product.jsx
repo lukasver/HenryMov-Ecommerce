@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-
 import * as action from '../redux/Action'
 import './Product.css'
 
@@ -21,7 +19,7 @@ export default function Product({ product }) {
 
 
 	const { name, image, price, description, id, stock } = product
-	console.log(stock)
+  
 	function handleAdd() {
 		render ? setRen(false) : setRen(true)
 		product.count = count
