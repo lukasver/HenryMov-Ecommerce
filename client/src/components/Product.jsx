@@ -51,7 +51,7 @@ export default function Product({ product }) {
 	}
 	function stocker(product) {
 		let products = JSON.parse(localStorage.getItem('prod'))
-		if(product == null){
+		if(products == null){
 			return
 		} 
 		let cleanData = products.filter((data) => data.id == product.id)
@@ -75,10 +75,10 @@ export default function Product({ product }) {
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
 										
 				{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}
-					{stock < 1 && <button className="btn btn-danger" style={{"margin-bottom": "20px"}}>Producto sin Stock 😖 </button>}
-					{stock > 0 &&
-						disponible ? 
-					<div className="row buttom-comprar">
+					{stock == 0 && <button className="btn btn-danger" style={{"margin-bottom": "20px"}}>Producto sin Stock 😖 </button>}
+					{stock != 0 ? 
+						 disponible ? 
+						<div className="row buttom-comprar">
 						<div className="col-md-4">
 							<td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => count > 1 && dispatch(action.removecount())} />
 								<input class="btn btn-primary" type="button" value={count} />
@@ -109,9 +109,8 @@ export default function Product({ product }) {
 					:
 					<div class="alert alert-success" role="alert">
 					Este producto ya esta en el carrito  <a type="button" class="btn btn-outline-primary" href='/carrito'>Ir al carrito</a>
-										</div> 
-						
-					}
+					</div>					:null}
+					
 					
 					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>
 					<div className="form-row mb-4 ">

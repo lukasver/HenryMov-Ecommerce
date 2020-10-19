@@ -59,7 +59,7 @@ export default function ProductCard(product) {
 	}
 	function stocker(product) {
 		let products = JSON.parse(localStorage.getItem('prod'))
-		if(product == null){
+		if(products == null || products ==undefined ){
 			return
 		} 
 		let cleanData = products.filter((data) => data.id == product.id)
