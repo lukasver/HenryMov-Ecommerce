@@ -96,7 +96,7 @@ function Nav() {
                             {/*<i class="fas fa-user-plus"></i>*/}
                             <img src={SingUp} className="bi" style={{heigth: "29px", width: "29px", filter: "invert(100%)"}} alt="Sing up"/>
                             <br />
-                            <span>Registrarse</span>
+                            <span>Registro</span>
                         </Link>
                     </div>
                 </div>
