@@ -59,15 +59,15 @@ export default function ProductCard(product) {
 	}
 	function stocker(product) {
 		let products = JSON.parse(localStorage.getItem('prod'))
-		if(products == null || products ==undefined ){
+		if (products == null || products == undefined) {
 			return
-		} 
+		}
 		let cleanData = products.filter((data) => data.id == product.id)
-		console.log('stocke de clean', cleanData	)
-		if(cleanData.length != 0){
+		console.log('stocke de clean', cleanData)
+		if (cleanData.length != 0) {
 			return setDisponible(false)
 		}
-		return 
+		return
 	}
 
 	return (
@@ -84,7 +84,7 @@ export default function ProductCard(product) {
 					<p className="card-text">{`$ ${price}`}</p>
 				</div>
 				{!disponible && <div className="nostockadv2">Producto en carrito</div>}
-       			{stock < 1 &&<div className="nostockadv">Sin Stock</div>}
+				{stock < 1 && <div className="nostockadv">Sin Stock</div>}
 			</Link>
 			{stock > 0 && disponible && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handleAdd(product)}  ><i className="fas fa-cart-plus"></i></button>}
 
@@ -92,11 +92,9 @@ export default function ProductCard(product) {
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header-title ">
-						
+
 							<h6 class="modal-title p-3 mb-2 bg-primary text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
 						</div>
-
-					
 						<div className="modal-body alert alert-success ">
 							Tu producto se agrego al carrito con exito
 							</div>
