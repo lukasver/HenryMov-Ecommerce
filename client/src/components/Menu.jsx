@@ -1,7 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import * as action from '../redux/Action'
+import { useSelector } from 'react-redux';
 import ProductCard from './ProductCard'
 
 // Este componente renderiza lo anteriormente filtrado por handleSelect en el componente nav

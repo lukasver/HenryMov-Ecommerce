@@ -6,23 +6,23 @@ import * as action from '../redux/Action'
 
 export default function ProductCard(props) {
   const { name, image, price, description, id } = props;
-  const [ren, setRen] = useState(true)
-  const count = useSelector(store => store.count)
+//   const [ren, setRen] = useState(true)
+//   const count = useSelector(store => store.count)
 
-	const dispatch = useDispatch()
-	useEffect(() => {
+// 	const dispatch = useDispatch()
+// 	useEffect(() => {
 
-	}, [ren, count])
+// 	}, [ren, count])
 
 	if (!props) { return <h1>Loading...</h1> }
 
 	// const { name, image, price, description, id } = product
 
-	function counter() {
-		props.count = count
-  }
+// 	function counter() {
+// 		props.count = count
+//   }
 
-  function handleAdd() {
+//   function handleAdd() {
 		// ren ? setRen(false) : setRen(true)
 
 		// let recoveredData = localStorage.getItem('prod')
@@ -54,7 +54,7 @@ export default function ProductCard(props) {
 
 		// localStorage.setItem('prod', JSON.stringify(data))
 		// return localStorage.setItem('count', countCart)
-  }
+//   }
   
   return (
     <div className="card">
@@ -70,7 +70,7 @@ export default function ProductCard(props) {
           <p className="card-text">{`$ ${price}`}</p>
         </div>
       </Link>
-      <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd} ><i className="fas fa-cart-plus"></i></button>
+      <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion"><i className="fas fa-cart-plus"></i></button>
     </div>
   )
 }
