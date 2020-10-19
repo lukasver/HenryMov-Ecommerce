@@ -165,6 +165,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
 
     //Funcion que captura el checkbox
     const onClick = (checked) => {
+        console.log(checked)
         if (textButton === 'Agregar') {
             setAddProd({ ...addProd, availability: checked });
         } else {
