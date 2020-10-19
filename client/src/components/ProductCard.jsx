@@ -93,7 +93,7 @@ export default function ProductCard(product) {
 					<div class="modal-content">
 						<div class="modal-header-title ">
 
-							<h6 class="modal-title p-3 mb-2 bg-primary text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
+							<h6 class="modal-title p-3 mb-2 bg-dark text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
 						</div>
 						<div className="modal-body alert alert-success ">
 							Tu producto se agrego al carrito con exito
