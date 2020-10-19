@@ -266,7 +266,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
 
                         <input className="form-check-input position-static"
                             type="checkbox" id="availability" onClick={e => onClick(e.target.checked)}
-                            defaultChecked={textButton === 'Agregar' ? addProd.availability : modProd.availability} />
+                            checked={textButton === 'Agregar' ? addProd.availability : modProd.availability} />
                     </div>
                     <button className="btn btn-info btn-block my-4 buttonAddMod" onClick={(e) => {
                         //e.preventDefault();
