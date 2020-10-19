@@ -75,7 +75,6 @@ function Catalogue() {
 		if (!totalProdsFilter.length){
 			// currentProds = totalProds
 		} else {
-			console.log(totalProdsFilter.length)
 			currentProds = totalProdsFilter.slice(indexOfFirstProd, indexOfLastProd)
 			// pageNumbers = Math.ceil(totalProdsFilter.length / prodsPorPage)
 		}
@@ -106,13 +105,28 @@ function Catalogue() {
 	//	Podemos buscar por mas de una categoria !!
 	// =================================================
 	
-	function handlecheck(e){
-		let elementByParameter = document.getElementById(e.target.id)
-		let name = e.target.name
-		dispatch(action.filterbyCategory(name,elementByParameter.checked))
-		return
-	}
+	// function handlecheck(e){
+	// 	let elementByParameter = document.getElementById(e.target.id)
+	// 	let name = e.target.name
+	// 	dispatch(action.filterbyCategory(name,elementByParameter.checked))
+	// 	return
+	// }
 	
+	function handleFilter(){
+		let filtered = [];
+		for (let j=0;j<categorias.length;j++){
+			let elementByLoop = document.getElementById(`selection${j+1}`);
+			if (elementByLoop.checked){
+				filtered.push(categorias[j].name)
+			}
+		}
+		// console.log(filtered)
+		console.log('totalProdsFilter =>',totalProdsFilter)
+		// console.log(action.filterbyCategories(filtered))
+		
+		dispatch(action.filterbyCategories(filtered))
+	}
+
 	// =================================================
 
 
@@ -127,10 +141,12 @@ function Catalogue() {
 							<h2>Categorías:</h2>
 							{categorias.map(category =>
 								<div className="custom-control custom-checkbox categoryList" key={category.id}>
-									<input value={false} name={category.name} onClick={handlecheck} type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
+									<input value={false} name={category.name} /*onClick={handlecheck} */ type="checkbox" className="custom-control-input" id={`selection${checkId()}`} />
 									<label className="custom-control-label" htmlFor={`selection${checkFor()}`}>{category.name}</label>
 								</div>
 							)}
+							<button onClick={handleFilter} type="button" className="btn btn-primary mt-2"> Filter </button>
+							<p/>
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
 						 {/* BOTONES DE PAGINACION */}

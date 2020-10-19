@@ -16,7 +16,8 @@ import {
   COUNT_CART,
   ORDER_DETAIL,
   DELETE_COUNT,
-  STOCK
+  STOCK,
+  FILTER_BY_CATEGORIES
 } from "./Action";
 
 const initialState = {
@@ -74,6 +75,11 @@ export function counterReducer(state = initialState, action) {
       return {
         ...state,
         totalProdsFilter: state.totalProdsFilter
+      };
+    case FILTER_BY_CATEGORIES:
+      return {
+        ...state,
+        totalProdsFilter: action.payload
       };
     case ON_SEARCH:
       return {
