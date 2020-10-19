@@ -340,7 +340,7 @@ conn.sync({ force: true }).then(() => {
 				name: 'Riñonera Thrasher Flame',
 				description: 'Riñonera de cuero narural con agarre ajustablde y broche de alto rendimiento',
 				price: 1500,
-				availability: false,
+				availability: true,
 				stock: 34,
 				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/521-5a6bd3140b2a3b37f315886984024789-640-0.jpg'
@@ -373,7 +373,7 @@ conn.sync({ force: true }).then(() => {
 				name: 'Medias Huf Importadas Og Logo Media Caña Black',
 				description: 'Medias de Algodón 3/4 marca HUF Importadas Excelente calidad',
 				price: 575 ,
-				availability: false,
+				availability: true,
 				stock:32 ,
 				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/huf-og-logo_black-11-210afe5db5089c800e15911494614271-640-0.png'
@@ -552,8 +552,8 @@ conn.sync({ force: true }).then(() => {
     		include: [ Product ]
     	}).then(res => {
     		res.setUser(1);
-    		res.addProducts(5, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
-    		res.addProducts(7, { through: { quantity: 5, amount: 8300 }})
+    		res.addProducts(19, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(11, { through: { quantity: 5, amount: 8300 }})
     	})
 
     	    await Order.create({
@@ -568,8 +568,8 @@ conn.sync({ force: true }).then(() => {
     		include: [ Product ]
     	}).then(res => {
     		res.setUser(2);
-    		res.addProducts(5, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
-    		res.addProducts(7, { through: { quantity: 5, amount: 8300 }})
+    		res.addProducts(20, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(35, { through: { quantity: 5, amount: 8300 }})
     	})
 
     	    await Order.create({
@@ -584,8 +584,8 @@ conn.sync({ force: true }).then(() => {
     		include: [ Product ]
     	}).then(res => {
     		res.setUser(2);
-    		res.addProducts(5, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
-    		res.addProducts(7, { through: { quantity: 5, amount: 8300 }})
+    		res.addProducts(7, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(14, { through: { quantity: 5, amount: 8300 }})
     	})
 
 	  };

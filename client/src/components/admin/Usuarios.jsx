@@ -28,7 +28,7 @@ export default function Usuarios({getUsers}) {
 
     useEffect(()=>{
         getUsers().then(a=> setUsers(a))
-    },[users])
+    },[])
 
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>

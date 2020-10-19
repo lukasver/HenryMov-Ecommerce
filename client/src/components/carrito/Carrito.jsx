@@ -237,8 +237,8 @@ export default function Carrito() {
                                             Debes iniciar sesion para finalizar tu compra
       </div>
                                         <div class="modal-footer">
-                                            <a type="button" class="btn btn-outline-primary" href="/register">Resgistrate</a>
-                                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">Iniciar sesion</button>
+                                            <a href="/register" type="button" class="btn btn-outline-primary">Registrate</a>
+                                            <a href="/login" type="button" class="btn btn-outline-success">Iniciar sesion</a>
                                         </div>
                                     </div>
                                 </div>
