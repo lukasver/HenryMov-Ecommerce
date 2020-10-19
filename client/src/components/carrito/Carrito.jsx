@@ -191,7 +191,7 @@ export default function Carrito() {
                     <div className="col mb-2">
                         <div className="row">
                             <div className="col-sm-6  col-md-3">
-                                {product.length !== 0 && <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
+                                {product !== null && product.length !== 0 && <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
                             </div>
                             <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                 <div class="modal-dialog" role="document">

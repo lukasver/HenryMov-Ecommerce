@@ -23,3 +23,10 @@
     background-color: #111111;
     color: white;
 }
+.link-producto {
+    color: #111111;
+}
+.link-producto:hover {
+    color: #000000;
+    font-weight: 700;
+}
