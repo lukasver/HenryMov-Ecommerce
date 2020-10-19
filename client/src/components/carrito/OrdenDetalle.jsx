@@ -3,8 +3,9 @@ import { useDispatch, useSelector, useHistory } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as action from '../../redux/Action';
 import './OrdenDetalle.css';
+import { dateFormat } from '../../utils/utils.js';
 
-export default function OrdenDetalle() {
+export default function OrdenDetalle({orderId}) {
 
     const orderDetailStore = useSelector(store => store.orderDetail)
 
@@ -13,17 +14,8 @@ export default function OrdenDetalle() {
     let total = 0;
 
     useEffect(() => {
-        dispatch(action.orderDetail(1));
+        dispatch(action.orderDetail(orderId));
     }, []);
-
-    function dateFormat(res) {
-        let newdate = new Date(res);
-        let mes = newdate.getMonth() + 1;
-        let dia = newdate.getDate();
-        let ano = newdate.getFullYear();
-        res = JSON.stringify(`${dia}/${mes}/${ano}`)
-        return res.replace(/[ '"]+/g, ' ');
-    }
 
     return (
         <div className="container">

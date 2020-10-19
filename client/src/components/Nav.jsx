@@ -25,20 +25,20 @@ function Nav() {
         return;
     }
 
-    function chatBot(){
-    window.watsonAssistantChatOptions = {
-      integrationID: "747d8b43-8cc8-4ee9-9dfd-4e5d4d129a98", // The ID of this integration.
-      region: "us-south", // The region your integration is hosted in.
-      serviceInstanceID: "0c27b141-8422-4ebb-b9e8-665418afc54b", // The ID of your service instance.
-      onLoad: function(instance) { instance.render(); }
-    };
-    (function(){
-    const t=document.createElement('script');
-    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
-    document.head.appendChild(t);
-    })()
+    function chatBot() {
+        window.watsonAssistantChatOptions = {
+            integrationID: "747d8b43-8cc8-4ee9-9dfd-4e5d4d129a98", // The ID of this integration.
+            region: "us-south", // The region your integration is hosted in.
+            serviceInstanceID: "0c27b141-8422-4ebb-b9e8-665418afc54b", // The ID of your service instance.
+            onLoad: function (instance) { instance.render(); }
+        };
+        (function () {
+            const t = document.createElement('script');
+            t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+            document.head.appendChild(t);
+        })()
     }
-      
+
     useEffect(() => {
     }, [count])
     function render() {
@@ -61,7 +61,7 @@ function Nav() {
             <div className="col-md-3 utilidades">
                 <div className="main row">
                     <div className="col-md-3">
-                        <Link to='#' onClick={e => {e.preventDefault(); chatBot()}}>
+                        <Link to='#' onClick={e => { e.preventDefault(); chatBot() }}>
                             <a className="linkIcons">
                                 <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z" />
@@ -73,13 +73,18 @@ function Nav() {
                         </Link>
                     </div>
                     <div className="col-md-3">
-                        <Link to='/admin' className="linkIcons">
-                            <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                            </svg>
-                            <br />
-                            <span>Mi Cuenta</span>
-                        </Link>
+                        <div className="js-utilities-item utilities-item transition-soft d-none d-md-inline-block" data-store="account-links">
+                            <div className="utility-head text-center">
+                                <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                                </svg>
+                                <span className="utility-name transition-soft d-block">Mi Cuenta</span>
+                            </div>
+                            <ul className="js-subutility-list subutility-list ul-mi-cuenta">
+                                <li className="subutility-list-item nav-accounts-item"><Link to='/Login' title="" class="nav-accounts-link">Iniciar sesión</Link></li>
+                                <li className="subutility-list-item nav-accounts-item"><Link to='/Register' title="" class="nav-accounts-link">Crear cuenta</Link></li>
+                            </ul>
+                        </div>
                     </div>
                     <div className="col-md-3">
                         <Link to='/carrito' className="linkIcons">
@@ -91,12 +96,12 @@ function Nav() {
                             <span>Carrito</span>
                         </Link>
                     </div>
-                        <div className="col-md-3">
-                        <Link to='/Register' className="linkIcons">
+                    <div className="col-md-3">
+                        <Link to='/admin' className="linkIcons">
                             {/*<i class="fas fa-user-plus"></i>*/}
-                            <img src={SingUp} className="bi" style={{heigth: "29px", width: "29px", filter: "invert(100%)"}} alt="Sing up"/>
+                            <img src={SingUp} className="bi" style={{ heigth: "29px", width: "29px", filter: "invert(100%)" }} alt="Sing up" />
                             <br />
-                            <span>Registro</span>
+                            <span>Admin</span>
                         </Link>
                     </div>
                 </div>
@@ -105,11 +110,11 @@ function Nav() {
             <div className="col-md-12 menuSkate">
 
                 <ul className="nav justify-content-center">
-                    <li className="nav-item dropdown">
-                        <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a>
-                    </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/products">PRODUCTOS</a>
+                    </li>
+                    <li className="nav-item dropdown">
+                        <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a>
                     </li>
                     <li className="nav-item">
                         <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>

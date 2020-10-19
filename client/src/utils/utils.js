@@ -14,3 +14,13 @@ export function counter() {
 }
 
 //-------------------------------------------------------
+
+//Formate la fecha a dd/mm/yyyy
+export function dateFormat(res) {
+  let newdate = new Date(res);
+  let mes = newdate.getMonth() + 1;
+  let dia = newdate.getDate();
+  let ano = newdate.getFullYear();
+  res = JSON.stringify(`${dia}/${mes}/${ano}`)
+  return res.replace(/[ '"]+/g, ' ');
+}
