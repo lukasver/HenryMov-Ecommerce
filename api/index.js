@@ -99,7 +99,7 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Un vela para tabla de windsurf de color celeste',
 	  		price: 23000,
 	  		availability: true,
-			stock: 3,
+			stock: 0,
 			count: 1,   
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
 	  	}).then(createdProduct => {
@@ -121,7 +121,7 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Gorro skate - Made in China',
 	  		price: 210,
 	  		availability: true,
-			  stock: 100,
+			  stock: 0,
 			  count: 1,
 	  		image: 'https://sc02.alicdn.com/kf/H55756b6151c748328ed7791a02a36fbcQ.jpg'
 	  	}).then(createdProduct => {
@@ -244,7 +244,7 @@ conn.sync({ force: true }).then(() => {
 				count: 1,
 				availability: false,
 				stock: 43,
-				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/wGorrasapp-image-2020-09-11-at-7-55-14-pm-11-63675c24f813f274bc16008106443232-640-0.jpeg'
+				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/zapatillas-hufgalaxy-black-gum1-362068c23be1e83e0b15914002176559-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
 			  })
@@ -385,7 +385,7 @@ conn.sync({ force: true }).then(() => {
 				description: 'Deck 7 capas Maple REAL Tamaño: 31" (79cm) x 7.75" (19.6cm) Doble Kick Cóncavo Trucks de aluminio 5 Ruedas PUC 52 x 32mm HR95A Bujes de PU 95A Rodamientos ABEC 7 Tornilleria de acero',
 				price: 8200,
 				availability: false,
-				stock: 23,
+				stock: 0,
 				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/skate-banga-skull1-4d10a1ae22b60579b016010598447465-640-0.png'
 			}).then(createdProduct => {

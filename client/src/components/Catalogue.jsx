@@ -1,10 +1,10 @@
-import React from 'react';
-import ProductCard from './ProductCard.jsx';
-import './Catalogue.css';
-import loading from '../img/loading.gif';
+import React, {useState} from 'react';
 import { counter } from '../utils/utils';
 import {useDispatch, useSelector} from 'react-redux';
-import * as action from '../redux/Action'
+import ProductCard from './ProductCard.jsx';
+import LoadingBar from './LoadingBar.jsx';
+import * as action from '../redux/Action';
+import './Catalogue.css';
 
 function Catalogue() {
 	
@@ -12,7 +12,30 @@ function Catalogue() {
 	const categories = useSelector(store => store.categories) // categories
 	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
-	// const [listado, setListado] = useState([])
+
+	// console.log('1', totalProdsFilter[0])
+	// console.log('1', totalProds[0])
+
+	// =================================================
+	//	 PAGINACION
+	// =================================================
+
+	const [pageActual, setPageActual] = useState(1);
+    const [prodsPorPage, setProdsPorPage] = useState(12);
+
+	let pageNumbers = []
+    for (let i = 1; i <= Math.ceil(totalProds.length / prodsPorPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    const indexOfLastProd = pageActual * prodsPorPage;
+    const indexOfFirstProd = indexOfLastProd - prodsPorPage;
+    let currentProds = totalProds.slice(indexOfFirstProd, indexOfLastProd);
+
+    // =================================================
+    // =================================================
+
+
 	
 	let listado = [];
 	let categorias = [];
@@ -39,18 +62,22 @@ function Catalogue() {
 		categories.map(category =>{
 			if (categoriesIds.includes(category.id)) show.push(category)
 		})
-		
 		return show
 	}
 
 	if (!totalProds.length) {
-		return <img className="rounded mx-auto d-block" src={loading} />
+		return <LoadingBar done="75"/>
+
+
+		// return <img className="rounded mx-auto d-block" src={loading} />
 	} else {
 		
 		if (!totalProdsFilter.length){
-			listado = totalProds
+			// currentProds = totalProds
 		} else {
-			listado = totalProdsFilter
+			console.log(totalProdsFilter.length)
+			currentProds = totalProdsFilter.slice(indexOfFirstProd, indexOfLastProd)
+			// pageNumbers = Math.ceil(totalProdsFilter.length / prodsPorPage)
 		}
 
 		if (!ValidatedCategories().length){
@@ -88,6 +115,7 @@ function Catalogue() {
 	
 	// =================================================
 
+
 		
 		let checkId = counter()
 		let checkFor = counter()
@@ -95,7 +123,7 @@ function Catalogue() {
 			<div className="container1">
 				<div className="main row">
 					<div className="col-md-3 sidebar-left">
-						<div className="sticky">
+						<div className="sticky" style={{position: "relative"}}>
 							<h2>Categorías:</h2>
 							{categorias.map(category =>
 								<div className="custom-control custom-checkbox categoryList" key={category.id}>
@@ -105,10 +133,20 @@ function Catalogue() {
 							)}
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
+						 {/* BOTONES DE PAGINACION */}
+		               <nav className="sticky mt-3" style={{position: "relative", "margin-bottom":"40px"}}>
+		                    <ul className="pagination d-flex justify-content-center">
+		                        {pageNumbers.map((numero, i) => (
+		                        	<li key={i} className="page-item">
+		                         		<a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
+		                        	</li>
+		                   		 ))}
+		                    </ul>
+		                </nav>
 					</div>
-					<div className="col-md-9 row">
-						{listado.map(prod =>
-							<div className="card-group col-md-3" key={prod.id}>
+					<div className="col-md-9 row border-left">
+						{currentProds.map(prod =>
+							<div className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}
 									id={prod.id}
@@ -116,6 +154,8 @@ function Catalogue() {
 									description={prod.description}
 									price={prod.price}
 									image={prod.image}
+									count={prod.count}
+									stock={prod.stock}
 								/>
 							</div>)}
 					</div>

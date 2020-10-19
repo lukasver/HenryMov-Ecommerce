@@ -37,6 +37,7 @@ return (
                         description={prod.description}
                         price={prod.price}
                         image={prod.image}
+                        count={prod.count}
                     />
                 </div>)}
         </div>

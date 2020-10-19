@@ -42,22 +42,22 @@ export default function Footer() {
                         <h5 className="font-weight-bold text-muted text-uppercase mt-2 mb-4 tituloH5 h5-center">Webft05 <b className="webft05">G5</b></h5>
                         <div className="row">
                             <div className="col-md-4 div-img-4">
-                                <img className="img-footer" src={diego} />
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/diegotolaba09/' target="_blank"><img className="img-footer" src={diego} /></a>
                             </div>
                             <div className="col-md-4 div-img-4">
-                                <img className="img-footer" src={lucas} />
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/lverdiell/' target="_blank"><img className="img-footer" src={lucas}/></a>
                             </div>
                             <div className="col-md-4 div-img-4">
-                                <img className="img-footer" src={cristian} />
+                               <a className="crsrlnk" href='https://www.linkedin.com/in/cristian-lucatti/' target="_blank"><img className="img-footer" src={cristian} /></a>
                             </div>
                             <div className="col-md-4">
-                                <img className="img-footer" src={fede} />
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/federico-calder%C3%B3n-8146a71b0/' target="_blank"><img className="img-footer" src={fede} /></a>
                             </div>
                             <div className="col-md-4">
-                                <img className="img-footer" src={seba} />
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/sebastian-ariel-levin-656a84b0/' target="_blank"><img className="img-footer" src={seba} /></a>
                             </div>
                             <div className="col-md-4">
-                                <img className="img-footer" src={ariel} />
+                                <a className="crsrlnk" href='https://github.com/ArielR135' target="_blank"><img className="img-footer" src={ariel} /></a>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ export default function Footer() {
                                 <p>Subscribete y recibe ofertas semanales</p>
                                 <form action="" method="post">
                                     <div className="input-prepend"><span className="add-on"><i className="icon-envelope"></i></span>
-                                        <input type="text" id="" name="" placeholder="your@email.com" />
+                                        <input type="text" id="" name="" placeholder="direccion@email.com" />
                                     </div>
                                     <br />
                                     <input type="submit" value="Subscribe Now!" className="btn-floating btn-fb mx-1" />
@@ -92,7 +92,7 @@ export default function Footer() {
                 </li>
                 <li className="list-inline-item">
                     <a className="btn-floating btn-gplus mx-1">
-                        <i className="fab fa-google-plus-g"> </i>
+                        <i className="fab fa-instagram"> </i>
                     </a>
                 </li>
                 <li className="list-inline-item">
