@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as action from '../../redux/Action'
 import './Carrito.css';
 
@@ -124,7 +125,7 @@ export default function Carrito() {
                                     {product &&
                                         product.map(prod =>
                                             <tr>
-                                                <td><img src={prod.image} width={80} /> </td>
+                                                <td><Link className="titulo-link" to={`/products/${prod.id}`} ><img src={prod.image} width={80} href='`/product/${id}`' /></Link> </td>
                                                 <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
                                                 <td>{prod.count < prod.stock ? <div class="alert alert-success" role="alert">
                                                     Disponible
