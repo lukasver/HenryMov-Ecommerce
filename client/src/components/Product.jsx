@@ -51,7 +51,7 @@ export default function Product({ product }) {
 	}
 	function stocker(product) {
 		let products = JSON.parse(localStorage.getItem('prod'))
-		if(product == null){
+		if(products == null){
 			return
 		} 
 		let cleanData = products.filter((data) => data.id == product.id)
