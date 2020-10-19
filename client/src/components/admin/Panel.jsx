@@ -18,7 +18,7 @@ export default function Panel({ tablaAccion }) {
     const [category, setCategory] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/products')
+        axios.get('http://localhost:3001/admin/products')
             .then(productos => {
                 const { data } = productos;
                 return data;
@@ -54,7 +54,7 @@ export default function Panel({ tablaAccion }) {
     }
 
     function getProduct(id) {
-        axios.get(`http://localhost:3001/products/${id}`)
+        axios.get(`http://localhost:3001/admin/products/${id}`)
             .then(producto => producto.data)
             .then(data => setProduct(data))
             .catch((error) => {

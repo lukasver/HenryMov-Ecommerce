@@ -4,10 +4,32 @@ const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 
 //======================================================================== 
-//	Ruta para devolver todos los productos y sus categorias asociadas
+//	Ruta para devolver todos los productos DISPONIBLES y sus categorias asociadas
 //======================================================================== 
 
 server.get('/products', (req, res, next) => {
+	Product.findAll({
+		order: ['id'],
+		include: { model: Category }
+	})
+		.then(products => {
+			if (!products) {
+				return res.send('<h1>No hay prooductos cargados</h1>')
+			}
+			const productosDisponibles = products.filter(x => x.availability == true)
+			res.json(productosDisponibles);
+		})
+		.catch(err => {
+			console.log(err);
+			next()
+		});
+});
+
+//======================================================================== 
+//	Ruta para devolver todos los productos y sus categorias asociadas - ADMIN
+//======================================================================== 
+
+server.get('/admin/products', (req, res, next) => {
 	Product.findAll({
 		order: ['id'],
 		include: { model: Category }
@@ -25,7 +47,30 @@ server.get('/products', (req, res, next) => {
 });
 
 //=============================================
-//  Obtener un producto por id (unico) 
+//  Obtener un producto por id (unico) - ADMIN
+//=============================================
+
+server.get('/admin/products/:id', (req, res, next) => {
+	const { id } = req.params;
+	Product.findOne({
+		where: {
+			id
+		},
+		include: { model: Category }
+	})
+		.then(product => {
+			if (!product) {
+				return res.send('<h1>No se encontro producto</h1>')
+			}
+			res.status(200).json(product);
+		})
+		.catch(error => {
+			res.status(404).send('<h1>error...product not found</h1>')
+		})
+})
+
+//=============================================
+//  Obtener un producto por id (unico) si esta disponible
 //=============================================
 
 server.get('/products/:id', (req, res, next) => {
@@ -40,7 +85,8 @@ server.get('/products/:id', (req, res, next) => {
 			if (!product) {
 				return res.send('<h1>No se encontro producto</h1>')
 			}
-			res.status(200).json(product);
+			const productosDisponibles = products.filter(x => x.availability == true)
+			res.status(200).json(productosDisponibles);
 		})
 		.catch(error => {
 			res.status(404).send('<h1>error...product not found</h1>')
@@ -132,7 +178,8 @@ server.get('/search', (req, res, next) => {
 		}
 	})
 		.then(product => {
-			res.json(product)
+		const productosDisponibles = products.filter(x => x.availability == true)
+			res.json(productosDisponibles)
 		})
 		.catch(error => {
 			res.status(404).send('Producto no encontrado')

@@ -17,7 +17,7 @@
     margin-left: -15px;
 }
 .form-heading {
-    margin-top: -70px;
+    margin-top: 70px;
     padding: 20px;
     background: black;
     margin-bottom: 40px;
@@ -60,18 +60,24 @@
 }
 .adam-button {
     margin-top: 20px;
+    margin-bottom: 3rem; 
     padding: 8px 14px;
     letter-spacing: 1px;
     float: right;
     background: black;
     border-radius: 3px;
     color: #fff;
-    border: 1px solid white;
-    font-weight: 300;
-    font-size: 14px;
+    border: 1px solid #fff;
+    font-weight: 400;
+    font-size: 16px;
     transition: all .3s cubic-bezier(.64, .09, .08, 1);
-    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
+
+.adam-button:hover {
+    color: rgba(248, 148, 6, 1);
+    }
+
 .label {
     color: #898989;
     font-size: 14px;
@@ -94,4 +100,21 @@
 }
 .invisible{
     display: none;
+}
+
+.registfont {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    color: orange;
+    font-size: 25px;
+    padding-top: -30px
+}
+
+.inputref {
+    font: italic 300 16px;
+    color: grey;
+    padding: -10px;
+    margin: -10px;
+    text-transform: uppercase;
 }

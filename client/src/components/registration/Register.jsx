@@ -94,17 +94,20 @@ export default function Register() {
     }
 
     return (
-        <div className="contenido">
+        <div className="container" style={{width: "1600px"}}>
             <div className="row">
-                <div className="col-md-8 offset-md-2">
+                <div className="col-md-10 offset-md-1">
+
                     <form onSubmit={handleSubmit}>
                         <div className="form-heading tect-center">
-                            <div className="title">Registrate</div>
-                            <p className="title-description">¿Ya tienes una cuenta?
-                            <Link to='/logIn'>Inicia sesion</Link>
+                            <div className="title-description registfont">nuevo usuario</div>
+                            <p className="title-description" style={{color: "white"}}>¿Ya tienes una cuenta?
+                            <Link to='/logIn'> Inicia sesion</Link>
                             </p>
                         </div>
-                        <div className="row">
+
+                        <div className="row form-group">
+                            <h4 className="page-header col-md-12">Nombre y Apellido</h4>
                             <div className="col-md-6">
                                 <input
                                     className="user"
@@ -118,6 +121,7 @@ export default function Register() {
                             </div>
                             <div className="col-md-6">
                                     <input
+                                    className="user"
                                     onChange={handleOnChange}
                                     name='lastname'
                                     type="text"
@@ -127,9 +131,12 @@ export default function Register() {
                                     {error.lastname && <p className='danger'>{error.lastname}</p>}
                              </div>
                         </div>
-                        <div className="row">
+                        <div className="row form-group">
+                        <h4 className="page-header col-md-6">Dirección</h4>
+                        <h4 className="page-header col-md-6">E-mail</h4>
                             <div className="col-md-6">
                                <input 
+                                className="user"
                                 onChange={handleOnChange}
                                 name='address' 
                                 type="text" 
@@ -149,10 +156,13 @@ export default function Register() {
                                 {error.email && <p className='danger'>{error.email}</p>}
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row form-group">
+                        <h4 className="page-header col-md-6">Teléfono</h4>
+                        <h4 className="page-header col-md-6">Fecha de Nacimiento</h4>
                             <div className="col-md-6">
                                 <input 
                                 onChange={handleOnChange}
+                                className="user"
                                 name='phone' 
                                 type="text" 
                                 id='Telefono' 
@@ -161,6 +171,7 @@ export default function Register() {
                             </div>
                             <div className="col-md-6">
                                 <input
+                                    className="form-control"
                                     onChange={handleOnChange}
                                     name='birthdate'
                                     type="date"
@@ -171,6 +182,8 @@ export default function Register() {
                              </div>
                         </div>
                         <div className="row">
+                        <h4 className="page-header col-md-6">Contraseña</h4>
+                        <h4 className="page-header col-md-6">Repita contraseña</h4>
                             <div className="col-md-6">
                                 <input
                                     className="user"
@@ -192,6 +205,10 @@ export default function Register() {
                                     placeholder='**************' />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
                             </div>
+                                <div className="col-md-12">
+                                    <label className="inputref">Mínimo 8 caracteres:</label><br/>
+                                    <label className="inputref">Debe contener al menos: 1 caractér mayúscula, especial y número </label><br/>  
+                                </div>
                         </div>
                         <div className="col-md-12">
                             <button className="adam-button" type='submit'>Crear cuenta</button>

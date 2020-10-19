@@ -53,10 +53,10 @@ return (
                 </div>
                 <div className="col-md-6">
                     <br />
-                    <h5>Carla Basaul</h5>
-                    <p className="perfil">Programmer</p>
+                    <h5>X-Games 2019</h5>
+                    <p className="perfil">Vancouver - Canada</p>
                     <p className="test-text">
-                        “Supe de ustedes por un amigo. Quiero actualizar y adquirir conocimientos en lenguajes que no conocía o que conocía pero por muchos años no practiqué y ya no recuerdo.
+                        “Tentate viendo los skates más cool de los X-Games 2019!“
 					</p>
                 </div>
             </div>
@@ -66,10 +66,10 @@ return (
                 </div>
                 <div className="col-md-6">
                     <br />
-                    <h5>Marcos Perez</h5>
-                    <p className="perfil">Programmer</p>
+                    <h5>Tony Hawk</h5>
+                    <p className="perfil">Skate Legend</p>
                     <p className="test-text">
-                        “Gracias por liberar y ofrecer este tipo de cursos en estos tiempos de crisis sanitaria. Es un excelente aporte para el auto aprendizaje guiado”.
+                        “Desde que conocí Henry-mov, compro todos mis skate con ellos 🤘. You rock guys!!”.
 					</p>
                 </div>
             </div>
@@ -80,8 +80,8 @@ return (
                 <img className="img-testimonial" src="https://www.jovenesprogramadores.cl/wp/wp-content/uploads/2020/07/comillas.png" />
                 <br /><br />
                 <h5 className="titulo-testimonial">
-                    “Supe de ustedes por un amigo. Quiero actualizar y adquirir conocimientos en lenguajes que no conocía o que conocía pero por muchos años no practiqué y ya no recuerdo.
-                    Estoy feliz haciendo mi primer curso, lo encuentro muy bueno e interesante, recién terminé el primero. Recomiendo el programa recomiendo 100%”.
+                    “Supe de ustedes por un amigo. Estaba buscando un scooter eléctrico para movilizarme de casa al trabajo, pero no encontraba ningún lugar de confianza para comprarlo.
+                    Me animé y lo compre en Henry-Mov! No puedo estar más féliz con el producto y servicio!, los recomiendo 100%”.
 					</h5>
                 <br />
                 <h3 className="h3-testimonial">Consuelo Contreras</h3>
