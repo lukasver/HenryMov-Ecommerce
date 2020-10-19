@@ -18,7 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { Product, Category, User, Order, Orderline, conn } = require('./src/db.js');
+const { Product, Category, User, Order, Orderline,Reviews, conn } = require('./src/db.js');
 const { port } = process.env // agregar port a tu variable de entorno .env
 
 // Syncing all the models at once.
@@ -100,7 +100,9 @@ conn.sync({ force: true }).then(() => {
 	  		price: 23000,
 	  		availability: true,
 			stock: 0,
-			count: 1,   
+			count: 1,
+			like: 33,
+			dislike: 2,   
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([3]);
@@ -112,6 +114,8 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 			  stock: 4,
 			  count: 1,
+			  like: 54,
+			dislike: 7, 
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([2]);
@@ -123,6 +127,8 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 			  stock: 0,
 			  count: 1,
+			  like: 130,
+			dislike: 23, 
 	  		image: 'https://sc02.alicdn.com/kf/H55756b6151c748328ed7791a02a36fbcQ.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([6]);
@@ -134,6 +140,8 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 			  stock: 10,
 			  count: 1,
+			  like: 32,
+			dislike: 12, 
 	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([1]);
@@ -145,6 +153,8 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 			  stock: 8,
 			  count: 1,
+			  like: 43,
+			dislike: 2, 
 	  		image: 'https://i.pinimg.com/originals/ea/2b/84/ea2b84b6d1358a047ccd9925003620d8.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([5]);
@@ -156,6 +166,8 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 			  stock: 100,
 			  count: 1,
+			  like: 40,
+			dislike: 2, 
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([2]);
@@ -167,6 +179,8 @@ conn.sync({ force: true }).then(() => {
 	  		availability: true,
 			  stock: 100,
 			  count: 1,
+			  like: 83,
+			  dislike: 32, 
 	  		image: 'https://ebikebc.com/wp-content/uploads/2019/11/ebikeBC-ebikes-banner-product-smaller.jpg'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([4]);
@@ -178,6 +192,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 10,
 				count: 1,
+				like: 32,
+				dislike: 24, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/casco-noname-rosa-1-21-ffaebc33792f6e6e6415900886785140-640-0.jpg'
 		}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -189,6 +205,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 545 ,
 				count: 1,
+				like: 53,
+				dislike: 26, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/8621-3a9dc31491d38459a615887197486657-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -200,6 +218,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 23,
 				count: 1,
+				like: 32,
+				dislike: 2, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/zapatillas-huf-soto-black-31-76232f6b4c699e9eae15997728362910-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -211,6 +231,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 65,
 				count: 1,
+				like: 95,
+				dislike: 21, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/1661-3fb85721265fe466d815887005517584-640-0.jpg	'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -222,6 +244,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 34,
 				count: 1,
+				like: 65,
+				dislike: 7, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/3931-90e1bd9e6cd28b2a0815884478454641-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -233,6 +257,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 32,
 				count: 1,
+				like: 223,
+				dislike: 28, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2141-8bba392f6d3979a3b315884422233072-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -244,6 +270,8 @@ conn.sync({ force: true }).then(() => {
 				count: 1,
 				availability: true,
 				stock: 43,
+				like: 38,
+				dislike: 6, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/zapatillas-hufgalaxy-black-gum1-362068c23be1e83e0b15914002176559-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([9]);
@@ -255,6 +283,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:43 ,
 				count: 1,
+				like: 34,
+				dislike: 2, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/1811-68a374a4b8091df2ce15880342841356-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -266,6 +296,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:32 ,
 				count: 1,
+				like: 93,
+				dislike: 8, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2711-547008059e8ca6e0c515883835046272-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -277,6 +309,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 21,
 				count: 1,
+				like: 52,
+				dislike: 17, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6201-2d4a0b42b2f3d6870815887072186453-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -288,6 +322,8 @@ conn.sync({ force: true }).then(() => {
 				count: 1,
 				availability: true,
 				stock: 54,
+				like: 65,
+				dislike: 8, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/acero11-1bdcd6443ab65e6bb615879959523320-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -299,6 +335,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 64,
 				count: 1,
+				like: 93,
+				dislike: 19, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/81-09fe09b0cb4e4beeeb15879984952437-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -310,6 +348,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:12 ,
 				count: 1,
+				like: 173,
+				dislike: 12, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6551-bd082bb589e4fa5f0015887048790512-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -321,6 +361,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 23,
 				count: 1,
+				like:54,
+				dislike: 20, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/11211-18ad3ad0daa67bc69d15886296499645-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([10]);
@@ -332,6 +374,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 34,
 				count: 1,
+				like: 35,
+				dislike: 26, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/991-0fdf1ee8debca1764515886289931793-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -343,6 +387,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 34,
 				count: 1,
+				like: 63,
+				dislike: 19, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/521-5a6bd3140b2a3b37f315886984024789-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -354,6 +400,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:32 ,
 				count: 1,
+				like: 76,
+				dislike: 6, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6821-ca82226cb7b86af19915884504558586-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -365,6 +413,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 43,
 				count: 1,
+				like: 231,
+				dislike: 25, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/medias-huf-henry-crew1-63f2d8575f7a8f2bd216021925636092-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -376,6 +426,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:32 ,
 				count: 1,
+				like: 95,
+				dislike: 21, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/huf-og-logo_black-11-210afe5db5089c800e15911494614271-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([11]);
@@ -387,6 +439,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 0,
 				count: 1,
+				like: 90,
+				dislike: 1, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/skate-banga-skull1-4d10a1ae22b60579b016010598447465-640-0.png'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -398,6 +452,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:54 ,
 				count: 1,
+				like: 343,
+				dislike: 34, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/fms1sk0211-3fc80b140b19f4615316016590273659-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -409,6 +465,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:54 ,
 				count: 1,
+				like: 67,
+				dislike: 5, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/fms1sk011-8df4a708054824f61916016587162562-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -420,6 +478,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:12 ,
 				count: 1,
+				like: 94,
+				dislike: 19, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/3031-c0298f95fdb73c3f3915887963031044-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([2]);
@@ -431,6 +491,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:32 ,
 				count: 1,
+				like: 367,
+				dislike: 31, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6231-c152af4a1549763f0515884503288404-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([6]);
@@ -442,6 +504,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 43,
 				count: 1,
+				like: 87,
+				dislike: 13, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/4211-8d897112cd5b4af29315880921728471-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([6]);
@@ -453,6 +517,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 32,
 				count: 1,
+				like: 75,
+				dislike: 13, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_728530-MLA43214211601_082020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([8]);
@@ -464,6 +530,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:43 ,
 				count: 1,
+				like: 54,
+				dislike: 2, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_762822-MLA43481932680_092020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([8]);
@@ -475,6 +543,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:43 ,
 				count: 1,
+				like: 34,
+				dislike: 2, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_751798-MLA42802383909_072020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -486,6 +556,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 43,
 				count: 1,
+				like: 73,
+				dislike: 10, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_738191-MLA31112676292_062019-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -497,6 +569,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 32,
 				count: 1,
+				like: 63,
+				dislike: 1, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_679560-MLA43168480883_082020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([7]);
@@ -508,6 +582,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock:32 ,
 				count: 1,
+				like: 278,
+				dislike: 24, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_737040-MLA32620021373_102019-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([4]);
@@ -519,6 +595,8 @@ conn.sync({ force: true }).then(() => {
 				availability: true,
 				stock: 43,
 				count: 1,
+				like: 563,
+				dislike: 76, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_974760-MLA41876665207_052020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([4]);
@@ -586,7 +664,80 @@ conn.sync({ force: true }).then(() => {
     		res.setUser(2);
     		res.addProducts(7, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
     		res.addProducts(14, { through: { quantity: 5, amount: 8300 }})
-    	})
+		})
+		
+		// await Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// }).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+		// 	usuario:,
+		// 	title:,
+		// 	description:,
+		// 	value:,
+		// 	likes:,
+		// 	dislike:,
+		// })).then(Reviews.create({
+
 
 	  };
 	  precarga();

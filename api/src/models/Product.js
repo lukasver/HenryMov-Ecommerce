@@ -48,6 +48,14 @@ sequelize.define('product', {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue:1
+    },
+    like:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    dislike:{
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
   } , {
   	timestamps: false

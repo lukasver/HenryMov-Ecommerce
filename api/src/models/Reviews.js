@@ -2,8 +2,8 @@ const { DataTypes } = require('sequelize');
 const { conn } = require('../db.js');
 
 
-module.export =(sequelize) =>{
-    sequelize.define('reviews',{
+module.exports =(sequelize) =>{
+    sequelize.define('reviews', {
         usuario:{
             type: DataTypes.STRING,
             allowNull: false
@@ -17,15 +17,7 @@ module.export =(sequelize) =>{
             allowNull: false,
         },
         value:{
-            type: DataTypes.NUMBER,
-            allowNull: false
-        },
-        like:{
-            type: DataTypes.NUMBER,
-            allowNull: false
-        },
-        dislike:{
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: false
         }
     },{timestamps: false })

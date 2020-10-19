@@ -109,7 +109,9 @@ export default function Product({ product }) {
 					Este producto ya esta en el carrito  <a type="button" class="btn btn-outline-primary" href='/carrito'>Ir al carrito</a>
 					</div>					:null}
 					
-					
+					{/* <button type="checkbox" class="btn btn-outline-primary far fa-thumbs-up"></button>
+					<i class="far fa-thumbs-down"></i> */}
+
 					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>
 					<div className="form-row mb-4 ">
 						<div className="col-11 form-label">
