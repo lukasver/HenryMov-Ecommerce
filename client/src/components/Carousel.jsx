@@ -44,7 +44,7 @@ return (
         <br /><br /><br /><br /><br /><br />
         <h2> X-TREME SPORT </h2>
         <br />
-        <div className="main row">
+        <div className="main row testimonial-video">
             <div className="col-md-6 row test-izq">
                 <div className="col-md-6">
                 <div className="embed-responsive embed-responsive-4by3">

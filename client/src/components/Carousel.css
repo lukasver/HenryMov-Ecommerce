@@ -22,6 +22,7 @@
     background-color:#dfad31;
     background-image: linear-gradient(180deg, #dfad31 10%, #d27f3f 100%);
     padding: 50px 110px;
+    border-radius: 85px 0px;
 }
 .titulo-testimonial {
     color: #383838bd;
@@ -29,4 +30,7 @@
 }
 .h3-testimonial {
     color: #363636;
+}
+.testimonial-video {
+    padding-left: 8%;
 }
