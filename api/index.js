@@ -425,17 +425,6 @@ conn.sync({ force: true }).then(() => {
 				  createdProduct.setCategories([2]);
 			  })
 		await Product.create({
-				name: 'Gorra Fallen Risen Patch Importadas Originales Summer 20',
-				description: ' Gorra Fallen Cap Star TX 98% Algodón, 2% Elastano Cap 6 paneles Flexfit + Visera curva ',
-				price: 1099,
-				availability: false,
-				stock:32,
-				count: 1,
-				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/341-41b87472176de8c33915880178735099-640-0.jpg'
-			}).then(createdProduct => {
-				  createdProduct.setCategories([6]);
-			  })
-		await Product.create({
 				name: 'Gorra Dc Cap Star Tx',
 				description: 'Gorra DC Cap Star TX 98% Algodón, 2% Elastano Cap 6 paneles Flexfit + Visera curva + Logo 3D bordado al frente',
 				price: 1999,
@@ -443,17 +432,6 @@ conn.sync({ force: true }).then(() => {
 				stock:32 ,
 				count: 1,
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6231-c152af4a1549763f0515884503288404-640-0.jpg'
-			}).then(createdProduct => {
-				  createdProduct.setCategories([6]);
-			  })
-		await Product.create({
-				name: 'Gorra Dc Shoes Baffles 6 Paneles',
-				description: 'Gorra sin estructura , 6 Panel flat brim , Cinta DCSHOECOUSA estampada , Cierre trasero con elástico ajustable',
-				price: 1799 ,
-				availability: false,
-				stock:23 ,
-				count: 1,
-				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/841-aa37c4236ca9ef08b215884632016078-640-0.jpg'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([6]);
 			  })
@@ -487,17 +465,6 @@ conn.sync({ force: true }).then(() => {
 				stock:43 ,
 				count: 1,
 				image: 'https://http2.mlstatic.com/D_NQ_NP_762822-MLA43481932680_092020-O.webp'
-			}).then(createdProduct => {
-				  createdProduct.setCategories([8]);
-			  })
-		await Product.create({
-				name: 'Hoverboard Patineta Electrica Skate Bluetooth Luces Led',
-				description: 'PATINETA ELÉCTRICA HOVERBOARD MAX-YOU XFUN 6,5,MOTOR 250 W,RUEDAS DE 6,5 MACIZA,FRENO DINAMICO,BATERIA 36V 2Ah DE 10 CELDAS, VOLTAJE 220 V',
-				price: 35000,
-				availability: false,
-				stock:23 ,
-				count: 1,
-				image: 'https://http2.mlstatic.com/D_NQ_NP_859963-MLA43692366670_102020-O.webp'
 			}).then(createdProduct => {
 				  createdProduct.setCategories([8]);
 			  })

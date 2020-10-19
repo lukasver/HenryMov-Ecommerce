@@ -18,7 +18,7 @@ export default function Slider() {
                     <img className="d-block w-100" src={slider1} alt="First slide" />
                     <div className="carousel-caption d-none d-md-block">
                         <h1 className="tituloSlider">Plantillas Footprint</h1>
-                        <button className="btn btn-dark">Ver más</button>
+                        
                     </div>
                 </div>
                 <div className="carousel-item">
