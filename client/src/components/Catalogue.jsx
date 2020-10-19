@@ -56,7 +56,7 @@ function Catalogue() {
 				}
 			})
 		})
-		
+		// ordena categoriesIds de menor a mayor
 		categoriesIds.sort((a, b) => a - b)
 		
 		categories.map(category =>{
