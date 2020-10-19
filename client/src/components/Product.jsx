@@ -55,7 +55,7 @@ export default function Product({ product }) {
 			return
 		} 
 		let cleanData = products.filter((data) => data.id == product.id)
-		console.log('stocke de clean', cleanData	)
+		console.log('stocke de clean', cleanData)
 		if(cleanData.length != 0){
 			return setDisponible(false)
 		}
