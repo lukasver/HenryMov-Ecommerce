@@ -177,9 +177,9 @@ server.get('/search', (req, res, next) => {
 				}]
 		}
 	})
-		.then(product => {
-		// const productosDisponibles = products.filter(x => x.availability == true)
-			res.json(product)
+		.then(products => {
+		const productosDisponibles = products.filter(x => x.availability == true)
+			res.json(productosDisponibles)
 		})
 		.catch(error => {
 			res.status(404).send('Producto no encontrado')
