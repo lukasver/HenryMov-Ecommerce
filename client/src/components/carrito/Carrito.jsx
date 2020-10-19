@@ -227,16 +227,16 @@ export default function Carrito() {
                             <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header bg-dark">
 
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body p-3 mb-2 bg-warning text-dark">
+                                        <div class="modal-body p-3 mb-2 ">
                                             Debes iniciar sesion para finalizar tu compra
       </div>
-                                        <div class="modal-footer">
+                                        <div class="modal-footer bg-dark">
                                             <a href="/register" type="button" class="btn btn-outline-primary">Registrate</a>
                                             <a href="/login" type="button" class="btn btn-outline-success">Iniciar sesion</a>
                                         </div>
