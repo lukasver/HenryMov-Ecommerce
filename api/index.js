@@ -110,7 +110,7 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Base de reemplazo para skate',
 	  		price: 1000,
 	  		availability: true,
-			  stock: 20,
+			  stock: 4,
 			  count: 1,
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}).then(createdProduct => {
@@ -132,7 +132,7 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Scooter eléctrico gris/negro de 2 ruedas',
 	  		price: 140,
 	  		availability: true,
-			  stock: 100,
+			  stock: 10,
 			  count: 1,
 	  		image: 'https://www.luckybikes.com.ar/wp-content/uploads/2019/09/es2-2-600x706.jpg'
 	  	}).then(createdProduct => {
@@ -143,7 +143,7 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Un hoverboard blanco de 2 ruedas',
 	  		price: 210,
 	  		availability: true,
-			  stock: 100,
+			  stock: 8,
 			  count: 1,
 	  		image: 'https://i.pinimg.com/originals/ea/2b/84/ea2b84b6d1358a047ccd9925003620d8.jpg'
 	  	}).then(createdProduct => {
