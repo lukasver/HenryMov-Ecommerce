@@ -34,3 +34,26 @@ a { color: white; }
     color: black;
     font-weight: 700;
 }
+.ul-mi-cuenta {
+    display: none;
+    padding: 22px;
+    width: 160px;
+    margin-left: -46px;
+    background: #111111;
+    z-index: 1000;
+}
+.js-utilities-item:hover > .ul-mi-cuenta{
+    display: block;
+    position: absolute;
+}
+.js-utilities-item:hover{
+    color: #ffaf00;
+}
+.js-utilities-item {
+    color: white;
+}
+.subutility-list-item {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
