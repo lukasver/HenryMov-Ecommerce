@@ -177,7 +177,8 @@ server.get('/search', (req, res, next) => {
 				}]
 		}
 	})
-		.then(product => {
+
+		.then(products => {
 		const productosDisponibles = products.filter(x => x.availability == true)
 			res.json(productosDisponibles)
 		})
