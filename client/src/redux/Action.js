@@ -15,6 +15,7 @@ export const REMOVE_COUNT_CART = "REMOVE_COUNT_CART";
 export const ORDER_DETAIL = "ORDER_DETAIL";
 export const DELETE_COUNT ="DELETE_COUNT";
 export const STOCK = "STOCK";
+export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES";
 
 
 export function addcount(stock) {
@@ -67,6 +68,12 @@ export function removeByCategory(data) {
     payload: data,
   };
 }
+export function setProductsFiltered(data) {
+  return {
+    type: FILTER_BY_CATEGORIES,
+    payload: data,
+  };
+}
 export function agregarCarrito(prod) {
   return {
     type: CARRITO,
@@ -113,7 +120,31 @@ export function filterbyCategory(categorySearch,bool) {
       }).then(p => p)
       .catch((error) => console.log(error));
 }
-
+  export function filterbyCategories(arrayNames){
+    return dispatch =>{
+    //   axios({
+      console.log(arrayNames)
+    //     method: 'get',
+    //     url: `http://localhost:3001/products/category/filter`,
+    //     processData: false,
+    //     body:{name: "it works!"}
+    // })
+      axios
+        .post(`http://localhost:3001/products/category/filter`,{categoryNames:arrayNames})
+        .then((products) => {
+          return products.data;
+        })
+        .then(products =>{
+          dispatch(setProductsFiltered(products))
+          return products
+          })
+        .then(products => console.log(products))
+        .catch((error) => {
+          console.log(error)
+          return error
+        });
+    }
+  }
 export function getProducts() {
   return axios
     .get(`http://localhost:3001/products`)

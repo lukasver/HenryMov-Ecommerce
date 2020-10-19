@@ -77,16 +77,15 @@ server.get('/products/:id', (req, res, next) => {
 	const { id } = req.params;
 	Product.findOne({
 		where: {
-			id
+			id: id
 		},
 		include: { model: Category }
 	})
 		.then(product => {
-			if (!product) {
+			if (!product || !product.availability) {
 				return res.send('<h1>No se encontro producto</h1>')
 			}
-			const productosDisponibles = products.filter(x => x.availability == true)
-			res.status(200).json(productosDisponibles);
+			res.status(200).json(product);
 		})
 		.catch(error => {
 			res.status(404).send('<h1>error...product not found</h1>')
@@ -198,7 +197,6 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 			where: { name: req.params.categoryName }
 		}
 	}).then(result => {
-		console.log(result);
 		if (!result.length) return res.status(400).send('<h1>NOT FOUND!</h1>')
 		res.status(200).send(result);
 		return
@@ -212,28 +210,35 @@ server.get('/products/category/:categoryName', (req, res, next) => {
 //	Ruta para devolver todos los productos por multiples categorias.
 //============================================== ==========
 
-// server.post('/products/category/filterOR', (req, res, next) => {
-// 	// =================Variables==================================
-// 	// Recibimos por body el array con los nombres de las categorias y lo llamamos categoryNames 
-// 	const categoryNames = req.body
-	
-// 	// =================Void==================================
-// 	// buscamos en la base de datos y comparamos para filtrar por categorias
-// 		Product.findAll({
-// 			include: {
-// 				model: Category,
-// 				where: { name: categoryNames}
-// 			}
-// 		})
-// 		.then(result =>{
-// 			res.status(200).json(result);
-// 			return 
-// 		})
-// 		.catch(err => {
-// 			res.status(404).end("ERROR 404");
-// 			return
-// 		})
-// 	});
+server.post('/products/category/filter', (req, res, next) => {
+	// =================Variables==================================
+	// Recibimos por body el array con los nombres de las categorias y lo llamamos categoryNames 
+	const {categoryNames} = req.body
+	// =================Void==================================
+	// buscamos en la base de datos y comparamos para filtrar por varias categorias
+		Product.findAll({
+			include:{
+				model: Category,
+				where :{name: categoryNames}
+			}
+		})
+		// Product.findAll()
+		// 	include:{
+		// 		model: Category,
+		// 		where :{name: categoryNames}
+		// 	}
+		// })
+		.then(data =>{
+			console.log('data length: ',data.length)
+			res.status(200).send(data)
+			return data
+		})
+		.catch(error => {
+			res.status(400).send(error)
+			return error;
+		})
+		// res.send('No retorna')
+	});
 	
 //==============================================
 //	Ruta para crear/agregar un producto.
