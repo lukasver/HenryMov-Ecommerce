@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, useHistory } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as action from '../../redux/Action';
 import './OrdenDetalle.css';
 
@@ -63,7 +64,7 @@ export default function OrdenDetalle() {
                                 return (
                                     <tr className="hover-list">
                                         <th scope="row">{dato.id}</th>
-                                        <td style={{ textAlign: 'left' }}>{dato.name}</td>
+                                        <td style={{ textAlign: 'left' }}><Link className="link-producto" to={`/products/${dato.id}`} >{dato.name}</Link></td>
                                         <td>{dato.orderline.quantity}</td>
                                         <td>{(dato.orderline.amount / dato.orderline.quantity).toFixed(2)}</td>
                                         <td>{dato.orderline.amount}</td>
