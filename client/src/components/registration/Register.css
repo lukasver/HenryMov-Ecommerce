@@ -142,3 +142,15 @@
 .close{
     color: orange
 }
+
+.btn-disabled{
+    background-color: #3e3e3e;
+    color: white;
+    border: none;
+}
+
+.btn-disabled:hover{
+    background-color: #3e3e3e;
+    color: white;
+    border: none;
+}

@@ -211,13 +211,13 @@ export default function Register() {
                             </div>
                         </div>
                         <div className="col-md-12">
-                        {JSON.stringify(error) == '{}' && <button  className="adam-button" type='submit' data-target='#pop-up' data-toggle='modal'>Crear cuenta</button>}
+                        {JSON.stringify(error) == '{}' && values.name !== '' ? <button  className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button  className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
                         </div>
-                        <div class="modal fade" id="pop-up" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <div className="modal fade" id="pop-up" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                             <span className='close' aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -226,8 +226,8 @@ export default function Register() {
                                         Continua disfrutando de comprar con nosotros
                                         </p>
                                     </div>
-                                    <div class="modal-footer">
-                                    <a href="/" type="button" class="btn btn-outline-primary create-account">Continuar</a>
+                                    <div className="modal-footer">
+                                    <a href="/" type="button" className="btn btn-outline-primary create-account">Continuar</a>
                                         
                                     </div>
                                 </div>
