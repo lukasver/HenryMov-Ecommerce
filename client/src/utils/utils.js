@@ -40,3 +40,13 @@ export const useDebouncedEffect = (effect, delay , deps) => {
         };
     }, [callback, delay]);
 }
+
+// suscribe to newsleter 
+
+export function newsletterAdd(e) {
+  e.preventDefault();
+  
+  const mail = document.getElementById("Newsletter").value
+  console.log(mail)
+
+}

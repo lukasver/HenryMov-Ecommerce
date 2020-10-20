@@ -56,7 +56,7 @@ export default function Product({ product }) {
 		} 
 		let cleanData = products.filter((data) => data.id == product.id)
 
-		if(cleanData.length != 0){
+		if(cleanData.length !== 0){
 			return setDisponible(false)
 		}
 		return 
@@ -76,7 +76,7 @@ export default function Product({ product }) {
 										
 				{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}
 					{stock == 0 && <button className="btn btn-danger" style={{"margin-bottom": "20px"}}>Producto sin Stock 😖 </button>}
-					{stock != 0 ? 
+					{stock !== 0 ? 
 						 disponible ? 
 						<div className="row buttom-comprar">
 						<div className="col-md-4">

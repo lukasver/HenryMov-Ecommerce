@@ -18,7 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { Product, Category, User, Order, Orderline,Reviews, conn } = require('./src/db.js');
+const { Product, Category, User, Order, Orderline, Reviews, Newsletter, conn } = require('./src/db.js');
 const { port } = process.env // agregar port a tu variable de entorno .env
 
 // Syncing all the models at once.
@@ -26,6 +26,10 @@ conn.sync({ force: true }).then(() => {
   server.listen(port || 3001, () => {
     console.log(`%s listening at ${port}`); // eslint-disable-line no-console
     const precarga = async function () {
+
+    	await Newsletter.create({
+			email: "LuisMiguel@yahoo.com.ar"
+		})
 
     	await User.create({
     		name: 'Michael',
@@ -738,7 +742,7 @@ conn.sync({ force: true }).then(() => {
 		// 	dislike:,
 		// })).then(Reviews.create({
 
-
+			await console.log("precarga realizada con éxito")
 	  };
 	  precarga();
   });

@@ -8,6 +8,7 @@ const productRouter = require('./product.js');
 const categoryRouter = require('./category.js');
 const userRouter = require('./user.js')
 const orderRouter = require('./order.js')
+const newsletter = require('./newsletter.js')
 
 const router = Router();
 
@@ -35,5 +36,6 @@ router.use(multer({
 router.use(express.static(path.join(__dirname, '../public')))
 
 router.use('/', productRouter, categoryRouter, userRouter, orderRouter);
+router.use('/newsletter', newsletter)
 
 module.exports = router;

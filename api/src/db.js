@@ -30,11 +30,9 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Category, productCategory, User, Order, Orderline,Reviews } = sequelize.models;
+const { Product, Category, productCategory, User, Order, Orderline, Reviews, Newsletter } = sequelize.models;
 
 // Aca vendrian las relaciones
-Product.hasMany(Reviews);
-Reviews.belongsTo(Product);
 
 // 1a1
 // eventualmente podriamos incluir aca una tabla adress para desagregarla de la tabla user por la cant de datos...
@@ -45,7 +43,8 @@ Reviews.belongsTo(Product);
 // == USUARIO PUEDE TENER MUCHAS ORDENES // CADA ORDEN PERTENECE A UN USUARIO ==
 User.hasMany(Order);
 Order.belongsTo(User); // se agrega FK "userId" en tabla Order que referencia al id del User.
-
+Product.hasMany(Reviews);
+Reviews.belongsTo(Product);
 
 // NaM
 // == PRODUCTOS PUEDEN SER DE MUCHAS CATEGORIAS // CATEGORIAS TIENEN MUCHOS PRODUCTOS ==

@@ -15,7 +15,7 @@ export default function Ordenes({ getOrders }) {
     // =======================================================
 
     const [pageActual, setPageActual] = useState(1);
-    const [prodsPorPage, setProdsPorPage] = useState(10);
+    const [prodsPorPage] = useState(10);
 
     const pageNumbers = []
     for (let i = 1; i <= Math.ceil(orders.length / prodsPorPage); i++) {

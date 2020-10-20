@@ -7,6 +7,7 @@ import cristian from '../../img/cristian.png';
 import fede from '../../img/fede.png';
 import seba from '../../img/seba.png';
 import ariel from '../../img/ariel.png';
+import { newsletterAdd } from '../../utils/utils.js'
 
 export default function Footer() {
     return (
@@ -66,13 +67,14 @@ export default function Footer() {
                         <div className="span12">
                             <div className="thumbnail center well well-small text-center text-muted">
                                 <h5 className="tituloH5">Newsletter</h5>
-                                <p>Subscribete y recibe ofertas semanales</p>
-                                <form action="" method="post">
-                                    <div className="input-prepend"><span className="add-on"><i className="icon-envelope"></i></span>
-                                        <input type="text" id="" name="" placeholder="direccion@email.com" />
-                                    </div>
+                                <p>Suscribite y recibi las mejores ofertas</p>
+                                <form>
+                                    <input type="email" id="Newsletter" class="form-control" placeholder="your@email.com"/>
+                                   <span className="add-on"><i className="icon-envelope"></i></span>
+                                  {/*   <div className="input-prepend"></div>*/}
                                     <br />
-                                    <input type="submit" value="Subscribe Now!" className="btn-floating btn-fb mx-1" />
+                                    <input onClick={newsletterAdd} type="button" value="Subscribe Now!" className="btn-floating btn-fb mx-1" />
+                                    <label>Unsuscribe</label>
                                 </form>
                             </div>
                         </div>
