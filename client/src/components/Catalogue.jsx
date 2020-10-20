@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { counter } from '../utils/utils';
 import {useDispatch, useSelector} from 'react-redux';
 import ProductCard from './ProductCard.jsx';
@@ -24,15 +24,11 @@ function Catalogue() {
 	//	 PAGINACION
 	// =================================================
 
-	const [pageActual, setPageActual] = useState(1); // pagina mostrando actualmente
-    const [prodsPorPage, setProdsPorPage] = useState(12); // cantidad de items por página
+	const [pageActual, setPageActual] = useState(1);
+    const [prodsPorPage, setProdsPorPage] = useState(12);
 
-    const indexOfLastProd = pageActual * prodsPorPage; // indice primer prod de la página
-    const indexOfFirstProd = indexOfLastProd - prodsPorPage; // indice último prod de la página
-    let currentProds = totalProds.slice(indexOfFirstProd, indexOfLastProd) // productos a mostrar por página
-
-	let pageNumbers = [] // mapea la cantida de botones a mostrar según el número de páginas requerido
-    for (let i = 1; i <= Math.ceil(totalProdsFilter.length ? totalProdsFilter.length / prodsPorPage : totalProds.length / prodsPorPage); i++) {
+	let pageNumbers = []
+    for (let i = 1; i <= Math.ceil(totalProds.length / prodsPorPage); i++) {
         pageNumbers.push(i);
     }
 
@@ -47,6 +43,9 @@ function Catalogue() {
 	
 	let listado = [];
 	let categorias = [];
+	// useEffect(()=>{
+	// 	setListadoProductos(totalProds)
+	// },[totalProds,listadoProductos])
 	
 	function ValidatedCategories(){
 		// categoriesIds son todos los id's de las categorias asignadas a productos
@@ -70,16 +69,16 @@ function Catalogue() {
 		return show
 	}
 
-	// =================================================
-	//	 LOADING e INFO A MOSTRAR EN PRIMER RENDERIZADO
-	// =================================================
-
 	if (!totalProds.length) {
 		return <LoadingBar done="75"/>
 
+
+		// return <img className="rounded mx-auto d-block" src={loading} />
 	} else {
 		
-		if (totalProdsFilter.length){ // Si hay productos filtrados, muestro esos productos en base al número de páginas
+		if (!totalProdsFilter.length){
+			// currentProds = totalProds
+		} else {
 			currentProds = totalProdsFilter.slice(indexOfFirstProd, indexOfLastProd)
 		}
 
@@ -140,6 +139,16 @@ function Catalogue() {
 							<p/>
 							<button onClick={handle} type="button" className="btn btn-primary mt-2">Browse All</button>
 						</div>
+						 {/* BOTONES DE PAGINACION */}
+		               <nav className="sticky mt-3" style={{position: "relative", "margin-bottom":"40px"}}>
+		                    <ul className="pagination d-flex justify-content-center">
+		                        {pageNumbers.map((numero, i) => (
+		                        	<li key={i} className="page-item">
+		                         		<a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
+		                        	</li>
+		                   		 ))}
+		                    </ul>
+		                </nav>
 					</div>
 					<div className="col-md-9 row border-left">
 						{currentProds.map(prod =>
@@ -155,17 +164,6 @@ function Catalogue() {
 									stock={prod.stock}
 								/>
 							</div>)}
-						{/* BOTONES DE PAGINACION */}
-		              	<nav className="col-md-12 row pagcenter">
-		                    <ul className="pagination">
-		                        {pageNumbers.map((numero, i) => (
-		                        	<li key={i} className="page-item">
-		                         		<a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
-		                        	</li>
-		                   		 ))}
-		                    </ul>
-		                </nav>
-		                {/* FIN BOTONES DE PAGINACION */}
 					</div>
 				</div>
 

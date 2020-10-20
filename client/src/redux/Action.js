@@ -123,6 +123,7 @@ export function filterbyCategory(categorySearch,bool) {
   export function filterbyCategories(arrayNames){
     return dispatch =>{
     //   axios({
+      console.log(arrayNames)
     //     method: 'get',
     //     url: `http://localhost:3001/products/category/filter`,
     //     processData: false,
@@ -137,6 +138,7 @@ export function filterbyCategory(categorySearch,bool) {
           dispatch(setProductsFiltered(products))
           return products
           })
+        .then(products => console.log(products))
         .catch((error) => {
           console.log(error)
           return error
