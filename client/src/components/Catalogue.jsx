@@ -5,14 +5,20 @@ import ProductCard from './ProductCard.jsx';
 import LoadingBar from './LoadingBar.jsx';
 import * as action from '../redux/Action';
 import './Catalogue.css';
+import Product from './Product';
 
 function Catalogue() {
+
 	
 	const totalProds = useSelector(store => store.totalProds) //get productos and filter and listado
 	const categories = useSelector(store => store.categories) // categories
 	const totalProdsFilter = useSelector(store => store.totalProdsFilter)
 	const dispatch = useDispatch()
 
+	
+	useEffect(()=>{
+
+	},[totalProds,categories,totalProdsFilter])
 
 	// =================================================
 	//	 PAGINACION
@@ -29,6 +35,11 @@ function Catalogue() {
     for (let i = 1; i <= Math.ceil(totalProdsFilter.length ? totalProdsFilter.length / prodsPorPage : totalProds.length / prodsPorPage); i++) {
         pageNumbers.push(i);
     }
+
+	// =================================================
+	//	 USE EFECT
+	// =================================================
+
 
 	// =================================================
 	//	 FILTRADO POR CATEGORÍAS
@@ -70,7 +81,7 @@ function Catalogue() {
 		
 		if (totalProdsFilter.length){ // Si hay productos filtrados, muestro esos productos en base al número de páginas
 			currentProds = totalProdsFilter.slice(indexOfFirstProd, indexOfLastProd)
-		} 
+		}
 
 		if (!ValidatedCategories().length){
 			 categorias = categories;
@@ -78,36 +89,36 @@ function Catalogue() {
 			categorias = ValidatedCategories()
 		}
 
-	// =================================================
-	//		handle SACA TODOS LOS FILTROS 
-	// a travez de getProducts() obtenemos la lista completa de productos 
-	// =================================================
-	function handle(e){
-		e.preventDefault()
-		for (let j=0;j<categorias.length;j++){
-			let elementByLoop = document.getElementById(`selection${j+1}`);
-			if (elementByLoop.checked){
-				elementByLoop.checked = false;
+		// =================================================
+		//		handle SACA TODOS LOS FILTROS 
+		// a travez de getProducts() obtenemos la lista completa de productos 
+		// =================================================
+		function handle(e){
+			e.preventDefault()
+			for (let j=0;j<categorias.length;j++){
+				let elementByLoop = document.getElementById(`selection${j+1}`);
+				if (elementByLoop.checked){
+					elementByLoop.checked = false;
+				}
 			}
+			dispatch(action.deleteFilter())
+			setPageActual(1)
 		}
-		dispatch(action.deleteFilter())
-		setPageActual(1)
-	}
 
-	
-	function handleFilter(){
-		let filtered = [];
-		for (let j=0;j<categorias.length;j++){
-			let elementByLoop = document.getElementById(`selection${j+1}`);
-			if (elementByLoop.checked){
-				filtered.push(categorias[j].name)
+		
+		function handleFilter(){
+			let filtered = [];
+			for (let j=0;j<categorias.length;j++){
+				let elementByLoop = document.getElementById(`selection${j+1}`);
+				if (elementByLoop.checked){
+					filtered.push(categorias[j].name)
+				}
 			}
+			setPageActual(1)
+			dispatch(action.filterbyCategories(filtered))
 		}
-		setPageActual(1)
-		dispatch(action.filterbyCategories(filtered))
-	}
 
-	// =================================================
+		// =================================================
 
 
 		
@@ -132,7 +143,7 @@ function Catalogue() {
 					</div>
 					<div className="col-md-9 row border-left">
 						{currentProds.map(prod =>
-							<div className="card-group col-md-3">
+							<div key={prod.id} className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}
 									id={prod.id}

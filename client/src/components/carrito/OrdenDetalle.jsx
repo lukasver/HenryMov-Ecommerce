@@ -26,16 +26,16 @@ export default function OrdenDetalle({orderId}) {
                 <div className="main row">
                     <div className="datos-personales col-md-6">
                         <ul className="list-group ul-detalle">
-                            <li className="list-group-item list-order" style={{ paddingTop: '15px' }}>Nombre: {orderDetailStore.products != undefined && orderDetailStore.user.name}</li>
-                            <li className="list-group-item list-order">Apellido: {orderDetailStore.products != undefined && orderDetailStore.user.lastname}</li>
-                            <li className="list-group-item list-order list-order-bottom" style={{ paddingBottom: '15px' }}>Id Usuario: {orderDetailStore.products != undefined && orderDetailStore.user.id}</li>
+                            <li className="list-group-item list-order" style={{ paddingTop: '15px' }}>Nombre: {orderDetailStore.products !== undefined && orderDetailStore.user.name}</li>
+                            <li className="list-group-item list-order">Apellido: {orderDetailStore.products !== undefined && orderDetailStore.user.lastname}</li>
+                            <li className="list-group-item list-order list-order-bottom" style={{ paddingBottom: '15px' }}>Id Usuario: {orderDetailStore.products !== undefined && orderDetailStore.user.id}</li>
                         </ul>
                     </div>
                     <div className="datos-personales col-md-6">
                         <ul className="list-group ul-detalle">
-                            <li className="list-group-item list-order" style={{ paddingTop: '15px' }}>E-mail: {orderDetailStore.products != undefined && orderDetailStore.user.email}</li>
-                            <li className="list-group-item list-order">Fecha de Compra: {orderDetailStore.products != undefined && dateFormat(orderDetailStore.buyDate)}</li>
-                            <li className="list-group-item list-order list-order-bottom" style={{ paddingBottom: '15px', }}>N° de Orden: {orderDetailStore.products != undefined && orderDetailStore.id}</li>
+                            <li className="list-group-item list-order" style={{ paddingTop: '15px' }}>E-mail: {orderDetailStore.products !== undefined && orderDetailStore.user.email}</li>
+                            <li className="list-group-item list-order">Fecha de Compra: {orderDetailStore.products !== undefined && dateFormat(orderDetailStore.buyDate)}</li>
+                            <li className="list-group-item list-order list-order-bottom" style={{ paddingBottom: '15px', }}>N° de Orden: {orderDetailStore.products !== undefined && orderDetailStore.id}</li>
                         </ul>
                     </div>
                 </div>

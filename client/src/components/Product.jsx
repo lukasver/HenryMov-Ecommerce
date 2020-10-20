@@ -80,10 +80,10 @@ export default function Product({ product }) {
 						 disponible ? 
 						<div className="row buttom-comprar">
 						<div className="col-md-4">
-							<td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => count > 1 && dispatch(action.removecount())} />
+							<input type="button" class="btn btn-outline-primary" value='-' onClick={() => count > 1 && dispatch(action.removecount())} />
 								<input class="btn btn-primary" type="button" value={count} />
 								<input type="button" class="btn btn-outline-primary" value='+' onClick={() => dispatch(action.addcount(stock))} />
-							</td>
+							
 						</div>
 						<div className="col-md-8">
 							<button type="button" class="btn btn-primary btn-m" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={handleAdd} >Agregar a su carrito</button>
