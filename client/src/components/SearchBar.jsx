@@ -3,19 +3,24 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import * as action from '../redux/Action'
 import './SearchBar.css';
+import { useDebouncedEffect } from '../utils/utils.js';
 
 export default function SearchBar() {
 
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
 
+    useDebouncedEffect(()=> dispatch(action.onSearch(search)), 300, [search]);
+
     let history = useHistory();
 
     function handleChance(e) {
         setSearch(e.target.value)
-        dispatch(action.onSearch(e.target.value))
+        
+       
         history.push('/search');
     }
+
     return (
         <div>
             <form onSubmit={(e) => {

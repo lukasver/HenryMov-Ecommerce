@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from "react";
 // =================================================
 //		Funciones útiles para reutilizar
 // =================================================
@@ -23,4 +24,19 @@ export function dateFormat(res) {
   let ano = newdate.getFullYear();
   res = JSON.stringify(`${dia}/${mes}/${ano}`)
   return res.replace(/[ '"]+/g, ' ');
+}
+
+//Funcion Debounced que actua como setTimeOut ejecutando solo la ultima accion
+export const useDebouncedEffect = (effect, delay , deps) => {
+    const callback = useCallback(effect, deps);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            callback();
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [callback, delay]);
 }
