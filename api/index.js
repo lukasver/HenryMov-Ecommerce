@@ -39,8 +39,11 @@ conn.sync({ force: true }).then(() => {
 			password: 'MJtheBest2020!',
 			birthdate: new Date('02/23/1960'), // este new Date es para sacar un warning de consola
 			role: 'Admin',
-    	}).then(() => {
-    		return User.create({
+		}).then(createdUser => {
+				createdUser.setReviews([1]);
+		})
+	
+    	await User.create({
     		name: 'Homero',
     		lastname: 'Simpson',
     		email: 'HomerJSimpson@yahoo.com',
@@ -49,7 +52,7 @@ conn.sync({ force: true }).then(() => {
 			address: 'Calle Falsa 123, Springfield, FL, 90210, USA',
 			birthdate: new Date('05/12/1956'), // este new Date es para sacar un warning de consola
 			role: 'Cliente'
-    	})})
+    	})
 
  
 	  	await Category.create({
@@ -98,6 +101,35 @@ conn.sync({ force: true }).then(() => {
 			status: 'Activado'
 		}));
 
+		await Reviews.create({
+			title: 'Excelente',
+			description: 'Muy buen producto, lo recomiento',
+			value: '5'	
+			})
+
+		// }).then(Reviews.create({
+		// 	title: 'Excelente4',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '4'
+		// })).then(Reviews.create({
+		// 	title: 'Excelente3',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '3'
+		// })).then(Reviews.create({
+		// 	title: 'Excelente2',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '2'
+		// })).then(Reviews.create({
+		// 	title: 'Excelente1',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '1'
+		// })).then(Reviews.create({
+		// 	title: 'Excelente0',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '0'
+		// }))
+			
+
 	  	await Product.create({
 	  		name: 'Vela de Windsurf',
 	  		description: 'Un vela para tabla de windsurf de color celeste',
@@ -110,6 +142,7 @@ conn.sync({ force: true }).then(() => {
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
 	  	}).then(createdProduct => {
 				createdProduct.setCategories([3]);
+				createdProduct.setReviews([1]);
 			})
 	  	await Product.create({
 	  		name: 'Tabla para Skate Downhill',
@@ -669,80 +702,6 @@ conn.sync({ force: true }).then(() => {
     		res.addProducts(7, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
     		res.addProducts(14, { through: { quantity: 5, amount: 8300 }})
 		})
-		
-		// await Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// }).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-		// 	usuario:,
-		// 	title:,
-		// 	description:,
-		// 	value:,
-		// 	likes:,
-		// 	dislike:,
-		// })).then(Reviews.create({
-
-			await console.log("precarga realizada con éxito")
 	  };
 	  precarga();
   });

@@ -17,24 +17,33 @@ server.get('/reviews/:id', (req, res, next) => {
 //      Get todas las reviews de cada producto
 // ========================================================================
 
-server.get('/reviews/:idProduct/reviews', async (req,res,next) => {
-    const { idProduct } = req.params
-
-    try{
-    const product = await Product.findOne({ // Devuelve el carrito abierto del usuario solicitado
-        where: {
-            id: idProduct,
-        },
-        include: { model: Reviews}
-    })
-
-   // if (!product) return res.status(400).send('<h1>Producto no encontrado o sin carrito con estado abierto<h1/>')
-    await res.json(product)
-        } catch (error) {
-            return res.status(400).send(error)
+server.get('/product/:id/reviews', (req, res, next) => {
+	Reviews.findAll({
+		where: {prodId: req.params.id}
+	})
+    .then(reviews => {
+		if (!reviews) {
+			return res.sendStatus(404).send('<h1>No hay reviews cargadas</h1>')
         }
+        res.status(200).json(reviews);
+    })
+});
 
-})
+// ========================================================================
+//      Get todas las reviews de cada usuario
+// ========================================================================
+
+server.get('/user/:id/reviews', (req, res, next) => {
+	Reviews.findAll({
+		where: {userId: req.params.id}
+	})
+    .then(reviews => {
+		if (!reviews) {
+			return res.sendStatus(404).send('<h1>No hay reviews cargadas</h1>')
+        }
+        res.status(200).json(reviews);
+    })
+});
 
 
 //==========================================================

@@ -13,6 +13,15 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
+ 
+sequelize.authenticate()
+.then(()=>{
+  console.log( "Conectado")
+}
+)
+.catch(()=>{
+  console.log("Error de conexion")
+})
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
 fs.readdirSync(path.join(__dirname, '/models'))
@@ -58,6 +67,12 @@ Order.belongsToMany(Product, { through: Orderline, foreignKey: 'orderId' });
 Product.belongsToMany(Order, { through: Orderline, foreignKey: 'productId' });
 
 // Product se vincula a users con tabla intermedia reviews?? habria q ver eso
+
+// Relaciones de Reviews
+Reviews.hasOne(User);
+Reviews.belongsTo(Product, {through: 'reviewsId'} );
+Product.hasMany(Reviews, {through: 'reviewsId'} );
+User.hasMany(Reviews)
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
