@@ -12,7 +12,7 @@ import { newsletterAdd, newsletterDel } from '../../utils/utils.js'
 export default function Footer() {
 
 const [email,setEmail] = useState('');
-const [error,setError] = useState(''); 
+const [error,setError] = useState(true); 
 
 function handleError(value) {
     if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(value))  {
