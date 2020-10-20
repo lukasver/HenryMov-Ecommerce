@@ -71,7 +71,7 @@ export default function Product({ product }) {
 				</div>
 				<div className="col-md-5 content-rigth">
 					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
-					<h2>{description}</h2>
+					<h5>{description}</h5>
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
 										
 				{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}

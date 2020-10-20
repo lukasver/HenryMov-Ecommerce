@@ -19,8 +19,7 @@ export default function Register() {
 
     const handleOnChange = e => {
         const { name, value } = e.target;
-
-        setValues({
+            setValues({
             ...values,
             [name]: value
         })
@@ -28,19 +27,16 @@ export default function Register() {
             ...values,
             [name]: value
         }));
+        //console.log(error)
     }
-
-
+    
     const handleSubmit = e => {
         const { name } = e.target;
-
         e.preventDefault();
         axios.post(`http://localhost:3001/user`, values)
-        .then(values => {
-            alert("Usuario creado con exito")
-            return values
-        })
-        
+            .then(values => {
+                return values
+            })
         setErrors(validate({
             ...values,
             [name]: ''
@@ -82,6 +78,10 @@ export default function Register() {
         else if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,32}$/).test(input.password)) {
             errors.password = 'La clave es invalida'
         }
+
+        if(!input.birthdate){
+            errors.birthdate = 'Este campo es requerido'
+        }
         if (!input.password) {
             errors.confirmedPassword = 'Este campo es requrido'
         }
@@ -89,19 +89,19 @@ export default function Register() {
         if (input.password !== input.confirmedPassword) {
             errors.confirmedPassword = 'Las contraseñas no coinciden'
         }
-
+        setErrors(errors)
         return errors;
     }
 
     return (
-        <div className="container" style={{width: "1600px"}}>
+        <div className="container" style={{ width: "1600px" }}>
             <div className="row">
                 <div className="col-md-10 offset-md-1">
 
                     <form onSubmit={handleSubmit}>
                         <div className="form-heading tect-center">
                             <div className="title-description registfont">nuevo usuario</div>
-                            <p className="title-description" style={{color: "white"}}>¿Ya tienes una cuenta?
+                            <p className="title-description" style={{ color: "white" }}>¿Ya tienes una cuenta?
                             <Link to='/logIn'> Inicia sesion</Link>
                             </p>
                         </div>
@@ -116,34 +116,34 @@ export default function Register() {
                                     type="text"
                                     id='Nombre'
                                     placeholder='Ingrese su nombre'
-                                    />
+                                />
                                 {error.name && <p className='danger'>{error.name}</p>}
                             </div>
                             <div className="col-md-6">
-                                    <input
+                                <input
                                     className="user"
                                     onChange={handleOnChange}
                                     name='lastname'
                                     type="text"
                                     id='Apellido'
-                                    placeholder='Ingrese su apellido' 
-                                    />
-                                    {error.lastname && <p className='danger'>{error.lastname}</p>}
-                             </div>
+                                    placeholder='Ingrese su apellido'
+                                />
+                                {error.lastname && <p className='danger'>{error.lastname}</p>}
+                            </div>
                         </div>
                         <div className="row form-group">
-                        <h4 className="page-header col-md-6">Dirección</h4>
-                        <h4 className="page-header col-md-6">E-mail</h4>
+                            <h4 className="page-header col-md-6">Dirección</h4>
+                            <h4 className="page-header col-md-6">E-mail</h4>
                             <div className="col-md-6">
-                               <input 
-                                className="user"
-                                onChange={handleOnChange}
-                                name='address' 
-                                type="text" 
-                                id='Direccion' 
-                                placeholder='Av. Siempreviva 134'
+                                <input
+                                    className="user"
+                                    onChange={handleOnChange}
+                                    name='address'
+                                    type="text"
+                                    id='Direccion'
+                                    placeholder='Av. Siempreviva 134'
                                 />
-                           </div>
+                            </div>
                             <div className="col-md-6">
                                 <input
                                     className="user"
@@ -151,22 +151,22 @@ export default function Register() {
                                     name='email'
                                     type="email"
                                     id='Email'
-                                    placeholder='homerjsimpson@gmail.com' 
-                                    />
+                                    placeholder='homerjsimpson@gmail.com'
+                                />
                                 {error.email && <p className='danger'>{error.email}</p>}
                             </div>
                         </div>
                         <div className="row form-group">
-                        <h4 className="page-header col-md-6">Teléfono</h4>
-                        <h4 className="page-header col-md-6">Fecha de Nacimiento</h4>
+                            <h4 className="page-header col-md-6">Teléfono</h4>
+                            <h4 className="page-header col-md-6">Fecha de Nacimiento</h4>
                             <div className="col-md-6">
-                                <input 
-                                onChange={handleOnChange}
-                                className="user"
-                                name='phone' 
-                                type="text" 
-                                id='Telefono' 
-                                placeholder='11-4568-5467'
+                                <input
+                                    onChange={handleOnChange}
+                                    className="user"
+                                    name='phone'
+                                    type="text"
+                                    id='Telefono'
+                                    placeholder='11-4568-5467'
                                 />
                             </div>
                             <div className="col-md-6">
@@ -176,14 +176,14 @@ export default function Register() {
                                     name='birthdate'
                                     type="date"
                                     id='Fecha de Nacimiento'
-                                    placeholder='12/05/1956' 
-                                    />
+                                    placeholder='12/05/1956'
+                                />
                                 {error.birthdate && <p className='danger'>{error.birthdate}</p>}
-                             </div>
+                            </div>
                         </div>
                         <div className="row">
-                        <h4 className="page-header col-md-6">Contraseña</h4>
-                        <h4 className="page-header col-md-6">Repita contraseña</h4>
+                            <h4 className="page-header col-md-6">Contraseña</h4>
+                            <h4 className="page-header col-md-6">Repita contraseña</h4>
                             <div className="col-md-6">
                                 <input
                                     className="user"
@@ -191,8 +191,8 @@ export default function Register() {
                                     name='password'
                                     type="password"
                                     id='Contraseña'
-                                    placeholder='**************' 
-                                    />
+                                    placeholder='**************'
+                                />
                                 {error.password && <p className='danger'>{error.password}</p>}
                             </div>
                             <div className="col-md-6">
@@ -205,13 +205,33 @@ export default function Register() {
                                     placeholder='**************' />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
                             </div>
-                                <div className="col-md-12">
-                                    <label className="inputref">Mínimo 8 caracteres:</label><br/>
-                                    <label className="inputref">Debe contener al menos: 1 caractér mayúscula, especial y número </label><br/>  
-                                </div>
+                            <div className="col-md-12">
+                                <label className="inputref">Mínimo 8 caracteres:</label><br />
+                                <label className="inputref">Debe contener al menos: 1 caractér mayúscula, especial y número </label><br />
+                            </div>
                         </div>
                         <div className="col-md-12">
-                            <button className="adam-button" type='submit'>Crear cuenta</button>
+                        {JSON.stringify(error) == '{}' && <button  className="adam-button" type='submit' data-target='#pop-up' data-toggle='modal'>Crear cuenta</button>}
+                        </div>
+                        <div class="modal fade" id="pop-up" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span className='close' aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Usuario creado con exito. <br/>
+                                        Continua disfrutando de comprar con nosotros
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <a href="/" type="button" class="btn btn-outline-primary create-account">Continuar</a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
