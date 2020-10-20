@@ -27,7 +27,6 @@ export default function Register() {
             ...values,
             [name]: value
         }));
-        //console.log(error)
     }
     
     const handleSubmit = e => {
@@ -211,9 +210,10 @@ export default function Register() {
                             </div>
                         </div>
                         <div className="col-md-12">
-                        {JSON.stringify(error) == '{}' && <button  className="adam-button" type='submit' data-target='#pop-up' data-toggle='modal'>Crear cuenta</button>}
+                        {JSON.stringify(error) == '{}' && values.name !== '' ? <button  className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button  className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
                         </div>
-                        <div className="modal fade" id="pop-up" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                        <div className="modal fade" id="pop-up" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
