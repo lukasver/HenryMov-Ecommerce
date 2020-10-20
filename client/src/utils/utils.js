@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from "react";
+import axios from "axios";
 // =================================================
 //		Funciones útiles para reutilizar
 // =================================================
@@ -47,6 +48,26 @@ export function newsletterAdd(e) {
   e.preventDefault();
   
   const mail = document.getElementById("Newsletter").value
-  console.log(mail)
+  axios.post("http://localhost:3001/newsletter/suscribe", {email: mail})
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  return;
+}
 
+export function newsletterDel(e) {
+  e.preventDefault();
+  
+  const mail = document.getElementById("Newsletter").value
+  axios.put("http://localhost:3001/newsletter/unsuscribe", {email: mail})
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  return;
 }

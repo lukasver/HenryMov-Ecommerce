@@ -14,10 +14,6 @@ module.exports = (sequelize) => {
         status: {
         	type: DataTypes.ENUM(["suscribed","unsuscribed"]),
         	defaultValue: "suscribed"
-        },
-        createdAt: {
-        	type: DataTypes.DATEONLY,
-        	defaultValue: DataTypes.NOW
         }
 	}, { hooks: 
 		{
@@ -25,5 +21,5 @@ module.exports = (sequelize) => {
 				datos.email = datos.email.toLowerCase();
 			}
 		
-	},timestamps: false })
+	},timestamps: true })
 }

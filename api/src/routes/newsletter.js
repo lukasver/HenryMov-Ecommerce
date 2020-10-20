@@ -5,17 +5,27 @@ server.post("/suscribe", async (req,res) => {
 
 	const { email } = req.body
 
-	try {
-	const mail = await Newsletter.create({
-							email: email
-						})
+	const repetido = await Newsletter.findOne({
+		where: {email: email, status: "unsuscribed"}
+	}) 
 
-	return res.status(200).send("Suscrito con éxito!")
-	} catch (error) {
-		console.log(error.type)
-	return res.status(400).send(error.errors[0])
+	if (repetido) {   // si el user se desuscribió y quiere volver a suscribirse puede hacerlo aca
+		repetido.update({status: "suscribed"})
+		.then()
+		.catch(err => err)
+	} else {
+		try {
+
+		const mail = await Newsletter.create({
+			email: email
+		})
+
+		return res.status(200).send("Suscrito con éxito!")
+		} catch (error) {
+			console.log(error.type)
+		return res.status(400).send(error.errors[0])
+		}
 	}
-
 })
 
 server.put("/unsuscribe", async (req,res) => {
