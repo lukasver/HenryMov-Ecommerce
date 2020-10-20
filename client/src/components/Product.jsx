@@ -71,7 +71,7 @@ export default function Product({ product }) {
 				</div>
 				<div className="col-md-5 content-rigth">
 					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
-					<h2>{description}</h2>
+					<h5>{description}</h5>
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
 										
 				{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}
@@ -93,10 +93,8 @@ export default function Product({ product }) {
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header-title ">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-										<h6 class="modal-title p-3 mb-2 bg-primary text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
+										
+										<h6 class="modal-title p-3 mb-2 bg-dark text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
 									</div>
 									<div className="modal-body alert alert-success ">
 										Tu producto se agrego al carrito con exito
@@ -111,7 +109,9 @@ export default function Product({ product }) {
 					Este producto ya esta en el carrito  <a type="button" class="btn btn-outline-primary" href='/carrito'>Ir al carrito</a>
 					</div>					:null}
 					
-					
+					{/* <button type="checkbox" class="btn btn-outline-primary far fa-thumbs-up"></button>
+					<i class="far fa-thumbs-down"></i> */}
+
 					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>
 					<div className="form-row mb-4 ">
 						<div className="col-11 form-label">

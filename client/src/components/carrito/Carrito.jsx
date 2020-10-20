@@ -128,9 +128,9 @@ export default function Carrito() {
                                                 <td><Link className="titulo-link" to={`/products/${prod.id}`} ><img src={prod.image} width={80} href='`/product/${id}`' /></Link> </td>
                                                 <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
                                                 <td>{prod.count < prod.stock ? <div class="alert alert-success" role="alert">
-                                                    Disponible
+                                                   Stock Disponible
                                             </div> : <div class="alert alert-danger" role="alert">
-                                                        Sin stock</div>}</td>
+                                                        Stock maximo</div>}</td>
                                                 <td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => { disminuir(prod) }} />
                                                     <input class="btn btn-primary" type="button" value={prod.count} />
                                                     <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
@@ -141,19 +141,19 @@ export default function Carrito() {
                                             </tr>
                                         )}
                                     <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="card-header bg-danger text-white " id="exampleModalLabel">IMPORTANTE</h5>
+                                        <div class="modal-dialog bg-dark" role="document">
+                                            <div class="modal-content ">
+                                                <div class="modal-header bg-dark">
+                                                    <h5 class="card-header bg-warning text-white " id="exampleModalLabel">IMPORTANTE</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <div class="spinner-grow text-danger" aria-hidden="true" role="status">
                                                             <span class="sr-only" aria-hidden="true">&times;</span>
                                                         </div>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body p-3 mb-2 bg-warning text-dark">
+                                                <div class="modal-body p-3 mb-2  text-dark">
                                                     Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?</div>
-                                                <div class="modal-footer">
+                                                <div class="modal-footer bg-dark" >
                                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}> SI  </button>
                                                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                                 </div>
@@ -196,11 +196,11 @@ export default function Carrito() {
                             <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger">
-                                            <h5 class="card-header bg-warning text-white " id="exampleModalLabel1">IMPORTANTE</h5>
+                                        <div class="modal-header bg-dark">
+                                            <h5 class="card-header bg-danger text-white " id="exampleModalLabel1">IMPORTANTE</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <div class="spinner-grow text-danger" aria-hidden="true" role="status">
-                                                    <span class="sr-only" aria-hidden="true">&times;</span>
+                                                    <span class="sr-only " aria-hidden="true">&times;</span>
                                                 </div>
 
                                             </button>
@@ -208,7 +208,7 @@ export default function Carrito() {
                                         <div class="modal-body p-3 mb-2  text-dark">
                                             <p>Estas por vaciar todo tu carrito...</p><p>deseas continuar?</p>
                                         </div>
-                                        <div class="modal-footer bg-danger">
+                                        <div class="modal-footer bg-dark">
                                             <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={() => deleteAllProd()}> SI  </button>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                         </div>
@@ -227,16 +227,16 @@ export default function Carrito() {
                             <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header bg-dark">
 
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body p-3 mb-2 bg-warning text-dark">
+                                        <div class="modal-body p-3 mb-2 ">
                                             Debes iniciar sesion para finalizar tu compra
       </div>
-                                        <div class="modal-footer">
+                                        <div class="modal-footer bg-dark">
                                             <a href="/register" type="button" class="btn btn-outline-primary">Registrate</a>
                                             <a href="/login" type="button" class="btn btn-outline-success">Iniciar sesion</a>
                                         </div>

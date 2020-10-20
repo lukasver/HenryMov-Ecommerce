@@ -61,9 +61,9 @@
 .adam-button {
     margin-top: 20px;
     margin-bottom: 3rem; 
-    padding: 8px 14px;
+    padding: 8px 60px;
     letter-spacing: 1px;
-    float: right;
+    float: none;
     background: black;
     border-radius: 3px;
     color: #fff;
@@ -75,7 +75,9 @@
 }
 
 .adam-button:hover {
-    color: rgba(248, 148, 6, 1);
+    background-color: rgba(248, 148, 6, 1);
+    color: black;
+    border-color: rgba(248, 148, 6, 1);
     }
 
 .label {
@@ -117,4 +119,26 @@
     padding: -10px;
     margin: -10px;
     text-transform: uppercase;
+}
+.modal-header{
+    background-color: black;
+}
+.modal-footer{
+    background-color: black;
+    justify-content: center;
+}
+.create-account{
+    background-color: black;
+    color: white;
+    border-color: orange
+}
+
+.create-account:hover{
+    background-color: orange;
+    color: black;
+    border-color: orange
+}
+
+.close{
+    color: orange
 }
