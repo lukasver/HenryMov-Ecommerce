@@ -1,6 +1,20 @@
 const server = require('express').Router();
 const { Newsletter } = require('../db.js');
 
+
+server.get("/", async (req,res) => {
+
+	try{
+
+	const maildb = await Newsletter.FindAll()
+
+	return res.status(200).json(maildb)
+
+	} catch (err) {
+		return res.status(404).send(err)
+	}
+})
+
 server.post("/suscribe", async (req,res) => {
 
 	const { email } = req.body
@@ -18,7 +32,7 @@ server.post("/suscribe", async (req,res) => {
 
 		const mail = await Newsletter.create({
 			email: email
-		})
+		}) 
 
 		return res.status(200).send("Suscrito con éxito!")
 		} catch (error) {

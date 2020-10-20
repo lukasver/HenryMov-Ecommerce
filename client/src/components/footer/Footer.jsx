@@ -10,6 +10,7 @@ import ariel from '../../img/ariel.png';
 import { newsletterAdd, newsletterDel } from '../../utils/utils.js'
 
 export default function Footer() {
+
     return (
         <footer className="page-footer font-small stylish-color-dark bg-dark pt-1 footer">
             <div className="container text-center text-md-left">
@@ -73,8 +74,40 @@ export default function Footer() {
 {/*                                   <span className="add-on"><i className="icon-envelope"></i></span>*/}
                                   {/*   <div className="input-prepend"></div>*/}
                                     {/*<br />*/}
-                                    <input onClick={newsletterAdd} type="button" value="Subscribe Now!" className="news-button" />
-                                    <div onClick={newsletterDel} style={{cursor: "pointer", "margin-top": "5px"}}>or Unsuscribe...</div>
+                                    <input onClick={newsletterAdd} type="button" value="Subscribe Now!" className="news-button" data-target='#pop-up' data-toggle='modal'/>
+                                    <div className="modal fade" id="pop-up" role="dialog" aria-labelledby="suscripcion" aria-hidden="true">
+                                         <div className="modal-dialog" role="document">
+                                             <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                             <span className='close' aria-hidden="true">&times;</span>
+                                                         </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <p>Te has suscrito con éxito!.</p>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div onClick={newsletterDel}  style={{cursor: "pointer", "margin-top": "5px"}} data-target='#pop-updel' data-toggle='modal'>or Unsuscribe...</div>
+                                        <div className="modal fade" id="pop-updel" role="dialog" aria-labelledby="desuscripcion" aria-hidden="true">
+                                         <div className="modal-dialog" role="document">
+                                             <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                             <span className='close' aria-hidden="true">&times;</span>
+                                                         </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <p>Lamentamos que te vayas :(</p>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </form>
                             </div>
                         </div>

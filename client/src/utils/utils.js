@@ -50,9 +50,10 @@ export function newsletterAdd(e) {
   const mail = document.getElementById("Newsletter").value
   axios.post("http://localhost:3001/newsletter/suscribe", {email: mail})
   .then(res => {
-    console.log(res)
+    document.getElementById("Newsletter").value = ''
   })
   .catch(err => {
+    document.getElementById("Newsletter").value = ''
     console.log(err)
   })
   return;
@@ -64,9 +65,10 @@ export function newsletterDel(e) {
   const mail = document.getElementById("Newsletter").value
   axios.put("http://localhost:3001/newsletter/unsuscribe", {email: mail})
   .then(res => {
-    console.log(res)
+    document.getElementById("Newsletter").value = ''
   })
   .catch(err => {
+    document.getElementById("Newsletter").value = ''
     console.log(err)
   })
   return;
