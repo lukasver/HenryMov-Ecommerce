@@ -18,8 +18,8 @@ export default function ProductCard(product) {
 		stocker(product)
 	}, [render, count])
 	if (!product) {
-		return <div class="spinner-border text-info" role="status">
-			<span class="sr-only">Loading...</span>
+		return <div className="spinner-border text-info" role="status">
+			<span className="sr-only">Loading...</span>
 		</div>
 	}
 
@@ -86,6 +86,7 @@ export default function ProductCard(product) {
 				{stock < 1 && <div className="nostockadv">Sin Stock</div>}
 			</Link>
 			{stock > 0 && disponible && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handleAdd(product)}  ><i className="fas fa-cart-plus"></i></button>}
+
 
 			<div className="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div className="modal-dialog modal-dialog-centered" role="document">

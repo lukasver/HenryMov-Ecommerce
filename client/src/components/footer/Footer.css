@@ -55,3 +55,22 @@
 .crsrlnk {
     cursor: default;
 }
+
+.news-button {
+    width: -webkit-fill-available;
+    letter-spacing: 1px;
+    background: #111111;
+    border-radius: 5px;
+    color: #fff;
+    border: 1px solid rgba(0,0,0,0);
+    font-weight: 400;
+    font-size: 16px;
+    transition: all .3s cubic-bezier(.64, .09, .08, 1);
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+.news-button:hover {
+    background-color: #f9ab1f;
+    color: black;
+    border-color: #f9ab1f;
+}

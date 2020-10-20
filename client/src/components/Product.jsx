@@ -75,6 +75,7 @@ export default function Product({ product }) {
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
 										
 				{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}
+
 					{stock === 0 && <button className="btn btn-danger" style={{"margin-bottom": "20px"}}>Producto sin Stock 😖 </button>}
 					{stock !== 0 ? 
 						 disponible ? 
