@@ -75,6 +75,8 @@ server.get('/admin/products/:id', (req, res, next) => {
 
 server.get('/products/:id', (req, res, next) => {
 	const { id } = req.params;
+
+	// console.log(id)
 	Product.findOne({
 		where: {
 			id: id
@@ -87,6 +89,7 @@ server.get('/products/:id', (req, res, next) => {
 			}
 			res.status(200).json(product);
 		})
+
 		.catch(error => {
 			res.status(404).send('<h1>error...product not found</h1>')
 		})
