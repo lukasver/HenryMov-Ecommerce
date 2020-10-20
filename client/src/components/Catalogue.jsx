@@ -132,7 +132,7 @@ function Catalogue() {
 					</div>
 					<div className="col-md-9 row border-left">
 						{currentProds.map(prod =>
-							<div className="card-group col-md-3">
+							<div key={prod.id} className="card-group col-md-3">
 								<ProductCard
 									key={prod.id}
 									id={prod.id}

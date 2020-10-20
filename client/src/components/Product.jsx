@@ -34,7 +34,7 @@ export default function Product({ product }) {
 			return localStorage.setItem('prod', JSON.stringify([product]))
 		}
 
-		let fined = search.find(prod => prod.id == id)
+		let fined = search.find(prod => prod.id === id)
 		if (fined) {
 			fined.count++
 			let cleanData = search.filter((data) => data.id !== product.id)
@@ -51,12 +51,12 @@ export default function Product({ product }) {
 	}
 	function stocker(product) {
 		let products = JSON.parse(localStorage.getItem('prod'))
-		if(products == null){
+		if(products === null){
 			return
 		} 
-		let cleanData = products.filter((data) => data.id == product.id)
+		let cleanData = products.filter((data) => data.id === product.id)
 
-		if(cleanData.length != 0){
+		if(cleanData.length !== 0){
 			return setDisponible(false)
 		}
 		return 
@@ -75,8 +75,8 @@ export default function Product({ product }) {
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
 										
 				{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}
-					{stock == 0 && <button className="btn btn-danger" style={{"margin-bottom": "20px"}}>Producto sin Stock 😖 </button>}
-					{stock != 0 ? 
+					{stock === 0 && <button className="btn btn-danger" style={{"margin-bottom": "20px"}}>Producto sin Stock 😖 </button>}
+					{stock !== 0 ? 
 						 disponible ? 
 						<div className="row buttom-comprar">
 						<div className="col-md-4">
