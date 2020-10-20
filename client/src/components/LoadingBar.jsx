@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './LoadingBar.css';
 
 const LoadingBar = (props) => {
@@ -7,16 +7,10 @@ const [style, setStyle] = useState({})
 
 const { done } = props
 
-
-
-useEffect(()=>{
-	setTimeout(() => {
-		const newStyle = {opacity: 10, width: `${done}%`};
-		setStyle(newStyle);
-	},200)
-
-},[style])
-
+setTimeout(() => {
+	const newStyle = {opacity: 10, width: `${done}%`};
+	setStyle(newStyle);
+},200)
 
 return (
 <div className="container centradoLB">
