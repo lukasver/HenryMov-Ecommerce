@@ -18,6 +18,7 @@ import "./App.css";
 import LoggedIn from "./components/registration/LoggedIn";
 import Menu from "./components/Menu"
 import OrdenDetalle from "./components/carrito/OrdenDetalle";
+import Reviews from "../src/components/reviews/Reviews"
 
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
@@ -71,6 +72,7 @@ function App() {
       <Route exact path='/logIn' render={()=> <LoggedIn/>} />
       <Route exact path='/Menu' render={()=> <Menu />} />
       <Route exact path='/order/:id' render={({ match })=> <OrdenDetalle orderId = {match.params.id}/>} />
+      <Route exact path='/reviews' render={()=> <Reviews/>}/>
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />
