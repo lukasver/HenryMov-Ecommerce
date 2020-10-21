@@ -39,8 +39,6 @@ conn.sync({ force: true }).then(() => {
 			password: 'MJtheBest2020!',
 			birthdate: new Date('02/23/1960'), // este new Date es para sacar un warning de consola
 			role: 'Admin',
-		}).then(createdUser => {
-				createdUser.setReviews([1]);
 		})
 	
     	await User.create({
@@ -100,35 +98,7 @@ conn.sync({ force: true }).then(() => {
 			description: 'Descripción 11',
 			status: 'Activado'
 		}));
-
-		await Reviews.create({
-			title: 'Excelente',
-			description: 'Muy buen producto, lo recomiento',
-			value: '5'	
-			})
-
-		// }).then(Reviews.create({
-		// 	title: 'Excelente4',
-		// 	description: 'Muy buen producto, lo recomiento',
-		// 	value: '4'
-		// })).then(Reviews.create({
-		// 	title: 'Excelente3',
-		// 	description: 'Muy buen producto, lo recomiento',
-		// 	value: '3'
-		// })).then(Reviews.create({
-		// 	title: 'Excelente2',
-		// 	description: 'Muy buen producto, lo recomiento',
-		// 	value: '2'
-		// })).then(Reviews.create({
-		// 	title: 'Excelente1',
-		// 	description: 'Muy buen producto, lo recomiento',
-		// 	value: '1'
-		// })).then(Reviews.create({
-		// 	title: 'Excelente0',
-		// 	description: 'Muy buen producto, lo recomiento',
-		// 	value: '0'
-		// }))
-			
+	
 
 	  	await Product.create({
 	  		name: 'Vela de Windsurf',
@@ -141,8 +111,8 @@ conn.sync({ force: true }).then(() => {
 			dislike: 2,   
 	  		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHP4KrqOQd-WoLR1EAKi-PTBSBlyiAQgYlOQ&usqp=CAU'
 	  	}).then(createdProduct => {
-				createdProduct.setCategories([3]);
-				createdProduct.setReviews([1]);
+				createdProduct.setCategories([3])
+				createdProduct.setReviews([1])
 			})
 	  	await Product.create({
 	  		name: 'Tabla para Skate Downhill',
@@ -155,7 +125,7 @@ conn.sync({ force: true }).then(() => {
 			dislike: 7, 
 	  		image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2231-3432720f2779390e6615887894926411-640-0.jpg'
 	  	}).then(createdProduct => {
-				createdProduct.setCategories([2]);
+				createdProduct.setCategories([2])
 			})
 	  	await Product.create({
 	  		name: 'Gorra',
@@ -702,6 +672,46 @@ conn.sync({ force: true }).then(() => {
     		res.addProducts(7, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
     		res.addProducts(14, { through: { quantity: 5, amount: 8300 }})
 		})
+
+		await Reviews.create({
+			title: 'Excelente',
+			description: 'Muy buen producto, lo recomiento',
+			value: '5',
+			productId :'1'
+			})
+
+		await Reviews.create({
+		 	title: 'Excelente2',
+			description: 'Muy buen producto, lo recomiento',
+			 value: '2',
+			 productId :'1'
+		 })
+
+		//  await Reviews.create({
+		// 	title: 'Excelente3',
+		//    description: 'Muy buen producto, lo recomiento',
+		// 	value: '3',
+		// 	productId :'3'
+		// })
+		//).then(Reviews.create({
+		// 	title: 'Excelente3',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '3'
+		// })).then(Reviews.create({
+		// 	title: 'Excelente2',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '2'
+		// })).then(Reviews.create({
+		// 	title: 'Excelente1',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '1'
+		// })).then(Reviews.create({
+		// 	title: 'Excelente0',
+		// 	description: 'Muy buen producto, lo recomiento',
+		// 	value: '0'
+		// }))
+
+
 	  };
 	  precarga();
   });

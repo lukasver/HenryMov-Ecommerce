@@ -52,8 +52,6 @@ const { Product, Category, productCategory, User, Order, Orderline, Reviews, New
 // == USUARIO PUEDE TENER MUCHAS ORDENES // CADA ORDEN PERTENECE A UN USUARIO ==
 User.hasMany(Order);
 Order.belongsTo(User); // se agrega FK "userId" en tabla Order que referencia al id del User.
-Product.hasMany(Reviews);
-Reviews.belongsTo(Product);
 
 // NaM
 // == PRODUCTOS PUEDEN SER DE MUCHAS CATEGORIAS // CATEGORIAS TIENEN MUCHOS PRODUCTOS ==
@@ -69,10 +67,9 @@ Product.belongsToMany(Order, { through: Orderline, foreignKey: 'productId' });
 // Product se vincula a users con tabla intermedia reviews?? habria q ver eso
 
 // Relaciones de Reviews
-Reviews.hasOne(User);
-Reviews.belongsTo(Product, {through: 'reviewsId'} );
-Product.hasMany(Reviews, {through: 'reviewsId'} );
-User.hasMany(Reviews)
+Reviews.belongsTo(Product);
+Product.hasMany(Reviews );
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
