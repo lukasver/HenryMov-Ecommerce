@@ -11,6 +11,50 @@ import { newsletterAdd, newsletterDel } from '../../utils/utils.js'
 
 export default function Footer() {
 
+const [email,setEmail] = useState('');
+const [error,setError] = useState(true); 
+
+function handleError(value) {
+    if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(value))  {
+      setError('Ingresar un Email válido');
+      console.log(error)
+    } else {
+      setError('');
+    }
+    setEmail(value);
+    console.log(email)
+  }
+
+function newsletterAdd(e) {
+  e.preventDefault();
+  
+  const mail = document.getElementById("Newsletter").value
+  axios.post("http://localhost:3001/newsletter/suscribe", {email: mail})
+  .then(res => {
+    document.getElementById("Newsletter").value = ''
+  })
+  .catch(err => {
+    document.getElementById("Newsletter").value = ''
+    console.log(err)
+  })
+  return;
+}
+
+function newsletterDel(e) {
+  e.preventDefault();
+  
+  const mail = document.getElementById("Newsletter").value
+  axios.put("http://localhost:3001/newsletter/unsuscribe", {email: mail})
+  .then(res => {
+    document.getElementById("Newsletter").value = '';
+  })
+  .catch(err => {
+    document.getElementById("Newsletter").value = ''
+    console.log(err)
+  })
+  return;
+}
+
     return (
         <footer className="page-footer font-small stylish-color-dark bg-dark pt-1 footer">
             <div className="container text-center text-md-left">
@@ -70,12 +114,10 @@ export default function Footer() {
                                 <h5 className="tituloH5">Newsletter</h5>
                                 <p>Suscribite y recibi las mejores ofertas</p>
                                 <form>
-                                    <input type="email" id="Newsletter" class="form-control" placeholder="your@email.com"/>
-{/*                                   <span className="add-on"><i className="icon-envelope"></i></span>*/}
-                                  {/*   <div className="input-prepend"></div>*/}
-                                    {/*<br />*/}
-                                    <input onClick={newsletterAdd} type="button" value="Subscribe Now!" className="news-button" data-target='#pop-up' data-toggle='modal'/>
-                                    <div className="modal fade" id="pop-up" role="dialog" aria-labelledby="suscripcion" aria-hidden="true">
+                                    <input onChange={(e) => handleError(e.target.value)} value={email} type="email" id="Newsletter" class="form-control" placeholder="your@email.com"/>
+                                    <input onClick={(e) => newsletterAdd(e)} type="button" value="Subscribe Now!" className="news-button" data-target='#pop-up' data-toggle='modal'/>
+
+                                <div className="modal fade" id="pop-up" role="dialog" aria-labelledby="suscripcion" aria-hidden="true">
                                          <div className="modal-dialog" role="document">
                                              <div className="modal-content">
                                                     <div className="modal-header">
@@ -84,13 +126,14 @@ export default function Footer() {
                                                          </button>
                                                     </div>
                                                     <div className="modal-body">
-                                                        <p>Te has suscrito con éxito!.</p>
+                                                        {!error ? <p>Te has suscrito con éxito!.</p> : <p style={{color: "red"}}>Debes ingresar un e-mail válido</p>}
                                                     </div>
                                                     <div className="modal-footer">
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                            
                                     <div onClick={newsletterDel}  style={{cursor: "pointer", "margin-top": "5px"}} data-target='#pop-updel' data-toggle='modal'>or Unsuscribe...</div>
                                         <div className="modal fade" id="pop-updel" role="dialog" aria-labelledby="desuscripcion" aria-hidden="true">
                                          <div className="modal-dialog" role="document">
@@ -101,7 +144,8 @@ export default function Footer() {
                                                          </button>
                                                     </div>
                                                     <div className="modal-body">
-                                                        <p>Lamentamos que te vayas :(</p>
+                                                        {!error ? <p>Te has desuscrito con éxito. <br/>Lamentamos que te vayas 😔</p> : <p style={{color: "red"}}>Debes ingresar un e-mail válido</p>}
+
                                                     </div>
                                                     <div className="modal-footer">
                                                     </div>
