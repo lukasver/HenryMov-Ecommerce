@@ -674,6 +674,7 @@ conn.sync({ force: true }).then(() => {
 		})
 
 		await Reviews.create({
+			usuarioId: '1',
 			title: 'Excelente',
 			description: 'Muy buen producto, lo recomiento',
 			value: '5',
@@ -681,6 +682,7 @@ conn.sync({ force: true }).then(() => {
 			})
 
 		await Reviews.create({
+			usuarioId:'1',
 		 	title: 'Excelente2',
 			description: 'Muy buen producto, lo recomiento',
 			 value: '2',
