@@ -3,66 +3,112 @@ const { Product , Reviews } = require('../db.js');
 
 
 // ========================================================================
-//    Get para una reviews en particular
+//    Get para todas las reviews 
 // ========================================================================
-server.get('/reviews/:id', (req, res, next) => {
+server.get('/reviews/', (req, res, next) => {
+	Reviews.findAll({
+		order: ['id'],
+	})
+	.then(reviews => {
+		if (!reviews) {
+			return res.send('<h1>No hay reviews cargadas</h1>')
+		}
+		res.json(reviews);
+		})
+		.catch(err => {
+			console.log(err);
+			return res.status(404).end()
+		});
+});
 
-    Reviews.findByPk(req.params.id).then(reviews => {
-      if (!reviews) return res.sendStatus(404);
-      res.status(200).send(reviews);
-    })
-  });
   
 // ========================================================================
 //      Get todas las reviews de cada producto
 // ========================================================================
 
-server.get('/reviews/:idProduct/reviews', async (req,res,next) => {
-    const { idProduct } = req.params
-
-    try{
-    const product = await Product.findOne({ // Devuelve el carrito abierto del usuario solicitado
-        where: {
-            id: idProduct,
-        },
-        include: { model: Reviews}
-    })
-
-   // if (!product) return res.status(400).send('<h1>Producto no encontrado o sin carrito con estado abierto<h1/>')
-    await res.json(product)
-        } catch (error) {
-            return res.status(400).send(error)
+server.get('/product/:id/reviews', (req, res, next) => {
+	Reviews.findAll({
+		where: { productId: req.params.id},
+		include: [{ model: Product, attributes:['id','name']  }]
+	})
+    .then(reviews => {
+		console.log(reviews)
+		if (reviews.length==0) {
+			return res.send('<h1>No hay reviews cargadas</h1>')
         }
-
-})
-
+        res.status(200).json(reviews);
+    })
+});
 
 //==========================================================
-//	Ruta para agregar nueva categoría a un producto específico
+//	Ruta para agregar nueva reviews a un producto específico
 //==========================================================
 
-server.post('/products/:idProducto/reviews/add', (req, res, next) => {
+server.post('/product/:idProducto/reviews/add', (req, res, next) => {
 	const { idProducto } = req.params;
-	const { reviewsId } = req.body;
-
-	if (typeof categoryId !== "number") {
-		return res.status(401).send('Categoria debe ser un valor numerico');
-	}
-	Product.findOne({
-		where: {
-			id: idProducto
-		},
-		include: [{ model: Reviews }]
-	}).then(response => {
+	const { title, description, value } = req.body;
+	Reviews.create({
+		title,
+		description,
+		value,
+		productId: idProducto
+	})
+	.then(response => {
 		if (!response) {
 			return res.status(404).end()
 		}
-		let prod = response;
-		prod.addReviews([reviewsId])
 		res.status(200)
 	}).catch(err => {
 		console.log(err)
 		return res.status(404).end()
  	})
  	res.end()
- })
+})
+
+//===========================================================
+//	 Ruta para eliminar reviews a un producto específico
+//===========================================================
+
+
+server.delete('/reviews/:id', (req, res, next) => {
+	Reviews.destroy({
+		where: { id: req.params.id }
+	}).then(deleted=> {
+		res.sendStatus(200);
+	}).catch(error => {
+		return res.end()
+	});
+});
+
+//===========================================================
+//	 Ruta para modificar reviews
+//===========================================================
+
+server.put('/reviews/:id', (req, res, next) => {
+	const {title,description, value} = req.body
+	console.log(req.body)
+	Reviews.update(req.body, {
+		where: { id: req.params.id }
+	}).then(result => {
+		console.log(result)
+		res.send(result).end()
+	})
+
+})
+
+// ========================================================================
+//      Get todas las reviews de cada usuario  (NO ESTA EN USO)
+// ========================================================================
+
+// server.get('/user/:id/reviews', (req, res, next) => {
+// 	Reviews.findAll({
+// 		where: {userId: req.params.id}
+// 	})
+//     .then(reviews => {
+// 		if (!reviews) {
+// 			return res.sendStatus(404).send('<h1>No hay reviews cargadas</h1>')
+//         }
+//         res.status(200).json(reviews);
+//     })
+// });
+module.exports = server
