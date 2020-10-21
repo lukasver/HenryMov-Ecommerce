@@ -10,7 +10,8 @@ export default function Product({ product }) {
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
 	useEffect(() => {
-		stocker(product)
+
+		product &&stocker(product)
 	}, [render, count])
 	if (!product) {
 		return <div class="spinner-border text-info" role="status">
