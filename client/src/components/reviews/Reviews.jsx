@@ -18,21 +18,20 @@ export default function Reviews({id, value}) {
     useEffect(()=>{
         Methods.getReviewsProd(id)
         .then(recurso =>{
-            setAllReviews(recurso.products)
-            setProm(recurso.promedio)
+            if (!recurso) {
+                setAllReviews([]);
+                setProm(0)
+            }
+            else{
+                setAllReviews(recurso.products)
+                setProm(recurso.promedio)
+            }
+
         })
     },[])
 
     if (value === 'reviews'){
-        if (typeof allReviews !== 'object'){
-            return (
-                <div className='reviewsContainer'>
-                    <h5>No hay opiniones</h5>
-                </div>
-            )
-        }
-        
-        else{
+        if (allReviews.length){
             return (
                 <div className='reviewsContainer'>
                     {allReviews.map(review => (
@@ -42,6 +41,13 @@ export default function Reviews({id, value}) {
                         <p>{review.description}</p>
                     </div>
                     ))}
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className='reviewsContainer'>
+                    <h5>No hay opiniones</h5>
                 </div>
             )
         }
