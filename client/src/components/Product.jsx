@@ -76,6 +76,7 @@ export default function Product({ product }) {
 				</div>
 				<div className="col-md-5 content-rigth">
 					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
+					{/* Llamo al componente Reviews para mostrar el promedio de puntaje de reviews del producto */}
 					<Reviews id={product.id} value='prom' /* MANDAR VALUE */ />
 					<h5>{description}</h5>
 					<h3 className="precio-producto">{`$ ${price * count}`}</h3>
@@ -130,6 +131,7 @@ export default function Product({ product }) {
 			</div>
 			<div className='reviews'>
 				<h3>Opiniones sobre {product.name}</h3>
+				{/* Llamo al componente reviews para cargar todas las reviews del producto */}
 					<Reviews key={product.id} id={product.id} value={'reviews'}/>
 			</div>
 		</div>

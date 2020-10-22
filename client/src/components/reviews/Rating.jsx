@@ -3,7 +3,10 @@ import "./Rating.css";
 
 
 export default function StarRating ({bool, value}) {
-    
+
+// Este componente simplemente se encarga de mostrar las estrellas, de esta forma parseo el valor 
+// de la reseña en estrellas
+
 const totalStars = 5
 const [starsSelected, selectStar] = useState(0);
      const Star = ({ selected = false, onClick = f => f }) => (
