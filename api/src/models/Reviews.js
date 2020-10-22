@@ -4,10 +4,10 @@ const { conn } = require('../db.js');
 
 module.exports =(sequelize) =>{
     sequelize.define('reviews', {
-        // usuario:{
-        //     type: DataTypes.STRING,
-        //     allowNull: false
-        // },
+        usuarioId:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         title:{
             type: DataTypes.TEXT,
             allowNull: false

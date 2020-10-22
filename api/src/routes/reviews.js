@@ -21,6 +21,26 @@ server.get('/reviews/', (req, res, next) => {
 		});
 });
 
+// ========================================================================
+//    Get reviews por Id
+// ========================================================================
+server.get('/reviews/:id', (req, res, next) => {
+	const { id } = req.params;
+	Reviews.findOne({
+		where: { id},
+	})
+	.then(reviews => {
+		if (!reviews) {
+			return res.send('<h1>No hay reviews cargadas</h1>')
+		}
+		res.json(reviews);
+		})
+		.catch(err => {
+			console.log(err);
+			return res.status(404).end()
+		});
+});
+
   
 // ========================================================================
 //      Get todas las reviews de cada producto
@@ -66,9 +86,8 @@ server.post('/product/:idProducto/reviews/add', (req, res, next) => {
 })
 
 //===========================================================
-//	 Ruta para eliminar reviews a un producto específico
+//	 Ruta para eliminar reviews por su id
 //===========================================================
-
 
 server.delete('/reviews/:id', (req, res, next) => {
 	Reviews.destroy({
