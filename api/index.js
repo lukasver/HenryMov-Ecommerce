@@ -41,6 +41,16 @@ conn.sync({ force: true }).then(() => {
 			role: 'Admin',
 		})
 
+		await User.create({
+    		name: 'Cliente',
+    		lastname: 'General',
+    		email: 'client@client.com',
+    		phone: 12345678,
+			password: 'asdASD123!',
+			birthdate: new Date('02/23/1963'), // este new Date es para sacar un warning de consola
+			role: 'Cliente',
+		})
+
     	await User.create({
     		name: 'Michael',
     		lastname: 'Jackson',

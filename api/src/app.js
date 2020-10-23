@@ -29,10 +29,11 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser(process.env.COOKIE));
 server.use(session({
-    secret: process.env.COOKIE,
+    secret: process.env.COOKIE,   // SETEAR ESTE SECRET CON EL MISMO QUE COOKIEPARSER!!
     store: new SequelizeStore({db: conn}),
 		resave: false,
-		saveUninitialized: false, }));
+		saveUninitialized: false,
+    maxAge: (1000*60*60*24)}));
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(morgan('dev'));
