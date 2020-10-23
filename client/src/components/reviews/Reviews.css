@@ -1,0 +1,19 @@
+.reviewsContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: solid 1px blue;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+}
+
+.reviewContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+}

@@ -10,7 +10,6 @@
     margin-top: 9px;
 }
 
-
 .js-addtocart:hover{
     background-color: #ffaf00;
     color: black
@@ -50,7 +49,7 @@
 
 .single-page {
     margin-top: 4%;
-    padding: 60px 0px 100px !important;
+    padding: 60px 0px 0px !important;
 }
 
 .content-rigth {
