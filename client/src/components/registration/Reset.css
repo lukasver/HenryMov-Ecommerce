@@ -1,0 +1,60 @@
+h4{
+    margin-top: 15px;
+    padding: 20px;
+}
+
+.btn-primary{
+    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    float: center;
+    background: black;
+    border-radius: 3px;
+    color: #fff;
+    border: 1px solid #fff;
+    font-weight: 400;
+    font-size: 16px;
+    transition: all .3s cubic-bezier(.64, .09, .08, 1);
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover{
+    color: black;
+    border-color: orange;
+    background-color: orange;
+}
+
+.btn-disabled {
+    width: 86%;
+}
+
+.btn-enabled{
+    width: 86%;
+}
+
+
+.form-singin{
+    border: orange;
+    display: flex;
+    justify-content: center;
+}
+.form-group{
+    margin: 20px
+}
+
+.form-control{
+    cursor: pointer;
+    /* border-style: none none solid solid; */
+}
+
+.verified-user{
+    margin-bottom: 5px;
+}
+
+.form-control:focus{
+    outline: none !important;
+    background-color:  orange;
+    
+}
