@@ -1,7 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const passport = require('passport')
-const LocalStrategy = require('passport-local')
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const bcrypt = require('bcrypt');
 const { User } = require('../../db.js');
 
 
@@ -12,33 +13,41 @@ const { User } = require('../../db.js');
 
 // ===================== PASSPORT MIDDLEWARES ========================
 
-passport.use(new LocalStrategy(
-  function(email, password, done) {
-    User.findOne({ email: email }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false, {message: 'Incorrect username'}); }
-      if (!user.verifyPassword(password)) { return done(null, false, {message: 'Incorrect password'}); }
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  async function(email, password, done) {
+  try{	
+   const user = await User.findOne({where: { email: email }})
+   	console.log(user)
+      
+      if (!user) {return done(null, false, {message: 'Incorrect username'}); }
+      if (!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
       return done(null, user);
-    });
+
+  } catch (error) {
+  	return done(error); 
   }
-));
+}))
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+  User.findByPk(id)
+  .then((user, err) => {
     done(err, user);
   });
 });
+
 
 
 // ===================== USER TIENE TOKEN? ========================
 const authenticateToken = async (req,res,next) => {
 	// const token = req.headers["x-access-token"] // esto sería para verlo por postman o ese header puntual
 	const { TOKEN_SECRET } = process.env
-	console.log(req.cookies)
 
 	const token = req.cookies.jwt
 
