@@ -16,6 +16,7 @@ export const ORDER_DETAIL = "ORDER_DETAIL";
 export const DELETE_COUNT ="DELETE_COUNT";
 export const STOCK = "STOCK";
 export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES";
+export const STARS = "STARS";
 
 
 export function addcount(stock) {
@@ -103,6 +104,12 @@ export function removecountCart() {
 export function deleteFilter() {
   return {
     type: DELETE_FILTER,
+  };
+}
+export function selectStar(stars) {
+  return {
+    type: STARS,
+    payload: stars
   };
 }
 

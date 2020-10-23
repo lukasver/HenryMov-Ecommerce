@@ -21,6 +21,26 @@ server.get('/reviews/', (req, res, next) => {
 		});
 });
 
+// ========================================================================
+//    Get reviews por Id
+// ========================================================================
+server.get('/reviews/:id', (req, res, next) => {
+	const { id } = req.params;
+	Reviews.findOne({
+		where: { id},
+	})
+	.then(reviews => {
+		if (!reviews) {
+			return res.send('<h1>No hay reviews cargadas</h1>')
+		}
+		res.json(reviews);
+		})
+		.catch(err => {
+			console.log(err);
+			return res.status(404).end()
+		});
+});
+
   
 // ========================================================================
 //      Get todas las reviews de cada producto
@@ -32,7 +52,6 @@ server.get('/product/:id/reviews', (req, res, next) => {
 		include: [{ model: Product, attributes:['id','name']  }]
 	})
     .then(reviews => {
-		console.log(reviews)
 		if (reviews.length==0) {
 			return res.send('<h1>No hay reviews cargadas</h1>')
         }
@@ -46,8 +65,10 @@ server.get('/product/:id/reviews', (req, res, next) => {
 
 server.post('/product/:idProducto/reviews/add', (req, res, next) => {
 	const { idProducto } = req.params;
-	const { title, description, value } = req.body;
+	const { usuarioId, title, description, value } = req.body;
+	
 	Reviews.create({
+		usuarioId,
 		title,
 		description,
 		value,
@@ -66,9 +87,8 @@ server.post('/product/:idProducto/reviews/add', (req, res, next) => {
 })
 
 //===========================================================
-//	 Ruta para eliminar reviews a un producto específico
+//	 Ruta para eliminar reviews por su id
 //===========================================================
-
 
 server.delete('/reviews/:id', (req, res, next) => {
 	Reviews.destroy({
@@ -86,7 +106,6 @@ server.delete('/reviews/:id', (req, res, next) => {
 
 server.put('/reviews/:id', (req, res, next) => {
 	const {title,description, value} = req.body
-	console.log(req.body)
 	Reviews.update(req.body, {
 		where: { id: req.params.id }
 	}).then(result => {

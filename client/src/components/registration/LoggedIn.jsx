@@ -44,6 +44,7 @@ export default function LoggedIn() {
               </div>
               <button onClick={handleLogin} class="btn btn-lg btn-block text-uppercase botonlogin" type="submit">Sign in</button>
               <hr class="my-4"/>
+              <a href='/reset' className='forgotten'>Has olvidado tu contraseña? Click aqui</a>
               <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
               <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
             </form>

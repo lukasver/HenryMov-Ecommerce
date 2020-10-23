@@ -28,7 +28,7 @@ return (
         <h3>Productos Destacados</h3>
         <br />
         <div className="main row">
-            {randomDes.map(prod =>
+            {randomDes && randomDes.map(prod =>
                 <div className="card-group col-md-3" key={prod.id}>
                     <ProductCard
                         key={prod.id}

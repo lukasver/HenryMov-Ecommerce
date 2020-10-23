@@ -1,0 +1,111 @@
+.reviewsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+    background: white;
+    border: solid 1px rgba(0,0,0,.125);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px 0px 0px 1px;
+    width: 80%;
+}
+.reviewsContainer:hover{
+    cursor: pointer;
+    color: orange;
+    border-color: orange;
+}
+
+.reviewContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+    margin: 10px;
+    width: 100%;
+    border: solid rgba(0,0,0,.125) 1px;
+    border-radius: 20px;
+}
+.reviewContainer:hover{
+    cursor: pointer;
+    color: orange;
+    border-color: orange;
+}
+.inpTitle{
+    display: block;
+    border-radius: 8px;
+    margin: 10px 0px;
+    height: 48px;
+    font-size: 22px;
+    width: 95%;
+    background: white;
+    border: solid rgba(0,0,0,.125) 1px;
+}
+.inpTitle:hover{
+    cursor: text;
+}
+.inpDesc:hover{
+    cursor: text;
+}
+#Desc{
+    width: 95%;
+    border: solid rgba(0,0,0,.125) 1px;
+    background:white;
+}
+.Title{
+    display: block;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    height: 48px;
+    font-size: 26px
+}
+.Title:hover{
+    cursor: pointer;
+}
+.Desc{
+    display: block;
+    border:none;
+    border-radius: 5px;
+    margin: 5px;
+    height: 110px;
+    font-size: 18px
+}
+.Desc:hover{
+    cursor: pointer;
+}
+
+#submitRev{
+    width: 60%;
+    margin: 20px 40px;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    float: right;
+    background: black;
+    border-radius: 3px;
+    color: #fff;
+    border: 1px solid #fff;
+    font-weight: 400;
+    font-size: 16px;
+    transition: all .3s cubic-bezier(.64, .09, .08, 1);
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);    
+}
+#submitRev:hover{
+    cursor: pointer;
+    color: orange;
+    border-color: orange;
+}
+#formReviews{
+    display: flex;
+    align-items: center ;
+    flex-direction: column;
+    justify-content: center;
+    border: solid rgba(0,0,0,.125) 1px;
+    border-radius: 10px;
+    width: 80%;
+}
+#formReviews:hover{
+    cursor: pointer;
+    color: orange;
+    border-color: orange;
+}

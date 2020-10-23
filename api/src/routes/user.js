@@ -116,4 +116,49 @@ server.delete('/user/:id',[authenticateToken, isAdmin], (req, res, next) => {
     })
     }
 )
+
+//===================================================
+//  Ruta para encontrar usuario por email
+//===================================================
+server.get('/users', (req, res) => {
+    const { email } = req.query;
+    User.findOne({
+        where: {
+            email
+        }
+    }).then(user => {
+        if(!user){
+            return res.status(404).send('Usuario no encontrado')
+        }
+        console.log(user.id)
+        return res.status(200).json(user.id);
+    }).catch(err => {
+        res.status(400).send(err)
+    })
+})
+
+//===================================================
+//  Ruta para encontrar resetear la contraseña
+//===================================================
+server.post('/users/:id/passwordReset', (req, res) => {
+    const { id } = req.params;
+    const { password } = req.body;
+    User.findOne({
+        where: {
+            id: id
+        }
+    })
+    .then(result => {
+        if(!result){
+            return res.status(404).send('Usuario no encontrado')
+        }
+        console.log(result.password)
+        result.password = password;
+        console.log(result.password)
+        return res.status(200).send('Contraseña cambiada con exito')
+    }).catch(err => {
+        return res.status(400).send(err)
+    })
+})
+
 module.exports = server;

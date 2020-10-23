@@ -19,6 +19,7 @@ import LoggedIn from "./components/registration/LoggedIn";
 import Menu from "./components/Menu"
 import OrdenDetalle from "./components/carrito/OrdenDetalle";
 import Reviews from "../src/components/reviews/Reviews"
+import Reset from "../src/components/registration/Reset"
 
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
@@ -70,6 +71,7 @@ function App() {
       <Route exact path='/carrito' render={()=> <Carrito/>}/>
       <Route exact path='/register' render={()=> <Register/>} />
       <Route exact path='/logIn' render={()=> <LoggedIn/>} />
+      <Route exact path='/reset' render={()=> <Reset/>} />
       <Route exact path='/Menu' render={()=> <Menu />} />
       <Route exact path='/order/:id' render={({ match })=> <OrdenDetalle orderId = {match.params.id}/>} />
       <Route exact path='/reviews' render={()=> <Reviews/>}/>
