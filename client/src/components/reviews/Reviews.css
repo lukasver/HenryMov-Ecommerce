@@ -10,11 +10,11 @@
     margin: 10px 0px 0px 1px;
     width: 80%;
 }
-.reviewsContainer:hover{
-    /* cursor: pointer; */
+/* .reviewsContainer:hover{
+    cursor: pointer;
     color: orange;
     border-color: orange;
-}
+} */
 
 .reviewContainer {
     display: flex;
