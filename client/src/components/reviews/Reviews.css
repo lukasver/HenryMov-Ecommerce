@@ -10,11 +10,11 @@
     margin: 10px 0px 0px 1px;
     width: 80%;
 }
-.reviewsContainer:hover{
+/* .reviewsContainer:hover{
     cursor: pointer;
     color: orange;
     border-color: orange;
-}
+} */
 
 .reviewContainer {
     display: flex;
@@ -26,11 +26,11 @@
     border: solid rgba(0,0,0,.125) 1px;
     border-radius: 20px;
 }
-.reviewContainer:hover{
+/* .reviewContainer:hover{
     cursor: pointer;
     color: orange;
     border-color: orange;
-}
+} */
 .inpTitle{
     display: block;
     border-radius: 8px;
@@ -44,13 +44,13 @@
 .inpTitle:hover{
     cursor: text;
 }
-.inpDesc:hover{
-    cursor: text;
-}
 #Desc{
     width: 95%;
     border: solid rgba(0,0,0,.125) 1px;
     background:white;
+}
+#Desc:hover{
+    cursor: text;
 }
 .Title{
     display: block;
@@ -60,9 +60,9 @@
     height: 48px;
     font-size: 26px
 }
-.Title:hover{
+/* .Title:hover{
     cursor: pointer;
-}
+} */
 .Desc{
     display: block;
     border:none;
@@ -70,9 +70,6 @@
     margin: 5px;
     height: 110px;
     font-size: 18px
-}
-.Desc:hover{
-    cursor: pointer;
 }
 
 #submitRev{
@@ -108,4 +105,9 @@
     cursor: pointer;
     color: orange;
     border-color: orange;
+}
+.RatingSpan{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
 }

@@ -28,7 +28,7 @@ const dispatch = useDispatch()
             />
           ))}
           <p>
-            {starsSelected} of {totalStars} stars
+            {starsSelected} de {totalStars} estrellas
           </p>
         </div>
     )

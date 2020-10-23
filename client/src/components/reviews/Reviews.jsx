@@ -101,8 +101,8 @@ export default function Reviews({id, value, name}) {
     }
     if (value === 'prom'){
         return (
-            <div className=''>
-               <Rating bool={false} value={prom} />
+            <div className='RatingSpan'>
+               <Rating bool={false} value={prom} /> <p className='reviewsSpan'>{prom} opiniones</p>
             </div>
         )
     }
