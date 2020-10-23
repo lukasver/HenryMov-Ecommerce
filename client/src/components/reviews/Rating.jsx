@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Rating.css";
-
+import * as action from '../../redux/Action'
+import { useSelector, useDispatch } from "react-redux";
 
 export default function StarRating ({bool, value}) {
 
@@ -8,7 +9,10 @@ export default function StarRating ({bool, value}) {
 // de la reseña en estrellas
 
 const totalStars = 5
-const [starsSelected, selectStar] = useState(0);
+// const [starsSelected, selectStar] = useState(0);
+const starsSelected = useSelector(store => store.starsSelected)
+const dispatch = useDispatch()
+
      const Star = ({ selected = false, onClick = f => f }) => (
         <div className={selected ? "star selected" : "star"} onClick={onClick} />
         );
@@ -20,7 +24,7 @@ const [starsSelected, selectStar] = useState(0);
             <Star
               key={index}
               selected={index < starsSelected}
-              onClick={() => selectStar(index + 1)}
+              onClick={() => dispatch(action.selectStar(index + 1))}
             />
           ))}
           <p>

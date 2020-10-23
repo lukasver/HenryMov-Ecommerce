@@ -1,8 +1,9 @@
 .reviewsContainer{
     display: flex;
+    background: rgb(255,240,240);
     justify-content: center;
     flex-direction: column;
-    border: solid 1px blue;
+    border: solid 1px red;
     border-radius: 15px;
     padding: 10px;
     margin: 10px;
@@ -13,7 +14,69 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 10px;
+    padding: 5px;
     margin: 10px;
     width: 100%;
+}
+.inpTitle{
+    display: block;
+    border-radius: 8px;
+    margin: 10px 0px;
+    height: 48px;
+    font-size: 22px;
+    width: 95%;
+    background: rgb(255,230,230);
+}
+.inpTitle:hover{
+    cursor: text;
+}
+.inpDesc:hover{
+    cursor: text;
+}
+#Desc{
+    width: 95%;
+    border: solid grey 1px;
+    background: rgb(255,230,230);
+}
+.Title{
+    display: block;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    height: 48px;
+    font-size: 26px
+}
+.Title:hover{
+    cursor: text;
+}
+.Desc{
+    display: block;
+    border:none;
+    border-radius: 5px;
+    margin: 5px;
+    height: 110px;
+    font-size: 18px
+}
+.Desc:hover{
+    cursor: text;
+}
+#submitRev{
+    border: solid black 2px;
+    border-radius: 5px;
+    height: 48px;
+    font-size: 26px;
+    margin: 15px 0px 40px 0px;
+    background: rgb(255,167,179);
+    padding: 0px 60px;
+    
+}
+#submitRev:hover{
+    border-radius: 5px;
+    border: solid rgb(255,167,179) 5px;
+    color: rgb(255,167,179);
+    background: white
+}
+#formReviews{
+    border: solid black 1px;
+    border-radius: 10px;
 }
