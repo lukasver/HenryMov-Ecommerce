@@ -10,7 +10,7 @@ const userRouter = require('./user.js')
 const orderRouter = require('./order.js')
 const newsletter = require('./newsletter.js')
 const reviews = require('./reviews.js')
-const loginRouter = require('./login.js')
+const authRouter = require('./auth.js')
 
 const router = Router();
 
@@ -37,7 +37,8 @@ router.use(multer({
 // Permite que podamos acceder a esta ruta publica
 router.use(express.static(path.join(__dirname, '../public')))
 
-router.use('/', productRouter, categoryRouter, userRouter, orderRouter, reviews, loginRouter);
+router.use('/', productRouter, categoryRouter, userRouter, orderRouter, reviews);
 router.use('/newsletter', newsletter)
+router.use('/auth', authRouter)
 
 module.exports = router;

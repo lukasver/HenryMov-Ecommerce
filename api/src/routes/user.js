@@ -1,10 +1,23 @@
 const server = require('express').Router();
 const { User } = require('../db.js');
+const jwt = require('jsonwebtoken');
+// const { createToken, authenticateToken, isAdmin } = require ('./auth/authMiddlewares.js')
+// const { userSignUp, userLogin, getCookies, clearCookies } = require('./auth/index.js');
+
+
+// server.post('/login', userLogin)
+// server.post('/signup', userSignUp)
+
+// server.get('/setcookies', getCookies)
+// server.get('/clearcookies', clearCookies)
+
+
+
 
 //==============================================
 //	Ruta para traer todods los usuarios.
 //==============================================
-server.get('/user', (req, res, next) => {
+server.get('/user', /*[authenticateToken, isAdmin],*/ (req, res, next) => {
     User.findAll()
         .then(user => {
             res.json(user);
@@ -18,7 +31,7 @@ server.get('/user', (req, res, next) => {
 //=============================================
 //  Ruta para encotrar usuarios por id
 //=============================================
-server.get('/user/:id', (req, res, next) => {
+server.get('/user/:id',/*[authenticateToken, isAdmin] ,*/ (req, res, next) => {
     const { id } = req.params;
     User.findByPk(id)
         .then(result => {
@@ -37,7 +50,7 @@ server.get('/user/:id', (req, res, next) => {
 //============================================== 
 server.post('/user', (req, res, next) => {
     const { name, lastname, email, address, phone, password, birthdate } = req.body;
-    console.log('Body====<>', req.body)
+
     if(!name) {
         return res.status(400).send("Faltan datos");
     }
@@ -51,7 +64,9 @@ server.post('/user', (req, res, next) => {
         password,
         birthdate
     }).then(createdUser => {
-            res.status(200).send(createdUser);
+        const token = createToken(createdUser.id)
+        res.cookie('jwt', token).send(createdUser); // solo manipulable por http y dura 1 dia
+
     }).catch(err => {
             res.status(400).json(err.errors[0].message);
             next()
@@ -61,9 +76,9 @@ server.post('/user', (req, res, next) => {
 //===============================================
 //     Ruta para modificar usuario.
 //===============================================
-server.put('/user/:id', (req, res, next) => {
+server.put('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
     const { id } = req.params;
-    const { name, lastName, email, address, phone, password, birthdate } = req.body
+    const { name, lastname, email, address, phone, password, birthdate } = req.body;
     User.update({
         name,
         lastName,
@@ -87,7 +102,7 @@ server.put('/user/:id', (req, res, next) => {
 //==============================================
 //  Ruta para eliminar usuario
 //==============================================
-server.delete('/user/:id', (req, res, next) => {
+server.delete('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
     const { id } = req.params;
     User.destroy({
         where: {
