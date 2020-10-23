@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { User } = require('../db.js');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
 // const { createToken, authenticateToken, isAdmin } = require ('./auth/authMiddlewares.js')
 // const { userSignUp, userLogin, getCookies, clearCookies } = require('./auth/index.js');
 
@@ -148,13 +149,13 @@ server.post('/users/:id/passwordReset', (req, res) => {
             id: id
         }
     })
-    .then(result => {
+    .then(async result => {
         if(!result){
             return res.status(404).send('Usuario no encontrado')
         }
-        console.log(result.password)
-        result.password = password;
-        console.log(result.password)
+        console.log('password before', result.password)
+        result.password = await bcrypt.hash(password, 9)
+        console.log('password after', result.password)
         return res.status(200).send('Contraseña cambiada con exito')
     }).catch(err => {
         return res.status(400).send(err)
