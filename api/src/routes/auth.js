@@ -16,7 +16,6 @@ passport.use(new LocalStrategy({
   async function(email, password, done) {
   try{  
    const user = await User.findOne({where: { email: email }})
-    console.log(user)
       
       if (!user) {return done(null, false, {message: 'Incorrect username'}); }
       if (!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
@@ -28,16 +27,43 @@ passport.use(new LocalStrategy({
 }))
 
 passport.serializeUser(function(user, done) {
-  console.log('serializacion', user.id)
+  // console.log('serializacion', user.id)
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
   User.findByPk(id).then((user,err) => {
-    console.log('deserializacion', user)
+    // console.log('deserializacion', user)
     done(err, user)
   });
 })
+
+const isLoggedIn = () => {  
+  return (req, res, next) => {
+    console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+
+      if (req.isAuthenticated()) return next();
+      res.redirect('http://localhost:3000/login')
+  }
+}
+
+const isAdmin = async (req,res,next) => {
+
+ try {
+ const admin = await User.findOne({where: {email: req.user.email, role: "Admin"}})
+ if (!admin) res.status(403).send('<h1>Unauthorized</h1>')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+ next()
+ } catch (error) {
+   console.log(error)
+   res.status(401).json({message: "Unauthorized - Require admin role"})
+ }
+
+
+}
+
+// ===========================================================================================
+//                     RUTAS LOGIN/LOGOUT
+// ===========================================================================================
 
 server.post('/login', passport.authenticate('local'), (req,res,next) => {
   
@@ -46,7 +72,25 @@ server.post('/login', passport.authenticate('local'), (req,res,next) => {
   return
 })
 
-server.post('/promote/:id', (req, res, next) => {
+server.get('/logout', isLoggedIn(), (req,res,next) => {
+  
+
+  req.logout();
+  res.clearCookie('connect.sid')
+  res.redirect('http://localhost:3000/');
+
+  return
+})
+
+server.get('/profile', [isLoggedIn(), isAdmin], (req,res,next) => {
+  
+  res.json(req.user)
+  return
+})
+
+
+
+server.post('/promote/:id', [isLoggedIn(), isAdmin], (req, res, next) => {
   User.update({role: 'Admin'}, {
     where: {id: req.params.id}
   }).then(result => {

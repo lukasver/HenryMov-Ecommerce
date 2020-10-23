@@ -207,5 +207,7 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm install multer
 - npm install bcrypt
 - npm install express-session
+- npm install express-session-sequelize
 - npm install passport
+- npm install passport-local
 

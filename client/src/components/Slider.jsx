@@ -13,7 +13,7 @@ export default function Slider() {
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+{/*                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>*/}
             </ol>
             <div className="carousel-inner">
                 <div className="carousel-item active">
@@ -33,9 +33,9 @@ https://www.lookoutpro.com/wp-content/uploads/2020/02/patinetes_electricos_urban
                 <div className="carousel-item">
                     <img className="d-block w-100" height="860" width="auto"  src="http://cdn.shopify.com/s/files/1/0034/7504/6445/articles/ninebot_es2_electric_kick_scooter_man_and_women_riding_2f08c33f-7e84-4792-8878-0d0ac7fca425_1080x.jpg" alt="fourth slide" />
                 </div>
-                <div className="carousel-item">
+{/*                <div className="carousel-item">
                     <img className="d-block w-100" height="860" width="auto"  src="http://www.ovrik.com/wp-content/uploads/2016/09/Peugeot-Cycles-eF01-Photos-Reveal-004.jpg" alt="fourth slide" />
-                </div>
+                </div>*/}
             </div>
             <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>

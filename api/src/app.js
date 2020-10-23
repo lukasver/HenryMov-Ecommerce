@@ -5,7 +5,9 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const cors = require('cors')
 const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const passport = require('passport');
+const { conn } = require('./db.js');
 require('./db.js');
 
 const server = express();
@@ -26,10 +28,12 @@ server.name = 'API';
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser(process.env.COOKIE));
-server.use(session(
-	{	secret: process.env.COOKIE,
+server.use(session({
+    secret: process.env.COOKIE,   // SETEAR ESTE SECRET CON EL MISMO QUE COOKIEPARSER!!
+    store: new SequelizeStore({db: conn}),
 		resave: false,
-		saveUninitialized: false, }));
+		saveUninitialized: false,
+    maxAge: (1000*60*60*24)}));
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(morgan('dev'));
