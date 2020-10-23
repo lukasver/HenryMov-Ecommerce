@@ -8,6 +8,7 @@ const Op = Sequelize.Op;
 //======================================================================== 
 
 server.get('/products', (req, res, next) => {
+	console.log(req.isAuthenticated())
 	Product.findAll({
 		order: ['id'],
 		include: { model: Category }

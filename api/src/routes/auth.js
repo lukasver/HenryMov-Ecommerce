@@ -39,12 +39,37 @@ passport.deserializeUser(function(id, done) {
   });
 })
 
+function authenticationMiddleware () {  
+  return (req, res, next) => {
+    console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+
+      if (req.isAuthenticated()) return next();
+      res.redirect('/login')
+  }
+}
+
+// ===========================================================================================
+//                     RUTAS LOGIN/LOGOUT
+// ===========================================================================================
+
 server.post('/login', passport.authenticate('local'), (req,res,next) => {
   
   req.isAuthenticated() ? res.sendStatus(200) : res.sendStatus(401)
 
   return
 })
+
+server.post('/logout', passport.authenticate('local'), (req,res,next) => {
+  
+  req.isAuthenticated() ? res.sendStatus(200) : res.sendStatus(401)
+
+  return
+})
+
+
+
+
+
 
 server.post('/promote/:id', (req, res, next) => {
   User.update({role: 'Admin'}, {
