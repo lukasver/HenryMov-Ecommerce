@@ -10,26 +10,24 @@ require('./db.js');
 
 const server = express();
 
-var allowlist = ['http://localhost:3000', 'http://localhost:3001'];
+// var allowlist = ['http://localhost:3000', 'http://localhost:3001'];
 
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
+// var corsOptionsDelegate = function (req, callback) {
+//   var corsOptions;
+//   if (allowlist.indexOf(req.header('Origin')) !== -1) {
+//     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+//   } else {
+//     corsOptions = { origin: false } // disable CORS for this request
+//   }
+//   callback(null, corsOptions) // callback expects two parameters: error and options
+// }
 
 server.name = 'API';
-server.use(cors(corsOptionsDelegate))
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
-server.use(cookieParser({secret: "cats"}));
+server.use(cookieParser());
 server.use(session(
-	{ 
-		secret: "cats",
+	{	secret: process.env.COOKIE,
 		resave: true,
 		saveUninitialized: false, }));
 server.use(passport.initialize());
@@ -42,6 +40,13 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
   next();
 });
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials : true
+}
+server.use(cors(corsOptions));
+
+
 
 server.use('/', routes);
 
