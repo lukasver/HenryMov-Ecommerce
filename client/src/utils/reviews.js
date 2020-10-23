@@ -7,8 +7,7 @@ import axios from 'axios'
 export function getReviews(){
     return axios
     .get(`http://localhost:3001/reviews`)
-    .then(data => 
-        console.log(data)
+    .then(data => data
     )
     .catch(error => console.log(error))
 }
@@ -40,8 +39,7 @@ export function getReviewsProd (id){
 
 export function addReviews(id, newReviews){
     axios.post(`http://localhost:3001/product/${id}/reviews/add`, newReviews)
-    .then(data => 
-        console.log(data)
+    .then(data => data
     )
     .catch(error => {
         console.log(error);
@@ -55,8 +53,7 @@ export function addReviews(id, newReviews){
 export function deleteReviews (id){
     axios
     .delete(`http://localhost:3001/reviews/${id}`)
-    .then(data => 
-        console.log(data)
+    .then(data => data
     )
     .catch(error => {
         console.log(error);
@@ -70,8 +67,7 @@ export function deleteReviews (id){
 export function modifyReviews (id, reviews){
     axios
     .put(`http://localhost:3001/reviews/${id}`, reviews)
-    .then(data => 
-        console.log(data)
+    .then(data => data
     )
     .catch(error => {
         console.log(error);

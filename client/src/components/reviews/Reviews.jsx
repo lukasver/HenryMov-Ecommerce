@@ -31,7 +31,6 @@ export default function Reviews({id, value, name}) {
     },[])
 
     function handlePost(e){
-        e.preventDefault()
         //==================================================================== 
         
         //Validar la sesion de usuario y enviar el id en la variable usuarioId 
@@ -42,49 +41,60 @@ export default function Reviews({id, value, name}) {
         let title = document.getElementById('title').value;
         let description = document.getElementById('Desc').value;
         let value = starsSelected;
-        Methods.addReviews(parseInt(id),
-        {
-            usuarioId,
-            title,
-            description,
-            value
-        })
+        if (title && description && value) {
+            Methods.addReviews(parseInt(id),
+            {
+                usuarioId,
+                title,
+                description,
+                value
+            })
+
+        }
     }
 
+    function form(){
+        return (
+            <form onSubmit={handlePost} id="formReviews" action="">
+                <h3>Escribe tu reseña</h3>
+                <p>Deja tu calificación</p>
+                <Rating bool={true} />
+                <input id="title" className='inpTitle' placeholder="Escribe un titulo" type="text"/>
+                <textarea id="Desc" placeholder="Escribe una descripción" class="form-control"  rows="4"></textarea>
+                <button id='submitRev' type='submit'>Enviar Reseña</button>
+            </form>
+        )
+    }
 
+    if (value === 'form'){
+        
+    }
     if (value === 'reviews'){
         if (allReviews.length){
-            return ( <div>
-
-                        <form onSubmit={handlePost} id="formReviews" action="">
-                            <h3>Escribe tu reseña</h3>
-                            <p>Deja tu calificación</p>
-                            <Rating bool={true} />
-                            <input id="title" className='inpTitle' placeholder="Escribe un titulo" type="text"/>
-                            <textarea id="Desc" placeholder="Escribe una descripción" class="form-control"  rows="4"></textarea>
-                            <button id='submitRev' type='submit'>Enviar Reseña</button>
-                        </form>
-            
-                    <div className='reviewsContainer'>
-                        <div className='reviewContainer'>
-
+            return (
+                    <div>
+                        {form()}
+                        <div className='reviewsContainer'>
                             <h3>Opiniones sobre {name}</h3>
+                            {allReviews.map(review => (
+                            <div className='reviewContainer'>
+                                <Rating bool={false} value={review.value} />
+                                <p className='Title'>{review.title}</p>
+                                <p className='Desc' >{review.description}</p>
                             </div>
-                                {allReviews.map(review => (
-                                <div className='reviewContainer'>
-                                    <Rating bool={false} value={review.value} />
-                                    <p className='Title'>{review.title}</p>
-                                    <p className='Desc' >{review.description}</p>
-                                </div>
-                                ))}
+                            ))}
                         </div>
-                </div>
-            )
-        }
+                        
+                    </div>
+                )
+        }   
         else {
             return (
-                <div className='reviewsContainer'>
-                    <h5>No hay opiniones</h5>
+                <div>
+                    {form()}
+                    <div className='reviewsContainer'>
+                        <h5>No hay opiniones</h5>
+                    </div>
                 </div>
             )
         }

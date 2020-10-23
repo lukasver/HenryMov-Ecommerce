@@ -106,7 +106,6 @@ server.delete('/reviews/:id', (req, res, next) => {
 
 server.put('/reviews/:id', (req, res, next) => {
 	const {title,description, value} = req.body
-	console.log(req.body)
 	Reviews.update(req.body, {
 		where: { id: req.params.id }
 	}).then(result => {
