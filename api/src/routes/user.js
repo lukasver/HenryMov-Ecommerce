@@ -1,15 +1,15 @@
 const server = require('express').Router();
 const { User } = require('../db.js');
 const jwt = require('jsonwebtoken');
-const { createToken, authenticateToken, isAdmin } = require ('./auth/authMiddlewares.js')
-const { userSignUp, userLogin, getCookies, clearCookies } = require('./auth/index.js');
+// const { createToken, authenticateToken, isAdmin } = require ('./auth/authMiddlewares.js')
+// const { userSignUp, userLogin, getCookies, clearCookies } = require('./auth/index.js');
 
 
 // server.post('/login', userLogin)
 // server.post('/signup', userSignUp)
 
-server.get('/setcookies', getCookies)
-server.get('/clearcookies', clearCookies)
+// server.get('/setcookies', getCookies)
+// server.get('/clearcookies', clearCookies)
 
 
 
@@ -17,7 +17,7 @@ server.get('/clearcookies', clearCookies)
 //==============================================
 //	Ruta para traer todods los usuarios.
 //==============================================
-server.get('/user', [authenticateToken, isAdmin], (req, res, next) => {
+server.get('/user', /*[authenticateToken, isAdmin],*/ (req, res, next) => {
     User.findAll()
         .then(user => {
             res.json(user);
@@ -31,7 +31,7 @@ server.get('/user', [authenticateToken, isAdmin], (req, res, next) => {
 //=============================================
 //  Ruta para encotrar usuarios por id
 //=============================================
-server.get('/user/:id',[authenticateToken, isAdmin] , (req, res, next) => {
+server.get('/user/:id',/*[authenticateToken, isAdmin] ,*/ (req, res, next) => {
     const { id } = req.params;
     User.findByPk(id)
         .then(result => {
@@ -76,7 +76,7 @@ server.post('/user', (req, res, next) => {
 //===============================================
 //     Ruta para modificar usuario.
 //===============================================
-server.put('/user/:id',[authenticateToken, isAdmin], (req, res, next) => {
+server.put('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
     const { id } = req.params;
     const { name, lastname, email, address, phone, password, birthdate } = req.body;
     User.update({
@@ -102,7 +102,7 @@ server.put('/user/:id',[authenticateToken, isAdmin], (req, res, next) => {
 //==============================================
 //  Ruta para eliminar usuario
 //==============================================
-server.delete('/user/:id',[authenticateToken, isAdmin], (req, res, next) => {
+server.delete('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
     const { id } = req.params;
     User.destroy({
         where: {
