@@ -25,10 +25,10 @@ const server = express();
 server.name = 'API';
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
-server.use(cookieParser());
+server.use(cookieParser(process.env.COOKIE));
 server.use(session(
 	{	secret: process.env.COOKIE,
-		resave: true,
+		resave: false,
 		saveUninitialized: false, }));
 server.use(passport.initialize());
 server.use(passport.session());
@@ -45,7 +45,6 @@ const corsOptions = {
   credentials : true
 }
 server.use(cors(corsOptions));
-
 
 
 server.use('/', routes);

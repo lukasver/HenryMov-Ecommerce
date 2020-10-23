@@ -32,17 +32,16 @@ passport.use(new LocalStrategy({
 }))
 
 passport.serializeUser(function(user, done) {
+	console.log('serializacion', user.id)
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findByPk(id)
-  .then((user, err) => {
-    done(err, user);
-  });
-});
-
-
+	User.findByPk(id).then((user,err) => {
+		console.log('deserializacion', user)
+    done(err, user)
+	});
+})
 
 // ===================== USER TIENE TOKEN? ========================
 const authenticateToken = async (req,res,next) => {
