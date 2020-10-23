@@ -130,9 +130,8 @@ export default function Product({ product }) {
 				</div>
 			</div>
 			<div className='reviews'>
-				<h3>Opiniones sobre {product.name}</h3>
 				{/* Llamo al componente reviews para cargar todas las reviews del producto */}
-					<Reviews key={product.id} id={product.id} value={'reviews'}/>
+					<Reviews key={product.id} id={product.id} name={product.name} value='reviews'/>
 			</div>
 		</div>
 	)

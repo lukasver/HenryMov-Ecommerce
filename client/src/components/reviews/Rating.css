@@ -36,7 +36,7 @@
 }
 
 .star.selected {
-  background-color: red;
+  background-color: rgb(255, 208, 0);
 }
 
 p {

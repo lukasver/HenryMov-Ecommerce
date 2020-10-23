@@ -17,7 +17,8 @@ import {
   ORDER_DETAIL,
   DELETE_COUNT,
   STOCK,
-  FILTER_BY_CATEGORIES
+  FILTER_BY_CATEGORIES,
+  STARS
 } from "./Action";
 
 const initialState = {
@@ -29,7 +30,8 @@ const initialState = {
   carrito: [],
   countCart: '0',
   count: 1,
-  orderDetail: []
+  orderDetail: [],
+  starsSelected: 0
 };
 
 export function counterReducer(state = initialState, action) {
@@ -130,6 +132,11 @@ export function counterReducer(state = initialState, action) {
       return {
         ...state,
         orderDetail: action.payload
+      };
+    case STARS:
+      return {
+        ...state,
+        starsSelected: action.payload
       };
     default:
       return state;
