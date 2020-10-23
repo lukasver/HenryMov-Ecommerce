@@ -1,6 +1,6 @@
 .botonlogin {
     margin-top: 20px;
-    margin-bottom: 3rem; 
+    margin-bottom: 10px; 
     padding: 8px 14px;
     letter-spacing: 1px;
     float: right;
@@ -17,5 +17,9 @@
 .botonlogin:hover {
     color: orange;
     border-color: orange;
+}
 
-   }
+.forgotten{
+    font-size: small;
+    color: blue;
+}
