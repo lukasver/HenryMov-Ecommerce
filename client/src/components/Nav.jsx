@@ -9,7 +9,6 @@ import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
 import axios from 'axios';
 import './Nav.css';
-import axios from 'axios';
 
 function Nav() {
     const dispatch = useDispatch()
@@ -125,21 +124,6 @@ function Nav() {
                             <span>Carrito</span>
                         </Link>
                     </div>
-<<<<<<< HEAD
-                    <div className="col-md-4">
-                        {user.role !== 'Admin' && <Link to='/profile' className="linkIcons">
-                            <img src={SingUp} className="bi" style={{ heigth: "29px", width: "29px", filter: "invert(100%)" }} alt="Sing up" />
-                            <br />
-                            <span>Perfil</span>
-                        </Link>}
-                        {user.role === 'Admin' && <Link to='/admin' className="linkIcons">
-                            <img src={SingUp} className="bi" style={{ heigth: "29px", width: "29px", filter: "invert(100%)" }} alt="Sing up" />
-                            <br />
-                            <span>Admin</span>
-                        </Link>}
-                    </div>
-=======
->>>>>>> master
                 </div>
             </div>
 

@@ -66,8 +66,9 @@ server.post('/user', async (req, res, next) => {
         password,
         birthdate
     }).then(createdUser => {
+        return res.status(200).json(createdUser)
     }).catch(err => {
-            res.status(400).json(err.errors[0].message);
+            return res.status(400).json(err.errors[0].message);
             next()
         });
 });
@@ -106,27 +107,21 @@ server.put('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
 
 server.post('/user/:id/image'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
     const { id } = req.params;
-    const { image } = req.body;
+    let { image } = req.body;
 
-    let bodyComplete = {};
-    if (image == undefined || image == '' ) bodyComplete = { ...req.body, image: `http://localhost:3001/uploads/${req.file.originalname}` };    
+    if (image == undefined || image == '' ) image = `http://localhost:3001/uploads/${req.file.originalname}`    
 
-    if(JSON.stringify(bodyComplete) == '{}') bodyComplete = req.body;
+    console.log(image)
 
-    console.log(bodyComplete)
+    User.findOne({where: { id: id }        
+     }).then(usuario => {
+        console.log(usuario)
+        usuario.image = image
+        return usuario.save()
+    }).then(newUsuario => res.status(200).send('Usuario actualizado'))
+     .catch(error =>  res.status(404).send('Usuario no encontrado'))
 
-    User.update(bodyComplete, {
-        where: {
-            id: id
-        }
-    }).then(modified => {
-        if(modified[0] === 0){
-            return res.status(404).send('Usuario no encontrado')
-        }
-        res.status(200).send('Usuario modificado con exito')
-    })
-})
-
+ })
 
 
 
