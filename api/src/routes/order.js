@@ -16,7 +16,7 @@ server.post('/users/:idUser/cart', async (req, res, next) => {
 
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
-    where: {userId: idUser, status: 'On Cart'},
+    where: {userId: idUser, status: 'On Cart'}, 
     include: {model: Product, attributes: ['id']}
   })
 
