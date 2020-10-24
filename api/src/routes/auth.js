@@ -9,34 +9,7 @@ const LocalStrategy = require('passport-local');
 //                     MIDDLEWARES DE AUTENTICACIÓN Y PASSPORT CONFIG
 // ===========================================================================================
 
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },
-  async function(email, password, done) {
-  try{  
-   const user = await User.findOne({where: { email: email }})
-      
-      if (!user) {return done(null, false, {message: 'Incorrect username'}); }
-      if (!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
-      return done(null, user);
 
-  } catch (error) {
-    return done(error); 
-  }
-}))
-
-passport.serializeUser(function(user, done) {
-  // console.log('serializacion', user.id)
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findByPk(id).then((user,err) => {
-    // console.log('deserializacion', user)
-    done(err, user)
-  });
-})
 
 const isLoggedIn = () => {  
   return (req, res, next) => {
@@ -51,11 +24,11 @@ const isAdmin = async (req,res,next) => {
 
  try {
  const admin = await User.findOne({where: {email: req.user.email, role: "Admin"}})
- if (!admin) res.status(403).send('<h1>Unauthorized</h1>')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+ if (!admin) return res.status(403).send('<h1>Unauthorized</h1>')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
  next()
  } catch (error) {
    console.log(error)
-   res.status(401).json({message: "Unauthorized - Require admin role"})
+   return res.status(401).json({message: "Unauthorized - Require admin role"})
  }
 
 
@@ -66,8 +39,21 @@ const isAdmin = async (req,res,next) => {
 // ===========================================================================================
 
 server.post('/login', passport.authenticate('local'), (req,res,next) => {
-  
+
+  console.log(req.user.email)
+  console.log(req.isAuthenticated())
+  console.log('====================')
+
   req.isAuthenticated() ? res.sendStatus(200) : res.sendStatus(401)
+
+  return
+})
+
+server.get('/login', (req,res,next) => {
+
+  req.user ? req.user.password = null : null
+  
+  req.isAuthenticated() ? res.status(200).json(req.user) : res.sendStatus(401)
 
   return
 })
@@ -82,7 +68,7 @@ server.get('/logout', isLoggedIn(), (req,res,next) => {
   return
 })
 
-server.get('/profile', [isLoggedIn(), isAdmin], (req,res,next) => {
+server.get('/profile', isLoggedIn(), (req,res,next) => {
   
   res.json(req.user)
   return
@@ -94,7 +80,6 @@ server.post('/promote/:id', [isLoggedIn(), isAdmin], (req, res, next) => {
   User.update({role: 'Admin'}, {
     where: {id: req.params.id}
   }).then(result => {
-    console.log('RESULT:', result);
     if (result[0] === 0) {
       return res.status(404).send('ID no encontrado');
     }

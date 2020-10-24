@@ -31,11 +31,12 @@ server.use(cookieParser(process.env.COOKIE));
 server.use(session({
     secret: process.env.COOKIE,   // SETEAR ESTE SECRET CON EL MISMO QUE COOKIEPARSER!!
     store: new SequelizeStore({db: conn}),
-		resave: false,
-		saveUninitialized: false,
+		resave: false, 
+		saveUninitialized: false, 
     maxAge: (1000*60*60*24)}));
 server.use(passport.initialize());
 server.use(passport.session());
+require('./routes/auth/passportConfig.js')(passport);
 server.use(morgan('dev'));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // 'http://localhost:3000' update to match the domain you will make the request from

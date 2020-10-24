@@ -39,6 +39,7 @@ conn.sync({ force: true }).then(() => {
 			password: 'asdASD123!',
 			birthdate: new Date('02/23/1961'), // este new Date es para sacar un warning de consola
 			role: 'Admin',
+			image: "https://icon-library.com/images/icon-avatars/icon-avatars-12.jpg"
 		})
 
 		await User.create({
@@ -49,16 +50,18 @@ conn.sync({ force: true }).then(() => {
 			password: 'asdASD123!',
 			birthdate: new Date('02/23/1963'), // este new Date es para sacar un warning de consola
 			role: 'Cliente',
+			image: "https://icon-library.net/images/avatar-icon-images/avatar-icon-images-4.jpg"
 		})
 
     	await User.create({
     		name: 'Michael',
-    		lastname: 'Jackson',
+    		lastname: 'Jordan',
     		email: 'mjtheBEST@sony.com',
     		phone: 12345678,
 			password: 'MJtheBest2020!',
 			birthdate: new Date('02/23/1960'), // este new Date es para sacar un warning de consola
 			role: 'Admin',
+			image: "https://image-cdn.essentiallysports.com/wp-content/uploads/20200912202530/ssmailbag.jpg"
 		})
 	
     	await User.create({
@@ -69,7 +72,8 @@ conn.sync({ force: true }).then(() => {
 			password: 'YoAmo@Marge123',
 			address: 'Calle Falsa 123, Springfield, FL, 90210, USA',
 			birthdate: new Date('05/12/1956'), // este new Date es para sacar un warning de consola
-			role: 'Cliente'
+			role: 'Cliente',
+			image: "https://www.grupoblc.com/wp-content/uploads/2013/10/images_curiosita_homer.jpg"
     	})
 
  
