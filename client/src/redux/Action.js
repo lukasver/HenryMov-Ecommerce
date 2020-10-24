@@ -184,7 +184,7 @@ export function onSearch(search) {
   };
 }
 
-export function orderDetail(id) {
+export function orderDetail(id) { 
   return (dispatch) => {
     axios
       .get(`http://localhost:3001/orders/${id}/cart`)
