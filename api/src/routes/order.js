@@ -16,7 +16,7 @@ server.post('/users/:idUser/cart', async (req, res, next) => {
 
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
-    where: {userId: idUser, status: 'On Cart'},
+    where: {userId: idUser, status: 'On Cart'}, 
     include: {model: Product, attributes: ['id']}
   })
 
@@ -288,10 +288,6 @@ server.delete('/users/:idUser/cart', async (req,res,next) => {
         }
 
 })
-
-
-
-
 
 server.get('/users/orders/:userId', (req, res, next) => {
   const { userId } = req.params

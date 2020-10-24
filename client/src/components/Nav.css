@@ -1,3 +1,8 @@
+.roundedAvatar {
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
 .bg-dark {
     background-color: #111111!important;
 }
