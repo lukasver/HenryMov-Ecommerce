@@ -30,7 +30,7 @@
 .user[type=email], .user[type=text], .user[type=password] {
     position: relative;
     z-index: 2;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     width: 100%;
     display: block;
     border: none;
@@ -96,9 +96,12 @@
 }
 
 .danger{
-    color: red;
+    color: #d90000;
     font-size: small;
-
+    font-weight: 600;
+}
+.danger-input{
+    border-bottom: 1px solid #d90000 !important;
 }
 .invisible{
     display: none;
@@ -153,4 +156,7 @@
     background-color: #3e3e3e;
     color: white;
     border: none;
+}
+.form-nacimiento {
+    border: 1px solid #bababa !important;
 }
