@@ -13,6 +13,9 @@ const dispatch = useDispatch()
 
 const logout = () => { 
     dispatch(action.logIn(false))
+    localStorage.removeItem('id')
+	localStorage.removeItem('role')
+	localStorage.removeItem('email')
     axios.get('http://localhost:3001/auth/logout', {withCredentials:true})
     window.location.replace('http://localhost:3000')
 }

@@ -6,30 +6,28 @@ const { Sequelize, QueryTypes } = require('sequelize');
 //==============================================
 //	Ruta para agregar item al carrito
 //==============================================
-server.post('/users/:idUser/cart', (req, res, next) => {
+server.post('/users/:idUser/cart', async (req, res, next) => {
+  const { idUser } = req.params;
 	const { amount, quantity, productId } = req.body;
+
 	if(!amount || !quantity || !productId) {
     return res.sendStatus(400);
   }
-  Order.findOne({
-  	where: {
-  		userId: req.params.idUser,
-  		status: 'On Cart'
-  	}
-  }).then(order => {
-  	if (!order) return res.sendStatus(404);
-  	return Orderline.create({
-  		amount,
-  		quantity,
-  		orderId: order.id,
-  		productId
-  	});
-  }).then(createdOrderLine => {
-  	res.status(201).send(createdOrderLine);
-  });
-  /*.catch(err => {
-    res.sendStatus(400);
-  });*/
+
+try {
+  const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
+    where: {userId: idUser, status: 'On Cart'},
+    include: {model: Product, attributes: ['id']}
+  })
+
+  await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
+
+  return res.status(200).send('Producto agregado/modificado satisfactoriamente')
+} catch (error) {
+  console.log(error)
+  new Error(error)
+}
+
 });
 
 //=======================================================
@@ -291,6 +289,10 @@ server.delete('/users/:idUser/cart', async (req,res,next) => {
 
 })
 
+
+
+
+
 server.get('/users/orders/:userId', (req, res, next) => {
   const { userId } = req.params
   console.log('paso el const')
@@ -309,4 +311,5 @@ server.get('/users/orders/:userId', (req, res, next) => {
     res.sendStatus(404)})
   })
   
+
 module.exports = server;
