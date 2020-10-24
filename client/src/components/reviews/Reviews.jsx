@@ -80,16 +80,6 @@ export default function Reviews({id, value, name}) {
         }
     }
 
-    // function reviewsOrder(){
-    //     let ids = [];
-    //     let sorted = [];
-    //     allReviews.map(review =>{
-    //         ids.push(review.value)
-    //     })
-    // arr
-    //     ids.sort((a,b) => a - b)
-    // }
-
     if (value === 'reviews'){
         if (allReviews.length){
             
