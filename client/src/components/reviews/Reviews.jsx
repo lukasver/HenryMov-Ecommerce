@@ -13,8 +13,10 @@ import { useSelector, useDispatch } from "react-redux";
 // y debajo del titulo del producto el promedio de reseñas (Es decir, llamo 2 veces al componente Reviews en el componente Product)
 export default function Reviews({id, value, name}) {
     const [allReviews, setAllReviews] = useState([])
-    const [prom, setProm] = useState(0)    
+    const [prom, setProm] = useState(0)
+    const [productExist, setProductExsits] = useState(false)
     const starsSelected = useSelector(store => store.starsSelected)
+    let usuarioId = localStorage.getItem('id');
 
     useEffect(()=>{
         Methods.getReviewsProd(id)
@@ -24,10 +26,14 @@ export default function Reviews({id, value, name}) {
                 setProm(0)
             }
             else{
-                setAllReviews(recurso.products)
+                // seteo y ordeno todas las reviews de ese producto
+                setAllReviews(recurso.reviews.sort((a, b) => b.value - a.value))
                 setProm(recurso.promedio)
             }
-        })
+        });
+        // recibe el id de usuario
+        Methods.getProductExists(usuarioId,id).then(response=>setProductExsits(response))
+
     },[])
 
     function handlePost(e){
@@ -37,7 +43,7 @@ export default function Reviews({id, value, name}) {
 
         //==================================================================== 
 
-        let usuarioId = 2;
+        
         let title = document.getElementById('title').value;
         let description = document.getElementById('Desc').value;
         let value = starsSelected;
@@ -54,23 +60,29 @@ export default function Reviews({id, value, name}) {
     }
 
     function form(){
-        return (
-            <form onSubmit={handlePost} id="formReviews" action="">
-                <h3>Escribe tu reseña</h3>
-                <p>Deja tu calificación</p>
-                <Rating bool={true} />
-                <input id="title" className='inpTitle' placeholder="Escribe un titulo" type="text"/>
-                <textarea id="Desc" placeholder="Escribe una descripción" class="form-control"  rows="4"></textarea>
-                <button id='submitRev' type='submit'>Enviar Reseña</button>
-            </form>
-        )
+        if (localStorage.getItem('id') && productExist){
+            return (
+                <form onSubmit={handlePost} id="formReviews" action="">
+                    <h3>Escribe tu reseña</h3>
+                    <p>Deja tu calificación</p>
+                    <Rating bool={true} />
+                    <input id="title" className='inpTitle' placeholder="Escribe un titulo" type="text"/>
+                    <textarea id="Desc" placeholder="Escribe una descripción" class="form-control"  rows="4"></textarea>
+                    <button id='submitRev' type='submit'>Enviar Reseña</button>
+                </form>
+            )
+        } else {
+            return (
+                <div>
+
+                </div>
+            )
+        }
     }
 
-    if (value === 'form'){
-        
-    }
     if (value === 'reviews'){
         if (allReviews.length){
+            
             return (
                     <div>
                         {form()}
