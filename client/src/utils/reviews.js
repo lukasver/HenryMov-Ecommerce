@@ -26,7 +26,7 @@ export function getReviewsProd (id){
             })
             prom = Math.floor(prom / reviews.data.length)
         return {
-            products: reviews.data,
+            reviews: reviews.data,
             promedio : prom
         }
     })
@@ -73,4 +73,18 @@ export function modifyReviews (id, reviews){
         console.log(error);
     })
 
+}
+
+export function getProductExists(userId,productId){
+    return axios.get(`http://localhost:3001/users/orders/${userId}`)
+    .then(orders => {
+        let orderPaid = orders.data.filter(order => order.status === "Processing")[0]
+        return orderPaid
+    })
+    .then(orderPaid =>{
+        let prodBool = orderPaid.products.filter(product => product.id === productId)
+        if(prodBool.length) { return true }
+        else{ return false }
+    })
+    .catch(error => console.log(error))
 }

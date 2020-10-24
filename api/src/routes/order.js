@@ -263,7 +263,6 @@ server.put('/users/:idUser/cart', async (req,res,next) => {
 })
 
 
-
 //======================================================================== 
 //  Ruta para vaciar el carrito de un usuario registrado - DELETE
 //======================================================================== 
@@ -292,5 +291,25 @@ server.delete('/users/:idUser/cart', async (req,res,next) => {
 
 
 
+
+
+server.get('/users/orders/:userId', (req, res, next) => {
+  const { userId } = req.params
+  console.log('paso el const')
+  Order.findAll({
+    where:{userId},
+    attributes: ['id','userId','status'],
+    include: { model: Product, attributes: ['id','name',]/*(where: {status: 'On Cart'}*/ }
+
+  })
+  .then(carrito => {
+    console.log(carrito)
+      return res.status(200).json(carrito)
+    })
+  .catch(err => {
+    console.log('Llega aca!')
+    res.sendStatus(404)})
+  })
+  
 
 module.exports = server;

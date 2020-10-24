@@ -67,7 +67,6 @@ export default function Product({ product }) {
 		return 
 	}
 	
-	console.log('usuarioooooo; m', user)
 	return (
 		<div className="container">
 			<div className="main row single-page">
@@ -132,7 +131,7 @@ export default function Product({ product }) {
 			</div>
 			<div className='reviews'>
 				{/* Llamo al componente reviews para cargar todas las reviews del producto */}
-				{user && <Reviews key={product.id} id={product.id} name={product.name} value='reviews'/>}
+				{<Reviews key={product.id} id={product.id} name={product.name} value='reviews'/>}
 			</div>
 		</div>
 	)
