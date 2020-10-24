@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as action from '../../redux/Action'
+import Pago from './pago/Pago'
 import './Carrito.css';
 
 export default function Carrito() {
@@ -12,6 +13,7 @@ export default function Carrito() {
     const count = useSelector(store => store.count)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
+    const [user, setUser] = useState()
     useEffect(() => {
 
     }, [render, count])
@@ -95,6 +97,11 @@ export default function Carrito() {
         let newData = []
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
+    }
+
+    function handleUser(){
+       let user= localStorage.getItem('id')
+       setUser(user)
     }
 
 
@@ -222,9 +229,10 @@ export default function Carrito() {
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
                             <div className="col-sm-12 col-md-6 text-right">
-                                <button className="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#exampleModal2" >Pagar</button>
+                                <button className="btn btn-lg btn-block btn-success text-uppercase" onclick={handleUser()} >Pagar</button>
                             </div>
-                            <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                           {user ? <Pago/>   :<div class="modal fade shadow-lg p-2 mb-5 rounded"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-dark">
@@ -242,63 +250,11 @@ export default function Carrito() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* <footer className="text-light">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-3 col-lg-4 col-xl-3 bg-dark">
-                            <h5>About</h5>
-                            <hr className="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />
-                            <p className="mb-0">
-                                Somos un grupo de estudiantes de Henry dispuestos a dar todo de cada uno para mejorar el futuro nuestro y del mundo
-                </p>
-                        </div>
-
-                        <div className="col-md-2 col-lg-2 col-xl-2 mx-auto bg-dark">
-                            <h5>Informations</h5>
-                            <hr className="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />
-                            <ul className="list-unstyled">
-                                <li><a href="">Link 1</a></li>
-                                <li><a href="">Link 2</a></li>
-                                <li><a href="">Link 3</a></li>
-                                <li><a href="">Link 4</a></li>
-                            </ul>
-                        </div>
-
-                        <div className="col-md-3 col-lg-2 col-xl-2 mx-auto bg-dark">
-                            <h5>Others links</h5>
-                            <hr className="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />
-                            <ul className="list-unstyled">
-                                <li><a href="">Link 1</a></li>
-                                <li><a href="">Link 2</a></li>
-                                <li><a href="">Link 3</a></li>
-                                <li><a href="">Link 4</a></li>
-                            </ul>
-                        </div>
-                        <div className="col-md-4 col-lg-3 col-xl-3 bg-dark">
-                            <h5>Contact</h5>
-                            <hr className="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />
-                            <ul className="list-unstyled">
-                                <li><i className="fa fa-home mr-2"></i> My company</li>
-                                <li><i className="fa fa-envelope mr-2"></i> email@example.com</li>
-                                <li><i className="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
-                                <li><i className="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
-                            </ul>
-                        </div>
-                        <div className="col-12 copyright mt-3">
-                            <p className="float-left">
-                                <a href="#">Back to top</a>
-                            </p>
-                            <p className="text-right text-muted">created with <i className="fa fa-heart"></i> by <a href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>Henry</i></a> | <span>Group 05</span></p>
-                        </div>
-                    </div>
-                </div>
-            </footer> */}
         </div>
     )
 }
