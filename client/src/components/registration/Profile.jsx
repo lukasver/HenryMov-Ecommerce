@@ -4,12 +4,21 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import LoadingBar from '../LoadingBar';
 import { dateFormat } from '../../utils/utils.js'
+import * as action from '../../redux/Action'
 import './Profile.css'
 
 const Profile = () => {
 const user = useSelector(store => store.loggedIn)
+const dispatch = useDispatch()
+
+const logout = () => { 
+    dispatch(action.logIn(false))
+    axios.get('http://localhost:3001/auth/logout', {withCredentials:true})
+    window.location.replace('http://localhost:3000')
+}
 
 if (!user) return <LoadingBar done="80" />
+
 
 	const handleImage = (e) => {
         const imagenUrl = document.getElementById('customFile').files[0] //como lo ves? funcara?
@@ -82,7 +91,7 @@ if (!user) return <LoadingBar done="80" />
 		                                	<Link to="/reset"><button className="adam-button adamcustom">Reset password</button></Link>
 		                                	</div>
 		                                	<div className="col-sm-6">
-                							<a href="http://localhost:3001/auth/logout"><button className="adam-button adamcustom">Logout</button></a>
+                							<button onClick={logout} className="adam-button adamcustom">Logout</button>
 		                                	</div>
 		                                </div>
 

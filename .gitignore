@@ -1,3 +1,6 @@
+# Ruta public de imagenes multer
+/public/uploads/
+
 # Logs
 logs
 *.log

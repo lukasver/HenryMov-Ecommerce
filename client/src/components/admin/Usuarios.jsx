@@ -1,6 +1,7 @@
 // ========================= IMPORTS =================================================
-import React, { useEffect, useState } from 'react'
-import './Usuarios.css'
+import React, { useEffect, useState } from 'react';
+import './Usuarios.css';
+import axios from 'axios';
 
 // ========================= COMPONENT ===============================================
 
@@ -26,6 +27,16 @@ export default function Usuarios({getUsers}) {
 
     // =======================================================
 
+    const handlePromotion = (e,id) => {
+        axios.post(`http://localhost:3001/auth/promote/${id}`)
+        .then(data => { 
+            console.log(data)})
+        .catch(error =>{
+            new Error(error)
+    })
+    }
+
+
     useEffect(()=>{
         getUsers().then(a=> setUsers(a))
     },[])
@@ -47,6 +58,7 @@ export default function Usuarios({getUsers}) {
                             <th scope="col">Birthdate</th>
                             <th scope="col">Role</th>
                             <th scope="col">Creation date</th>
+                            <th scope="col">Promote</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +75,7 @@ export default function Usuarios({getUsers}) {
                                     <td>{dato.birthdate}</td>
                                     <td>{dato.role}</td>
                                     <td>{dato.creationdate.toString()}</td>
+                                    <td>{dato.role === 'Cliente' ? <button onClick={e => handlePromotion(e, dato.id)}>X</button> : null}</td>
                                 </tr>)
                             })
                         }
