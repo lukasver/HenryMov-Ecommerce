@@ -51,12 +51,15 @@ export default function Register() {
         if (!input.name) {
             errors.name = 'Este campo es requerido';
         }
-        else if (!(/^[a-zA-Z]+$/).test(input.name)) {
+        else if (typeof input.name !== 'string') {
             errors.name = 'El nombre solo puede contener letras'
         }
-
         else if (input.name.length < 3) {
             errors.name = 'El nombre debe contener como minimo 3 letras';
+        }
+
+        else if((/^[0-9a-zA-Z]+$/).test(input.name)){
+            errors.name = 'El nombre no puede contener numeros'
         }
 
         if (!input.lastname) {

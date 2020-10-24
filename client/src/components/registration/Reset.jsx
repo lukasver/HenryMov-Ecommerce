@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Reset.css';
 import axios from 'axios';
 
+
 export default function Reset() {
 
     const [values, setValues] = useState({
@@ -97,7 +98,7 @@ export default function Reset() {
                                 <input name='confirmedPassword' type="password" className="form-control" placeholder='Confirmed New Password' id="exampleInputPassword1" onChange={handleOnChange}/>
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
                             </div>
-                            {JSON.stringify(error) == '{}' && values.email !== '' ? <button  className="adam-button btn-enabled" type='submit'>Confirmar</button> 
+                            {JSON.stringify(error) == '{}' && values.email !== '' ? <a href='/' className="adam-button btn-enabled" type='submit'>Confirmar</a> 
                             : <button  className="adam-button btn-disabled" type='submit' disabled>Confirmar</button>}
                             
                         </form>
