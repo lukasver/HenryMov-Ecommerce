@@ -9,6 +9,7 @@ import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
 import axios from 'axios';
 import './Nav.css';
+import axios from 'axios';
 
 function Nav() {
     const dispatch = useDispatch()
@@ -27,26 +28,36 @@ function Nav() {
         return;
     }
 
- /*   function chatBot(){
-    window.watsonAssistantChatOptions = {
-      integrationID: "747d8b43-8cc8-4ee9-9dfd-4e5d4d129a98", // The ID of this integration.
-      region: "us-south", // The region your integration is hosted in.
-      serviceInstanceID: "0c27b141-8422-4ebb-b9e8-665418afc54b", // The ID of your service instance.
-      onLoad: function(instance) { instance.render(); }
-    };
-    (function(){
-    const t=document.createElement('script');
-    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
-    document.head.appendChild(t);
-    })()
-    }*/
-      
+    /*   function chatBot(){
+       window.watsonAssistantChatOptions = {
+         integrationID: "747d8b43-8cc8-4ee9-9dfd-4e5d4d129a98", // The ID of this integration.
+         region: "us-south", // The region your integration is hosted in.
+         serviceInstanceID: "0c27b141-8422-4ebb-b9e8-665418afc54b", // The ID of your service instance.
+         onLoad: function(instance) { instance.render(); }
+       };
+       (function(){
+       const t=document.createElement('script');
+       t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+       document.head.appendChild(t);
+       })()
+       }*/
+
     useEffect(() => {
     }, [count])
     function render() {
         dispatch(action.countCart(0))
     }
     render()
+
+    const logout = () => { return axios.get('http://localhost:3001/auth/logout').then(logout => logout) }
+
+    const orderUser = (idUser) => {
+        return axios.get(`http://localhost:3001/users/${idUser}/orders`)
+            .then(order => { 
+                const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
+                return window.location = `http://localhost:3000/order/${idOrder.id}`;
+            })
+    }
 
     return (
         <nav className="navbar navbar-dark bg-dark">
@@ -62,7 +73,7 @@ function Nav() {
             </div>
             <div className="col-md-3 utilidades">
                 <div className="main row">
-                  {/*  <div className="col-md-3">
+                    {/*  <div className="col-md-3">
                         <Link to='#'>
                         <Link to='#' onClick={e => {e.preventDefault(); chatBot()}}>
                            <a className="linkIcons">
@@ -75,7 +86,7 @@ function Nav() {
                             </a>
                         </Link> 
                     </div>*/}
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                         <div className="js-utilities-item utilities-item transition-soft d-none d-md-inline-block" data-store="account-links">
                             <div className="utility-head text-center">
                                 <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -84,12 +95,27 @@ function Nav() {
                                 <span className="utility-name transition-soft d-block">Mi Cuenta</span>
                             </div>
                             <ul className="js-subutility-list subutility-list ul-mi-cuenta">
-                                <li className="subutility-list-item nav-accounts-item"><Link to='/Login' title="" className="nav-accounts-link">Iniciar sesión</Link></li>
-                                <li className="subutility-list-item nav-accounts-item"><Link to='/Register' title="" className="nav-accounts-link">Crear cuenta</Link></li>
+                                {localStorage.getItem('role') === 'Admin' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
+                                {localStorage.getItem('email') === null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/Login' title="" className="nav-accounts-link">Iniciar sesión</Link></li>
+                                    <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/Register' title="" >Crear cuenta</Link></li></div>}
+                                {localStorage.getItem('email') !== null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link">Perfil</Link></li>
+                                    <li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link" onClick={(e) => {
+                                        e.preventDefault();
+                                        orderUser(localStorage.getItem('id'));
+                                    }
+                                    }>Mis Ordenes</Link></li>
+                                    <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/logout' title="" onClick={(e) => {
+                                        e.preventDefault();
+                                        localStorage.removeItem('id');
+                                        localStorage.removeItem('email');
+                                        localStorage.removeItem('role');
+                                        logout();
+                                        window.location = "http://localhost:3000/"
+                                    }}>Logout</Link></li></div>}
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                         <Link to='/carrito' className="linkIcons">
                             <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
@@ -99,6 +125,7 @@ function Nav() {
                             <span>Carrito</span>
                         </Link>
                     </div>
+<<<<<<< HEAD
                     <div className="col-md-4">
                         {user.role !== 'Admin' && <Link to='/profile' className="linkIcons">
                             <img src={SingUp} className="bi" style={{ heigth: "29px", width: "29px", filter: "invert(100%)" }} alt="Sing up" />
@@ -111,6 +138,8 @@ function Nav() {
                             <span>Admin</span>
                         </Link>}
                     </div>
+=======
+>>>>>>> master
                 </div>
             </div>
 
