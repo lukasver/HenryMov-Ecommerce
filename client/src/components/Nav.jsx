@@ -48,7 +48,10 @@ function Nav() {
     }
     render()
 
-    const logout = () => { return axios.get('http://localhost:3001/auth/logout').then(logout => logout) }
+    const logout = () => { 
+        dispatch(action.logIn(false))
+        axios.get('http://localhost:3001/auth/logout', {withCredentials:true}).then(logout => console.log(logout)) 
+    }
 
     const orderUser = (idUser) => {
         return axios.get(`http://localhost:3001/users/${idUser}/orders`)

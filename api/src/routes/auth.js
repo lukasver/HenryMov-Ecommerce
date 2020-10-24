@@ -57,9 +57,10 @@ server.get('/login', (req,res,next) => {
 
 server.get('/logout', isLoggedIn(), (req,res,next) => {
   
-
+  req.session.destroy()
   req.logout();
   res.clearCookie('connect.sid');
+  res.send('ok')
   return
 })
 

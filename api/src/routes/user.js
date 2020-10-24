@@ -52,8 +52,6 @@ server.get('/user/:id',/*[authenticateToken, isAdmin] ,*/ (req, res, next) => {
 server.post('/user', async (req, res, next) => {
     let { name, lastname, email, address, phone, password, birthdate } = req.body;
 
-    password = await bcrypt.hash(req.body.password, 9)
-
     if(!name) {
         return res.status(400).send("Faltan datos");
     }
