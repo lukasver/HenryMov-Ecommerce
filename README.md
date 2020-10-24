@@ -190,7 +190,7 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
     #### Modulos a instalar para que funcione
 
 ## En ./client
-- ( npm install  react redux react-redux redux-devtools react-router-dom redux-thunkaxios)
+- ( npm install  react redux react-redux redux-devtools react-router-dom redux-thunk axios)
 
 - npm install redux
 - npm install react
