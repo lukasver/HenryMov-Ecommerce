@@ -17,7 +17,15 @@ export const DELETE_COUNT ="DELETE_COUNT";
 export const STOCK = "STOCK";
 export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES";
 export const STARS = "STARS";
+export const LOGIN = "LOGIN";
 
+
+export function logIn(user) {
+  return {
+    type: LOGIN,
+    payload: user,
+  }
+}
 
 export function addcount(stock) {
   return {

@@ -7,12 +7,14 @@ import SingUp from '../img/cuentalogo.svg'
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
+import axios from 'axios';
 import './Nav.css';
 
 function Nav() {
     const dispatch = useDispatch()
     let countCart = localStorage.getItem('count')
     let count = useSelector(store => store.countCart)
+    let user = useSelector(store => store.loggedIn)
     !countCart ? countCart = 0 : countCart = countCart
 
     let history = useHistory();
@@ -98,12 +100,16 @@ function Nav() {
                         </Link>
                     </div>
                     <div className="col-md-4">
-                        <Link to='/admin' className="linkIcons">
-                            {/*<i class="fas fa-user-plus"></i>*/}
+                        {user.role !== 'Admin' && <Link to='/profile' className="linkIcons">
+                            <img src={SingUp} className="bi" style={{ heigth: "29px", width: "29px", filter: "invert(100%)" }} alt="Sing up" />
+                            <br />
+                            <span>Perfil</span>
+                        </Link>}
+                        {user.role === 'Admin' && <Link to='/admin' className="linkIcons">
                             <img src={SingUp} className="bi" style={{ heigth: "29px", width: "29px", filter: "invert(100%)" }} alt="Sing up" />
                             <br />
                             <span>Admin</span>
-                        </Link>
+                        </Link>}
                     </div>
                 </div>
             </div>
