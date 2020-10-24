@@ -13,7 +13,7 @@ export default function Carrito() {
     const count = useSelector(store => store.count)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
-    const [user, setUser] = useState()
+    const [user, setUser] = useState('si hay')
     useEffect(() => {
 
     }, [render, count])

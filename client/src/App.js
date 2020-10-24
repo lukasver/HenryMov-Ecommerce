@@ -20,6 +20,7 @@ import Menu from "./components/Menu"
 import OrdenDetalle from "./components/carrito/OrdenDetalle";
 import Reviews from "../src/components/reviews/Reviews"
 import Reset from "../src/components/registration/Reset"
+import Pago from '../src/components/carrito/pago/Pago'
 
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
@@ -75,6 +76,7 @@ function App() {
       <Route exact path='/Menu' render={()=> <Menu />} />
       <Route exact path='/order/:id' render={({ match })=> <OrdenDetalle orderId = {match.params.id}/>} />
       <Route exact path='/reviews' render={()=> <Reviews/>}/>
+      <Route exact path='/pago' render={()=> <Pago/>}/>
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />
