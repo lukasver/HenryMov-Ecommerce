@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { orderDetail } from '../../../redux/Action';
+import { useDispatch, useSelector, useHistory } from 'react-redux';
+import { Link } from 'react-router-dom';
+import './Pago.css';
 
 export default function Pago(){
     window.Mercadopago.setPublishableKey("TEST-1b125a8b-e682-4821-976c-4c0f325298d9");
     window.Mercadopago.getIdentificationTypes();
     var archivo = document.getElementById("cardNumber");
+    let product = JSON.parse(localStorage.getItem('prod'))
+
+    let total = 0;
+    let subtotal =0
+
+  
 if(archivo)
 {
    archivo.addEventListener('change', guessPaymentMethod);
 }
    
-
    let doSubmit = false;
    var archivo2 = document.getElementById("paymentForm");
    if(archivo2)
@@ -118,9 +127,62 @@ function setPaymentMethod(status, response) {
        alert(`payment method info error: ${response}`);
    }
 }
-
+console.log('Product', product)
     return(
         <div className='container'>
+          <h1> Confirmacion de pago</h1>
+           <table class="table table-hover mt-4">
+                    <thead>
+                        <tr className="list-order-top">
+                            <th scope="col"></th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">Precio Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            product !== undefined && product.map(dato => {
+                              subtotal = subtotal + (dato.price * dato.count)
+                                return (
+                                    <tr className="hover-list">
+                                        <th scope="col"><img src={dato.image} width={50}/></th>
+                                        <td style={{ textAlign: 'center' }}><Link className="link-producto" to={`/products/${dato.id}`} >{dato.name}</Link></td>
+                                        <td>{dato.count} unid</td>
+                                        <td>$ {dato.price }</td>
+                                        <td style={{ textAlign: 'right' }}>$ {dato.price * dato.count}</td>
+                                        
+                                    </tr>
+                                )
+                            })
+                        }
+                         <tr>
+                                      
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td className="total-order">Sub-Total</td>
+                                        <td className="text-right">$ {subtotal} </td>
+                                    </tr>
+                                    <tr>
+                                     
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td className="total-order">Envio</td>
+                                        <td className="text-right">$ {subtotal * 0.1} </td>
+                                    </tr>
+                                    <tr>
+                                      
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td className="total-order"><strong>Total</strong></td>
+                                        <td className="text-right"><strong>$ {subtotal + (subtotal * 0.1)} </strong></td>
+                                    </tr>
+                    </tbody>
+                </table>
         <form action="/process_payment" method="post" id="paymentForm">
    <h3>Detalles del comprador</h3>
      <div>

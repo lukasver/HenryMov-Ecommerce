@@ -2,9 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as action from '../../redux/Action'
-import Pago from './pago/Pago'
 import './Carrito.css';
 
 export default function Carrito() {
@@ -13,10 +12,14 @@ export default function Carrito() {
     const count = useSelector(store => store.count)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
-    const [user, setUser] = useState('si hay')
+    const [user, setUser] = useState(null)
+    let history = useHistory();
     useEffect(() => {
-
-    }, [render, count])
+        let user= localStorage.getItem('id')
+        setUser(user)
+    }, [render, count, user])
+    
+    
 
     if (product != null) {
         product.sort(function (a, b) {
@@ -98,10 +101,13 @@ export default function Carrito() {
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
-
+    
+    console.log('USER', user)
     function handleUser(){
+        render ? setRender(false) : setRender(true)
        let user= localStorage.getItem('id')
        setUser(user)
+       user !== null && history.push('/pago') 
     }
 
 
@@ -228,12 +234,15 @@ export default function Carrito() {
                             <div className="col-sm-6  col-md-3">
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
-                            <div className="col-sm-12 col-md-6 text-right">
-                                <button className="btn btn-lg btn-block btn-success text-uppercase" onclick={handleUser()} >Pagar</button>
-                            </div>
+                           { user != null ? <div className="col-sm-12 col-md-6 text-right">
+                                <button className="btn btn-lg btn-block btn-success text-uppercase" onClick={()=>handleUser()} >Pagar</button>
+                            </div>:
+                              <div className="col-sm-12 col-md-6 text-right">
+                              <button className="btn btn-lg btn-block btn-success text-uppercase" data-toggle="modal" data-target="#exampleModal2" >Pagar</button>
+                          </div>
+                            }
 
-                           {user ? <Pago/>   :<div class="modal fade shadow-lg p-2 mb-5 rounded"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">                                <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-dark">
 
@@ -250,7 +259,7 @@ export default function Carrito() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>}
+                            </div>
                         </div>
                     </div>
                 </div>
