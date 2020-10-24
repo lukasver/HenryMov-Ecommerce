@@ -75,9 +75,16 @@ export function modifyReviews (id, reviews){
 
 }
 
-export function getProductExists(id){
-    axios
-    .get(`http://localhost:3001/orders/${id}/cart`)
-    .then(data => console.log(data))
+export function getProductExists(idUser){
+    axios.get(`http://localhost:3001/users/${idUser}/orders`)
+    .then(orders => {
+        console.log(`ordenes de user ${idUser}`, orders.data)
+        let orderPaid = orders.data.filter(order => order.status === "Processing")[0]
+        console.log('orderPaid =>',orderPaid)
+        return orderPaid
+    })
+    // .then(orderPaid =>{
+    //     axios.get(`http://localhost:3001/orderlines/${orderPaid}`)
+    // })
     .catch(error => console.log(error))
 }

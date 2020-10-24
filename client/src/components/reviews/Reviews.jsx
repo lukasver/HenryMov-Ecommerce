@@ -31,8 +31,7 @@ export default function Reviews({id, value, name}) {
             }
         });
         // recibe el id de usuario
-        // Methods.getProductExists(usuarioId)
-        // .then()
+        Methods.getProductExists(usuarioId)
     },[])
 
     function handlePost(e){
