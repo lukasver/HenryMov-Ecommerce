@@ -49,13 +49,14 @@ server.get('/user/:id',/*[authenticateToken, isAdmin] ,*/ (req, res, next) => {
 //==============================================
 //	Ruta para crear/agregar un usuario.
 //============================================== 
-server.post('/user', (req, res, next) => {
-    const { name, lastname, email, address, phone, password, birthdate } = req.body;
+server.post('/user', async (req, res, next) => {
+    let { name, lastname, email, address, phone, password, birthdate } = req.body;
+
+    password = await bcrypt.hash(req.body.password, 9)
 
     if(!name) {
         return res.status(400).send("Faltan datos");
     }
-    console.log(req.body)
     User.create({
         name,
         lastname,
@@ -65,11 +66,9 @@ server.post('/user', (req, res, next) => {
         password,
         birthdate
     }).then(createdUser => {
-        const token = createToken(createdUser.id)
-        res.cookie('jwt', token).send(createdUser); // solo manipulable por http y dura 1 dia
-
+        return res.status(200).json(createdUser)
     }).catch(err => {
-            res.status(400).json(err.errors[0].message);
+            return res.status(400).json(err.errors[0].message);
             next()
         });
 });
@@ -79,7 +78,8 @@ server.post('/user', (req, res, next) => {
 //===============================================
 server.put('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
     const { id } = req.params;
-    const { name, lastname, email, address, phone, password, birthdate } = req.body;
+    const { name, lastname, email, address, phone, password, birthdate} = req.body;
+
     User.update({
         name,
         lastName,
@@ -87,7 +87,8 @@ server.put('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
         address,
         phone,
         password,
-        birthdate
+        birthdate,
+        image
     }, {
         where: {
             id: id
@@ -99,6 +100,31 @@ server.put('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
         res.status(200).send('Usuario modificado con exito')
     })
 })
+
+//===============================================
+//     Ruta para modificar imagen de usuario.
+//===============================================
+
+server.post('/user/:id/image'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
+    const { id } = req.params;
+    let { image } = req.body;
+
+    if (image == undefined || image == '' ) image = `http://localhost:3001/uploads/${req.file.originalname}`    
+
+    console.log(image)
+
+    User.findOne({where: { id: id }        
+     }).then(usuario => {
+        console.log(usuario)
+        usuario.image = image
+        return usuario.save()
+    }).then(newUsuario => res.status(200).send('Usuario actualizado'))
+     .catch(error =>  res.status(404).send('Usuario no encontrado'))
+
+ })
+
+
+
 
 //==============================================
 //  Ruta para eliminar usuario

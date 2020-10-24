@@ -18,7 +18,8 @@ import {
   DELETE_COUNT,
   STOCK,
   FILTER_BY_CATEGORIES,
-  STARS
+  STARS,
+  LOGIN
 } from "./Action";
 
 const initialState = {
@@ -31,7 +32,8 @@ const initialState = {
   countCart: '0',
   count: 1,
   orderDetail: [],
-  starsSelected: 0
+  starsSelected: 0,
+  loggedIn: false
 };
 
 export function counterReducer(state = initialState, action) {
@@ -48,6 +50,11 @@ export function counterReducer(state = initialState, action) {
           count : action.payload
         }
       };
+    case LOGIN:
+      return {
+        ...state,
+        loggedIn: action.payload
+      }
     case REMOVE_COUNT:
       return {
         ...state,

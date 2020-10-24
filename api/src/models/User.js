@@ -57,7 +57,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 is: {
-                    args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,32}$/,
+                    args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,80}$/,
                     msg: 'la contraseña debe contener minimo 8 caracteres, una letra minuscula, una letra masyuscula, un numero y un caracter especial'
                 }
             }
@@ -71,6 +71,10 @@ module.exports = (sequelize) => {
             defaultValue: 'Cliente',
             allowNull: true
         },
+        image: {
+              type: DataTypes.STRING,
+              allowNull: true
+        },
         creationdate: {
             type: DataTypes.DATEONLY,
             allowNull: true,
@@ -81,11 +85,6 @@ module.exports = (sequelize) => {
         beforeValidate: function set(user) {
             user.birthDate = new Date(user.birthDate)
             },
-        
-        // beforeValidate: function set(user) {   // este hook es para manipular el campo fecha de birthday si quisieramos
-        //     let fechaArg = moment(user.dataValues.birthdate).format('DD/MM/YYYY')
-        //     user.setDataValue('birthdate', fechaArg)
-        // },
         afterValidate: async function set(user) {
             user.password = await bcrypt.hash(user.password, 9)
         }

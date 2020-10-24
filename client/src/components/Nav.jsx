@@ -7,13 +7,14 @@ import SingUp from '../img/cuentalogo.svg'
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
-import './Nav.css';
 import axios from 'axios';
+import './Nav.css';
 
 function Nav() {
     const dispatch = useDispatch()
     let countCart = localStorage.getItem('count')
     let count = useSelector(store => store.countCart)
+    let user = useSelector(store => store.loggedIn)
     !countCart ? countCart = 0 : countCart = countCart
 
     let history = useHistory();
