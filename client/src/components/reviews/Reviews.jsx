@@ -17,7 +17,7 @@ export default function Reviews({id, value, name}) {
     const [productExist, setProductExsits] = useState(false)
     const starsSelected = useSelector(store => store.starsSelected)
     let usuarioId = localStorage.getItem('id');
-
+    
     useEffect(()=>{
         Methods.getReviewsProd(id)
         .then(recurso =>{
@@ -60,7 +60,7 @@ export default function Reviews({id, value, name}) {
     }
 
     function form(){
-        if (localStorage.getItem('id') && productExist){
+        if (usuarioId && productExist){
             return (
                 <form onSubmit={handlePost} id="formReviews" action="">
                     <h3>Escribe tu reseña</h3>
@@ -114,7 +114,7 @@ export default function Reviews({id, value, name}) {
     if (value === 'prom'){
         return (
             <div className='RatingSpan'>
-               <Rating bool={false} value={prom} /> <p className='reviewsSpan'>{prom} opiniones</p>
+               <Rating bool={false} value={prom} /> <p className='reviewsSpan'>{allReviews.length} opiniones</p>
             </div>
         )
     }
