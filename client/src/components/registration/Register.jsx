@@ -51,12 +51,15 @@ export default function Register() {
         if (!input.name) {
             errors.name = 'Este campo es requerido';
         }
-        else if (!(/^[a-zA-Z]+$/).test(input.name)) {
+        else if (typeof input.name !== 'string') {
             errors.name = 'El nombre solo puede contener letras'
         }
-
         else if (input.name.length < 3) {
             errors.name = 'El nombre debe contener como minimo 3 letras';
+        }
+
+        else if((/^[0-9a-zA-Z]+$/).test(input.name)){
+            errors.name = 'El nombre no puede contener numeros'
         }
 
         if (!input.lastname) {
@@ -170,7 +173,7 @@ export default function Register() {
                             </div>
                             <div className="col-md-6">
                                 <input
-                                    className="form-control"
+                                    className="form-control  form-nacimiento"
                                     onChange={handleOnChange}
                                     name='birthdate'
                                     type="date"
@@ -180,7 +183,7 @@ export default function Register() {
                                 {error.birthdate && <p className='danger'>{error.birthdate}</p>}
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row form-group">
                             <h4 className="page-header col-md-6">Contraseña</h4>
                             <h4 className="page-header col-md-6">Repita contraseña</h4>
                             <div className="col-md-6">
@@ -203,7 +206,7 @@ export default function Register() {
                                     id='Confirme Contraseña'
                                     placeholder='**************' />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
-                            </div>
+                            </div><br/><br/><br/>
                             <div className="col-md-12">
                                 <label className="inputref">Mínimo 8 caracteres:</label><br />
                                 <label className="inputref">Debe contener al menos: 1 caractér mayúscula, especial y número </label><br />
@@ -212,6 +215,8 @@ export default function Register() {
                         <div className="col-md-12">
                         {JSON.stringify(error) == '{}' && values.name !== '' ? <button  className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button  className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
                         </div>
+
+                        <br/><br/>
 
                         <div className="modal fade" id="pop-up" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">

@@ -11,6 +11,7 @@ export default function Product({ product }) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
+	const user = useSelector(store => store.loggedIn) // Verifica si hay usuario logeado para mostrar calificar
 	const dispatch = useDispatch()
 	useEffect(() => {
 		
@@ -66,7 +67,7 @@ export default function Product({ product }) {
 		return 
 	}
 	
-
+	console.log('usuarioooooo; m', user)
 	return (
 		<div className="container">
 			<div className="main row single-page">
@@ -131,7 +132,7 @@ export default function Product({ product }) {
 			</div>
 			<div className='reviews'>
 				{/* Llamo al componente reviews para cargar todas las reviews del producto */}
-					<Reviews key={product.id} id={product.id} name={product.name} value='reviews'/>
+				{user && <Reviews key={product.id} id={product.id} name={product.name} value='reviews'/>}
 			</div>
 		</div>
 	)

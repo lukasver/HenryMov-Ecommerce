@@ -57,9 +57,10 @@ server.get('/login', (req,res,next) => {
 
 server.get('/logout', isLoggedIn(), (req,res,next) => {
   
-
+  req.session.destroy()
   req.logout();
   res.clearCookie('connect.sid');
+  res.send('ok')
   return
 })
 
@@ -71,14 +72,15 @@ server.get('/profile', isLoggedIn(), (req,res,next) => {
 
 
 
-server.post('/promote/:id', [isLoggedIn(), isAdmin], (req, res, next) => {
+server.post('/promote/:id',/* [isLoggedIn(), isAdmin], */(req, res, next) => {
   User.update({role: 'Admin'}, {
     where: {id: req.params.id}
   }).then(result => {
+    console.log(result)
     if (result[0] === 0) {
       return res.status(404).send('ID no encontrado');
     }
-    res.status(200).send('Usuario promovido a Admin');
+    return res.status(200).send('Usuario promovido a Admin');
   }).catch(err => {res.status(400).send(err)})
 });
 

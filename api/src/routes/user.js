@@ -52,8 +52,6 @@ server.get('/user/:id',/*[authenticateToken, isAdmin] ,*/ (req, res, next) => {
 server.post('/user', async (req, res, next) => {
     let { name, lastname, email, address, phone, password, birthdate } = req.body;
 
-    password = await bcrypt.hash(req.body.password, 9)
-
     if(!name) {
         return res.status(400).send("Faltan datos");
     }
@@ -167,21 +165,30 @@ server.get('/users', (req, res) => {
 //===================================================
 //  Ruta para encontrar resetear la contraseña
 //===================================================
-server.post('/users/:id/passwordReset', (req, res) => {
+server.post('/users/:id/passwordReset', async(req, res) => {
     const { id } = req.params;
+
     const { password } = req.body;
+
+    //let hashedPassword = await bcrypt.hash(password, 9);
+
     User.findOne({
         where: {
             id: id
         }
     })
-    .then(async result => {
+    .then( result => {
         if(!result){
             return res.status(404).send('Usuario no encontrado')
         }
-        console.log('password before', result.password)
-        result.password = await bcrypt.hash(password, 9)
-        console.log('password after', result.password)
+        result.password = password;
+        // User.update({
+        //     where: {
+        //         password: result.password
+        //     }
+        // })
+        return result.save();
+    }).then(modified => {
         return res.status(200).send('Contraseña cambiada con exito')
     }).catch(err => {
         return res.status(400).send(err)
