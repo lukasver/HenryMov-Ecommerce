@@ -75,7 +75,7 @@
 }
 
 .adam-button:hover {
-    background-color: rgba(248, 148, 6, 1);
+    background-color: #ffaf00 /*rgba(248, 148, 6, 1)*/;
     color: black;
     border-color: rgba(248, 148, 6, 1);
     }
