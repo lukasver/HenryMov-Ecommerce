@@ -74,3 +74,10 @@ export function modifyReviews (id, reviews){
     })
 
 }
+
+export function getProductExists(id){
+    axios
+    .get(`http://localhost:3001/orders/${id}/cart`)
+    .then(data => console.log(data))
+    .catch(error => console.log(error))
+}
