@@ -13,12 +13,13 @@ export default function LoggedIn() {
     axios.post('http://localhost:3001/auth/login', {email, password}, {withCredentials: true})
     .then(res => {
       if (res.status === 200) {
-        console.log('si, es igual')
+        localStorage.setItem('id', res.data.id);
+        localStorage.setItem('email', res.data.email);
+        localStorage.setItem('role', res.data.role);
         window.location="http://localhost:3000/"
       }})
     return
     }
-
 
     return (
   <div class="container">

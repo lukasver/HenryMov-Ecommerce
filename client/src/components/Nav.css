@@ -54,6 +54,9 @@ a { color: white; }
 }
 .subutility-list-item {
     list-style-type: none;
-    padding: 0px;
+    padding: 5px 0px;
     margin: 0px;
+}
+.subutility-list-item:hover {
+    background-color: #1e1e1e;
 }

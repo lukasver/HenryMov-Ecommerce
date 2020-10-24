@@ -160,7 +160,7 @@ export default function Register() {
                             <h4 className="page-header col-md-6">Fecha de Nacimiento</h4>
                             <div className="col-md-6">
                                 <input
-                                    onChange={handleOnChange}
+                                    onChange={handleOnChange} 
                                     className="user"
                                     name='phone'
                                     type="text"
