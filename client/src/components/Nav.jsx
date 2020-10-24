@@ -9,6 +9,7 @@ import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
 import axios from 'axios';
 import './Nav.css';
+import ComponenteError from './ComponenteError.jsx';
 
 function Nav() {
     const dispatch = useDispatch()
@@ -60,7 +61,9 @@ function Nav() {
         return axios.get(`http://localhost:3001/users/${idUser}/orders`)
             .then(order => { 
                 const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
-                return window.location = `http://localhost:3000/order/${idOrder.id}`;
+                if (!idOrder) {
+                    return window.location = `http://localhost:3000/order/ /error`;
+                } else {return window.location = `http://localhost:3000/order/${idOrder.id}`};
             })
     }
 
