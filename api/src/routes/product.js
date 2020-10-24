@@ -226,12 +226,6 @@ server.post('/products/category/filter', (req, res, next) => {
 				where :{name: categoryNames}
 			}
 		})
-		// Product.findAll()
-		// 	include:{
-		// 		model: Category,
-		// 		where :{name: categoryNames}
-		// 	}
-		// })
 		.then(data =>{
 			console.log('data length: ',data.length)
 			res.status(200).send(data)
@@ -253,6 +247,7 @@ server.post('/products', (req, res, next) => {
 
 	const { name, description, price, availability, stock, quantity, image, categories } = req.body;
 
+	console.log('foto; ', req.file);
 	let bodyComplete = {};
 	if (!image) bodyComplete = { ...req.body, image: `http://localhost:3001/uploads/${req.file.originalname}` };
 
@@ -274,12 +269,9 @@ server.post('/products', (req, res, next) => {
 //============================================== 
 server.put('/products/:id', (req, res, next) => {
 
-	//revisar este codigo, se deberia poder modificar un producto sin necesidad dem andar toda esa info validadora dentro del if
+	//revisar este codigo, se deberia poder modificar un producto sin necesidad de mandar toda esa info validadora dentro del if
 
 	const { name, description, price, availability, stock, quantity, image, categories } = req.body;
-	// if(!name || !description || !price || !availability || !stock || !image) {
-	//    return res.sendStatus(400);
-	//  }
 
 	let bodyComplete = {};
 	if (image == undefined || image == '' ) bodyComplete = { ...req.body, image: `http://localhost:3001/uploads/${req.file.originalname}` };	

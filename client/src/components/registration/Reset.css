@@ -55,6 +55,6 @@ h4{
 
 .form-control:focus{
     outline: none !important;
-    background-color:  orange;
-    
+    background-color:  white;
+    border-color: orange;    
 }

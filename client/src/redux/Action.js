@@ -181,7 +181,6 @@ export function orderDetail(id) {
     axios
       .get(`http://localhost:3001/orders/${id}/cart`)
       .then((orders) => {
-        console.log('ingresoooooo', orders);
         return orders.data;
       })
       .then((data) => {

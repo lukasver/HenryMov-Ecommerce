@@ -43,12 +43,13 @@ const isLoggedIn = () => {
     console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 
       if (req.isAuthenticated()) return next();
-      res.redirect('http://localhost:3000/login')
+      return next();
+      //res.redirect('http://localhost:3000/login')
   }
 }
 
 const isAdmin = async (req,res,next) => {
-
+console.log('adad: ', req.user.email);
  try {
  const admin = await User.findOne({where: {email: req.user.email, role: "Admin"}})
  if (!admin) res.status(403).send('<h1>Unauthorized</h1>')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
@@ -67,23 +68,21 @@ const isAdmin = async (req,res,next) => {
 
 server.post('/login', passport.authenticate('local'), (req,res,next) => {
   
-  req.isAuthenticated() ? res.sendStatus(200) : res.sendStatus(401)
+  if(req.isAuthenticated()) return res.status(200).json(req.user);
+  return res.sendStatus(401);
 
-  return
 })
 
 server.get('/logout', isLoggedIn(), (req,res,next) => {
   
 
   req.logout();
-  res.clearCookie('connect.sid')
-  res.redirect('http://localhost:3000/');
-
+  res.clearCookie('connect.sid');
   return
 })
 
 server.get('/profile', [isLoggedIn(), isAdmin], (req,res,next) => {
-  
+  console.log('logggg', req.user);
   res.json(req.user)
   return
 })
