@@ -26,12 +26,14 @@ export default function Reviews({id, value, name}) {
                 setProm(0)
             }
             else{
-                setAllReviews(recurso.products)
+                // seteo y ordeno todas las reviews de ese producto
+                setAllReviews(recurso.reviews.sort((a, b) => b.value - a.value))
                 setProm(recurso.promedio)
             }
         });
         // recibe el id de usuario
-        Methods.getProductExists(usuarioId)
+        Methods.getProductExists(usuarioId,id).then(response=>setProductExsits(response))
+
     },[])
 
     function handlePost(e){
@@ -58,7 +60,7 @@ export default function Reviews({id, value, name}) {
     }
 
     function form(){
-        if (localStorage.getItem('id')){
+        if (localStorage.getItem('id') && productExist){
             return (
                 <form onSubmit={handlePost} id="formReviews" action="">
                     <h3>Escribe tu reseña</h3>
@@ -78,11 +80,19 @@ export default function Reviews({id, value, name}) {
         }
     }
 
-    if (value === 'form'){
-        
-    }
+    // function reviewsOrder(){
+    //     let ids = [];
+    //     let sorted = [];
+    //     allReviews.map(review =>{
+    //         ids.push(review.value)
+    //     })
+    // arr
+    //     ids.sort((a,b) => a - b)
+    // }
+
     if (value === 'reviews'){
         if (allReviews.length){
+            
             return (
                     <div>
                         {form()}

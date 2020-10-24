@@ -26,7 +26,7 @@ export function getReviewsProd (id){
             })
             prom = Math.floor(prom / reviews.data.length)
         return {
-            products: reviews.data,
+            reviews: reviews.data,
             promedio : prom
         }
     })
@@ -75,16 +75,16 @@ export function modifyReviews (id, reviews){
 
 }
 
-export function getProductExists(idUser){
-    axios.get(`http://localhost:3001/users/${idUser}/orders`)
+export function getProductExists(userId,productId){
+    return axios.get(`http://localhost:3001/users/orders/${userId}`)
     .then(orders => {
-        console.log(`ordenes de user ${idUser}`, orders.data)
         let orderPaid = orders.data.filter(order => order.status === "Processing")[0]
-        console.log('orderPaid =>',orderPaid)
         return orderPaid
     })
-    // .then(orderPaid =>{
-    //     axios.get(`http://localhost:3001/orderlines/${orderPaid}`)
-    // })
+    .then(orderPaid =>{
+        let prodBool = orderPaid.products.filter(product => product.id === productId)
+        if(prodBool.length) { return true }
+        else{ return false }
+    })
     .catch(error => console.log(error))
 }

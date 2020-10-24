@@ -296,8 +296,8 @@ server.get('/users/orders/:userId', (req, res, next) => {
   console.log('paso el const')
   Order.findAll({
     where:{userId},
-    attributes: ['id','userId'],
-    include: { model: Product, attributes: ['id','name']/*(where: {status: 'On Cart'}*/ }
+    attributes: ['id','userId','status'],
+    include: { model: Product, attributes: ['id','name',]/*(where: {status: 'On Cart'}*/ }
 
   })
   .then(carrito => {
