@@ -49,6 +49,9 @@ function Nav() {
     render()
 
     const logout = () => { 
+        localStorage.removeItem('id')
+        localStorage.removeItem('role')
+        localStorage.removeItem('email')
         dispatch(action.logIn(false))
         axios.get('http://localhost:3001/auth/logout', {withCredentials:true}).then(logout => console.log(logout)) 
     }
