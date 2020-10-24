@@ -51,7 +51,7 @@ function Nav() {
 
     const orderUser = (idUser) => {
         return axios.get(`http://localhost:3001/users/${idUser}/orders`)
-            .then(order => {
+            .then(order => { 
                 const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
                 return window.location = `http://localhost:3000/order/${idOrder.id}`;
             })
