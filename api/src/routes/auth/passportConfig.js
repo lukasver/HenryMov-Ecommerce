@@ -49,7 +49,6 @@ module.exports = function (passport) {
       function(token, refreshToken, profile, done) {
           process.nextTick(async function() {
               const user = profile._json;
-              console.log(user);
               const password = 'HenryMov2.0!';   
               const birthdate = new Date('2000/10/10');
               User.findOrCreate({
@@ -84,18 +83,18 @@ module.exports = function (passport) {
       },
       function(accessToken, refreshToken, profile, done) {
           process.nextTick(async function() {      
-            console.log('datosssss: ', profile);  
+            // console.log('datosssss: ', profile);  
               const user = profile;
               const password = 'HenryMov2.0!';   
-              const birthdate = new Date('1988/03/15');               
+              const birthdate = new Date('2000/10/10');               
               User.findOrCreate({
                   where: { email: user.emails[0].value },
                   defaults: {
-                      name: 'Diego',
-                      lastname: 'Tolaba',
+                      name: user.displayName,
+                      lastname: user.username,
                       email: user.emails[0].value,
                       password: password,
-                      phone: '3884137079',
+                      phone: '0000000000',
                       birthdate: birthdate,
                       image: user.photos[0].value
                   }

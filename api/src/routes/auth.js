@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const { User } = require('../db.js');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const { Sequelize } = require('sequelize');
+const Op = Sequelize.Op;
 // const { createToken, authenticateToken, isAdmin } = require ('./auth/authMiddlewares.js')
 
 // ===========================================================================================
@@ -15,12 +17,27 @@ const isLoggedIn = () => {
     console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 
       if (req.isAuthenticated()) return next();
-      return next();
-      //res.redirect('http://localhost:3000/login')
+      // return next();
+      return res.redirect('http://localhost:3000/login')
   }
 }
 
 const isAdmin = async (req,res,next) => {
+
+ try {
+ const admin = await User.findOne({where: {email: req.user.email, [Op.or]: [{role: "Admin"},{role: "Responsable"}]}})
+ if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+ next()
+ } catch (error) {
+   console.log(error)
+   return res.status(401).json({message: "Unauthorized - Require admin role"})
+ }
+
+
+}
+
+
+const isSuperAdmin = async (req,res,next) => {
 
  try {
  const admin = await User.findOne({where: {email: req.user.email, role: "Admin"}})
@@ -71,17 +88,36 @@ server.get('/profile', isLoggedIn(), (req,res,next) => {
 
 
 
-server.post('/promote/:id',/* [isLoggedIn(), isAdmin], */(req, res, next) => {
-  User.update({role: 'Admin'}, {
+// ===========================================================================================
+//                     RUTA PROMOVER O BAJAR DE RANGO A USUARIOS
+// ===========================================================================================
+
+server.post('/promote/:id', (req, res, next) => {
+  User.findOne({
     where: {id: req.params.id}
-  }).then(result => {
-    console.log(result)
-    if (result[0] === 0) {
-      return res.status(404).send('ID no encontrado');
-    }
-    return res.status(200).send('Usuario promovido a Admin');
-  }).catch(err => {res.status(400).send(err)})
+  }).then(user => {
+    user.role = "Responsable"
+    return user.save();
+  }).then(result => res.status(200).send('Usuario promovido a Responsable'))
+  .catch(err => {res.status(400).send(err)})
 });
+
+server.post('/demote/:id', (req, res, next) => {
+  User.findOne({
+    where: {id: req.params.id}
+  }).then(user => {
+    user.role = "Cliente"
+    return user.save();
+  }).then(result => res.status(200).send('Usuario pasado a rol Cliente'))
+  .catch(err => {res.status(400).send(err)})
+});
+
+
+
+
+// ===========================================================================================
+//                     RUTAS Login GOOGLE/GITHUB
+// ===========================================================================================
 
 server.get('/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
@@ -100,4 +136,4 @@ server.get('/github/callback', passport.authenticate('github', { failureRedirect
 });
 
 
-module.exports = [server, isAdmin];
+module.exports = [server, isAdmin, isLoggedIn];
