@@ -10,6 +10,7 @@ export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
     const count = useSelector(store => store.count)
+    const prod = useSelector(store=> store.prodInStore)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
     const [user, setUser] = useState(null)
@@ -17,10 +18,14 @@ export default function Carrito() {
     useEffect(() => {
         let user= localStorage.getItem('id')
         setUser(user)
+        
     }, [render, count, user])
+    if(user!==null) product = prod
     
+    console.log('PRODUCTOS', product)
+    console.log('PROD', prod)
+  
     
-
     if (product != null) {
         product.sort(function (a, b) {
             if (a.id > b.id) {
@@ -85,6 +90,7 @@ export default function Carrito() {
     }
     function handleDelete(id) {
         render ? setRender(false) : setRender(true)
+        if(user==null){
         dispatch(action.removecountCart())
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
@@ -92,23 +98,31 @@ export default function Carrito() {
         let countCart = newData.length
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
+        }else{
+            let newData = product.filter((data) => data.id !== id)
+           dispatch(action.modifProd(newData))
+        }
     }
     function deleteAllProd() {
         render ? setRender(false) : setRender(true)
+        if(user==null){
         dispatch(action.removecountCart())
         let countCart = 0
         let newData = []
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
+        }else{
+            dispatch(action.deleteCart())
+        }
     }
     
-    console.log('USER', user)
     function handleUser(){
         render ? setRender(false) : setRender(true)
        let user= localStorage.getItem('id')
        setUser(user)
        user !== null && history.push('/pago') 
     }
+
 
 
     return (

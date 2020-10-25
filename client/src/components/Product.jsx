@@ -11,7 +11,8 @@ export default function Product({ product }) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
-	const user = useSelector(store => store.loggedIn) // Verifica si hay usuario logeado para mostrar calificar
+	const prod = useSelector(store=> store.prodInStore)
+	let user= localStorage.getItem('id')
 	const dispatch = useDispatch()
 	useEffect(() => {
 		
@@ -29,6 +30,7 @@ export default function Product({ product }) {
 	function handleAdd() {
 		render ? setRen(false) : setRen(true)
 		product.count = count
+		if(user==null){
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
 
@@ -53,18 +55,34 @@ export default function Product({ product }) {
 		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
-	}
-	function stocker(product) {
-		let products = JSON.parse(localStorage.getItem('prod'))
-		if(products === null){
-			return
-		} 
-		let cleanData = products.filter((data) => data.id === product.id)
+		}else{
+			dispatch(action.addProduct(user,product))
+		}
 
-		if(cleanData.length !== 0){
+	}
+
+
+	function stocker(product) {
+		if(user==null){
+		let products = JSON.parse(localStorage.getItem('prod'))
+		if (products == null || products == undefined) {
+			return
+		}
+		let cleanData = products.filter((data) => data.id == product.id)
+		if (cleanData.length != 0) {
 			return setDisponible(false)
 		}
-		return 
+	}else{
+		let products = prod
+		if (products == null || products == undefined) {
+			return
+		}
+		let cleanData = products.filter((data) => data.id == product.id)
+		if (cleanData.length != 0) {
+			return setDisponible(false)
+		}
+	}
+		return
 	}
 	
 	return (
