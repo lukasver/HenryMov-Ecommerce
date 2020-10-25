@@ -62,7 +62,7 @@ if (!user) return <LoadingBar done="80" />
 		                            <div className="custom-file">
 									  <input type="file" name="image" className="custom-file-input" id="customFile"/>
 									  <label className="custom-file-label" for="customFile">Cambiar Foto</label>
-									  <button onClick={handleImage}>enviar</button>
+									  <button className="mt-1 adam-button" style={{width: "100%"}} onClick={handleImage}>enviar</button>
 									</div>
 		                        </div>
 		                        <div className="col-sm-8">
