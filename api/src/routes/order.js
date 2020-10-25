@@ -7,9 +7,10 @@ const { Sequelize, QueryTypes } = require('sequelize');
 //	Ruta para agregar item al carrito
 //==============================================
 server.post('/users/:idUser/cart', async (req, res, next) => {
+
   const { idUser } = req.params;
 	const { amount, quantity, productId } = req.body;
-
+  console.log( 'RRRRR', amount, quantity, productId)
 	if(!amount || !quantity || !productId) {
     return res.sendStatus(400);
   }
@@ -21,7 +22,7 @@ try {
   })
 
   await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
-
+  console.log('producto agregado')
   return res.status(200).send('Producto agregado/modificado satisfactoriamente')
 } catch (error) {
   console.log(error)

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './ProductCard.css';
 import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
+import axios from 'axios'
 import carrito from '../img/carrito.png'
 
 
@@ -13,6 +14,7 @@ export default function ProductCard(product) {
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
 	const dispatch = useDispatch()
+	let user= localStorage.getItem('id')
 
 	useEffect(() => {
 		stocker(product)
@@ -25,9 +27,10 @@ export default function ProductCard(product) {
 
 	const imagen = product.image
 
-
+	console.log('user:',user)
 	function handleAdd(product) {
 		render ? setRen(false) : setRen(true)
+	if (user === null){
 
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
@@ -55,6 +58,10 @@ export default function ProductCard(product) {
 		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
+	}else{
+		console.log('ENTRO')
+		dispatch(action.addProduct(user,product))
+	}
 
 	}
 	function stocker(product) {

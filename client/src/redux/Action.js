@@ -206,13 +206,13 @@ export function prodInStore(userId){
   if (userId!== null){
   return (dispatch)=>
   axios
-  .get(`http://localhost:3001/users/${userId}/cart`)
+  .get(`http://localhost:3001/users/${userId}/cart`, {withCredentials: true })
   .then(orden=>{
     let ordenId =orden.data.orders[0].id
     return ordenId
   })
   .then(ordenId=>{
-   return axios.get(`http://localhost:3001/orders/${ordenId}/cart`)
+   return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
   })
   .then(prod=>{
    let productoFinal= prod.data.products
@@ -226,6 +226,20 @@ export function prodInStore(userId){
 }else{
   return 
 }
+}
+
+
+export function addProduct(userId, product){
+  let newProd ={
+    amount: product.price,
+    quantity:product.count,
+    productId:product.id
+  }
+  console.log('HECHO')
+  return (dispatch)=>
+   axios
+  .post(`http://localhost:3001/users/${userId}/cart`, newProd)
+
 }
 
 
