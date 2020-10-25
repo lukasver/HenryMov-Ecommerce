@@ -36,14 +36,7 @@ export default function Reviews({id, value, name}) {
 
     },[])
 
-    function handlePost(e){
-        //==================================================================== 
-        
-        //Validar la sesion de usuario y enviar el id en la variable usuarioId 
-
-        //==================================================================== 
-
-        
+    function handlePost(e){        
         let title = document.getElementById('title').value;
         let description = document.getElementById('Desc').value;
         let value = starsSelected;
@@ -55,7 +48,6 @@ export default function Reviews({id, value, name}) {
                 description,
                 value
             })
-
         }
     }
 
