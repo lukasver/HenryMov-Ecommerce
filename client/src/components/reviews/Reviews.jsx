@@ -37,16 +37,10 @@ export default function Reviews({id, value, name}) {
     },[])
 
     function handlePost(e){
-        //==================================================================== 
-        
-        //Validar la sesion de usuario y enviar el id en la variable usuarioId 
-
-        //==================================================================== 
-
-        
         let title = document.getElementById('title').value;
         let description = document.getElementById('Desc').value;
         let value = starsSelected;
+        console.log(allReviews)
         if (title && description && value) {
             Methods.addReviews(parseInt(id),
             {
@@ -55,26 +49,35 @@ export default function Reviews({id, value, name}) {
                 description,
                 value
             })
-
-        }
+        } 
     }
 
     function form(){
-        if (usuarioId && productExist){
+        if (!(allReviews.find(review => review.usuarioId === usuarioId))){
+            if (usuarioId && productExist){
+                return (
+                    <form onSubmit={handlePost} id="formReviews" action="">
+                        <h3>Escribe tu reseña</h3>
+                        <p>Deja tu calificación</p>
+                        <Rating bool={true} />
+                        <input id="title" className='inpTitle' placeholder="Escribe un titulo" type="text"/>
+                        <textarea id="Desc" placeholder="Escribe una descripción" class="form-control"  rows="4"></textarea>
+                        <button id='submitRev' type='submit'>Enviar Reseña</button>
+                    </form>
+                )
+            } 
+            else {
+                return (
+                    <div>
+    
+                    </div>
+                )
+            }
+        }
+        else {
             return (
-                <form onSubmit={handlePost} id="formReviews" action="">
-                    <h3>Escribe tu reseña</h3>
-                    <p>Deja tu calificación</p>
-                    <Rating bool={true} />
-                    <input id="title" className='inpTitle' placeholder="Escribe un titulo" type="text"/>
-                    <textarea id="Desc" placeholder="Escribe una descripción" class="form-control"  rows="4"></textarea>
-                    <button id='submitRev' type='submit'>Enviar Reseña</button>
-                </form>
-            )
-        } else {
-            return (
-                <div>
-
+                <div className='divFormRes' >
+                    <h4 className='h4Form'>Ya dejaste tu reseña!</h4>
                 </div>
             )
         }
