@@ -49,12 +49,14 @@ function Nav() {
     }
     render()
 
-    const logout = () => { 
+    const logout = (e) => { 
         localStorage.removeItem('id')
         localStorage.removeItem('role')
         localStorage.removeItem('email')
         dispatch(action.logIn(false))
-        axios.get('http://localhost:3001/auth/logout', {withCredentials:true}).then(logout => console.log(logout)) 
+        axios.get('http://localhost:3001/auth/logout', {withCredentials:true}).then(logout => {
+            return history.push('/')
+        }) 
     }
 
     const orderUser = (idUser) => {
@@ -111,10 +113,11 @@ function Nav() {
                             {!user.image && <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                                 </svg>}
-                                <span className="utility-name transition-soft d-block">Mi Cuenta</span>
+                                <span className="utility-name transition-soft d-block">{user.name ? `Hola, ${user.name}!` : 'Mi Cuenta'}</span>
                             </div>
                             <ul className="js-subutility-list subutility-list ul-mi-cuenta">
-                                {user.name? <p>Hola {user.name}!</p> : null}
+                               {/* {user.name? <p>Hola {user.name}!</p> : null}*/}
+                                {localStorage.getItem('role') === 'Responsable' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
                                 {localStorage.getItem('role') === 'Admin' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
                                 {localStorage.getItem('email') === null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/Login' title="" className="nav-accounts-link">Iniciar sesión</Link></li>
                                     <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/Register' title="" >Crear cuenta</Link></li></div>}
@@ -124,14 +127,8 @@ function Nav() {
                                         orderUser(localStorage.getItem('id'));
                                     }
                                     }>Mis Ordenes</Link></li>
-                                    <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/logout' title="" onClick={(e) => {
-                                        e.preventDefault();
-                                        localStorage.removeItem('id');
-                                        localStorage.removeItem('email');
-                                        localStorage.removeItem('role');
-                                        logout();
-                                        window.location = "http://localhost:3000/"
-                                    }}>Logout</Link></li></div>}
+                                    <li className="subutility-list-item nav-accounts-item nav-accounts-link">
+                                    <Link to='/logout' title="" onClick={logout}>Logout</Link></li></div>}
                             </ul>
                         </div>
                     </div>

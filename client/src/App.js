@@ -50,10 +50,6 @@ function App() {
           localStorage.setItem('id', user.data.id);
           localStorage.setItem('email', user.data.email);
           localStorage.setItem('role', user.data.role);
-        } else {
-          localStorage.removeItem('id');
-          localStorage.removeItem('email');
-          localStorage.removeItem('role');
         }
         if (user.status === 200) dispatch(action.logIn(user.data))
       })
