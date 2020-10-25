@@ -57,7 +57,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-       dispatch(action.prodInStore(user))
+      user && dispatch(action.prodInStore(user))
 
     // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
 

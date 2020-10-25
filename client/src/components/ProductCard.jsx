@@ -30,8 +30,8 @@ export default function ProductCard(product) {
 
 	
 	function handleAdd(product) {
-		render ? setRen(false) : setRen(true)
-	if (user === null){
+		if (user === null){
+			render ? setRen(false) : setRen(true)
 
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
@@ -60,6 +60,7 @@ export default function ProductCard(product) {
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
 	}else{
+		render ? setRen(false) : setRen(true)
 		dispatch(action.addProduct(user,product))
 	}
 
