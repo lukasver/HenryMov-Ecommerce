@@ -43,23 +43,24 @@ module.exports = function (passport) {
       clientID: config.googleAuth.clientID,
       clientSecret: config.googleAuth.clientSecret,
       callbackURL: config.googleAuth.callbackURL,
-      passReqToCallback: true,
+      // passReqToCallback: true
       proxy: true
       },
-      function(req, token, refreshToken, profile, done) {
+      function(token, refreshToken, profile, done) {
           process.nextTick(async function() {
-              console.log(profile);
               const user = profile._json;
-              const password = 'hola1234';
-              let hashedPassword = await bcrypt.hash(password, 10);                  
+              const password = 'HenryMov2.0!';   
+              const birthdate = new Date('1988/03/15');
               User.findOrCreate({
                   where: { email: user.email },
                   defaults: {
-                      name: user.given_name,
-                      lastName: user.family_name,
+                      name: 'Diego',
+                      lastname: user.family_name,                      
                       email: user.email,
-                      password: hashedPassword,
-                      otherAuth: 'yes'
+                      password: password,
+                      phone: '3884137079',
+                      birthdate: birthdate,
+                      image: user.picture
                   }
               })
               .then(res => res[0])
@@ -78,30 +79,31 @@ module.exports = function (passport) {
       clientID: config.githubAuth.clientID,
       clientSecret: config.githubAuth.clientSecret,
       callbackURL: config.githubAuth.callbackURL,
-      passReqToCallback: true,
-      scope: ['user:email', 'read:user']
+      // passReqToCallback: true,
       },
-      function(accessToken, refreshToken, params, profile, cb) {
-          process.nextTick(async function() {              
-              console.log(params);
+      function(accessToken, refreshToken, profile, done) {
+          process.nextTick(async function() {      
+            console.log('datosssss: ', profile);  
               const user = profile;
-              const password = 'hola1234';
-              let hashedPassword = await bcrypt.hash(password, 10);                  
+              const password = 'HenryMov2.0!';   
+              const birthdate = new Date('1988/03/15');               
               User.findOrCreate({
                   where: { email: user.emails[0].value },
                   defaults: {
-                      name: user.displayName || user.username,
-                      lastName: user.username,
+                      name: 'Diego',
+                      lastname: 'Tolaba',
                       email: user.emails[0].value,
-                      password: hashedPassword,
-                      otherAuth: 'yes'
+                      password: password,
+                      phone: '3884137079',
+                      birthdate: birthdate,
+                      image: user.photos[0].value
                   }
               })
               .then(res => res[0])
               .then(user => {
-                  cb(null, user);
+                  done(null, user);
               })
-              .catch(err => cb(err));            
+              .catch(err => done(err));            
           });
       }
   ));

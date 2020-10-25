@@ -84,24 +84,20 @@ server.post('/promote/:id',/* [isLoggedIn(), isAdmin], */(req, res, next) => {
   }).catch(err => {res.status(400).send(err)})
 });
 
-server.get('/google', authentication.passport.authenticate('google', { scope : ['profile', 'email'] }));
+server.get('/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
-server.get('/google/callback', authentication.passport.authenticate('google'), (req, res) => {
-    if (req.user) {
-        let payload = { id: req.user.id };
-        let token = authentication.jwt.sign(payload, authentication.jwtOptions.secretOrKey, { expiresIn: 9000 });   
-        return res.redirect(`http://localhost:3000/checkuser/auth/${req.user.id}/${token}`);
-    } else {
-        return res.redirect('http://localhost:3000/login/loginuser');
-    }
+server.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000/Login' }), (req, res) => {
+  if (req.user) {
+      let payload = { id: req.user.id };
+      return res.redirect(`http://localhost:3000`);
+  }
 });
 
-server.get('/github', authentication.passport.authenticate('github', { scope: ['user:email', 'read:user']}));
+server.get('/github', passport.authenticate('github', { scope: ['user:email', 'read:user']}));
 
-server.get('/github/callback', authentication.passport.authenticate('github', { failureRedirect: 'http://localhost:3000/login/loginuser' }), (req, res) => {
-    let payload = { id: req.user.id };
-    let token = authentication.jwt.sign(payload, authentication.jwtOptions.secretOrKey, { expiresIn: 9000 });   
-    res.redirect(`http://localhost:3000/checkuser/auth/${req.user.id}/${token}`);
+server.get('/github/callback', passport.authenticate('github', { failureRedirect: 'http://localhost:3000/Login' }), (req, res) => {
+    let payload = { id: req.user.id }; 
+    res.redirect(`http://localhost:3000`);
 });
 
 

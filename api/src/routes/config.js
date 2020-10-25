@@ -1,12 +1,12 @@
 module.exports = {
     'googleAuth' : {
-        'clientID': '401512495933-mdflotbp6e6ttt3mkosu5kb86c1ks6gs.apps.googleusercontent.com',
-        'clientSecret': 'u8wxMAA_2eCwfi3tk-gKyIkq',
+        'clientID': '1041740862467-upit86o5q7c3iea31p9qdmr48fcvtui3.apps.googleusercontent.com',
+        'clientSecret': 'I7tgST96ULETv1wsfn8KdsXZ',
         'callbackURL': 'http://localhost:3001/auth/google/callback'
     },
     'githubAuth': {
-        'clientID': '43f7da3e3a7bdae69c35',
-        'clientSecret': '5bae70c05648141297ad253066f187b8ddbd7071',
+        'clientID': '431e1004bf72c5c66434',
+        'clientSecret': '4dda3f6f488cfd579356a4b4796b6d66f20420f8',
         'callbackURL': 'http://localhost:3001/auth/github/callback'
     }
 };

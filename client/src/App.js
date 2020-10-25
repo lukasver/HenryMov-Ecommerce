@@ -35,24 +35,33 @@ function App() {
     Promise.all([
       axios.get("http://localhost:3001/products"),
       axios.get("http://localhost:3001/category"),
-      ])
+    ])
       .then(res => {
         dispatch(action.totalProds(res[0].data));
         dispatch(action.categories(res[1].data));
       })
       .catch(err => new Error(err))
 
-      axios
-      .get("http://localhost:3001/auth/login", {withCredentials: true})
+    axios
+      .get("http://localhost:3001/auth/login", { withCredentials: true })
       .then((user) => {
-        console.log('llego?', user) 
-        if(user.status === 200) dispatch(action.logIn(user.data)) 
+        if (!localStorage.getItem('email')) {
+          localStorage.setItem('id', user.data.id);
+          localStorage.setItem('email', user.data.email);
+          localStorage.setItem('role', user.data.role);
+        } else {
+          localStorage.removeItem('id');
+          localStorage.removeItem('email');
+          localStorage.removeItem('role');
+        }
+        if (user.status === 200) dispatch(action.logIn(user.data))
       })
       .catch((error) => {
         console.log(error);
       });
 
-      // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
+
+    // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
 
     // axios
     //   .get("http://localhost:3001/products")
@@ -97,15 +106,15 @@ function App() {
       <Route exact path='/products/:productId' render={({ match }) => (<Product product={onFilter(match.params.productId)} />)} />
       <Route exact path='/preguntas' render={() => <Preguntas />} />
       <Route exact path='/' render={() => <Carousel />} />
-      <Route exact path='/carrito' render={()=> <Carrito/>}/>
-      <Route exact path='/register' render={()=> <Register/>} />
-      <Route exact path='/logIn' render={()=> <LoggedIn/>} />
-      <Route exact path='/reset' render={()=> <Reset/>} />
-      <Route exact path='/Menu' render={()=> <Menu />} />
-      <Route exact path='/order/:id' render={({ match })=> <OrdenDetalle orderId = {match.params.id}/>} />
-      <Route exact path='/reviews' render={()=> <Reviews/>}/>
-      <Route exact path='/pago' render={()=> <Pago/>}/>
-      <Route exact path='/profile' render={()=> <Profile/>}/>
+      <Route exact path='/carrito' render={() => <Carrito />} />
+      <Route exact path='/register' render={() => <Register />} />
+      <Route exact path='/logIn' render={() => <LoggedIn />} />
+      <Route exact path='/reset' render={() => <Reset />} />
+      <Route exact path='/Menu' render={() => <Menu />} />
+      <Route exact path='/order/:id' render={({ match }) => <OrdenDetalle orderId={match.params.id} />} />
+      <Route exact path='/reviews' render={() => <Reviews />} />
+      <Route exact path='/pago' render={() => <Pago />} />
+      <Route exact path='/profile' render={() => <Profile />} />
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />
