@@ -20,6 +20,8 @@ import {
   FILTER_BY_CATEGORIES,
   STARS,
   PROD_IN_STORE,
+  MOD_PROD,
+  DELETE_CART,
   LOGIN
 } from "./Action";
 
@@ -52,6 +54,16 @@ export function counterReducer(state = initialState, action) {
           count : action.payload
         }
       }
+      case DELETE_CART:
+        return{
+        ...state,
+        prodInStore: []
+        }
+      case MOD_PROD:
+        return{
+          ...state,
+          prodInStore: action.payload
+        }
       case PROD_IN_STORE:
         console.log('bbbbbb',action.payload)
         return {

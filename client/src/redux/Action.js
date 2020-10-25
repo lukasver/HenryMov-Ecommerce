@@ -19,6 +19,8 @@ export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES";
 export const STARS = "STARS";
 export const PROD_IN_STORE = "PROD_IN_STORE"
 export const LOGIN = "LOGIN";
+export const MOD_PROD = "MOD_PROD"
+export const DELETE_CART ="DELETE_CART"
 
 
 export function logIn(user) {
@@ -27,7 +29,11 @@ export function logIn(user) {
     payload: user,
   }
 }
-
+export function deleteCart(){
+  return{
+    type: DELETE_CART
+  }
+}
 export function addcount(stock) {
   return {
     type: ADD_COUNT,
@@ -238,8 +244,17 @@ export function addProduct(userId, product){
   console.log('HECHO')
   return (dispatch)=>
    axios
-  .post(`http://localhost:3001/users/${userId}/cart`, newProd)
-
+  .post(`http://localhost:3001/users/${userId}/cart`, newProd )
+  .then(res=>{
+    dispatch(prodInStore(userId))
+  })
 }
 
+
+export function modifProd(product){
+  return {
+    type: MOD_PROD,
+    payload: product
+  }
+}
 
