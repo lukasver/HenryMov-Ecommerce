@@ -35,7 +35,7 @@ const initialState = {
   countCart: '0',
   count: 1,
   orderDetail: [],
-  prodInStore:null,
+  prodInStore:[],
   starsSelected: 0,
   loggedIn: false
 };
