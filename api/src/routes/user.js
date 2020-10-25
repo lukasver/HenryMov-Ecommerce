@@ -53,8 +53,6 @@ server.get('/user/:id', isAdmin[1],(req, res, next) => {
 server.post('/user' ,async (req, res, next) => {
     let { name, lastname, email, address, phone, password, birthdate } = req.body;
 
-    console.log('birthdate: ', birthdate);
-
     if(!name) {
         return res.status(400).send("Faltan datos");
     }
@@ -112,9 +110,7 @@ server.post('/user/:id/image'/*,[authenticateToken, isAdmin]*/, (req, res, next)
     const { id } = req.params;
     let { image } = req.body;
 
-    if (image == undefined || image == '' ) image = `http://localhost:3001/uploads/${req.file.originalname}`    
-
-    console.log(image)
+    if (image == undefined || image == '' ) image = `http://localhost:3001/uploads/${req.file.originalname}`
 
     User.findOne({where: { id: id }        
      }).then(usuario => {
@@ -170,11 +166,9 @@ server.get('/users', (req, res) => {
 //===================================================
 //  Ruta para encontrar resetear la contraseña
 //===================================================
-server.post('/users/:id/passwordReset', async(req, res) => {
+server.post('/users/:id/passwordReset', (req, res) => {
     const { id } = req.params;
-
     const { password } = req.body;
-
     User.findOne({
         where: {
             id: id
@@ -185,11 +179,6 @@ server.post('/users/:id/passwordReset', async(req, res) => {
             return res.status(404).send('Usuario no encontrado')
         }
         result.password = password;
-        // User.update({
-        //     where: {
-        //         password: result.password
-        //     }
-        // })
         return result.save();
     }).then(modified => {
         return res.status(200).send('Contraseña cambiada con exito')

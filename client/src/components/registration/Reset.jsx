@@ -6,9 +6,9 @@ import axios from 'axios';
 export default function Reset() {
 
     const [values, setValues] = useState({
-        email: '',
-        password: ''
-        });
+        email: 'client@client.com',
+        password: 'asdASD123!'
+    });
 
     const [error, setError] = useState({});
 
@@ -25,36 +25,38 @@ export default function Reset() {
         }))
     }
 
-   
+
 
     const handleSubmit = e => {
         e.preventDefault();
-        //console.log(values.email)
-        axios.get(`http://localhost:3001/users?email=${values.email}` )
-        .then(user => {
-            console.log('user:',user)
-            return user.data
-        }).then(id => {
-            console.log('id:',id)
-            axios.post(`http://localhost:3001/users/${id}/passwordReset`, values.password)
-            .then(result => {
-                console.log('result:', result)
-                return result
+        console.log('estoy aqui');
+        console.log(values.email)
+        axios.get(`http://localhost:3001/users?email=${values.email}`)
+            .then(user => {
+                console.log('user:', user)
+                return user.data
+            }).then(id => {
+                console.log('id:', id)
+                return axios.post(`http://localhost:3001/users/${id}/passwordReset`, { password: values.password }, { withCredentials: true }
+                )
+                    .then(result => {
+                        console.log('result:', result)
+                        return result
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             })
-        })
-        .catch(err => {
-            console.log(err)
-        })
     }
 
 
-    function validate(input){
+    function validate(input) {
         let errors = {};
 
-        if(!input.email){
+        if (!input.email) {
             errors.email = 'Este campo es requerido'
         }
-        else if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(input.email)){
+        else if (!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(input.email)) {
             errors.email = 'Debe ingresar un mail valido'
         }
 
@@ -64,7 +66,7 @@ export default function Reset() {
         else if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,32}$/).test(input.password)) {
             errors.password = 'La clave es invalida'
         }
-        
+
         if (!input.password) {
             errors.confirmedPassword = 'Este campo es requrido'
         }
@@ -86,21 +88,21 @@ export default function Reset() {
                         <h4>Cambio de Contraseña</h4>
                         <form className="form-signin" onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <input name='email' type="email" className="form-control" id="exampleInputEmail1" placeholder="Email" aria-describedby="emailHelp" onChange={handleOnChange}/>
+                                <input name='email' type="email" className="form-control" id="exampleInputEmail1" placeholder="Email" aria-describedby="emailHelp" onChange={handleOnChange} />
                                 {error.email && <p className='danger'>{error.email}</p>}
                                 {/* {!error.email && values.email !== '' && <button className="adam-button verified-user" type='submit' >Verificar usuario</button>} */}
                             </div>
                             <div className="form-group">
-                                <input name='password' type="password" className="form-control" placeholder='New Password' id="exampleInputPassword1" onChange={handleOnChange}/>
+                                <input name='password' type="password" className="form-control" placeholder='New Password' id="exampleInputPassword1" onChange={handleOnChange} />
                                 {error.password && <p className='danger'>{error.password}</p>}
                             </div>
                             <div className="form-group">
-                                <input name='confirmedPassword' type="password" className="form-control" placeholder='Confirmed New Password' id="exampleInputPassword1" onChange={handleOnChange}/>
+                                <input name='confirmedPassword' type="password" className="form-control" placeholder='Confirmed New Password' id="exampleInputPassword1" onChange={handleOnChange} />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
                             </div>
-                            {JSON.stringify(error) == '{}' && values.email !== '' ? <a href='/' className="adam-button btn-enabled" type='submit'>Confirmar</a> 
-                            : <button  className="adam-button btn-disabled" type='submit' disabled>Confirmar</button>}
-                            
+                            {JSON.stringify(error) == '{}' && values.email !== '' ? <button href='/' className="adam-button btn-enabled" type='submit'>Confirmar</button>
+                                : <button className="adam-button btn-disabled" type='submit' disabled>Confirmar</button>}
+
                         </form>
                     </div>
                 </div>
