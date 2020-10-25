@@ -29,8 +29,8 @@ export default function Product({ product }) {
   
 	function handleAdd() {
 		render ? setRen(false) : setRen(true)
-		if(user==null){
 		product.count = count
+		if(user==null){
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
 
@@ -56,7 +56,6 @@ export default function Product({ product }) {
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
 		}else{
-			product.count = count
 			dispatch(action.addProduct(user,product))
 		}
 

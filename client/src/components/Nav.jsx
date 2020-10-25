@@ -18,14 +18,16 @@ function Nav() {
     let user = useSelector(store => store.loggedIn)
     let users= localStorage.getItem('id')
     dispatch(action.prodInStore(user))
-    const prod = useSelector(store=> store.prodInStore)
+    const counterUser = useSelector(store=> store.counterUser)
     let counter=0
-    
-    users ? counter = prod.length : counter = countCart
+    useEffect(()=>{
+
+        users ? counter = counterUser : counter = countCart
+    },[])
     
     console.log('counter', counter)
     console.log('countCard', countCart)
-    console.log('prod', prod.length)
+    console.log('prod', counterUser)
     let history = useHistory();
     // (handleSelect) cuando se clickea en algun 'a' se filtra con ese nombre y en el componente menu se muestra
     function handleSelect(e) {

@@ -21,6 +21,7 @@ export const PROD_IN_STORE = "PROD_IN_STORE"
 export const LOGIN = "LOGIN";
 export const MOD_PROD = "MOD_PROD"
 export const DELETE_CART ="DELETE_CART"
+export const COUNTER_USER ="COUNTER_USER"
 
 
 export function logIn(user) {
@@ -31,7 +32,8 @@ export function logIn(user) {
 }
 export function deleteCart(){
   return{
-    type: DELETE_CART
+    type: DELETE_CART,
+    payload: []
   }
 }
 export function addcount(stock) {
@@ -186,6 +188,10 @@ export function onSearch(search) {
           type: ON_SEARCH,
           payload: data,
         });
+        dispatch({
+          type: COUNTER_USER,
+          payload: data.length
+        })
       })
       .catch((error) => console.log(error));
   };
