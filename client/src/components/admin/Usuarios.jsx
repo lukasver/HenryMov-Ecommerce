@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // ========================= COMPONENT ===============================================
 
-export default function Usuarios({getUsers}) {
+export default function Usuarios({getUsers, rol}) {
 
     const [users, setUsers] = useState([])
 
@@ -36,6 +36,15 @@ export default function Usuarios({getUsers}) {
     })
     }
 
+    const handleDemotion = (e,id) => {
+        axios.post(`http://localhost:3001/auth/demote/${id}`)
+        .then(data => { 
+            console.log(data)})
+        .catch(error =>{
+            new Error(error)
+    })
+    }
+
 
     useEffect(()=>{
         getUsers().then(a=> setUsers(a))
@@ -58,7 +67,7 @@ export default function Usuarios({getUsers}) {
                             <th scope="col">Birthdate</th>
                             <th scope="col">Role</th>
                             <th scope="col">Creation date</th>
-                            <th scope="col">Promote</th>
+                            {rol === 'Admin' && <th scope="col">Promote</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -75,7 +84,8 @@ export default function Usuarios({getUsers}) {
                                     <td>{dato.birthdate}</td>
                                     <td>{dato.role}</td>
                                     <td>{dato.creationdate.toString()}</td>
-                                    <td>{dato.role === 'Cliente' ? <button onClick={e => handlePromotion(e, dato.id)}>X</button> : null}</td>
+                                    {rol === 'Admin' && <td>{dato.role === 'Cliente' ? <button onClick={e => handlePromotion(e, dato.id)}>+</button> 
+                                    : <button onClick={e => handleDemotion(e, dato.id)}>-</button>}</td>}
                                 </tr>)
                             })
                         }

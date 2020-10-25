@@ -14,9 +14,9 @@ function Admin() {
 
   const history = useHistory()
   let user = useSelector(store => store.loggedIn)
-  if (user.role !== 'Admin') {
-    history.push('/')
-  }
+  // if (user.role !== 'Admin' || user.role !== 'Responsable') {
+  //   history.push('/')
+  // }
   
   // ===================================
 
@@ -25,7 +25,7 @@ function Admin() {
       <Route exact path="/admin" render={() => <Panel tablaAccion='Desktop' />} />
       <Switch>        
         <Route path="/admin/categorys" render={() => <Panel tablaAccion='Categorys' />} />
-        <Route path="/admin/users" render={() => <Panel tablaAccion='Users' />} />
+        <Route path="/admin/users" render={() => <Panel tablaAccion='Users' usuario={user}/>} />
         <Route path="/admin/products" render={() => <Panel tablaAccion='Products' />} />
         <Route path="/admin/orders" render={() => <Panel tablaAccion='Orders' />} />
       </Switch>

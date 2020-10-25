@@ -10,12 +10,13 @@ import Categorias from './Categorias';
 import { Z_ASCII } from 'zlib';
 import Ordenes from './Ordenes';
 
-export default function Panel({ tablaAccion }) {
+export default function Panel({ tablaAccion, usuario }) {
 
     const [adminProducts, setAdminProducts] = useState([]);
     const [adminCategories, setCategories] = useState([]);
     const [product, setProduct] = useState([]);
     const [category, setCategory] = useState([]);
+    
 
     useEffect(() => {
         axios.get('http://localhost:3001/admin/products')
@@ -38,7 +39,7 @@ export default function Panel({ tablaAccion }) {
     }, []);
 
     function deleteProduct(id) {
-        axios.delete(`http://localhost:3001/products/${id}`)
+        axios.delete(`http://localhost:3001/products/${id}`, {withCredentials: true})
             .then(data => setAdminProducts(adminProducts.filter(prod => prod.id != id)))
             .catch((error) => {
                 console.log(error);
@@ -46,7 +47,7 @@ export default function Panel({ tablaAccion }) {
     }
 
     function deleteCategory(id) {
-        axios.delete(`http://localhost:3001/category/${id}`)
+        axios.delete(`http://localhost:3001/category/${id}`, {withCredentials: true})
             .then(data => setCategories(adminCategories.filter(cat => cat.id != id)))
             .catch((error) => {
                 console.log(error);
@@ -54,7 +55,7 @@ export default function Panel({ tablaAccion }) {
     }
 
     function getProduct(id) {
-        axios.get(`http://localhost:3001/admin/products/${id}`)
+        axios.get(`http://localhost:3001/admin/products/${id}`, {withCredentials: true})
             .then(producto => producto.data)
             .then(data => setProduct(data))
             .catch((error) => {
@@ -63,7 +64,7 @@ export default function Panel({ tablaAccion }) {
     }
 
     function getCategory(id) {
-        axios.get(`http://localhost:3001/category/${id}`)
+        axios.get(`http://localhost:3001/category/${id}`, {withCredentials: true})
             .then(producto => producto.data)
             .then(data => setCategory(data))
             .catch((error) => {
@@ -76,7 +77,7 @@ export default function Panel({ tablaAccion }) {
             method: 'post',
             url: 'http://localhost:3001/products',
             data: newProduct,
-            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+            config: { headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true }
         }).then(data => {
             return adminProducts
         })
@@ -86,7 +87,7 @@ export default function Panel({ tablaAccion }) {
     };
 
     function addCategory(newCategory) {
-        axios.post(`http://localhost:3001/category`, newCategory)
+        axios.post(`http://localhost:3001/category`, newCategory, {withCredentials: true})
             .then(data => adminCategories)
             .catch(error => {
                 console.log(error);
@@ -100,9 +101,8 @@ export default function Panel({ tablaAccion }) {
             method: 'put',
             url: `http://localhost:3001/products/${id}`,
             data: modProduct,
-            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+            config: { headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true }
         }).then(data => {
-                 console.log('modddddddddd: ', modProduct.id);
                 updateProducts.map(dato => {
                     if (dato.id == modProduct.id) {
                         dato.name = modProduct.name;
@@ -125,7 +125,7 @@ export default function Panel({ tablaAccion }) {
 
     function modCategory(modCat) {
         let updateCategories = adminProducts;
-        axios.put(`http://localhost:3001/category/${modCat.id}`, modCat)
+        axios.put(`http://localhost:3001/category/${modCat.id}`, modCat, {withCredentials: true})
             .then(data => {
                 updateCategories.map(dato => {
                     if (dato.id == modCat.id) {
@@ -142,14 +142,14 @@ export default function Panel({ tablaAccion }) {
     };
     function getOrders() {
         return axios
-            .get(`http://localhost:3001/users/orders`)
+            .get(`http://localhost:3001/users/orders`, {withCredentials: true})
             .then(orders => orders.data)
             .then(data => data)
             .catch(error => console.log(error))
     };
     function getUsers() {
         return axios
-            .get(`http://localhost:3001/user`)
+            .get(`http://localhost:3001/user`, {withCredentials: true})
             .then(orders => orders.data)
             .then(data => data)
             .catch(error => console.log(error))
@@ -160,7 +160,7 @@ export default function Panel({ tablaAccion }) {
                 <MenuAdmin />
                 {tablaAccion === 'Desktop' && <Escritorio />}
                 {tablaAccion === 'Categorys' && <Categorias categorias={adminCategories} deleteCategory={deleteCategory} category={category} getCategory={getCategory} addCategory={addCategory} modCategory={modCategory} />}
-                {tablaAccion === 'Users' && <Usuarios getUsers={getUsers} />}
+                {tablaAccion === 'Users' && <Usuarios getUsers={getUsers} rol={usuario.role}/>}
                 {tablaAccion === 'Products' && <Productos productos={adminProducts} categories={adminCategories} deleteProduct={deleteProduct} getProduct={getProduct} product={product} addProduct={addProduct} modProduct={modProduct} />}
                 {tablaAccion === 'Orders' && <Ordenes getOrders={getOrders} />}
             </div>
