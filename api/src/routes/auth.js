@@ -136,4 +136,4 @@ server.get('/github/callback', passport.authenticate('github', { failureRedirect
 });
 
 
-module.exports = [server, isAdmin, isLoggedIn];
+module.exports = [ server, isAdmin, isLoggedIn ];

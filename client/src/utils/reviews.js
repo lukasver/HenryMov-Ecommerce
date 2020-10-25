@@ -76,7 +76,7 @@ export function modifyReviews (id, reviews){
 }
 
 export function getProductExists(userId,productId){
-    return axios.get(`http://localhost:3001/users/orders/${userId}`)
+    return axios.get(`http://localhost:3001/users/orders/${userId}`, {withCredentials: true})
     .then(orders => {
         let orderPaid = orders.data.filter(order => order.status === "Processing" || "fulfilled")
         orderPaid = orderPaid[orderPaid.length-1]

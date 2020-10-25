@@ -2,6 +2,11 @@ const server = require('express').Router();
 
 const { Product, User, Order, Orderline } = require('../db.js');
 const { Sequelize, QueryTypes } = require('sequelize');
+const auths = require('./auth');
+
+// MIDDLEWARES //
+// auths[1]()  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
+// auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
 //==============================================
 //	Ruta para agregar item al carrito
@@ -286,7 +291,13 @@ server.delete('/users/:idUser/cart', async (req,res,next) => {
 
 })
 
-server.get('/users/orders/:userId', (req, res, next) => {
+//======================================================================== 
+//  Ruta para tener las ordenes y productos comprados x un cliente
+//======================================================================== 
+
+server.get('/users/orders/:userId', auths[2](), (req, res, next) => {
+  console.log(auths)
+
   const { userId } = req.params
   console.log('paso el const')
   Order.findAll({
