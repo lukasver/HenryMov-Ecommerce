@@ -23,6 +23,7 @@ import Reviews from "../src/components/reviews/Reviews"
 import Reset from "../src/components/registration/Reset"
 import Pago from '../src/components/carrito/pago/Pago'
 import Profile from "./components/registration/Profile";
+import ComponenteError from "./components/ComponenteError"
 
 
 function App() {
@@ -106,6 +107,7 @@ function App() {
       <Route exact path='/reviews' render={()=> <Reviews/>}/>
       <Route exact path='/pago' render={()=> <Pago/>}/>
       <Route exact path='/profile' render={()=> <Profile/>}/>
+      <Route exact path='/order/ /error' render={() => <ComponenteError/>}/>
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />
