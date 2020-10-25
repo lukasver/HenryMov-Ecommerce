@@ -10,7 +10,6 @@ const LocalStrategy = require('passport-local');
 // ===========================================================================================
 
 
-
 const isLoggedIn = () => {  
   return (req, res, next) => {
     console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
@@ -22,10 +21,10 @@ const isLoggedIn = () => {
 }
 
 const isAdmin = async (req,res,next) => {
-console.log('adad: ', req.user.email);
+
  try {
  const admin = await User.findOne({where: {email: req.user.email, role: "Admin"}})
- if (!admin) return res.status(403).send('<h1>Unauthorized</h1>')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+ if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
  next()
  } catch (error) {
    console.log(error)
@@ -85,4 +84,4 @@ server.post('/promote/:id',/* [isLoggedIn(), isAdmin], */(req, res, next) => {
 });
 
 
-module.exports = server;
+module.exports = [server, isAdmin];

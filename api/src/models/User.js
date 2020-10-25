@@ -73,7 +73,8 @@ module.exports = (sequelize) => {
         },
         image: {
               type: DataTypes.STRING,
-              allowNull: true
+              allowNull: true,
+              defaultValue: 'https://www.farma-erp.cl/img/no_photo.png'
         },
         creationdate: {
             type: DataTypes.DATEONLY,

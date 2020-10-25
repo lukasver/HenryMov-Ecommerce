@@ -4,9 +4,21 @@ import Panel from './Panel.jsx';
 import Productos from './Productos.jsx';
 import Categorias from './Categorias.jsx';
 import Usuarios from './Usuarios.jsx';
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function Admin() {
+
+  // PROTECCION DE RUTA PARA ADMIN PANEL
+
+  const history = useHistory()
+  let user = useSelector(store => store.loggedIn)
+  if (user.role !== 'Admin') {
+    history.push('/')
+  }
+  
+  // ===================================
 
   return (
     <div className="Admin">
