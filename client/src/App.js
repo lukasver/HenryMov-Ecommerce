@@ -36,24 +36,33 @@ function App() {
     Promise.all([
       axios.get("http://localhost:3001/products"),
       axios.get("http://localhost:3001/category"),
-      ])
+    ])
       .then(res => {
         dispatch(action.totalProds(res[0].data));
         dispatch(action.categories(res[1].data));
       })
       .catch(err => new Error(err))
 
-      axios
-      .get("http://localhost:3001/auth/login", {withCredentials: true})
+    axios
+      .get("http://localhost:3001/auth/login", { withCredentials: true })
       .then((user) => {
-        console.log('llego?', user) 
-        if(user.status === 200) dispatch(action.logIn(user.data)) 
+        if (!localStorage.getItem('email')) {
+          localStorage.setItem('id', user.data.id);
+          localStorage.setItem('email', user.data.email);
+          localStorage.setItem('role', user.data.role);
+        } else {
+          localStorage.removeItem('id');
+          localStorage.removeItem('email');
+          localStorage.removeItem('role');
+        }
+        if (user.status === 200) dispatch(action.logIn(user.data))
       })
       .catch((error) => {
         console.log(error);
       });
 
-      // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
+
+    // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
 
     // axios
     //   .get("http://localhost:3001/products")

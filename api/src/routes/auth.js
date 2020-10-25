@@ -83,5 +83,21 @@ server.post('/promote/:id',/* [isLoggedIn(), isAdmin], */(req, res, next) => {
   }).catch(err => {res.status(400).send(err)})
 });
 
+server.get('/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
+server.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000/Login' }), (req, res) => {
+  if (req.user) {
+      let payload = { id: req.user.id };
+      return res.redirect(`http://localhost:3000`);
+  }
+});
+
+server.get('/github', passport.authenticate('github', { scope: ['user:email', 'read:user']}));
+
+server.get('/github/callback', passport.authenticate('github', { failureRedirect: 'http://localhost:3000/Login' }), (req, res) => {
+    let payload = { id: req.user.id }; 
+    res.redirect(`http://localhost:3000`);
+});
+
 
 module.exports = [server, isAdmin];
