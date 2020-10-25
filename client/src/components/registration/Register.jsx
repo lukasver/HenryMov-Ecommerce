@@ -58,7 +58,7 @@ export default function Register() {
             errors.name = 'El nombre debe contener como minimo 3 letras';
         }
 
-        else if((/^[0-9]+$/).test(input.name)){
+        else if(!(/^[a-zA-Z ]*$/).test(input.name)){
             errors.name = 'El nombre no puede contener numeros'
         }
 

@@ -9,8 +9,8 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isAlpha: {
-                    args: true,
+                is: {
+                    args: /^[a-zA-Z ]*$/i,
                     msg: "El nombre debe contener solo letras"
                 },
                 len: {

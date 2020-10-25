@@ -114,6 +114,7 @@ function Nav() {
                                 <span className="utility-name transition-soft d-block">Mi Cuenta</span>
                             </div>
                             <ul className="js-subutility-list subutility-list ul-mi-cuenta">
+                                {user.name? <p>Hola {user.name}!</p> : null}
                                 {localStorage.getItem('role') === 'Admin' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
                                 {localStorage.getItem('email') === null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/Login' title="" className="nav-accounts-link">Iniciar sesión</Link></li>
                                     <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/Register' title="" >Crear cuenta</Link></li></div>}
