@@ -5,49 +5,64 @@ import {useDispatch, useSelector} from 'react-redux';
 import LoadingBar from '../LoadingBar';
 import { dateFormat } from '../../utils/utils.js'
 import * as action from '../../redux/Action'
-import './Profile.css'
-
-const Profile = () => {
-const user = useSelector(store => store.loggedIn)
-const dispatch = useDispatch()
-
-const logout = () => { 
-    dispatch(action.logIn(false))
-    localStorage.removeItem('id')
-	localStorage.removeItem('role')
-	localStorage.removeItem('email')
-    axios.get('http://localhost:3001/auth/logout', {withCredentials:true})
-    window.location.replace('http://localhost:3000')
-}
-
-if (!user) return <LoadingBar done="80" />
+import './ProfileAdmin.css'
 
 
-	const handleImage = (e) => {
-        const imagenUrl = document.getElementById('customFile').files[0] //como lo ves? funcara?
 
-        console.log(imagenUrl)
-        const formData = new FormData(); 
-        formData.append('image', imagenUrl) 
+const Profile = ({profileId}) => {
 
-        axios({
-            method: 'post',
-            url: `http://localhost:3001/user/${user.id}/image`,
-            data: formData,
-            config: { headers: { 'Content-Type': 'multipart/form-data'}, withCredentials: true }
-        })
-        .then(data => { 
-        	window.location.reload()
-        	console.log(data)})
-        .catch(error =>{
-        	new Error(error)
-        })
-    return
+	const dispatch = ' '
+
+	const [user, setUser] = useState(false)
+
+	async function getter() {
+	const user = await axios.get(`http://localhost:3001/user/${profileId}`, {withCredentials: true})
+	await setUser(user.data)
 	}
 
+	if(!user) getter()
+
+	useEffect(() => {
+	},[user])
+
+	if (!user) return <LoadingBar done="80" />
+
+
+// const logout = () => { 
+//     dispatch(action.logIn(false))
+//     localStorage.removeItem('id')
+// 	localStorage.removeItem('role')
+// 	localStorage.removeItem('email')
+//     axios.get('http://localhost:3001/auth/logout', {withCredentials:true})
+//     window.location.replace('http://localhost:3000')
+// }
+
+
+
+
+// 	const handleImage = (e) => {
+//         const imagenUrl = document.getElementById('customFile').files[0] //como lo ves? funcara?
+
+//         console.log(imagenUrl)
+//         const formData = new FormData(); 
+//         formData.append('image', imagenUrl) 
+
+//         axios({
+//             method: 'post',
+//             url: `http://localhost:3001/user/${user.id}/image`,
+//             data: formData,
+//             config: { headers: { 'Content-Type': 'multipart/form-data'}, withCredentials: true }
+//         })
+//         .then(data => { 
+//         	window.location.reload()
+//         	console.log(data)})
+//         .catch(error =>{
+//         	new Error(error)
+//         })
+//     return
+// 	}
+
 	return(
-
-
 		<div className="container mt-5 mb-5" id="page-content">
 		    <div className="padding">
 		        <div className="row container d-flex justify-content-center">
@@ -59,11 +74,11 @@ if (!user) return <LoadingBar done="80" />
 		                                <h6>{user.name} {user.lastname}</h6>
 		                                <p >{user.role}</p> <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
 		                            </div>
-		                            <div className="custom-file">
+		                         {/*   <div className="custom-file">
 									  <input type="file" name="image" className="custom-file-input" id="customFile"/>
 									  <label className="custom-file-label" for="customFile">Cambiar Foto</label>
 									  <button className="mt-1 adam-button" style={{width: "100%"}} onClick={handleImage}>enviar</button>
-									</div>
+									</div>*/}
 		                        </div>
 		                        <div className="col-sm-8">
 		                            <div className="card-block">
@@ -89,14 +104,14 @@ if (!user) return <LoadingBar done="80" />
 		                                        <h6 className="text-muted f-w-400">{dateFormat(user.creationdate)}</h6>
 		                                    </div>
 		                                </div>
-		                                <div className="row mt-5 pt-5 justify-content-center">
+		                       {/*         <div className="row mt-5 pt-5 justify-content-center">
 		                                	<div className="col-sm-6">
 		                                	<Link to="/reset"><button className="adam-button adamcustom">Reset password</button></Link>
 		                                	</div>
 		                                	<div className="col-sm-6">
                 							<button onClick={logout} className="adam-button adamcustom">Logout</button>
 		                                	</div>
-		                                </div>
+		                                </div>*/}
 
 		                                <ul className="social-link list-unstyled m-t-40 m-b-10">
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i className="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>

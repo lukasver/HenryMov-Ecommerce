@@ -33,15 +33,26 @@ const isAdmin = async (req, res, next) => {
 }
 
 
-const isSuperAdmin = async (req, res, next) => {
-  try {
-    const admin = await User.findOne({ where: { email: req.user.email, role: "Admin" } })
-    if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+const isSuperAdmin = (req, res, next) => {
+  User.findOne({ where: { email: req.user.email, role: "Admin" }})
+  .then(usuario => {
+    if (!usuario) return res.status(403).redirect('http://localhost:3000/')
     next()
-  } catch (error) {
+  })
+  .catch(error => {
     console.log(error)
     return res.status(401).json({ message: "Unauthorized - Require admin role" })
-  }
+  })
+
+
+  // try {
+  //   const admin = await User.findOne({ where: { email: req.user.email, role: "Admin" } })
+  //   if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+  //   next()
+  // } catch (error) {
+  //   console.log(error)
+  //   return res.status(401).json({ message: "Unauthorized - Require admin role" })
+  // }
 }
 
 // ===========================================================================================
@@ -129,4 +140,4 @@ server.get('/github/callback', passport.authenticate('github', { failureRedirect
 });
 
 
-module.exports = [server, isAdmin, isLoggedIn];
+module.exports = [ server, isAdmin, isLoggedIn ];

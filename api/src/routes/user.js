@@ -2,23 +2,17 @@ const server = require('express').Router();
 const { User } = require('../db.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const isAdmin = require('./auth');
+const auths = require('./auth');
 const passport = require('passport');
-// const { createToken, authenticateToken, isAdmin } = require ('./auth/authMiddlewares.js')
-// const { userSignUp, userLogin, getCookies, clearCookies } = require('./auth/index.js');
 
-
-// server.post('/login', userLogin)
-// server.post('/signup', userSignUp)
-
-// server.get('/setcookies', getCookies)
-// server.get('/clearcookies', clearCookies)
-
+// MIDDLEWARES //
+// auths[1]()  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
+// auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
 //==============================================
 //	Ruta para traer todods los usuarios.
 //==============================================
-server.get('/user', isAdmin[1], (req, res, next) => {
+server.get('/user', auths[1],(req, res, next) => {
 
     User.findAll()
         .then(user => {
@@ -33,13 +27,15 @@ server.get('/user', isAdmin[1], (req, res, next) => {
 //=============================================
 //  Ruta para encotrar usuarios por id
 //=============================================
-server.get('/user/:id', isAdmin[1], (req, res, next) => {
+
+server.get('/user/:id', auths[1],(req, res, next) => {
     const { id } = req.params;
     User.findByPk(id)
         .then(result => {
             if (!result) {
                 return res.status(404).send('Usuario no encontrado')
             }
+            result.password=null
             res.status(200).json(result)
         })
         .catch(err => {
@@ -51,6 +47,7 @@ server.get('/user/:id', isAdmin[1], (req, res, next) => {
 //	Ruta para crear/agregar un usuario.
 //============================================== 
 server.post('/user' ,async (req, res, next) => {
+
     const { name, lastname, email, address, phone, password, birthdate } = req.body;
     const hashedPassword = await bcrypt.hash(password,9)
     if(!name) {
@@ -76,11 +73,12 @@ server.post('/user' ,async (req, res, next) => {
 //===============================================
 //     Ruta para modificar usuario.
 //===============================================
-server.put('/user/:id', passport.authenticate('local'), (req, res, next) => {
+server.put('/user/:id', (req, res, next) => {
 
     if (req.user.role !== 'Admin' || req.user.id !== req.params.id) return res.send('<h1>Unauthorized</h1>')
     const { id } = req.params;
-    const { name, lastname, email, address, phone, password, birthdate } = req.body;
+
+    const { name, lastname, email, address, phone, birthdate} = req.body;
 
     User.update({
         name,
@@ -88,7 +86,6 @@ server.put('/user/:id', passport.authenticate('local'), (req, res, next) => {
         email,
         address,
         phone,
-        password,
         birthdate,
         image
     }, {
@@ -107,7 +104,7 @@ server.put('/user/:id', passport.authenticate('local'), (req, res, next) => {
 //     Ruta para modificar imagen de usuario.
 //===============================================
 
-server.post('/user/:id/image'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
+server.post('/user/:id/image', (req, res, next) => {
     const { id } = req.params;
     let { image } = req.body;
 
@@ -130,7 +127,7 @@ server.post('/user/:id/image'/*,[authenticateToken, isAdmin]*/, (req, res, next)
 //==============================================
 //  Ruta para eliminar usuario
 //==============================================
-server.delete('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
+server.delete('/user/:id'/*,[authenticateToken, auths]*/, (req, res, next) => {
     const { id } = req.params;
     User.destroy({
         where: {
@@ -171,17 +168,19 @@ server.get('/users', (req, res) => {
 server.post('/users/:id/passwordReset', async (req, res) => {
     const { id } = req.params;
     const { password } = req.body;
-    
+   
     try {
         const usuario = await User.findOne({ where: {id}})
         const hashedPassword = await bcrypt.hash(password, 9)
+
         await usuario.update({password: hashedPassword})
-        if (!usuario) {
-            return res.sendStatus(404)
-        }
-    return res.sendStatus(200)
+
+        if (!usuario) return res.sendStatus(404)
+
+        return res.sendStatus(200)
 
     } catch (error) {
+
         return res.sendStatus(401)
     }
 

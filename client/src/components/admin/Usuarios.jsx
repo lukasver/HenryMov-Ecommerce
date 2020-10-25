@@ -1,13 +1,16 @@
 // ========================= IMPORTS =================================================
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Usuarios.css';
 import axios from 'axios';
+import {dateFormat} from '../../utils/utils.js' 
 
 // ========================= COMPONENT ===============================================
 
 export default function Usuarios({getUsers, rol}) {
 
     const [users, setUsers] = useState([])
+    const [role, setRole] = useState(false)
 
     // =======================================================
     //      PAGINACIÓN
@@ -28,18 +31,22 @@ export default function Usuarios({getUsers, rol}) {
     // =======================================================
 
     const handlePromotion = (e,id) => {
-        axios.post(`http://localhost:3001/auth/promote/${id}`)
+        axios.post(`http://localhost:3001/auth/promote/${id}`, {withCredentials: true})
         .then(data => { 
-            console.log(data)})
+            console.log(data)
+            return setRole(!role)
+            })
         .catch(error =>{
             new Error(error)
     })
     }
 
     const handleDemotion = (e,id) => {
-        axios.post(`http://localhost:3001/auth/demote/${id}`)
+        axios.post(`http://localhost:3001/auth/demote/${id}`, {withCredentials: true})
         .then(data => { 
-            console.log(data)})
+            console.log(data)
+            return setRole(!role)
+            })
         .catch(error =>{
             new Error(error)
     })
@@ -48,7 +55,7 @@ export default function Usuarios({getUsers, rol}) {
 
     useEffect(()=>{
         getUsers().then(a=> setUsers(a))
-    },[])
+    },[role])
 
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
@@ -67,7 +74,7 @@ export default function Usuarios({getUsers, rol}) {
                             <th scope="col">Birthdate</th>
                             <th scope="col">Role</th>
                             <th scope="col">Creation date</th>
-                            {rol === 'Admin' && <th scope="col">Promote</th>}
+                            {rol === 'Admin' && <th scope="col">Role</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -75,17 +82,17 @@ export default function Usuarios({getUsers, rol}) {
                             currentPosts.length > 0 && currentPosts.map(dato => {
                                 return (
                                     <tr key={dato.id} >
-                                    <td>{dato.id}</td>
-                                    <td>{dato.name}</td>
-                                    <td>{dato.lastname}</td>
-                                    <td>{dato.email}</td>
-                                    <td>{dato.address}</td>
-                                    <td>{dato.phone}</td>
-                                    <td>{dato.birthdate}</td>
-                                    <td>{dato.role}</td>
-                                    <td>{dato.creationdate.toString()}</td>
-                                    {rol === 'Admin' && <td>{dato.role === 'Cliente' ? <button onClick={e => handlePromotion(e, dato.id)}>+</button> 
-                                    : <button onClick={e => handleDemotion(e, dato.id)}>-</button>}</td>}
+                                    <td><Link to={`/profile/${dato.id}`}>{dato.id}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dato.name}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dato.lastname}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dato.email}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dato.address}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dato.phone}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dateFormat(dato.birthdate)}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dato.role}</Link></td>
+                                    <td><Link to={`/profile/${dato.id}`}>{dateFormat(dato.creationdate)}</Link></td>
+                                    {rol === 'Admin' && <td>{dato.role === 'Cliente' && <button className="adam-button adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Responsable"?') && handlePromotion(e, dato.id))}>Promote</button>} 
+                                    {dato.role === 'Responsable' && <button className="adam-button adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Cliente"?') && handleDemotion(e, dato.id))}>Demote</button>}</td>}
                                 </tr>)
                             })
                         }

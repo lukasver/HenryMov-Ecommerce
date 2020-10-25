@@ -14,9 +14,9 @@ function Admin() {
 
   const history = useHistory()
   let user = useSelector(store => store.loggedIn)
-  // if (user.role !== 'Admin' || user.role !== 'Responsable') {
-  //   history.push('/')
-  // }
+  if (user.role !== 'Admin' && user.role !== 'Responsable') {
+    history.push('/')
+  }
   
   // ===================================
 
