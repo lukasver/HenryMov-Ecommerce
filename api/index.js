@@ -59,7 +59,7 @@ conn.sync({ force: true }).then(() => {
     		lastname: 'Jordan',
     		email: 'mjtheBEST@sony.com',
     		phone: 12345678,
-			password: await bcrypt.hash('MJtheBest2020!',9),
+			password: await bcrypt.hash('MJtheBest2020!', 9),
 			birthdate: new Date('02/23/1960'), // este new Date es para sacar un warning de consola
 			role: 'Admin',
 			image: "https://image-cdn.essentiallysports.com/wp-content/uploads/20200912202530/ssmailbag.jpg"
@@ -70,7 +70,7 @@ conn.sync({ force: true }).then(() => {
     		lastname: 'Simpson',
     		email: 'HomerJSimpson@yahoo.com',
     		phone: 0011234256,
-			password: await bcrypt.hash('YoAmo@Marge123',9),
+			password: await bcrypt.hash('YoAmo@Marge123', 9),
 			address: 'Calle Falsa 123, Springfield, FL, 90210, USA',
 			birthdate: new Date('05/12/1956'), // este new Date es para sacar un warning de consola
 			role: 'Cliente',

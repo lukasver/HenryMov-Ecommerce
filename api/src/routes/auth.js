@@ -12,67 +12,60 @@ const Op = Sequelize.Op;
 // ===========================================================================================
 
 
-const isLoggedIn = () => {  
+const isLoggedIn = () => {
   return (req, res, next) => {
     console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
-
-      if (req.isAuthenticated()) return next();
-      // return next();
-      return res.redirect('http://localhost:3000/login')
+    if (req.isAuthenticated()) return next();
+    // return next();
+    return res.redirect('http://localhost:3000/login')
   }
 }
 
-const isAdmin = async (req,res,next) => {
-
- try {
- const admin = await User.findOne({where: {email: req.user.email, [Op.or]: [{role: "Admin"},{role: "Responsable"}]}})
- if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
- next()
- } catch (error) {
-   console.log(error)
-   return res.status(401).json({message: "Unauthorized - Require admin role"})
- }
-
-
+const isAdmin = async (req, res, next) => {
+  try {
+    const admin = await User.findOne({ where: { email: req.user.email, [Op.or]: [{ role: "Admin" }, { role: "Responsable" }] } })
+    if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+    next()
+  } catch (error) {
+    console.log(error)
+    return res.status(401).json({ message: "Unauthorized - Require admin role" })
+  }
 }
 
 
-const isSuperAdmin = async (req,res,next) => {
-
- try {
- const admin = await User.findOne({where: {email: req.user.email, role: "Admin"}})
- if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
- next()
- } catch (error) {
-   console.log(error)
-   return res.status(401).json({message: "Unauthorized - Require admin role"})
- }
-
-
+const isSuperAdmin = async (req, res, next) => {
+  try {
+    const admin = await User.findOne({ where: { email: req.user.email, role: "Admin" } })
+    if (!admin) return res.status(403).redirect('http://localhost:3000/')// podría ser tmb un res.status(300).redirect('http://localhost:3000/login')
+    next()
+  } catch (error) {
+    console.log(error)
+    return res.status(401).json({ message: "Unauthorized - Require admin role" })
+  }
 }
 
 // ===========================================================================================
 //                     RUTAS LOGIN/LOGOUT
 // ===========================================================================================
 
-server.post('/login', passport.authenticate('local'), (req,res,next) => {
-  
-  if(req.isAuthenticated()) return res.status(200).json(req.user);
+server.post('/login', passport.authenticate('local'), (req, res, next) => {
+
+  if (req.isAuthenticated()) return res.status(200).json(req.user);
   return res.sendStatus(401);
 
 })
 
-server.get('/login', (req,res,next) => {
+server.get('/login', (req, res, next) => {
 
   req.user ? req.user.password = null : null
-  
+
   req.isAuthenticated() ? res.status(200).json(req.user) : res.sendStatus(401)
 
   return
 })
 
-server.get('/logout', isLoggedIn(), (req,res,next) => {
-  
+server.get('/logout', isLoggedIn(), (req, res, next) => {
+
   req.session.destroy()
   req.logout();
   res.clearCookie('connect.sid');
@@ -80,8 +73,8 @@ server.get('/logout', isLoggedIn(), (req,res,next) => {
   return
 })
 
-server.get('/profile', isLoggedIn(), (req,res,next) => {
-  
+server.get('/profile', isLoggedIn(), (req, res, next) => {
+
   res.json(req.user)
   return
 })
@@ -94,22 +87,22 @@ server.get('/profile', isLoggedIn(), (req,res,next) => {
 
 server.post('/promote/:id', (req, res, next) => {
   User.findOne({
-    where: {id: req.params.id}
+    where: { id: req.params.id }
   }).then(user => {
     user.role = "Responsable"
     return user.save();
   }).then(result => res.status(200).send('Usuario promovido a Responsable'))
-  .catch(err => {res.status(400).send(err)})
+    .catch(err => { res.status(400).send(err) })
 });
 
 server.post('/demote/:id', (req, res, next) => {
   User.findOne({
-    where: {id: req.params.id}
+    where: { id: req.params.id }
   }).then(user => {
     user.role = "Cliente"
     return user.save();
   }).then(result => res.status(200).send('Usuario pasado a rol Cliente'))
-  .catch(err => {res.status(400).send(err)})
+    .catch(err => { res.status(400).send(err) })
 });
 
 
@@ -119,20 +112,20 @@ server.post('/demote/:id', (req, res, next) => {
 //                     RUTAS Login GOOGLE/GITHUB
 // ===========================================================================================
 
-server.get('/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+server.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 server.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000/Login' }), (req, res) => {
   if (req.user) {
-      let payload = { id: req.user.id };
-      return res.redirect(`http://localhost:3000`);
+    let payload = { id: req.user.id };
+    return res.redirect(`http://localhost:3000`);
   }
 });
 
-server.get('/github', passport.authenticate('github', { scope: ['user:email', 'read:user']}));
+server.get('/github', passport.authenticate('github', { scope: ['user:email', 'read:user'] }));
 
 server.get('/github/callback', passport.authenticate('github', { failureRedirect: 'http://localhost:3000/Login' }), (req, res) => {
-    let payload = { id: req.user.id }; 
-    res.redirect(`http://localhost:3000`);
+  let payload = { id: req.user.id };
+  res.redirect(`http://localhost:3000`);
 });
 
 
