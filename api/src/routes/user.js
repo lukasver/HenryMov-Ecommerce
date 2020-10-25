@@ -18,7 +18,7 @@ const passport = require('passport');
 //==============================================
 //	Ruta para traer todods los usuarios.
 //==============================================
-server.get('/user', isAdmin[1],(req, res, next) => {
+server.get('/user', isAdmin[1], (req, res, next) => {
 
     User.findAll()
         .then(user => {
@@ -33,11 +33,11 @@ server.get('/user', isAdmin[1],(req, res, next) => {
 //=============================================
 //  Ruta para encotrar usuarios por id
 //=============================================
-server.get('/user/:id', isAdmin[1],(req, res, next) => {
+server.get('/user/:id', isAdmin[1], (req, res, next) => {
     const { id } = req.params;
     User.findByPk(id)
         .then(result => {
-            if(!result){
+            if (!result) {
                 return res.status(404).send('Usuario no encontrado')
             }
             res.status(200).json(result)
@@ -51,8 +51,8 @@ server.get('/user/:id', isAdmin[1],(req, res, next) => {
 //	Ruta para crear/agregar un usuario.
 //============================================== 
 server.post('/user' ,async (req, res, next) => {
-    let { name, lastname, email, address, phone, password, birthdate } = req.body;
-
+    const { name, lastname, email, address, phone, password, birthdate } = req.body;
+    const hashedPassword = await bcrypt.hash(password,9)
     if(!name) {
         return res.status(400).send("Faltan datos");
     }
@@ -62,7 +62,7 @@ server.post('/user' ,async (req, res, next) => {
         email,
         address,
         phone,
-        password,
+        password: hashedPassword,
         birthdate
     }).then(createdUser => {
         return res.status(200).json(createdUser)
@@ -72,18 +72,19 @@ server.post('/user' ,async (req, res, next) => {
         });
 });
 
+
 //===============================================
 //     Ruta para modificar usuario.
 //===============================================
 server.put('/user/:id', passport.authenticate('local'), (req, res, next) => {
 
-    if (req.user.role !== 'Admin' || req.user.id !== req.params.id ) return res.send('<h1>Unauthorized</h1>')
+    if (req.user.role !== 'Admin' || req.user.id !== req.params.id) return res.send('<h1>Unauthorized</h1>')
     const { id } = req.params;
-    const { name, lastname, email, address, phone, password, birthdate} = req.body;
+    const { name, lastname, email, address, phone, password, birthdate } = req.body;
 
     User.update({
         name,
-        lastName,
+        lastname,
         email,
         address,
         phone,
@@ -95,7 +96,7 @@ server.put('/user/:id', passport.authenticate('local'), (req, res, next) => {
             id: id
         }
     }).then(modified => {
-        if(modified[0] === 0){
+        if (modified[0] === 0) {
             return res.status(404).send('Usuario no encontrado')
         }
         res.status(200).send('Usuario modificado con exito')
@@ -110,17 +111,18 @@ server.post('/user/:id/image'/*,[authenticateToken, isAdmin]*/, (req, res, next)
     const { id } = req.params;
     let { image } = req.body;
 
-    if (image == undefined || image == '' ) image = `http://localhost:3001/uploads/${req.file.originalname}`
+    if (image == undefined || image == '') image = `http://localhost:3001/uploads/${req.file.originalname}`
 
-    User.findOne({where: { id: id }        
-     }).then(usuario => {
+    User.findOne({
+        where: { id: id }
+    }).then(usuario => {
         console.log(usuario)
         usuario.image = image
         return usuario.save()
     }).then(newUsuario => res.status(200).send('Usuario actualizado'))
-     .catch(error =>  res.status(404).send('Usuario no encontrado'))
+        .catch(error => res.status(404).send('Usuario no encontrado'))
 
- })
+})
 
 
 
@@ -135,12 +137,12 @@ server.delete('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => 
             id: id
         }
     }).then(deleted => {
-        if(deleted === 0){
+        if (deleted === 0) {
             return res.status(404).send('Usuario no encontrado');
         }
         res.status(200).send('Usuario eliminado con exito')
     })
-    }
+}
 )
 
 //===================================================
@@ -153,7 +155,7 @@ server.get('/users', (req, res) => {
             email
         }
     }).then(user => {
-        if(!user){
+        if (!user) {
             return res.status(404).send('Usuario no encontrado')
         }
         console.log(user.id)
@@ -166,25 +168,27 @@ server.get('/users', (req, res) => {
 //===================================================
 //  Ruta para encontrar resetear la contraseña
 //===================================================
-server.post('/users/:id/passwordReset', (req, res) => {
+server.post('/users/:id/passwordReset', async (req, res) => {
     const { id } = req.params;
     const { password } = req.body;
-    User.findOne({
-        where: {
-            id: id
+    
+    try {
+        const usuario = await User.findOne({ where: {id}})
+        const hashedPassword = await bcrypt.hash(password, 9)
+        await usuario.update({password: hashedPassword})
+        if (!usuario) {
+            return res.sendStatus(404)
         }
-    })
-    .then( result => {
-        if(!result){
-            return res.status(404).send('Usuario no encontrado')
-        }
-        result.password = password;
-        return result.save();
-    }).then(modified => {
-        return res.status(200).send('Contraseña cambiada con exito')
-    }).catch(err => {
-        return res.status(400).send(err)
-    })
+    return res.sendStatus(200)
+
+    } catch (error) {
+        return res.sendStatus(401)
+    }
+
+    
 })
+
+
+
 
 module.exports = server;
