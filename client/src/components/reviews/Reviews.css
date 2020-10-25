@@ -111,3 +111,10 @@
     flex-direction: column;
     justify-content: center;
 }
+.divFormRes{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 190px 0px 1px;
+}
