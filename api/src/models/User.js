@@ -85,9 +85,6 @@ module.exports = (sequelize) => {
         {
         beforeValidate: function set(user) {
             user.birthDate = new Date(user.birthDate)
-            },
-        afterValidate: async function set(user) {
-            user.password = await bcrypt.hash(user.password, 9)
-        }
+            }
     }, timestamps: false });
 };

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import './Reset.css';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 
 export default function Reset() {
 
+    let history = useHistory();
+
     const [values, setValues] = useState({
-        email: 'client@client.com',
-        password: 'asdASD123!'
+        email: '',
+        password: ''
     });
 
     const [error, setError] = useState({});
@@ -37,15 +40,16 @@ export default function Reset() {
                 return user.data
             }).then(id => {
                 console.log('id:', id)
-                return axios.post(`http://localhost:3001/users/${id}/passwordReset`, { password: values.password }, { withCredentials: true }
+                return axios.post(`http://localhost:3001/users/${id}/passwordReset`, {password: values.password}, { withCredentials: true }
                 )
-                    .then(result => {
-                        console.log('result:', result)
-                        return result
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
+                .then(result => {
+                    if(result.status === 200){
+                        window.alert('Contraseña modificada con exito');
+                        history.push('/Login');
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
             })
     }
 
@@ -100,7 +104,7 @@ export default function Reset() {
                                 <input name='confirmedPassword' type="password" className="form-control" placeholder='Confirmed New Password' id="exampleInputPassword1" onChange={handleOnChange} />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
                             </div>
-                            {JSON.stringify(error) == '{}' && values.email !== '' ? <button href='/' className="adam-button btn-enabled" type='submit'>Confirmar</button>
+                            {JSON.stringify(error) == '{}' && values.email !== '' ? <button href='/Login' className="adam-button btn-enabled" type='submit'>Confirmar</button>
                                 : <button className="adam-button btn-disabled" type='submit' disabled>Confirmar</button>}
 
                         </form>
