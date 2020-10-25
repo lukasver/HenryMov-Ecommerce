@@ -35,6 +35,7 @@ server.get('/user/:id', auths[1],(req, res, next) => {
             if (!result) {
                 return res.status(404).send('Usuario no encontrado')
             }
+            result.password=null
             res.status(200).json(result)
         })
         .catch(err => {
