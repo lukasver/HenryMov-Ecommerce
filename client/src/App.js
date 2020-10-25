@@ -29,6 +29,7 @@ import ComponenteError from "./components/ComponenteError"
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
   const loggedIn = useSelector((store) => store.loggedIn);
+  let user= localStorage.getItem('id')
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,7 +57,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-
+      user && dispatch(action.prodInStore(user))
 
     // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
 

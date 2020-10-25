@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './ProductCard.css';
 import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
+import axios from 'axios'
 import carrito from '../img/carrito.png'
 
 
@@ -12,7 +13,9 @@ export default function ProductCard(product) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
+	const prod = useSelector(store=> store.prodInStore)
 	const dispatch = useDispatch()
+	let user= localStorage.getItem('id')
 
 	useEffect(() => {
 		stocker(product)
@@ -25,9 +28,10 @@ export default function ProductCard(product) {
 
 	const imagen = product.image
 
-
+	
 	function handleAdd(product) {
-		render ? setRen(false) : setRen(true)
+		if (user === null){
+			render ? setRen(false) : setRen(true)
 
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
@@ -55,9 +59,14 @@ export default function ProductCard(product) {
 		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
+	}else{
+		render ? setRen(false) : setRen(true)
+		dispatch(action.addProduct(user,product))
+	}
 
 	}
 	function stocker(product) {
+		if(user==null){
 		let products = JSON.parse(localStorage.getItem('prod'))
 		if (products == null || products == undefined) {
 			return
@@ -66,6 +75,16 @@ export default function ProductCard(product) {
 		if (cleanData.length != 0) {
 			return setDisponible(false)
 		}
+	}else{
+		let products = prod
+		if (products == null || products == undefined) {
+			return
+		}
+		let cleanData = products.filter((data) => data.id == product.id)
+		if (cleanData.length != 0) {
+			return setDisponible(false)
+		}
+	}
 		return
 	}
 
