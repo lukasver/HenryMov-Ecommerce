@@ -13,6 +13,7 @@ export default function ProductCard(product) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
+	const prod = useSelector(store=> store.prodInStore)
 	const dispatch = useDispatch()
 	let user= localStorage.getItem('id')
 
@@ -27,7 +28,7 @@ export default function ProductCard(product) {
 
 	const imagen = product.image
 
-	console.log('user:',user)
+	
 	function handleAdd(product) {
 		render ? setRen(false) : setRen(true)
 	if (user === null){
@@ -59,12 +60,12 @@ export default function ProductCard(product) {
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
 	}else{
-		console.log('ENTRO')
 		dispatch(action.addProduct(user,product))
 	}
 
 	}
 	function stocker(product) {
+		if(user==null){
 		let products = JSON.parse(localStorage.getItem('prod'))
 		if (products == null || products == undefined) {
 			return
@@ -73,6 +74,16 @@ export default function ProductCard(product) {
 		if (cleanData.length != 0) {
 			return setDisponible(false)
 		}
+	}else{
+		let products = prod
+		if (products == null || products == undefined) {
+			return
+		}
+		let cleanData = products.filter((data) => data.id == product.id)
+		if (cleanData.length != 0) {
+			return setDisponible(false)
+		}
+	}
 		return
 	}
 
