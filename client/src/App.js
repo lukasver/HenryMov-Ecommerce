@@ -23,6 +23,7 @@ import Reviews from "../src/components/reviews/Reviews"
 import Reset from "../src/components/registration/Reset"
 import Pago from '../src/components/carrito/pago/Pago'
 import Profile from "./components/registration/Profile";
+import ComponenteError from "./components/ComponenteError"
 
 
 function App() {
@@ -106,15 +107,16 @@ function App() {
       <Route exact path='/products/:productId' render={({ match }) => (<Product product={onFilter(match.params.productId)} />)} />
       <Route exact path='/preguntas' render={() => <Preguntas />} />
       <Route exact path='/' render={() => <Carousel />} />
-      <Route exact path='/carrito' render={() => <Carrito />} />
-      <Route exact path='/register' render={() => <Register />} />
-      <Route exact path='/logIn' render={() => <LoggedIn />} />
-      <Route exact path='/reset' render={() => <Reset />} />
-      <Route exact path='/Menu' render={() => <Menu />} />
-      <Route exact path='/order/:id' render={({ match }) => <OrdenDetalle orderId={match.params.id} />} />
-      <Route exact path='/reviews' render={() => <Reviews />} />
-      <Route exact path='/pago' render={() => <Pago />} />
-      <Route exact path='/profile' render={() => <Profile />} />
+      <Route exact path='/carrito' render={()=> <Carrito/>}/>
+      <Route exact path='/register' render={()=> <Register/>} />
+      <Route exact path='/logIn' render={()=> <LoggedIn/>} />
+      <Route exact path='/reset' render={()=> <Reset/>} />
+      <Route exact path='/Menu' render={()=> <Menu />} />
+      <Route exact path='/order/:id' render={({ match })=> <OrdenDetalle orderId = {match.params.id}/>} />
+      <Route exact path='/reviews' render={()=> <Reviews/>}/>
+      <Route exact path='/pago' render={()=> <Pago/>}/>
+      <Route exact path='/profile' render={()=> <Profile/>}/>
+      <Route exact path='/order/ /error' render={() => <ComponenteError/>}/>
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />

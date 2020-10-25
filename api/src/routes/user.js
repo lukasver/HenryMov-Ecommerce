@@ -172,8 +172,6 @@ server.post('/users/:id/passwordReset', async(req, res) => {
 
     const { password } = req.body;
 
-    //let hashedPassword = await bcrypt.hash(password, 9);
-
     User.findOne({
         where: {
             id: id
