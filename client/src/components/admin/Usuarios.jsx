@@ -91,8 +91,8 @@ export default function Usuarios({getUsers, rol}) {
                                     <td><Link to={`/profile/${dato.id}`}>{dateFormat(dato.birthdate)}</Link></td>
                                     <td><Link to={`/profile/${dato.id}`}>{dato.role}</Link></td>
                                     <td><Link to={`/profile/${dato.id}`}>{dateFormat(dato.creationdate)}</Link></td>
-                                    {rol === 'Admin' && <td>{dato.role === 'Cliente' && <button className="adam-button adam-chng" onClick={e => handlePromotion(e, dato.id)}>Promote</button>} 
-                                    {dato.role === 'Responsable' && <button className="adam-button adam-chng" onClick={e => handleDemotion(e, dato.id)}>Demote</button>}</td>}
+                                    {rol === 'Admin' && <td>{dato.role === 'Cliente' && <button className="adam-button adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Responsable"?') && handlePromotion(e, dato.id))}>Promote</button>} 
+                                    {dato.role === 'Responsable' && <button className="adam-button adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Cliente"?') && handleDemotion(e, dato.id))}>Demote</button>}</td>}
                                 </tr>)
                             })
                         }
