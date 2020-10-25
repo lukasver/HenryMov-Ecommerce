@@ -30,6 +30,7 @@ function App() {
   const totalProds = useSelector((store) => store.totalProds);
   const loggedIn = useSelector((store) => store.loggedIn);
   const dispatch = useDispatch();
+  let user= localStorage.getItem('id')
 
   useEffect(() => {
 
@@ -56,7 +57,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-
+      user!==null && dispatch(action.prodInStore(user))
 
     // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
 

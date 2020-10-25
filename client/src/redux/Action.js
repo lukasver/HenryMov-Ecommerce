@@ -17,6 +17,7 @@ export const DELETE_COUNT ="DELETE_COUNT";
 export const STOCK = "STOCK";
 export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES";
 export const STARS = "STARS";
+export const PROD_IN_STORE = "PROD_IN_STORE"
 export const LOGIN = "LOGIN";
 
 
@@ -200,3 +201,31 @@ export function orderDetail(id) {
       .catch((error) => console.log(error));
   };
 }
+
+export function prodInStore(userId){
+  if (userId!== null){
+  return (dispatch)=>
+  axios
+  .get(`http://localhost:3001/users/${userId}/cart`)
+  .then(orden=>{
+    let ordenId =orden.data.orders[0].id
+    return ordenId
+  })
+  .then(ordenId=>{
+   return axios.get(`http://localhost:3001/orders/${ordenId}/cart`)
+  })
+  .then(prod=>{
+   let productoFinal= prod.data.products
+   console.log('aaaa',productoFinal)
+    dispatch({
+      type: PROD_IN_STORE,
+     payload: productoFinal
+    })
+     
+  })
+}else{
+  return 
+}
+}
+
+

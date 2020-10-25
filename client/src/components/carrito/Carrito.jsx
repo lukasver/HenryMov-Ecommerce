@@ -10,6 +10,7 @@ export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
     const count = useSelector(store => store.count)
+    const prod = useSelector(store=> store.prodInStore)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
     const [user, setUser] = useState(null)
@@ -17,10 +18,13 @@ export default function Carrito() {
     useEffect(() => {
         let user= localStorage.getItem('id')
         setUser(user)
-    }, [render, count, user])
+       
+}, [render, count, user])
+    if(user!==null) product = prod
     
+    console.log('PRODUCTOS', product)
+    console.log('PROD', prod)
     
-
     if (product != null) {
         product.sort(function (a, b) {
             if (a.id > b.id) {
@@ -109,6 +113,7 @@ export default function Carrito() {
        setUser(user)
        user !== null && history.push('/pago') 
     }
+
 
 
     return (

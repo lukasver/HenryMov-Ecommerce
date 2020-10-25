@@ -83,7 +83,7 @@ server.get('/orders/:id/cart', async (req, res, next) => {
       Order.findOne({
       where: {id},
       include: [
-      { model: Product, attributes: ['id','name','availability','stock'], through: {
+      { model: Product, attributes: ['id','name','availability','stock', 'image', 'price', 'count'], through: {
         attributes: ['amount','quantity'] // agregar 'id' si se quiere obtener el id de la orderline 
       }},
       { model: User, attributes:['id','name','lastname','email', 'address'] }],

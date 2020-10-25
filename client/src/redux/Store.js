@@ -19,6 +19,7 @@ import {
   STOCK,
   FILTER_BY_CATEGORIES,
   STARS,
+  PROD_IN_STORE,
   LOGIN
 } from "./Action";
 
@@ -32,6 +33,7 @@ const initialState = {
   countCart: '0',
   count: 1,
   orderDetail: [],
+  prodInStore:null,
   starsSelected: 0,
   loggedIn: false
 };
@@ -49,7 +51,13 @@ export function counterReducer(state = initialState, action) {
           ...state,
           count : action.payload
         }
-      };
+      }
+      case PROD_IN_STORE:
+        console.log('bbbbbb',action.payload)
+        return {
+          ...state,
+          prodInStore: action.payload
+        }
     case LOGIN:
       return {
         ...state,
