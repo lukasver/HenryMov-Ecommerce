@@ -9,8 +9,8 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isAlpha: {
-                    args: true,
+                is: {
+                    args: /^[a-zA-Z ]*$/i,
                     msg: "El nombre debe contener solo letras"
                 },
                 len: {
@@ -73,7 +73,8 @@ module.exports = (sequelize) => {
         },
         image: {
               type: DataTypes.STRING,
-              allowNull: true
+              allowNull: true,
+              defaultValue: 'https://www.farma-erp.cl/img/no_photo.png'
         },
         creationdate: {
             type: DataTypes.DATEONLY,

@@ -98,7 +98,7 @@ function App() {
   return (
     <div className='App'>
       <Switch>
-        <Route path='/admin' render={() => <Admin />} />
+        <Route path='/admin' render={() => <Admin/>} />
         <Route path='/' render={() => <Nav />} />
       </Switch>
       <Route exact path='/search' render={() => <ContentSearch />} />

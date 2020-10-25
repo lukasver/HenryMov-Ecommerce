@@ -1,7 +1,9 @@
 const server = require('express').Router();
 const { User } = require('../db.js');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const isAdmin = require('./auth');
+const passport = require('passport');
 // const { createToken, authenticateToken, isAdmin } = require ('./auth/authMiddlewares.js')
 // const { userSignUp, userLogin, getCookies, clearCookies } = require('./auth/index.js');
 
@@ -13,12 +15,11 @@ const bcrypt = require('bcrypt')
 // server.get('/clearcookies', clearCookies)
 
 
-
-
 //==============================================
 //	Ruta para traer todods los usuarios.
 //==============================================
-server.get('/user', /*[authenticateToken, isAdmin],*/ (req, res, next) => {
+server.get('/user', isAdmin[1],(req, res, next) => {
+
     User.findAll()
         .then(user => {
             res.json(user);
@@ -32,7 +33,7 @@ server.get('/user', /*[authenticateToken, isAdmin],*/ (req, res, next) => {
 //=============================================
 //  Ruta para encotrar usuarios por id
 //=============================================
-server.get('/user/:id',/*[authenticateToken, isAdmin] ,*/ (req, res, next) => {
+server.get('/user/:id', isAdmin[1],(req, res, next) => {
     const { id } = req.params;
     User.findByPk(id)
         .then(result => {
@@ -49,7 +50,7 @@ server.get('/user/:id',/*[authenticateToken, isAdmin] ,*/ (req, res, next) => {
 //==============================================
 //	Ruta para crear/agregar un usuario.
 //============================================== 
-server.post('/user', async (req, res, next) => {
+server.post('/user' ,async (req, res, next) => {
     let { name, lastname, email, address, phone, password, birthdate } = req.body;
 
     console.log('birthdate: ', birthdate);
@@ -76,7 +77,9 @@ server.post('/user', async (req, res, next) => {
 //===============================================
 //     Ruta para modificar usuario.
 //===============================================
-server.put('/user/:id'/*,[authenticateToken, isAdmin]*/, (req, res, next) => {
+server.put('/user/:id', passport.authenticate('local'), (req, res, next) => {
+
+    if (req.user.role !== 'Admin' || req.user.id !== req.params.id ) return res.send('<h1>Unauthorized</h1>')
     const { id } = req.params;
     const { name, lastname, email, address, phone, password, birthdate} = req.body;
 

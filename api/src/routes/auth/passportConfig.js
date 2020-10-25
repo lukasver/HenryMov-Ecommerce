@@ -49,16 +49,17 @@ module.exports = function (passport) {
       function(token, refreshToken, profile, done) {
           process.nextTick(async function() {
               const user = profile._json;
+              console.log(user);
               const password = 'HenryMov2.0!';   
-              const birthdate = new Date('1988/03/15');
+              const birthdate = new Date('2000/10/10');
               User.findOrCreate({
                   where: { email: user.email },
                   defaults: {
-                      name: 'Diego',
+                      name: user.given_name,
                       lastname: user.family_name,                      
                       email: user.email,
                       password: password,
-                      phone: '3884137079',
+                      phone: '0000000000',
                       birthdate: birthdate,
                       image: user.picture
                   }

@@ -38,13 +38,10 @@ server.get('/users/:id/orders', (req, res, next) => {
 		where: {userId: req.params.id}
 	}).then(orders => {
 		if (!orders) return res.sendStatus(404);
-		res.status(200).send(orders);
+		return res.status(200).json(orders);
 	})
-    .then(orders => {
-        if (!orders) {
-            return res.send('<h1>No hay ordenes cargadas</h1>')
-        }
-        res.json(orders);
+    .catch(error => {
+        return res.send(error);
     })
 });
 
