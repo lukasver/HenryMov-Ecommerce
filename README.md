@@ -201,6 +201,7 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm axios
 
 ## En ./api
+- ( npm i sequelize cors multer bcrypt express-session express-session-sequelize passport passport-local passport-google-oauth passport-github2)
 - npm install
 - npm install sequelize
 - npm install cors
