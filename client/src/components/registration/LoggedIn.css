@@ -26,3 +26,7 @@
 .form-login {
     margin: 120px 0px !important;
 }
+.card-body {
+    width: 100%;
+    padding: 30px;
+}
