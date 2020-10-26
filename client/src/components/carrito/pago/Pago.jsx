@@ -20,7 +20,7 @@ export default function Pago(){
         setUser(user)
         
     }, [ user])
-    if(user!==null) product = prod
+   
 if(archivo)
 {
    archivo.addEventListener('change', guessPaymentMethod);
