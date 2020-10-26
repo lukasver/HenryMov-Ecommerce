@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react';
 import ProductCard from './ProductCard';
 import axios from 'axios';
 import './Carousel.css';
+import qr from '../img/Productos.png'
 
 export default function Carousel() {
 
@@ -24,8 +25,8 @@ export default function Carousel() {
 
 return (
     <div className="container">
-        <br /><br /><br /><br /><br />
-        <h3>Productos Destacados</h3>
+        <br/>
+        <h3><img src={qr} width={200} /><div>Productos Destacados</div></h3>
         <br />
         <div className="main row">
             {randomDes && randomDes.map(prod =>
