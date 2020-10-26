@@ -14,6 +14,7 @@ export default function LoggedIn() {
     axios.post('http://localhost:3001/auth/login', {email, password}, {withCredentials: true})
     .then((res,err) => {
       if (res.status === 200) {
+       
         localStorage.setItem('id', res.data.id);
         localStorage.setItem('email', res.data.email);
         localStorage.setItem('role', res.data.role);

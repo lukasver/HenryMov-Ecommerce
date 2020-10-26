@@ -30,7 +30,7 @@ export default function Product({ product }) {
 	function handleAdd() {
 		render ? setRen(false) : setRen(true)
 		product.count = count
-		if(user==null){
+		// if(user==null){
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
 
@@ -55,15 +55,15 @@ export default function Product({ product }) {
 		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
-		}else{
-			dispatch(action.addProduct(user,product))
-		}
+		// }else{
+		// 	dispatch(action.addProduct(user,product))
+		// }
 
 	}
 
 
 	function stocker(product) {
-		if(user==null){
+	
 		let products = JSON.parse(localStorage.getItem('prod'))
 		if (products == null || products == undefined) {
 			return
@@ -72,16 +72,16 @@ export default function Product({ product }) {
 		if (cleanData.length != 0) {
 			return setDisponible(false)
 		}
-	}else{
-		let products = prod
-		if (products == null || products == undefined) {
-			return
-		}
-		let cleanData = products.filter((data) => data.id == product.id)
-		if (cleanData.length != 0) {
-			return setDisponible(false)
-		}
-	}
+		
+		// let products = prod
+		// if (products == null || products == undefined) {
+		// 	return
+		// }
+		// let cleanData = products.filter((data) => data.id == product.id)
+		// if (cleanData.length != 0) {
+		// 	return setDisponible(false)
+		// }
+	
 		return
 	}
 	
