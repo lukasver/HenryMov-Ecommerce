@@ -11,10 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 function Admin() {
 
   // PROTECCION DE RUTA PARA ADMIN PANEL
-
+  const pase = localStorage.getItem('role');
+  console.log()
   const history = useHistory()
   let user = useSelector(store => store.loggedIn)
-  if (user.role !== 'Admin' && user.role !== 'Responsable') {
+
+  if (pase !== 'Admin' && pase !== 'Responsable') {
     history.push('/')
   }
   
