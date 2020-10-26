@@ -5,10 +5,13 @@ import * as action from '../redux/Action'
 import ProductCard from './ProductCard'
 import LoadingBar from './LoadingBar.jsx'
 import Carousel from './Carousel'
+import { useHistory } from "react-router-dom";
 
 // Este componente renderiza lo anteriormente filtrado por handleSelect en el componente nav
 export default function Menu() {
     const products = useSelector(store => store.totalProdsFilter)
+    const [reload, setReload] = useState(false)
+    const history = useHistory()
 
     // =======================================================
     //      PAGINACIÓN
@@ -27,10 +30,17 @@ export default function Menu() {
 
     // =======================================================
 
+    useEffect(()=>{
+
+    },[reload])
+
     if (currentPosts.length === 0) {
 
         return (
-            <Carousel />
+            <div>
+            <LoadingBar done="75"/> {/*// El carousel queda bastante feo al mostrarlo por medio segundo en el UX*/}
+            {reload && history.push('/')}
+            </div>
         )
     } else {
         return (
