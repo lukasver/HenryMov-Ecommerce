@@ -75,8 +75,12 @@ server.post('/user' ,async (req, res, next) => {
 //===============================================
 server.put('/user/:id', (req, res, next) => {
 
-    if (req.user.role !== 'Admin' || req.user.id !== req.params.id) return res.send('<h1>Unauthorized</h1>')
+
+    // if (req.user.role !== 'Admin' || req.user.id !== req.params.id) return res.send('<h1>Unauthorized</h1>')
     const { id } = req.params;
+
+    console.log(id)
+    console.log(req.body)
 
     const { name, lastname, email, address, phone, birthdate} = req.body;
 
@@ -87,13 +91,14 @@ server.put('/user/:id', (req, res, next) => {
         address,
         phone,
         birthdate,
-        image
     }, {
         where: {
             id: id
         }
     }).then(modified => {
+        console.log(modified)
         if (modified[0] === 0) {
+            console.log('llegue aca??')
             return res.status(404).send('Usuario no encontrado')
         }
         res.status(200).send('Usuario modificado con exito')
@@ -168,6 +173,8 @@ server.get('/users', (req, res) => {
 server.post('/users/:id/passwordReset', async (req, res) => {
     const { id } = req.params;
     const { password } = req.body;
+
+    if (password.length < 8) return res.send(400).send('Password no cumple requisitos')
    
     try {
         const usuario = await User.findOne({ where: {id}})

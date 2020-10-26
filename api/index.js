@@ -37,6 +37,7 @@ conn.sync({ force: true }).then(() => {
     		lastname: 'Admin',
     		email: 'admin@admin.com',
     		phone: 12345678,
+    		address: `3251  Carolyns Circle, Dallas, TX, 75225`,
 			password: await bcrypt.hash('asdASD123!', 9),
 			birthdate: new Date('02/23/1961'), // este new Date es para sacar un warning de consola
 			role: 'Admin',

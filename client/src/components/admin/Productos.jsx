@@ -11,12 +11,9 @@ export default function Productos({ productos, categories, deleteProduct, getPro
 
     const [addProd, setAddProd] = useState({
         name: '',
-        description: '',
-        price: 0,
-        availability: true,
-        stock: 0,
-        image: '',
-        categories: ''
+        lastname: '',
+        phone: 0,
+        birthdate: ''
     });
 
     const [modProd, setModProd] = useState({
