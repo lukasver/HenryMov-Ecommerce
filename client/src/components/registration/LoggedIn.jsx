@@ -5,7 +5,7 @@ import './LoggedIn.css';
 
 export default function LoggedIn() {
   
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   
   const handleLogin = (e) => {
     setCount(count + 1)
@@ -23,17 +23,19 @@ export default function LoggedIn() {
         window.location="http://localhost:3000/";
       }})
     .catch(error => {
-      if (error) {
-        if(count === 3){
-          window.alert('Has llegado al limite de intentos. Por favor, resetea tu contraseña')
+
+      console.log(error)
+      // if (error) {
+      //   if(count === 3){
+      //     window.alert('Has llegado al limite de intentos. Por favor, resetea tu contraseña')
           
-        }
-        if(count > 0 && count < 3){
-          window.alert(`Email y/o Contraseña incorrecta. Te quedan ${ 3 - count } intentos`)
-        }
-      } 
+      //   }
+      //   if(count > 0 && count < 3){
+      //     window.alert(`Email y/o Contraseña incorrecta. Te quedan ${ 3 - count } intentos`)
+      //   }
+      // } 
     }) 
-    return count
+    return 
   }
 
   return (
@@ -49,8 +51,10 @@ export default function LoggedIn() {
                 </div>
                 <div class="form-label-group">
                   <input type="password" id="inputPassword" class="form-control" placeholder="Password" required />
+                  {count > 0 && count < 3 && <p className='danger'>Te quedan {3 - count} intentos</p>}
+                  {count >= 3 && <p className='danger'>Superaste el maximo de intentos, por favor cambia tu contraseña</p>}
                 </div>
-                {count > 3 ? <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" disabled>Sign in</button> :
+                {count >= 3 ? <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" disabled>Sign in</button> :
                 <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" >Sign in</button>}
                 
                 {console.log(count)}
