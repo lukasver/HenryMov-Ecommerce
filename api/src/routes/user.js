@@ -168,7 +168,9 @@ server.get('/users', (req, res) => {
 server.post('/users/:id/passwordReset', async (req, res) => {
     const { id } = req.params;
     const { password } = req.body;
-   
+    
+    if (password.length < 8) return res.send(400).send('Password no cumple requisitos')
+    
     try {
         const usuario = await User.findOne({ where: {id}})
         const hashedPassword = await bcrypt.hash(password, 9)
@@ -186,6 +188,7 @@ server.post('/users/:id/passwordReset', async (req, res) => {
 
     
 })
+
 
 
 
