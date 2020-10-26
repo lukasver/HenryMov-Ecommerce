@@ -8,6 +8,13 @@ import * as action from '../../redux/Action'
 import './Profile.css'
 
 const Profile = () => {
+
+const [toogle, setToogle] = useState(false)
+
+useEffect(()=>{
+
+	},[toogle])
+
 const user = useSelector(store => store.loggedIn)
 const dispatch = useDispatch()
 
@@ -20,7 +27,7 @@ const logout = () => {
     window.location.replace('http://localhost:3000')
 }
 
-if (!user) return <LoadingBar done="80" />
+if (!user) {return <LoadingBar done="80" />}
 
 
 	const handleImage = (e) => {
@@ -45,6 +52,16 @@ if (!user) return <LoadingBar done="80" />
     return
 	}
 
+	const handleModifySend = (e) => {
+		
+	}
+
+	const handleModify = (e) => {
+		setToogle(!toogle)
+		console.log(toogle)
+	}
+
+
 	return(
 
 
@@ -56,18 +73,19 @@ if (!user) return <LoadingBar done="80" />
 		                        <div className="col-sm-4 bg-c-lite-green user-profile">
 		                            <div className="card-block text-center text-white">
 		                                <div className="m-b-25"> <img src={user.image} className="img-radius" alt="User-Profile-Image"/> </div>
-		                                <h6>{user.name} {user.lastname}</h6>
+		                                <h6>{!toogle ? `${user.name} ${user.lastname}` : (<form><input type="text" placeholder="Nombre"/><input type="text" placeholder="Apellido"></input></form>)}</h6>
 		                                <p >{user.role}</p> <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
 		                            </div>
-		                            <div className="custom-file">
+		                            {!toogle && <div className="custom-file">
 									  <input type="file" name="image" className="custom-file-input" id="customFile"/>
 									  <label className="custom-file-label" for="customFile">Cambiar Foto</label>
 									  <button className="mt-1 adam-button" style={{width: "100%"}} onClick={handleImage}>enviar</button>
-									</div>
+									</div>}
 		                        </div>
 		                        <div className="col-sm-8">
 		                            <div className="card-block">
-		                                <h3 className="m-b-20 p-b-5 b-b-default f-w-600">Información</h3>
+		                                <h3 className="m-b-20 p-b-5 b-b-default f-w-600">Información 	 
+		                                <a style={{color: "black", cursor: "pointer"}} className="iconTable"> <i className="far fa-edit" id={user.id} onClick={handleModify}></i></a></h3>
 		                                <div className="row">
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600">Email</p>
@@ -75,28 +93,29 @@ if (!user) return <LoadingBar done="80" />
 		                                    </div>
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600">Teléfono</p>
-		                                        <h6 className="text-muted f-w-400">{user.phone}</h6>
+		                                        <h6 className="text-muted f-w-400">{!toogle ? user.phone  : <input type="text" placeholder="Actualizar"></input>}</h6>
 		                                    </div>
 		                                </div>
 		                                <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
 		                                <div className="row">
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600">Cumpleaños</p>
-		                                        <h6 className="text-muted f-w-400">{dateFormat(user.birthdate)}</h6>
+		                                        <h6 className="text-muted f-w-400">{!toogle ? dateFormat(user.birthdate) : <input type="text" placeholder="Actualizar"></input>}</h6>
 		                                    </div>
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600"> Fecha Alta </p>
-		                                        <h6 className="text-muted f-w-400">{dateFormat(user.creationdate)}</h6>
+		                                        <h6 className="text-muted f-w-400">{!toogle ? dateFormat(user.creationdate) : <input type="text" placeholder="Actualizar"></input>}</h6>
 		                                    </div>
 		                                </div>
-		                                <div className="row mt-5 pt-5 justify-content-center">
+		                                {!toogle && <div className="row mt-5 pt-5 justify-content-center">
 		                                	<div className="col-sm-6">
 		                                	<Link to="/reset"><button className="adam-button adamcustom">Reset password</button></Link>
 		                                	</div>
 		                                	<div className="col-sm-6">
                 							<button onClick={logout} className="adam-button adamcustom">Logout</button>
 		                                	</div>
-		                                </div>
+		                                </div>}
+		                                {toogle && <button onClick={handleModifySend} className="adam-button adamcustom">Confirmar Cambios</button>}
 
 		                                <ul className="social-link list-unstyled m-t-40 m-b-10">
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i className="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>

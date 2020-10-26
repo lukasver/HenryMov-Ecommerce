@@ -6,10 +6,18 @@ import LoadingBar from '../LoadingBar';
 import { dateFormat } from '../../utils/utils.js'
 import * as action from '../../redux/Action'
 import './ProfileAdmin.css'
+import { useHistory } from "react-router-dom";
 
 
 
 const Profile = ({profileId}) => {
+
+
+	const pase = localStorage.getItem('role');
+	const history = useHistory()
+ if (pase !== 'Admin' && pase !== 'Responsable') {
+    history.push('/')
+  }
 
 	const dispatch = ' '
 
@@ -118,6 +126,7 @@ const Profile = ({profileId}) => {
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i className="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i className="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
 		                                </ul>
+		                                <Link to="/admin/users"><button className="adam-button adamcustom">Regresar...</button></Link>
 		                            </div>
 		                        </div>
 		                    </div>
