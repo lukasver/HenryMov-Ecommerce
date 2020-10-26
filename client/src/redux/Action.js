@@ -188,10 +188,6 @@ export function onSearch(search) {
           type: ON_SEARCH,
           payload: data,
         });
-        dispatch({
-          type: COUNTER_USER,
-          payload: data.length
-        })
       })
       .catch((error) => console.log(error));
   };
@@ -228,10 +224,13 @@ export function prodInStore(userId){
   })
   .then(prod=>{
    let productoFinal= prod.data.products
-   console.log('aaaa',productoFinal)
     dispatch({
       type: PROD_IN_STORE,
      payload: productoFinal
+    })
+    dispatch({
+      type: COUNTER_USER,
+      payload: productoFinal.length
     })
      
   })
