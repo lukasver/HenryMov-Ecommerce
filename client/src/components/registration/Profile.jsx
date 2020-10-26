@@ -131,18 +131,26 @@ const Profile = () => {
 		return
 	}
 
+
 	// FUNCION QUE ENVÍA LA NUEVA PASSWORD A LA DB
 	const handleSubmit = e => {
-	    e.preventDefault();
-        axios.post(`http://localhost:3001/users/${id}/passwordReset`, {password: values.password}, { withCredentials: true })
-        .then(result => {
-            if(result.status === 200){
-                window.alert('Contraseña modificada con exito');
-                logout();
-            }
-        }).catch(err => {
-            console.log(err)
-        })
+		
+		e.preventDefault();
+		if(JSON.stringify(error) === '{}' || values.password.length < 8){
+			return window.alert('Debe completar los campos')
+		}
+		else{
+			axios.post(`http://localhost:3001/users/${id}/passwordReset`, {password: values.password}, { withCredentials: true })
+			.then(result => {
+				if(result.status === 200){
+					window.alert('Contraseña modificada con exito');
+					logout();
+				}
+			}).catch(err => {
+				console.log(err)
+			})
+
+		}
         
     }
 
@@ -266,5 +274,6 @@ const Profile = () => {
 		        </div>
 		    </div>
 )}
+
 
 export default Profile;
