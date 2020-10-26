@@ -105,11 +105,11 @@ export function deleteProd(prod) {
   };
 }
 
-export function countCart(x) {
+export function countCart() {
   let countCart =localStorage.getItem('count')
   return {
     type: COUNT_CART,
-    payload: x
+    payload: countCart
   };
 }
 export function removecountCart() {
@@ -211,7 +211,9 @@ export function orderDetail(id) {
 }
 
 export function prodInStore(userId){
+
   if (userId!== null){
+    console.log('aca entra')
   return (dispatch)=>
   axios
   .get(`http://localhost:3001/users/${userId}/cart`, {withCredentials: true })
@@ -223,7 +225,9 @@ export function prodInStore(userId){
    return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
   })
   .then(prod=>{
-   let productoFinal= prod.data.products
+    let product = JSON.parse(localStorage.getItem('prod'))
+    let productoFinal= prod.data.products.concat(product)
+    localStorage.setItem('count', productoFinal.length)
     dispatch({
       type: PROD_IN_STORE,
      payload: productoFinal
@@ -231,8 +235,11 @@ export function prodInStore(userId){
     dispatch({
       type: COUNTER_USER,
       payload: productoFinal.length
-    })
-     
+    })  
+    dispatch({
+      type: COUNT_CART,
+      payload:0
+    })   
   })
 }else{
   return 

@@ -1,9 +1,12 @@
 import React from 'react';
+import { useDispatch , useSelector } from 'react-redux';
 import axios from 'axios';
+import * as action from '../../redux/Action';
 import { Link } from 'react-router-dom'
 import './LoggedIn.css';
 
 export default function LoggedIn() {
+ 
   let count = 0
   
   const handleLogin = (e) => {
@@ -17,11 +20,12 @@ export default function LoggedIn() {
     axios.post('http://localhost:3001/auth/login', {email, password}, {withCredentials: true})
     .then((res,err) => {
       if (res.status === 200) {
-       
+        
         localStorage.setItem('id', res.data.id);
         localStorage.setItem('email', res.data.email);
         localStorage.setItem('role', res.data.role);
-        window.location="http://localhost:3000/";
+        
+        window.location="http://localhost:3000";
       }})
     .catch(error => {
       if (error) {
@@ -35,6 +39,7 @@ export default function LoggedIn() {
     }) 
     return
   }
+ 
 
   return (
     <div class="container">

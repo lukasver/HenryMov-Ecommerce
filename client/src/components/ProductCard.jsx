@@ -13,25 +13,23 @@ export default function ProductCard(product) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
-	// const prod = useSelector(store=> store.prodInStore)
 	const dispatch = useDispatch()
-	// let user= localStorage.getItem('id')
-
+	const prodIn = useSelector(store=> store.prodInStore)
+	
+	
+	
 	useEffect(() => {
-		stocker(product)
+		product && stocker(product)
 	}, [render, count, disponible])
 	if (!product) {
 		return <div className="spinner-border text-info" role="status">
 			<span className="sr-only">Loading...</span>
 		</div>
 	}
-
-	const imagen = product.image
-
 	
 	function handleAdd(product) {
 		// if (user === null){
-			render ? setRen(false) : setRen(true)
+		render ? setRen(false) : setRen(true)
 
 		let recoveredData = localStorage.getItem('prod')
 		let search = JSON.parse(recoveredData)
@@ -67,7 +65,8 @@ export default function ProductCard(product) {
 	}
 	function stocker(product) {
 		// if(user==null){
-		let products = JSON.parse(localStorage.getItem('prod'))
+		let products=JSON.parse(localStorage.getItem('prod'))
+		let users = localStorage.getItem('id')
 		if (products == null || products == undefined) {
 			return
 		}

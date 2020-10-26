@@ -181,5 +181,5 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default createStore(
   counterReducer,
-  composeEnhancers(applyMiddleware(thunk))
+  compose(applyMiddleware(thunk))
 );

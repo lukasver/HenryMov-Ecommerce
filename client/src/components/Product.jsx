@@ -11,13 +11,14 @@ export default function Product({ product }) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
-	const prod = useSelector(store=> store.prodInStore)
-	let user= localStorage.getItem('id')
 	const dispatch = useDispatch()
+	const prod = useSelector(store=> store.prodInStore)
+	
 	useEffect(() => {
 		
 		product && stocker(product)
-	}, [render, count])
+	}, [render, count,disponible])
+	const { name, image, price, description, id, stock } = product
 	if (!product) {
 		return <div class="spinner-border text-info" role="status">
 			<span class="sr-only">Loading...</span>
@@ -25,7 +26,6 @@ export default function Product({ product }) {
 	}
 
 
-	const { name, image, price, description, id, stock } = product
   
 	function handleAdd() {
 		render ? setRen(false) : setRen(true)
@@ -65,6 +65,7 @@ export default function Product({ product }) {
 	function stocker(product) {
 	
 		let products = JSON.parse(localStorage.getItem('prod'))
+		let user= localStorage.getItem('id')
 		if (products == null || products == undefined) {
 			return
 		}

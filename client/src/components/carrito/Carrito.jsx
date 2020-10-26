@@ -10,17 +10,18 @@ export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
     const count = useSelector(store => store.count)
-    const prod = useSelector(store=> store.prodInStore)
+    const prodIn = useSelector(store=>store.prodInStore)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
     const [user, setUser] = useState(null)
     let history = useHistory();
+    let users= localStorage.getItem('id')
     useEffect(() => {
-        let user= localStorage.getItem('id')
-        setUser(user)
+        setUser(users)
         
     }, [render, count, user])
    
+    users !==null ? product=prodIn : product = product
     
     if (product != null) {
         product.sort(function (a, b) {
