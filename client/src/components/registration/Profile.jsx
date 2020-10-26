@@ -195,7 +195,7 @@ const dispatch = useDispatch()
 															</div>
 														</div>
 														<div className="modal-footer d-flex justify-content-center">
-															<button className="btn btn-default" style={{color: "white"}} onClick={handleSubmit}>Confirmar</button>
+															<button className="btn btn-default confirmed" onClick={handleSubmit}>Confirmar</button>
 														</div>
 													</div>
 												</div>

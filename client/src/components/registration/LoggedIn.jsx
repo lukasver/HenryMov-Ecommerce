@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import './LoggedIn.css';
 
 export default function LoggedIn() {
-  let count = 0
+  
+  const [count, setCount] = useState(1);
   
   const handleLogin = (e) => {
-    count++
+    setCount(count + 1)
     e.preventDefault()
     const email = document.getElementById("inputEmail").value
     const password = document.getElementById("inputPassword").value
-    console.log(count)
-
     
     axios.post('http://localhost:3001/auth/login', {email, password}, {withCredentials: true})
     .then((res,err) => {
@@ -27,13 +26,14 @@ export default function LoggedIn() {
       if (error) {
         if(count === 3){
           window.alert('Has llegado al limite de intentos. Por favor, resetea tu contraseña')
+          
         }
-        else{
-          window.alert(`Email y/o Contraseña incorrecta. Te quedan ${3 - count} intentos`)
+        if(count > 0 && count < 3){
+          window.alert(`Email y/o Contraseña incorrecta. Te quedan ${ 3 - count } intentos`)
         }
       } 
     }) 
-    return
+    return count
   }
 
   return (
@@ -46,19 +46,15 @@ export default function LoggedIn() {
               <form class="form-signin">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
-                  {console.log(count)}
-                  {count < 3 && <p className='danger'>Te quedan {3 - count} intentos</p>}
-                  {/*<label for="inputEmail">Email</label>*/}
                 </div>
-
                 <div class="form-label-group">
                   <input type="password" id="inputPassword" class="form-control" placeholder="Password" required />
-                  {/* <label for="inputPassword">Password</label>*/}
                 </div>
-
+                {count > 3 ? <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" disabled>Sign in</button> :
+                <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" >Sign in</button>}
                 
-                <button onClick={handleLogin} class="btn btn-lg btn-block text-uppercase botonlogin" type="submit">Sign in</button>
-                <hr class="my-4" />
+                {console.log(count)}
+                <hr className="my-4" />
                 <a href='/reset' className='forgotten'>Has olvidado tu contraseña? Click aqui</a>
                 <br/><br/>
                 <div className="row">

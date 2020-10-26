@@ -12,7 +12,7 @@ body {
 
 .card {
     border-radius: 5px;
-    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    /* -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08); */
     box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
     border: none;
     margin-bottom: 30px
@@ -146,4 +146,15 @@ h6 {
     position: relative;
     top: 30px;
     width: 100%;
+}
+
+.confirmed{
+    background-color: #ffaf00;
+    border-color: white
+}
+
+.confirmed:hover{
+    background-color: white;
+    color: #ffaf00;
+    border-color: #ffaf00;
 }
