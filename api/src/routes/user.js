@@ -82,7 +82,7 @@ server.put('/user/:id', (req, res, next) => {
     console.log(id)
     console.log(req.body)
 
-    const { name, lastname, email, address, phone, birthdate} = req.body;
+    const { name, lastname, email, address, phone, birthdate, status} = req.body;
 
     User.update({
         name,
@@ -91,6 +91,7 @@ server.put('/user/:id', (req, res, next) => {
         address,
         phone,
         birthdate,
+        status,
     }, {
         where: {
             id: id
@@ -110,8 +111,6 @@ server.put('/user/:id', (req, res, next) => {
 //===============================================
 
 server.post('/user/:id/image', (req, res, next) => {
-
-    if(!req.isAuthenticated()) return res.sendStatus(401)
 
     const { id } = req.params;
     let { image } = req.body;
@@ -135,10 +134,10 @@ server.post('/user/:id/image', (req, res, next) => {
 //==============================================
 //  Ruta para eliminar usuario
 //==============================================
-server.delete('/user/:id'/*,[authenticateToken, auths]*/, (req, res, next) => {
+server.delete('/user/:id', (req, res, next) => {
 
-    if(!req.isAuthenticated()) return res.sendStatus(401)
-    if(!req.user.role === 'Cliente') return res.sendStatus(401)
+    // if(!req.isAuthenticated()) return res.sendStatus(401)
+    // if(!req.user.role === 'Cliente') return res.sendStatus(401)
 
     const { id } = req.params;
     User.destroy({
