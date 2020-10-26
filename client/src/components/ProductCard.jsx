@@ -13,13 +13,13 @@ export default function ProductCard(product) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const count = useSelector(store => store.count)
-	const prod = useSelector(store=> store.prodInStore)
+	// const prod = useSelector(store=> store.prodInStore)
 	const dispatch = useDispatch()
-	let user= localStorage.getItem('id')
+	// let user= localStorage.getItem('id')
 
 	useEffect(() => {
 		stocker(product)
-	}, [render, count])
+	}, [render, count, disponible])
 	if (!product) {
 		return <div className="spinner-border text-info" role="status">
 			<span className="sr-only">Loading...</span>
@@ -30,7 +30,7 @@ export default function ProductCard(product) {
 
 	
 	function handleAdd(product) {
-		if (user === null){
+		// if (user === null){
 			render ? setRen(false) : setRen(true)
 
 		let recoveredData = localStorage.getItem('prod')
@@ -59,14 +59,14 @@ export default function ProductCard(product) {
 		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))
 		dispatch(action.countCart())
-	}else{
-		render ? setRen(false) : setRen(true)
-		dispatch(action.addProduct(user,product))
-	}
+	// }else{
+	// 	render ? setRen(false) : setRen(true)
+	// 	dispatch(action.addProduct(user,product))
+	
 
 	}
 	function stocker(product) {
-		if(user==null){
+		// if(user==null){
 		let products = JSON.parse(localStorage.getItem('prod'))
 		if (products == null || products == undefined) {
 			return
@@ -75,16 +75,16 @@ export default function ProductCard(product) {
 		if (cleanData.length != 0) {
 			return setDisponible(false)
 		}
-	}else{
-		let products = prod
-		if (products == null || products == undefined) {
-			return
-		}
-		let cleanData = products.filter((data) => data.id == product.id)
-		if (cleanData.length != 0) {
-			return setDisponible(false)
-		}
-	}
+	// }else{
+		// let products = prod
+		// if (products == null || products == undefined) {
+		// 	return
+		// }
+		// let cleanData = products.filter((data) => data.id == product.id)
+		// if (cleanData.length != 0) {
+		// 	return setDisponible(false)
+		// }
+	
 		return
 	}
 
@@ -104,7 +104,7 @@ export default function ProductCard(product) {
 				{!disponible && <div className="nostockadv2">Producto en carrito</div>}
 				{stock < 1 && <div className="nostockadv">Sin Stock</div>}
 			</Link>
-			{stock > 0 && disponible && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handleAdd(product)}  ><i className="fas fa-cart-plus"></i></button>}
+			{stock > 0 && disponible && <button type="button" className="btn btn-primary btn-m btn-cart-add" data-toggle="modal" data-target="#exampleModalCenter" onClick={()=> handleAdd(product)}  ><i className="fas fa-cart-plus"></i></button>}
 
 
 			<div className="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
