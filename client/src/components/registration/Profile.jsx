@@ -136,7 +136,7 @@ const Profile = () => {
 	const handleSubmit = e => {
 		
 		e.preventDefault();
-		if(JSON.stringify(error) === '{}' || values.password.length < 8){
+		if(!values.password.length || values.password.length < 8){
 			return window.alert('Debe completar los campos')
 		}
 		else{
