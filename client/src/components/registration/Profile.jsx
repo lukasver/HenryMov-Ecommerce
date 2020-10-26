@@ -249,7 +249,7 @@ const Profile = () => {
 															</div>
 														</div>
 														<div className="modal-footer d-flex justify-content-center">
-															<button className="btn btn-default" style={{color: "white", border: "1px solid orange"}} onClick={e => (window.confirm('Segur@ que quieres modificar tu contraseña?') && handleSubmit(e))}>Confirmar</button>
+															<button className="btn btn-default confirmed" onClick={handleSubmit}>Confirmar</button>
 														</div>
 													</div>
 												</div>
