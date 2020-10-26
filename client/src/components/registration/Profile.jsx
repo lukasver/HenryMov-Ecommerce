@@ -109,9 +109,17 @@ const Profile = () => {
 		setImgName(e.target.files[0].name.substring(0, 20)+"...")
 	}
 
-	// FUNCION QUE ENVÍA LA NUEVA FOTO DE PERFIL A LA DB
+	// FUNCION QUE ENVÍA LA NUEVA FOTO DE PERFIL A LA DB Y MANEJA ERRORES
 	const handleImage = (e) => {
 		const imagenUrl = document.getElementById('customFile').files[0] //como lo ves? funcara?
+		if (!imagenUrl) {
+			var warning = document.getElementById("sendAvatar")
+			if(warning.hasChildNodes()) warning.removeChild(warning.childNodes[0])
+			var texto = document.createTextNode("Cargar una imagen...")
+			warning.appendChild(texto)
+			setTimeout(()=> {warning.removeChild(warning.childNodes[0])},2000)
+			return
+		}
 		const formData = new FormData();
 		formData.append('image', imagenUrl)
 
@@ -123,7 +131,6 @@ const Profile = () => {
 		})
 			.then(data => {
 				window.location.reload()
-				console.log(data)
 			})
 			.catch(error => {
 				new Error(error)
@@ -191,6 +198,7 @@ const Profile = () => {
 									  <input type="file" name="image" className="custom-file-input" id="customFile" onChange={nameImage}/>
 									  <label className="custom-file-label" for="customFile">{imgName}</label>
 									  <button className="mt-1 adam-button" style={{width: "100%"}} onClick={handleImage}>Cambiar Avatar</button>
+									  <p style={{color: "white", "-webkit-text-stroke": "0.5px #f9ab1f"}} id="sendAvatar"></p>
 									</div>}
 		                        </div>
 		                        <div className="col-sm-8">
