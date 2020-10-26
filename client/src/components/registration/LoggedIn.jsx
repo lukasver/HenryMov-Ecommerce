@@ -8,7 +8,7 @@ export default function LoggedIn() {
   const [count, setCount] = useState(0);
   
   const handleLogin = (e) => {
-    setCount(count + 1)
+    
     e.preventDefault()
     const email = document.getElementById("inputEmail").value
     const password = document.getElementById("inputPassword").value
@@ -23,7 +23,7 @@ export default function LoggedIn() {
         window.location="http://localhost:3000/";
       }})
     .catch(error => {
-
+      setCount(count + 1)
       console.log(error)
       // if (error) {
       //   if(count === 3){
