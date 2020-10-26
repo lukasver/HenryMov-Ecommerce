@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import './ProductCard.css';
 import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
-import axios from 'axios'
-import carrito from '../img/carrito.png'
+
 
 
 
@@ -53,6 +52,7 @@ export default function ProductCard(product) {
 		let data = JSON.parse(recoveredData)
 		let newProd = product
 		data.push(newProd)
+		console.log('cant',data)
 		let countCart = data.length
 		localStorage.setItem('count', countCart)
 		localStorage.setItem('prod', JSON.stringify(data))

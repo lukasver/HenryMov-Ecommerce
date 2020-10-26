@@ -16,6 +16,7 @@ function Nav() {
     let countCart = localStorage.getItem('count')
     let count = useSelector(store => store.countCart)
     let user = useSelector(store => store.loggedIn)
+    let product = JSON.parse(localStorage.getItem('prod'))
     !countCart ? countCart = 0 : countCart = countCart
 
 
@@ -38,8 +39,9 @@ function Nav() {
     render()
 
     const logout = (e) => { 
-        localStorage.clear()
+    //    dispatch(action.addProduct(user,product))
         dispatch(action.logIn(false))
+        localStorage.clear()
         axios.get('http://localhost:3001/auth/logout', {withCredentials:true}).then(logout => {
             return history.push('/')
         }) 

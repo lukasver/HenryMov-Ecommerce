@@ -238,7 +238,7 @@ export function prodInStore(userId){
     })  
     dispatch({
       type: COUNT_CART,
-      payload:0
+      payload:productoFinal.length
     })   
   })
 }else{
@@ -248,18 +248,20 @@ export function prodInStore(userId){
 
 
 export function addProduct(userId, product){
+  product.map(one=>{
   let newProd ={
-    amount: product.price,
-    quantity:product.count,
-    productId:product.id
+    amount: one.price,
+    quantity:one.count,
+    productId:one.id
   }
   console.log('HECHO')
   return (dispatch)=>
    axios
   .post(`http://localhost:3001/users/${userId}/cart`, newProd )
   .then(res=>{
-    dispatch(prodInStore(userId))
+    console.log('Agregado')
   })
+})
 }
 
 
