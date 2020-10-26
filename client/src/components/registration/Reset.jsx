@@ -17,7 +17,6 @@ export default function Reset() {
 
     const handleOnChange = e => {
         const { name, value } = e.target;
-        console.log(values)
         setValues({
             ...values,
             [name]: value
