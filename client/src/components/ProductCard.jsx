@@ -66,6 +66,7 @@ export default function ProductCard(product) {
 
 	}
 	function stocker(product) {
+		render ? setRen(false) : setRen(true)
 		if(user==null){
 		let products = JSON.parse(localStorage.getItem('prod'))
 		if (products == null || products == undefined) {

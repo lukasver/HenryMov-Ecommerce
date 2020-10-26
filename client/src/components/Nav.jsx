@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import SingUp from '../img/cuentalogo.svg'
 import Logo from '../img/logoHenry.png'
@@ -16,14 +15,16 @@ function Nav() {
     let countCart = localStorage.getItem('count')
     let count = useSelector(store => store.countCart)
     let user = useSelector(store => store.loggedIn)
-    let users= localStorage.getItem('id')
-    dispatch(action.prodInStore(user))
+    const [users, setUsers] = useState(null)
     const counterUser = useSelector(store=> store.counterUser)
-    let counter=0
+    dispatch(action.prodInStore(user))
+    let counter=countCart
+   
     useEffect(()=>{
-
-        users ? counter = counterUser : counter = countCart
-    },[])
+        let user= localStorage.getItem('id')
+        setUsers(user)
+    },[users])
+        if(user!==null)counter = counterUser
     
     console.log('counter', counter)
     console.log('countCard', countCart)

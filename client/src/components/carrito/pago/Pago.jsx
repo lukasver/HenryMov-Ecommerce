@@ -9,11 +9,18 @@ export default function Pago(){
     window.Mercadopago.getIdentificationTypes();
     var archivo = document.getElementById("cardNumber");
     let product = JSON.parse(localStorage.getItem('prod'))
+    const prod = useSelector(store=> store.prodInStore)
+    const [user, setUser] = useState(null)
+    
 
-    let total = 0;
+    
     let subtotal =0
-
-  
+  useEffect(() => {
+        let user= localStorage.getItem('id')
+        setUser(user)
+        
+    }, [ user])
+    if(user!==null) product = prod
 if(archivo)
 {
    archivo.addEventListener('change', guessPaymentMethod);
