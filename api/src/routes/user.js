@@ -75,8 +75,8 @@ server.post('/user' ,async (req, res, next) => {
 //===============================================
 server.put('/user/:id', (req, res, next) => {
 
+    if(!req.isAuthenticated()) return res.sendStatus(401)
 
-    // if (req.user.role !== 'Admin' || req.user.id !== req.params.id) return res.send('<h1>Unauthorized</h1>')
     const { id } = req.params;
 
     console.log(id)
@@ -110,6 +110,9 @@ server.put('/user/:id', (req, res, next) => {
 //===============================================
 
 server.post('/user/:id/image', (req, res, next) => {
+
+    if(!req.isAuthenticated()) return res.sendStatus(401)
+
     const { id } = req.params;
     let { image } = req.body;
 
@@ -133,6 +136,10 @@ server.post('/user/:id/image', (req, res, next) => {
 //  Ruta para eliminar usuario
 //==============================================
 server.delete('/user/:id'/*,[authenticateToken, auths]*/, (req, res, next) => {
+
+    if(!req.isAuthenticated()) return res.sendStatus(401)
+    if(!req.user.role === 'Cliente') return res.sendStatus(401)
+
     const { id } = req.params;
     User.destroy({
         where: {
@@ -171,6 +178,9 @@ server.get('/users', (req, res) => {
 //  Ruta para encontrar resetear la contraseña
 //===================================================
 server.post('/users/:id/passwordReset', async (req, res) => {
+
+    console.log(req.isAuthenticated())
+
     const { id } = req.params;
     const { password } = req.body;
 
