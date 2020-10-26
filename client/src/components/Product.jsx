@@ -120,7 +120,9 @@ export default function Product({ product }) {
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header-title ">
-										
+									<button type="button" className="close mr-3" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
 										<h6 class="modal-title p-3 mb-2 bg-dark text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
 									</div>
 									<div className="modal-body alert alert-success ">

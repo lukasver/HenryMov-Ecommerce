@@ -168,9 +168,9 @@ export default function Carrito() {
                                         <div class="modal-dialog bg-dark" role="document">
                                             <div class="modal-content ">
                                                 <div class="modal-header bg-dark">
-                                                    <h5 class="card-header bg-warning text-white " id="exampleModalLabel">IMPORTANTE</h5>
+                                                    <h5 class="card-header bg-danger text-white " id="exampleModalLabel">IMPORTANTE</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <div class="spinner-grow text-danger" aria-hidden="true" role="status">
+                                                        <div class="spinner-grow text-danger close" aria-hidden="true" role="status">
                                                             <span class="sr-only" aria-hidden="true">&times;</span>
                                                         </div>
                                                     </button>
@@ -233,7 +233,7 @@ export default function Carrito() {
                                             <p>Estas por vaciar todo tu carrito...</p><p>deseas continuar?</p>
                                         </div>
                                         <div class="modal-footer bg-dark">
-                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={() => deleteAllProd()}> SI  </button>
+                                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => deleteAllProd()}> SI  </button>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                         </div>
                                     </div>
