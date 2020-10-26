@@ -16,7 +16,8 @@ module.exports = function (passport) {
      const user = await User.findOne({where: { email: email }})
         
         if (!user) {return done(null, false, {message: 'Incorrect username'}); }
-        if (!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
+        if (!await bcrypt.compare(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
+        // if (!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
         return done(null, user);
 
     } catch (error) {
@@ -49,7 +50,7 @@ module.exports = function (passport) {
       function(token, refreshToken, profile, done) {
           process.nextTick(async function() {
               const user = profile._json;
-              const password = 'HenryMov2.0!';   
+              const password = await bcrypt.hash('HenryMov2.0!',9);   
               const birthdate = new Date('2000/10/10');
               User.findOrCreate({
                   where: { email: user.email },
@@ -85,7 +86,7 @@ module.exports = function (passport) {
           process.nextTick(async function() {      
             // console.log('datosssss: ', profile);  
               const user = profile;
-              const password = 'HenryMov2.0!';   
+              const password = await bcrypt.hash('HenryMov2.0!',9);     
               const birthdate = new Date('2000/10/10');               
               User.findOrCreate({
                   where: { email: user.emails[0].value },
