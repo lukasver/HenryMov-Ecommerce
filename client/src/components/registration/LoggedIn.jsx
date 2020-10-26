@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom'
 import './LoggedIn.css';
 
 export default function LoggedIn() {
-
+  let count = 0
+  
   const handleLogin = (e) => {
-
+    count++
     e.preventDefault()
     const email = document.getElementById("inputEmail").value
     const password = document.getElementById("inputPassword").value
+    console.log(count)
 
+    
     axios.post('http://localhost:3001/auth/login', {email, password}, {withCredentials: true})
     .then((res,err) => {
       if (res.status === 200) {
@@ -21,7 +24,14 @@ export default function LoggedIn() {
         window.location="http://localhost:3000/";
       }})
     .catch(error => {
-      if (error) return window.alert('Email y/o Contraseña incorrecta')
+      if (error) {
+        if(count === 3){
+          window.alert('Has llegado al limite de intentos. Por favor, resetea tu contraseña')
+        }
+        else{
+          window.alert(`Email y/o Contraseña incorrecta. Te quedan ${3 - count} intentos`)
+        }
+      } 
     }) 
     return
   }
@@ -36,6 +46,8 @@ export default function LoggedIn() {
               <form class="form-signin">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
+                  {console.log(count)}
+                  {count < 3 && <p className='danger'>Te quedan {3 - count} intentos</p>}
                   {/*<label for="inputEmail">Email</label>*/}
                 </div>
 
