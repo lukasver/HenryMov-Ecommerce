@@ -29,7 +29,7 @@ export default function Product({ product }) {
 	
 
 	function complete(){
-		handleAdd(product,dispatch)
+		handleAdd(product,dispatch, count)
 		setDisponible(stocker(product))
 		render ? setRen(false) : setRen(true)
 	}

@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
 
-
 //==================================================================================
 //         Agregar productos al carrito (localStorage)
 //==================================================================================
 
-export const handleAdd = (product , dispatch)=> {
-    console.log('prod', product)
+export const handleAdd = (product,dispatch, count)=> {
+    product.count = count
     let recoveredData = localStorage.getItem('prod')
     let search = JSON.parse(recoveredData)
 
