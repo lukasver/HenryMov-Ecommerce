@@ -225,16 +225,12 @@ export function prodInStore(userId){
    return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
   })
   .then(prod=>{
-    let product = JSON.parse(localStorage.getItem('prod'))
-    let productoFinal= prod.data.products.concat(product)
+    let productoFinal=prod
+
     localStorage.setItem('count', productoFinal.length)
     dispatch({
       type: PROD_IN_STORE,
      payload: productoFinal
-    })
-    dispatch({
-      type: COUNTER_USER,
-      payload: productoFinal.length
     })  
     dispatch({
       type: COUNT_CART,

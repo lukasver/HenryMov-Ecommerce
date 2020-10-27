@@ -13,10 +13,12 @@ import ComponenteError from './ComponenteError.jsx';
 
 function Nav() {
     const dispatch = useDispatch()
+    //=============================
+    // este es el count del carrito
     let countCart = localStorage.getItem('count')
+    //==============================
     let count = useSelector(store => store.countCart)
     let user = useSelector(store => store.loggedIn)
-    let product = JSON.parse(localStorage.getItem('prod'))
     !countCart ? countCart = 0 : countCart = countCart
 
 

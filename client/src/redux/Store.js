@@ -38,7 +38,6 @@ const initialState = {
   orderDetail: [],
   prodInStore:[],
   starsSelected: 0,
-  counterUser: 0,
   loggedIn: false
 };
 
@@ -56,11 +55,6 @@ export function counterReducer(state = initialState, action) {
           count : action.payload
         }
       }
-      case COUNTER_USER:
-        return{
-          ...state,
-          counterUser: action.payload
-        }
       case DELETE_CART:
         return{
         ...state,
