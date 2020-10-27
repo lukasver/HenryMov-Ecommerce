@@ -211,7 +211,6 @@ export function orderDetail(id) {
 }
 
 export function prodInStore(userId){
-
   if (userId!== null){
     console.log('aca entra')
   return (dispatch)=>
@@ -227,15 +226,15 @@ export function prodInStore(userId){
   .then(prod=>{
     let productoFinal=prod
 
-    localStorage.setItem('count', productoFinal.length)
-    dispatch({
-      type: PROD_IN_STORE,
-     payload: productoFinal
-    })  
-    dispatch({
-      type: COUNT_CART,
-      payload:productoFinal.length
-    })   
+    // localStorage.setItem('count', productoFinal.length)
+    // dispatch({
+    //   type: PROD_IN_STORE,
+    //  payload: productoFinal
+    // })  
+    // dispatch({
+    //   type: COUNT_CART,
+    //   payload:productoFinal.length
+    // })   
   })
 }else{
   return 
