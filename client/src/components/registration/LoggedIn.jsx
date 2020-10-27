@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import axios from 'axios';
 import * as action from '../../redux/Action';
@@ -6,15 +6,14 @@ import { Link } from 'react-router-dom'
 import './LoggedIn.css';
 
 export default function LoggedIn() {
- 
-  let count = 0
+  
+  const [count, setCount] = useState(0);
   
   const handleLogin = (e) => {
-    count++
+    
     e.preventDefault()
     const email = document.getElementById("inputEmail").value
     const password = document.getElementById("inputPassword").value
-
     
     axios.post('http://localhost:3001/auth/login', {email, password}, {withCredentials: true})
     .then((res,err) => {
@@ -27,16 +26,19 @@ export default function LoggedIn() {
         window.location="http://localhost:3000";
       }})
     .catch(error => {
-      if (error) {
-        if(count === 3){
-          window.alert('Has llegado al limite de intentos. Por favor, resetea tu contraseña')
-        }
-        else{
-          window.alert(`Email y/o Contraseña incorrecta. Te quedan ${3 - count} intentos`)
-        }
-      } 
+      setCount(count + 1)
+      console.log(error)
+      // if (error) {
+      //   if(count === 3){
+      //     window.alert('Has llegado al limite de intentos. Por favor, resetea tu contraseña')
+          
+      //   }
+      //   if(count > 0 && count < 3){
+      //     window.alert(`Email y/o Contraseña incorrecta. Te quedan ${ 3 - count } intentos`)
+      //   }
+      // } 
     }) 
-    return
+    return 
   }
  
 
@@ -50,18 +52,17 @@ export default function LoggedIn() {
               <form class="form-signin">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
-                  {count < 3 && <p className='danger'>Te quedan {3 - count} intentos</p>}
-                  {/*<label for="inputEmail">Email</label>*/}
                 </div>
-
                 <div class="form-label-group">
                   <input type="password" id="inputPassword" class="form-control" placeholder="Password" required />
-                  {/* <label for="inputPassword">Password</label>*/}
+                  {count > 0 && count < 3 && <p className='danger'>Te quedan {3 - count} intentos</p>}
+                  {count >= 3 && <p className='danger'>Superaste el maximo de intentos, por favor cambia tu contraseña</p>}
                 </div>
-
+                {count >= 3 ? <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" disabled>Sign in</button> :
+                <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" >Sign in</button>}
                 
-                <button onClick={handleLogin} class="btn btn-lg btn-block text-uppercase botonlogin" type="submit">Sign in</button>
-                <hr class="my-4" />
+                {console.log(count)}
+                <hr className="my-4" />
                 <a href='/reset' className='forgotten'>Has olvidado tu contraseña? Click aqui</a>
                 <br/><br/>
                 <div className="row">

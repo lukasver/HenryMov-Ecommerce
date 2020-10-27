@@ -9,19 +9,17 @@ import './Carrito.css';
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
+    let user= localStorage.getItem('id')
     const count = useSelector(store => store.count)
-    const prodIn = useSelector(store=>store.prodInStore)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
-    const [user, setUser] = useState(null)
     let history = useHistory();
     let users= localStorage.getItem('id')
     useEffect(() => {
-        setUser(users)
+       
         
-    }, [render, count, user])
+    }, [render, count])
    
-    users !==null ? product=prodIn : product = product
     
     if (product != null) {
         product.sort(function (a, b) {
@@ -47,18 +45,13 @@ export default function Carrito() {
         let envio = subtotal * 0.1
         let total = subtotal + envio
         switch (act) {
-            case 1: return dosDecimales(envio);
+            case 1: return envio.toFixed(2);
             case 2: return subtotal;
-            case 3: return dosDecimales(total);
+            case 3: return total.toFixed(2);
             default: return;
         }
     }
-    function dosDecimales(n) {
-        let t = n.toString();
-        let regex = /(\d*.\d{0,2})/;
-        return t.match(regex)[0];
-    }
-
+  
 
     function aumentar(prod) {
         render ? setRender(false) : setRender(true)
@@ -87,7 +80,6 @@ export default function Carrito() {
     }
     function handleDelete(id) {
         render ? setRender(false) : setRender(true)
-        // if(user==null){
         dispatch(action.removecountCart())
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
@@ -95,29 +87,19 @@ export default function Carrito() {
         let countCart = newData.length
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
-        // }else{
-        //     let newData = product.filter((data) => data.id !== id)
-        //    dispatch(action.modifProd(newData))
-        // }
     }
     function deleteAllProd() {
         render ? setRender(false) : setRender(true)
-        // if(user==null){
         dispatch(action.removecountCart())
         let countCart = 0
         let newData = []
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
-        // }else{
-        //     dispatch(action.deleteCart())
-        // }
     }
     
     function handleUser(){
         render ? setRender(false) : setRender(true)
-       let user= localStorage.getItem('id')
-       setUser(user)
-       user !== null && history.push('/pago') 
+      history.push('/pago') 
     }
 
 
