@@ -123,13 +123,19 @@
     margin: -10px;
     text-transform: uppercase;
 }
-.modal-header{
-    background-color: black;
+
+.modal-dialog{
+    background-color: #fff;
 }
+.modal-header{
+    border-bottom: none;
+}
+
 .modal-footer{
-    background-color: black;
+    border-top: none;
     justify-content: center;
 }
+
 .create-account{
     background-color: black;
     color: white;
@@ -150,12 +156,14 @@
     background-color: #3e3e3e;
     color: white;
     border: none;
+
 }
 
 .btn-disabled:hover{
     background-color: #3e3e3e;
     color: white;
     border: none;
+    cursor: not-allowed
 }
 .form-nacimiento {
     border: 1px solid #bababa !important;
