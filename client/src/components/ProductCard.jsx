@@ -13,7 +13,7 @@ export default function ProductCard(product) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const dispatch = useDispatch()
-	let count =1
+	const count = 1
 	useEffect(() => {
 		product && first()
 	}, [ render,disponible])

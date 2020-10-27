@@ -7,7 +7,9 @@ import * as action from '../redux/Action'
 //==================================================================================
 
 export const handleAdd = (product,dispatch, count)=> {
+   if (count && count>1){ 
     product.count = count
+   }
     let recoveredData = localStorage.getItem('prod')
     let search = JSON.parse(recoveredData)
 
@@ -39,15 +41,11 @@ export const handleAdd = (product,dispatch, count)=> {
 //      se ve si hay producto comprado y lo deshabilita para la compra directa 
 //==================================================================================
 export const stocker=(product)=>{
-    console.log('aca entra', product)
-   
     let products = JSON.parse(localStorage.getItem('prod'))
-    console.log(products)
     if (products == null || products == undefined) {
         return true
     }else{
     let cleanData = products.filter((data) => data.id == product.id)
-    console.log('cleanData', cleanData)
     if (cleanData.length != 0) {
         return false
         }

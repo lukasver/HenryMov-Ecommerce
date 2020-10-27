@@ -14,7 +14,6 @@ export default function LoggedIn() {
     e.preventDefault()
     const email = document.getElementById("inputEmail").value
     const password = document.getElementById("inputPassword").value
-    console.log(count)
 
     
     axios.post('http://localhost:3001/auth/login', {email, password}, {withCredentials: true})
@@ -51,7 +50,6 @@ export default function LoggedIn() {
               <form class="form-signin">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
-                  {console.log(count)}
                   {count < 3 && <p className='danger'>Te quedan {3 - count} intentos</p>}
                   {/*<label for="inputEmail">Email</label>*/}
                 </div>
