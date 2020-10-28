@@ -96,7 +96,7 @@ export default function Usuarios({getUsers, rol}) {
     getUsers().then(a=> {setUsers(a)})
 
     //     Condiciono para que cuando monte el componente renderize correctamente y pagine bien 
-    if (!usersFiltered.length)  setUsersFiltered(users.filter(user => user.status == "Activo"))
+    if (!usersFiltered.length) setUsersFiltered(users.filter(user => user.status == "Activo"))
     },[role, usersFiltered])
     
     return (
@@ -105,7 +105,7 @@ export default function Usuarios({getUsers, rol}) {
                 <h2 className="titleUsers">Todos los Usuarios</h2>
                 <p/>
                 <div className='ContainerStatus row' >
-                    <label className='FilterTitle col-sm-5'>Status:</label>
+                    <label className='FilterTitle col-sm-5'>Filtrar:</label>
                     <select className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
                         {/* <option value="Todos">Todos</option> */}
                         <option value="Activo" selected>Activo</option> 
