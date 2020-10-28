@@ -113,11 +113,12 @@ const Profile = () => {
 	const handleImage = (e) => {
 		const imagenUrl = document.getElementById('customFile').files[0] //como lo ves? funcara?
 		if (!imagenUrl) {
+			document.getElementById('avatar').disabled = true;
 			var warning = document.getElementById("sendAvatar")
 			if(warning.hasChildNodes()) warning.removeChild(warning.childNodes[0])
 			var texto = document.createTextNode("Cargar una imagen...")
 			warning.appendChild(texto)
-			setTimeout(()=> {warning.removeChild(warning.childNodes[0])},2000)
+			setTimeout(()=> {warning.removeChild(warning.childNodes[0]); document.getElementById('avatar').disabled = false},2000)
 			return
 		}
 		const formData = new FormData();
@@ -127,7 +128,7 @@ const Profile = () => {
 			method: 'post',
 			url: `http://localhost:3001/user/${user.id}/image`,
 			data: formData,
-			config: { headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true }
+			config: { headers: { 'Content-Type': 'multipart/form-data' }}
 		})
 			.then(data => {
 				window.location.reload()
@@ -197,7 +198,7 @@ const Profile = () => {
 		                            {!toogle && <div className="custom-file">
 									  <input type="file" name="image" className="custom-file-input" id="customFile" onChange={nameImage}/>
 									  <label className="custom-file-label" for="customFile">{imgName}</label>
-									  <button className="mt-1 adam-button" style={{width: "100%"}} onClick={handleImage}>Cambiar Avatar</button>
+									  <button id="avatar" className="mt-1 adam-button" style={{width: "100%"}} onClick={handleImage}>Cambiar Avatar</button>
 									  <p style={{color: "white", "-webkit-text-stroke": "0.5px #f9ab1f"}} id="sendAvatar"></p>
 									</div>}
 		                        </div>

@@ -1,6 +1,10 @@
 const server = require('express').Router();
 const { Product , Reviews } = require('../db.js');
+const auths = require('./auth');
 
+// MIDDLEWARES //
+// auths[1]()  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
+// auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
 // ========================================================================
 //    Get para todas las reviews 
@@ -63,7 +67,7 @@ server.get('/product/:id/reviews', (req, res, next) => {
 //	Ruta para agregar nueva reviews a un producto específico
 //==========================================================
 
-server.post('/product/:idProducto/reviews/add', (req, res, next) => {
+server.post('/product/:idProducto/reviews/add',auths[2](), (req, res, next) => {
 	const { idProducto } = req.params;
 	const { usuarioId, title, description, value } = req.body;
 	
@@ -90,7 +94,7 @@ server.post('/product/:idProducto/reviews/add', (req, res, next) => {
 //	 Ruta para eliminar reviews por su id
 //===========================================================
 
-server.delete('/reviews/:id', (req, res, next) => {
+server.delete('/reviews/:id',auths[1], (req, res, next) => {
 	Reviews.destroy({
 		where: { id: req.params.id }
 	}).then(deleted=> {
@@ -104,7 +108,7 @@ server.delete('/reviews/:id', (req, res, next) => {
 //	 Ruta para modificar reviews
 //===========================================================
 
-server.put('/reviews/:id', (req, res, next) => {
+server.put('/reviews/:id',auths[2](), (req, res, next) => {
 	const {title,description, value} = req.body
 	Reviews.update(req.body, {
 		where: { id: req.params.id }

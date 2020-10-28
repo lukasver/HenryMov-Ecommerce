@@ -4,10 +4,21 @@ import { Link } from 'react-router-dom';
 import './Usuarios.css';
 import axios from 'axios';
 import {dateFormat} from '../../utils/utils.js' 
+import { useHistory } from "react-router-dom";
 
 // ========================= COMPONENT ===============================================
 
 export default function Usuarios({getUsers, rol}) {
+
+    // =======================================================
+    //      PROTECCION LOGIN FRONT
+    // =======================================================
+    const pase = localStorage.getItem('role');
+    const history = useHistory();
+      if (pase !== 'Admin' && pase !== 'Responsable') {
+        history.push('/login')
+      }
+    // =======================================================
 
     const [users, setUsers] = useState([])
     const [role, setRole] = useState(false)
@@ -86,7 +97,7 @@ export default function Usuarios({getUsers, rol}) {
                         <option value="Inactivo">Inactivo</option>
                     </select>
                 </div>
-                <table className="table table-hover table-dark">
+                <table className="table table-hover table-dark thfontsize">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
@@ -99,7 +110,7 @@ export default function Usuarios({getUsers, rol}) {
                             <th scope="col">Role</th>
                             <th scope="col">Creation date</th>
                             {rol === 'Admin' && <th scope="col">Role</th>}
-                            {rol === 'Admin' && <th scope="col">Desactivar</th>}
+                            {rol === 'Admin' && <th scope="col">Deactivate</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -117,9 +128,9 @@ export default function Usuarios({getUsers, rol}) {
                                     <td><Link to={`/profile/${dato.id}`}>{dateFormat(dato.birthdate)}</Link></td>
                                     <td><Link to={`/profile/${dato.id}`}>{dato.role}</Link></td>
                                     <td><Link to={`/profile/${dato.id}`}>{dateFormat(dato.creationdate)}</Link></td>
-                                    {rol === 'Admin' && <td>{dato.role === 'Cliente' && <button className="adam-button adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Responsable"?') && handlePromotion(e, dato.id))}>Promote</button>} 
-                                    {dato.role === 'Responsable' && <button className="adam-button adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Cliente"?') && handleDemotion(e, dato.id))}>Demote</button>}</td>}
-                                    {(rol === 'Admin' && dato.role !== 'Admin') && <td><button className="adam-button adam-chng" onClick={e => (window.confirm('Segur@ que quieres desactivar este usuario?') && handleDelete(e, dato.id))}>X</button></td>}
+                                    {rol === 'Admin' && <td>{dato.role === 'Cliente' && <button className="adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Responsable"?') && handlePromotion(e, dato.id))}>Promote</button>} 
+                                    {dato.role === 'Responsable' && <button className="adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Cliente"?') && handleDemotion(e, dato.id))}>Demote</button>}</td>}
+                                    {(rol === 'Admin' && dato.role !== 'Admin') && <td><button className="adam-chng" onClick={e => (window.confirm('Segur@ que quieres desactivar este usuario?') && handleDelete(e, dato.id))}>X</button></td>}
                                 </tr>
                                 )
                             // } else {return}

@@ -3,10 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Ordenes.css';
 import { dateFormat } from '../../utils/utils.js';
+import { useHistory } from "react-router-dom";
+
 
 // ========================= COMPONENT =================================================
 
 export default function Ordenes({ getOrders }) {
+
+    // =======================================================
+    //      PROTECCION LOGIN FRONT
+    // =======================================================
+    const pase = localStorage.getItem('role');
+    const history = useHistory();
+      if (pase !== 'Admin' && pase !== 'Responsable') {
+        history.push('/login')
+      }
+    // =======================================================
 
     const [orders, setOrders] = useState([])
 

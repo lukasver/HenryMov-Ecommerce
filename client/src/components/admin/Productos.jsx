@@ -3,11 +3,21 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Checkbox } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
-
+import { useHistory } from "react-router-dom";
 import * as action from '../../redux/Action'
 import './Productos.css';
 
 export default function Productos({ productos, categories, deleteProduct, getProduct, product, addProduct, modProduct }) {
+
+    // =======================================================
+    //      PROTECCION LOGIN FRONT
+    // =======================================================
+    const pase = localStorage.getItem('role');
+    const history = useHistory();
+      if (pase !== 'Admin' && pase !== 'Responsable') {
+        history.push('/login')
+      }
+    // =======================================================
 
     const [addProd, setAddProd] = useState({
         name: '',
@@ -290,7 +300,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
 
                 {check === "add" ? (
                     <form className="text-center border border-light p-5 form-productos">
-                        <button className="badge badge-warning" onClick={(e) => { e.preventDefault(); setCheck('delete'); console.log(e) }}>Toggle to {check === 'add' ? "Delete" : "Assign"}</button>
+                        <button className="adam-chng" style={{"font-weight":"400"}} onClick={(e) => { e.preventDefault(); setCheck('delete'); console.log(e) }}>Cambiar a: {check === 'add' ? "Eliminar" : "Asignar"}</button>
                         <h3 style={{ color: 'white' }}>Asignar categoría a producto</h3>
                         <label style={{ color: 'white' }}>Ingresar ID de producto</label>
                         <input type="number"
@@ -317,7 +327,7 @@ export default function Productos({ productos, categories, deleteProduct, getPro
                         <button className="btn btn-info btn-block my-4 buttonAddMod" onClick={linkCatProds}>Asociar</button>
                     </form>) : (
                         <form className="text-center border border-light p-5 form-productos">
-                            <button class="badge badge-warning" onClick={(e) => { e.preventDefault(); setCheck('add') }}>Toggle to {check === 'add' ? "Delete" : "Assign"}</button>
+                            <button class="adam-chng" style={{"font-weight":"400"}} onClick={(e) => { e.preventDefault(); setCheck('add') }}>Cambiar a: {check === 'add' ? "Eliminar" : "Asignar"}</button>
                             <h3 style={{ color: 'white' }}>Eliminar categoría de producto</h3>
                             <label style={{ color: 'white' }}>Ingresar ID de producto</label>
                             <input type="number"

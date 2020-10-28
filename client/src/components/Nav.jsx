@@ -13,10 +13,14 @@ import ComponenteError from './ComponenteError.jsx';
 
 function Nav() {
     const dispatch = useDispatch()
+    //=============================
+    // este es el count del carrito
     let countCart = localStorage.getItem('count')
+    //==============================
     let count = useSelector(store => store.countCart)
     let user = useSelector(store => store.loggedIn)
     !countCart ? countCart = 0 : countCart = countCart
+
 
     let history = useHistory();
     // (handleSelect) cuando se clickea en algun 'a' se filtra con ese nombre y en el componente menu se muestra
@@ -27,20 +31,7 @@ function Nav() {
         history.push('/Menu')
         return;
     }
-
-    /*   function chatBot(){
-       window.watsonAssistantChatOptions = {
-         integrationID: "747d8b43-8cc8-4ee9-9dfd-4e5d4d129a98", // The ID of this integration.
-         region: "us-south", // The region your integration is hosted in.
-         serviceInstanceID: "0c27b141-8422-4ebb-b9e8-665418afc54b", // The ID of your service instance.
-         onLoad: function(instance) { instance.render(); }
-       };
-       (function(){
-       const t=document.createElement('script');
-       t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
-       document.head.appendChild(t);
-       })()
-       }*/
+  
 
     useEffect(() => {
     }, [count])
@@ -50,8 +41,9 @@ function Nav() {
     render()
 
     const logout = (e) => { 
-        localStorage.clear()
+    //    dispatch(action.addProduct(user,product))
         dispatch(action.logIn(false))
+        localStorage.clear()
         axios.get('http://localhost:3001/auth/logout', {withCredentials:true}).then(logout => {
             return history.push('/')
         }) 
