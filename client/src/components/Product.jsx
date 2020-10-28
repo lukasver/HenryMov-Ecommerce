@@ -8,14 +8,16 @@ import './Product.css'
 
 
 export default function Product({ product }) {
-	const { name, image, price, description, id, stock } = product
+	console.log(product)
+
+
 	const count = useSelector(store => store.count)
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const dispatch = useDispatch()
 	
 	useEffect(() => {
-		 first()
+		 product && first()
 	}, [ render,disponible])
 	
 	if (!product) {
@@ -23,6 +25,10 @@ export default function Product({ product }) {
 			<span className="sr-only">Loading...</span>
 		</div>
 	}
+			const { name, image, price, description, id, stock } = product
+
+
+
 	function first(){
 		setDisponible(stocker(product))
 	}

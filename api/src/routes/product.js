@@ -2,6 +2,11 @@ const server = require('express').Router();
 const { Product, Category, productCategory } = require('../db.js');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
+const auths = require('./auth');
+
+// MIDDLEWARES //
+// auths[1] <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
+// auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
 //======================================================================== 
 //	Ruta para devolver todos los productos DISPONIBLES y sus categorias asociadas
@@ -30,7 +35,7 @@ server.get('/products', (req, res, next) => {
 //	Ruta para devolver todos los productos y sus categorias asociadas - ADMIN
 //======================================================================== 
 
-server.get('/admin/products', (req, res, next) => {
+server.get('/admin/products', auths[1], (req, res, next) => {
 	Product.findAll({
 		order: ['id'],
 		include: { model: Category }
@@ -51,7 +56,7 @@ server.get('/admin/products', (req, res, next) => {
 //  Obtener un producto por id (unico) - ADMIN
 //=============================================
 
-server.get('/admin/products/:id', (req, res, next) => {
+server.get('/admin/products/:id', auths[1], (req, res, next) => {
 	const { id } = req.params;
 	Product.findOne({
 		where: {
@@ -100,7 +105,7 @@ server.get('/products/:id', (req, res, next) => {
 //	Ruta para agregar nueva categoría a un producto específico
 //==========================================================
 
-server.post('/products/:idProducto/category/add', (req, res, next) => {
+server.post('/products/:idProducto/category/add', auths[1], (req, res, next) => {
 
 	const { idProducto } = req.params;
 	const { categoryId } = req.body;
@@ -134,7 +139,7 @@ server.post('/products/:idProducto/category/add', (req, res, next) => {
 //==================================================================
 
 
-server.delete('/products/:idProducto/category/:categoryId', (req,res,next) => {
+server.delete('/products/:idProducto/category/:categoryId', auths[1], (req,res,next) => {
 
 
 	const { idProducto, categoryId } = req.params;
@@ -243,7 +248,7 @@ server.post('/products/category/filter', (req, res, next) => {
 //============================================== 
 //recordar que la categoría a recibir por body debe ser un id correspondiente a una categoria creada
 //pendiente validar un handler error si se le pasa un id de una categoria invalida
-server.post('/products', (req, res, next) => {
+server.post('/products',auths[1], (req, res, next) => {
 
 	const { name, description, price, availability, stock, quantity, image, categories } = req.body;
 
@@ -267,7 +272,7 @@ server.post('/products', (req, res, next) => {
 //==============================================
 //	Ruta para modificar un producto.
 //============================================== 
-server.put('/products/:id', (req, res, next) => {
+server.put('/products/:id',auths[1], (req, res, next) => {
 
 	//revisar este codigo, se deberia poder modificar un producto sin necesidad de mandar toda esa info validadora dentro del if
 
@@ -296,7 +301,7 @@ server.put('/products/:id', (req, res, next) => {
 //==============================================
 //	Ruta para eliminar un producto.
 //============================================== 
-server.delete('/products/:id', (req, res, next) => {
+server.delete('/products/:id',auths[1], (req, res, next) => {
 	Product.destroy({
 		where: { id: req.params.id }
 	}).then(deletedProduct => {

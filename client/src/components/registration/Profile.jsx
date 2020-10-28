@@ -128,7 +128,7 @@ const Profile = () => {
 			method: 'post',
 			url: `http://localhost:3001/user/${user.id}/image`,
 			data: formData,
-			config: { headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true }
+			config: { headers: { 'Content-Type': 'multipart/form-data' }}
 		})
 			.then(data => {
 				window.location.reload()

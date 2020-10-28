@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './Categorias.css';
+import { useHistory } from "react-router-dom";
 
 export default function Categorias({ categorias, deleteCategory, getCategory, category, addCategory, modCategory }) {
+
+    // =======================================================
+    //      PROTECCION LOGIN FRONT
+    // =======================================================
+    const pase = localStorage.getItem('role');
+    const history = useHistory();
+      if (pase !== 'Admin' && pase !== 'Responsable') {
+        history.push('/login')
+      }
+    // =======================================================
+
 
     const [addCat, setAddCat] = useState({
         name: '',

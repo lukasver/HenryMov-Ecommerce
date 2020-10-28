@@ -4,10 +4,21 @@ import { Link } from 'react-router-dom';
 import './Usuarios.css';
 import axios from 'axios';
 import {dateFormat} from '../../utils/utils.js' 
+import { useHistory } from "react-router-dom";
 
 // ========================= COMPONENT ===============================================
 
 export default function Usuarios({getUsers, rol}) {
+
+    // =======================================================
+    //      PROTECCION LOGIN FRONT
+    // =======================================================
+    const pase = localStorage.getItem('role');
+    const history = useHistory();
+      if (pase !== 'Admin' && pase !== 'Responsable') {
+        history.push('/login')
+      }
+    // =======================================================
 
     const [users, setUsers] = useState([])
     const [role, setRole] = useState(false)
