@@ -70,6 +70,21 @@ export default function Usuarios({getUsers, rol}) {
         if (rta.status !== 200) return window.alert('Hubo un error... Intentar más tarde.')
             return
     }
+
+    const handleActivate = async (e,id) => {
+        const rta = await axios.put(`http://localhost:3001/user/${id}`, {status: "Activo"} ,{withCredentials: true})
+        if (rta.status === 200) {
+            window.alert('Usuario reactivado con éxito');
+            setRole(!role);
+            return  
+        }
+        if (rta.status !== 200) return window.alert('Hubo un error... Intentar más tarde.')
+        return
+
+    }
+
+
+
     const handleSwitch = (e) => {
         const {value} = e.target
         setUsersFiltered(users.filter(user => user.status == value))
@@ -89,9 +104,9 @@ export default function Usuarios({getUsers, rol}) {
             <div className="col-md-13 col-lg-13">
                 <h2 className="titleUsers">Todos los Usuarios</h2>
                 <p/>
-                <div className='ContainerStatus' >
-                    <p className='FilterTitle'>Filtrar por status</p>
-                    <select className='Select' onChange={(e)=>handleSwitch(e)} name="select">
+                <div className='ContainerStatus row' >
+                    <label className='FilterTitle col-sm-5'>Status:</label>
+                    <select className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
                         {/* <option value="Todos">Todos</option> */}
                         <option value="Activo" selected>Activo</option> 
                         <option value="Inactivo">Inactivo</option>
@@ -110,7 +125,7 @@ export default function Usuarios({getUsers, rol}) {
                             <th scope="col">Role</th>
                             <th scope="col">Creation date</th>
                             {rol === 'Admin' && <th scope="col">Role</th>}
-                            {rol === 'Admin' && <th scope="col">Deactivate</th>}
+                            {rol === 'Admin' && <th scope="col">Status</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -130,7 +145,8 @@ export default function Usuarios({getUsers, rol}) {
                                     <td><Link to={`/profile/${dato.id}`}>{dateFormat(dato.creationdate)}</Link></td>
                                     {rol === 'Admin' && <td>{dato.role === 'Cliente' && <button className="adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Responsable"?') && handlePromotion(e, dato.id))}>Promote</button>} 
                                     {dato.role === 'Responsable' && <button className="adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Cliente"?') && handleDemotion(e, dato.id))}>Demote</button>}</td>}
-                                    {(rol === 'Admin' && dato.role !== 'Admin') && <td><button className="adam-chng" onClick={e => (window.confirm('Segur@ que quieres desactivar este usuario?') && handleDelete(e, dato.id))}>X</button></td>}
+                                    {(rol === 'Admin' && dato.role !== 'Admin') && (dato.status === "Activo") &&<td><button className="adam-chng" onClick={e => (window.confirm('Segur@ que quieres desactivar este usuario?') && handleDelete(e, dato.id))}>{dato.status}</button></td>}
+                                    {(rol === 'Admin' && dato.role !== 'Admin') && (dato.status === "Inactivo") &&<td><button className="adam-chng" onClick={e => (window.confirm('Segur@ que quieres reactivar este usuario?') && handleActivate(e, dato.id))}>{dato.status}</button></td>}
                                 </tr>
                                 )
                             // } else {return}
