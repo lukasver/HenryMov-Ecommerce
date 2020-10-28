@@ -234,3 +234,18 @@ export function prodInStore(userId){
   return 
 }
 }
+
+export function updateCart (products , id){
+  let newProducts =[]
+
+  products.forEach(prod=>{
+    let newProd ={
+      amount:prod.price,
+      quantity: prod.count,
+      prodId: prod.id
+    }
+    newProducts.push(newProd)
+  })
+  axios.
+
+}

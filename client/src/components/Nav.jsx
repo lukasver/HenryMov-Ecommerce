@@ -18,6 +18,8 @@ function Nav() {
     //==============================
     let count = useSelector(store => store.countCart)
     let user = useSelector(store => store.loggedIn)
+    let id = localStorage.getItem('id')
+    let products = localStorage('prod')
     !countCart ? countCart = 0 : countCart = countCart
     const [idioma, setIdioma]= useState('esp')
 
@@ -45,7 +47,7 @@ function Nav() {
     console.log( 'switch', idioma)
 
     const logout = (e) => {
-        //    dispatch(action.addProduct(user,product))
+        dispatch(action.updateCart(products,id))
         dispatch(action.logIn(false))
         localStorage.clear()
         axios.get('http://localhost:3001/auth/logout', { withCredentials: true }).then(logout => {
