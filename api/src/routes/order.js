@@ -9,16 +9,13 @@ const auths = require('./auth');
 // auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
 //==============================================
-//	Ruta para agregar item al carrito
+//	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
 //==============================================
 server.post('/users/:idUser/cart', async (req, res, next) => {
 
   const { idUser } = req.params;
-	const { amount, quantity, productId } = req.body;
-  console.log( 'RRRRR', amount, quantity, productId)
-	if(!amount || !quantity || !productId) {
-    return res.sendStatus(400);
-  }
+
+ console.log(req.body)
 
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
@@ -26,9 +23,31 @@ try {
     include: {model: Product, attributes: ['id']}
   })
 
-  await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
-  console.log('producto agregado')
-  return res.status(200).send('Producto agregado/modificado satisfactoriamente')
+  // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
+  await req.body.forEach(async (orderline) => {
+    const { productId, quantity, amount } = orderline;
+
+
+    // busca x cada orderline que el id de producto exista, y caso que exista updatea la cantidad
+    // en la BD en base a lo que compró el cliente 
+    const producto = await Product.findByPk(productId)
+    if (!producto) {return;
+      } else {
+     
+      let newStock = await producto.get('stock')-quantity
+      console.log('nuevo stock ', newStock)
+
+      await Product.update({stock: newStock}, {
+        where: {id: productId}
+      })
+    }
+
+    //asocia la orderline a la orden 'On Cart'
+    await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
+    return
+  })
+
+  return res.status(200).send(orden)
 } catch (error) {
   console.log(error)
   new Error(error)
@@ -184,6 +203,8 @@ server.get('/users/:idUser/cart', async (req,res,next) => {
         }
 
 })
+
+
 
 //======================================================================== 
 //  Ruta para editar cantidad del carrito - PUT
