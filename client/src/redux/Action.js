@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleAdd } from '../utils/product'
 export const ADD_COUNT = "ADD_COUNT";
 export const REMOVE_COUNT = "REMOVE_COUNT";
 export const GET_PRODUCT = "GET_PRODUCT";
@@ -105,11 +106,11 @@ export function deleteProd(prod) {
   };
 }
 
-export function countCart(x) {
+export function countCart() {
   let countCart =localStorage.getItem('count')
   return {
     type: COUNT_CART,
-    payload: x
+    payload: countCart
   };
 }
 export function removecountCart() {
@@ -212,6 +213,7 @@ export function orderDetail(id) {
 
 export function prodInStore(userId){
   if (userId!== null){
+    console.log('aca entra')
   return (dispatch)=>
   axios
   .get(`http://localhost:3001/users/${userId}/cart`, {withCredentials: true })
@@ -223,43 +225,15 @@ export function prodInStore(userId){
    return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
   })
   .then(prod=>{
-   let productoFinal= prod.data.products
-    dispatch({
-      type: PROD_IN_STORE,
-     payload: productoFinal
+    let productoFinal=prod.data.products
+    productoFinal.map(product=>{
+      console.log('AAAAAAA', product)
+      
+      handleAdd(product, dispatch , productoFinal.count)
     })
-    dispatch({
-      type: COUNTER_USER,
-      payload: productoFinal.length
-    })
-     
+    
   })
 }else{
   return 
 }
 }
-
-
-export function addProduct(userId, product){
-  let newProd ={
-    amount: product.price,
-    quantity:product.count,
-    productId:product.id
-  }
-  console.log('HECHO')
-  return (dispatch)=>
-   axios
-  .post(`http://localhost:3001/users/${userId}/cart`, newProd )
-  .then(res=>{
-    dispatch(prodInStore(userId))
-  })
-}
-
-
-export function modifProd(product){
-  return {
-    type: MOD_PROD,
-    payload: product
-  }
-}
-
