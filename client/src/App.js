@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Promise from "bluebird";
@@ -30,35 +30,39 @@ import ProfileAdmin from "./components/admin/ProfileAdmin";
 function App() {
   const totalProds = useSelector((store) => store.totalProds);
   const loggedIn = useSelector((store) => store.loggedIn);
-  let user= localStorage.getItem('id')
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
-
+    
     Promise.all([
       axios.get("http://localhost:3001/products"),
       axios.get("http://localhost:3001/category"),
     ])
-      .then(res => {
-        dispatch(action.totalProds(res[0].data));
-        dispatch(action.categories(res[1].data));
-      })
-      .catch(err => new Error(err))
-
+    .then(res => {
+      dispatch(action.totalProds(res[0].data));
+      dispatch(action.categories(res[1].data));
+    })
+    .catch(err => new Error(err))
+    
     axios
-      .get("http://localhost:3001/auth/login", { withCredentials: true })
-      .then((user) => {
-        if (!localStorage.getItem('email')) {
-          localStorage.setItem('id', user.data.id);
-          localStorage.setItem('email', user.data.email);
-          localStorage.setItem('role', user.data.role);
+    .get("http://localhost:3001/auth/login", { withCredentials: true })
+    .then((user) => {
+      if (!localStorage.getItem('email')) {
+        localStorage.setItem('id', user.data.id);
+        localStorage.setItem('email', user.data.email);
+        localStorage.setItem('role', user.data.role);
+       
         }
-        if (user.status === 200) dispatch(action.logIn(user.data))
+        if (user.status === 200) {
+          dispatch(action.prodInStore(user.data.id))    
+          dispatch(action.logIn(user.data))  
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-      user && dispatch(action.prodInStore(user))
+
+      
 
     // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
 
@@ -83,6 +87,7 @@ function App() {
     //   });
 
   }, []);
+
 
   function onFilter(productId) {
     let filtro = totalProds.filter((c) => c.id === parseInt(productId));
