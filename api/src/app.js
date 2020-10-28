@@ -9,7 +9,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const passport = require('passport');
 const { conn } = require('./db.js');
 require('./db.js');
-
+require('./routes/auth/passportConfig.js')(passport);
 const server = express();
 
 // var allowlist = ['http://localhost:3000', 'http://localhost:3001'];
@@ -25,6 +25,11 @@ const server = express();
 // }
 
 server.name = 'API';
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials : true
+}
+server.use(cors(corsOptions));
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser(process.env.COOKIE));
@@ -32,11 +37,12 @@ server.use(session({
     secret: process.env.COOKIE,   // SETEAR ESTE SECRET CON EL MISMO QUE COOKIEPARSER!!
     store: new SequelizeStore({db: conn}),
 		resave: false, 
-		saveUninitialized: false, 
-    maxAge: (1000*60*60*24)}));
+		saveUninitialized: false,
+    cookie: {secure: false}
+  }));
 server.use(passport.initialize());
 server.use(passport.session());
-require('./routes/auth/passportConfig.js')(passport);
+
 server.use(morgan('dev'));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // 'http://localhost:3000' update to match the domain you will make the request from
@@ -45,11 +51,6 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
   next();
 });
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials : true
-}
-server.use(cors(corsOptions));
 
 
 server.use('/', routes);
