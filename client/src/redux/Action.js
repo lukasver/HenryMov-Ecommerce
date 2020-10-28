@@ -213,7 +213,6 @@ export function orderDetail(id) {
 
 export function prodInStore(userId){
   if (userId!== null){
-    console.log('aca entra')
   return (dispatch)=>
   axios
   .get(`http://localhost:3001/users/${userId}/cart`, {withCredentials: true })
@@ -225,10 +224,8 @@ export function prodInStore(userId){
    return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
   })
   .then(prod=>{
-    let productoFinal=prod.data.products
-    productoFinal.map(product=>{
-      console.log('AAAAAAA', product)
-      
+      let productoFinal=prod.data.products
+      productoFinal.map(product=>{      
       handleAdd(product, dispatch , productoFinal.count)
     })
     
