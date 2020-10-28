@@ -208,6 +208,26 @@ server.post('/users/:id/passwordReset', async (req, res) => {
     
 })
 
+server.get('/user/status', (req, res) => {
+    const { email } = req.body;
+    console.log('email', email)
+    User.findOne({
+        where: {
+            email
+        }
+    }).then(user => {
+        if(!user){
+            return res.satatus(404).send('Usuario no encontrado')
+        }
+        return res.status(200).json(user.status)
+    }).catch(err => {
+        return res.status(400).send(err)
+    })
+
+
+})
+
+
 
 
 

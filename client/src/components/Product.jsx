@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as action from '../redux/Action'
-import Reviews from './reviews/Reviews'
-import { handleAdd , stocker} from '../utils/product'
-import './Product.css'
+import * as action from '../redux/Action';
+import Reviews from './reviews/Reviews';
+import { handleAdd , stocker} from '../utils/product';
+import './Product.css';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -15,6 +16,7 @@ export default function Product({ product }) {
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
 	const dispatch = useDispatch()
+	const history = useHistory()
 	
 	useEffect(() => {
 		 product && first()
@@ -28,6 +30,10 @@ export default function Product({ product }) {
 			const { name, image, price, description, id, stock } = product
 
 
+	function goBack() {
+		history.push('/products')
+		return
+	}
 
 	function first(){
 		setDisponible(stocker(product))
@@ -48,6 +54,7 @@ export default function Product({ product }) {
 					<img src={image} className="card-img" alt="Product Image" />
 				</div>
 				<div className="col-md-5 content-rigth">
+					<button onClick={goBack}className="backbuttn adam-chng"><i className='fas fa-arrow-circle-left'></i></button>
 					<h1 className="h2 h1-md mb-3 js-product-name titulo-producto">{name}</h1>
 					{/* Llamo al componente Reviews para mostrar el promedio de puntaje de reviews del producto */}
 					<Reviews id={product.id} value='prom' /* MANDAR VALUE */ />
