@@ -224,8 +224,9 @@ export function prodInStore(userId){
    return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
   })
   .then(prod=>{
-      let productoFinal=prod.data.products
-      productoFinal.map(product=>{      
+    let productoFinal=prod.data.products
+      productoFinal.forEach(product=>{ 
+       product.count = product.orderline.quantity    
       handleAdd(product, dispatch , productoFinal.count)
     })
     
@@ -240,12 +241,14 @@ export function updateCart (products , id){
 
   products.forEach(prod=>{
     let newProd ={
-      amount:prod.price,
+      amount: prod.price,
       quantity: prod.count,
-      prodId: prod.id
+      productId: prod.id
     }
     newProducts.push(newProd)
   })
-  axios.
+  return (dispatch)=>
+  axios
+  .post(`http://localhost:3001/users/${id}/cart`,newProducts)
 
 }

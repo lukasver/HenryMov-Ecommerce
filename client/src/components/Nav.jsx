@@ -19,7 +19,7 @@ function Nav() {
     let count = useSelector(store => store.countCart)
     let user = useSelector(store => store.loggedIn)
     let id = localStorage.getItem('id')
-    let products = localStorage('prod')
+    let products = JSON.parse(localStorage.getItem('prod'))
     !countCart ? countCart = 0 : countCart = countCart
     const [idioma, setIdioma]= useState('esp')
 
@@ -44,7 +44,6 @@ function Nav() {
         dispatch(action.countCart(0))
     }
     render()
-    console.log( 'switch', idioma)
 
     const logout = (e) => {
         dispatch(action.updateCart(products,id))
@@ -167,7 +166,7 @@ function Nav() {
                     </li>
                     <li className="nav-item">
                        {idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESORIOS</a>:
-                       <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESORIOS</a>}
+                       <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESSORIES</a>}
                     </li>
                 </ul>
             </div>
