@@ -203,6 +203,24 @@ server.post('/users/:id/passwordReset', async (req, res) => {
     
 })
 
+//===============================================
+server.put('/user/bloqued', (req, res, next) => {
+
+    const { email } = req.body;
+
+    User.update({
+        status: "Bloqueado"
+    }, {
+        where: {
+            email
+        }
+    }).then(modified => {
+        if (modified[0] === 0) {
+            return res.status(404).send('Usuario no encontrado')
+        }
+        res.status(200).send('Usuario bloqueado')
+    })
+})
 
 
 

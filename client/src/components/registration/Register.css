@@ -127,12 +127,13 @@
 .modal-dialog{
     background-color: #fff;
 }
+
 .modal-header{
-    border-bottom: none;
+    background-color: black;
 }
 
 .modal-footer{
-    border-top: none;
+    background-color: black;
     justify-content: center;
 }
 
