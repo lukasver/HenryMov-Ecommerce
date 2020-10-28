@@ -15,7 +15,7 @@ export default function Product({ product }) {
 	const dispatch = useDispatch()
 	
 	useEffect(() => {
-		 first()
+		product && first()
 	}, [ render,disponible])
 	
 	if (!product) {
