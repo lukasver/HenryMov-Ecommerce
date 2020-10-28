@@ -28,6 +28,9 @@ import ProfileAdmin from "./components/admin/ProfileAdmin";
 
 
 function App() {
+
+  axios.defaults.withCredentials = true
+
   const totalProds = useSelector((store) => store.totalProds);
   const loggedIn = useSelector((store) => store.loggedIn);
   const dispatch = useDispatch();

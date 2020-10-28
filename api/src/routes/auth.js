@@ -15,6 +15,7 @@ const Op = Sequelize.Op;
 const isLoggedIn = () => {
   return (req, res, next) => {
     console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+    console.log(req.isAuthenticated())
     if (req.isAuthenticated()) return next();
     // return next();
     return res.redirect('http://localhost:3000/login')
