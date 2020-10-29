@@ -5,7 +5,7 @@ const { Sequelize, QueryTypes } = require('sequelize');
 const auths = require('./auth');
 
 // MIDDLEWARES //
-// auths[1]()  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
+// auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
 // auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
 //==============================================
@@ -39,6 +39,8 @@ try {
     return
   })
 
+  await orden.update({status: 'Created'})
+
   return res.status(200).send(orden)
 } catch (error) {
   console.log(error)
@@ -50,7 +52,7 @@ try {
 //=======================================================
 //	Ruta para retornar todas las ordenes de los usuarios
 //=======================================================
-server.get('/users/:id/orders', (req, res, next) => {
+server.get('/users/:id/orders',auths[2](), (req, res, next) => {
 	Order.findAll({
 		where: {userId: req.params.id}
 	}).then(orders => {
@@ -82,7 +84,7 @@ server.get('/users/ordersByQuery', (req, res, next) => {
 //==============================================
 //  Ruta para retornar una orden en particular
 //==============================================
-server.get('/orders/:id', (req, res, next) => {
+server.get('/orders/:id',auths[2](), (req, res, next) => {
 
   Order.findByPk(req.params.id).then(order => {
     if (!order) return res.sendStatus(404);
@@ -119,7 +121,7 @@ server.get('/orders/:id/cart', async (req, res, next) => {
 //==============================================
 //  Ruta para modificar una orden
 //==============================================
-server.put('/orders/:id', (req, res, next) => {
+server.put('/orders/:id',auths[2](), (req, res, next) => {
   const { paymentMethod, status } = req.body;
   if(!paymentMethod || !status) {
     return res.sendStatus(400);
@@ -134,7 +136,7 @@ server.put('/orders/:id', (req, res, next) => {
   })
 });
 
-server.get('/users/orders', (req, res, next) => {
+server.get('/users/orders',auths[2](), (req, res, next) => {
 
     const { order } = req.query
     Order.findAll({
@@ -175,7 +177,7 @@ server.get('/users/:idUser/orders', async (req,res,next) => {
 //  Ruta para devolver el último carrito abierto de un usuario registrado - GET
 //======================================================================== 
 
-server.get('/users/:idUser/cart', async (req,res,next) => {
+server.get('/users/:idUser/cart',auths[2](), async (req,res,next) => {
 
     const { idUser } = req.params
     
