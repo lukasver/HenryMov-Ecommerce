@@ -101,7 +101,7 @@ export default function Carrito() {
     
     function handleUser(){
         render ? setRender(false) : setRender(true)
-      history.push('/pago') 
+      history.push('/checkout') 
     }
 
 
