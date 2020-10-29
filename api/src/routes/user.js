@@ -101,7 +101,6 @@ server.put('/user/:id',auths[2](), (req, res, next) => {
     }).then(modified => {
         console.log(modified)
         if (modified[0] === 0) {
-            console.log('llegue aca??')
             return res.status(404).send('Usuario no encontrado')
         }
         res.status(200).send('Usuario modificado con exito')
@@ -171,7 +170,7 @@ server.get('/users', (req, res) => {
         if (!user) {
             return res.status(404).send('Usuario no encontrado')
         }
-        console.log(user.id)
+        
         return res.status(200).json(user.id);
     }).catch(err => {
         res.status(400).send(err)
@@ -192,6 +191,8 @@ server.post('/users/:id/passwordReset', async (req, res) => {
    
     try {
         const usuario = await User.findOne({ where: {id}})
+        usuario.status = "Activo";
+        usuario.save();
         const hashedPassword = await bcrypt.hash(password, 9)
 
         await usuario.update({password: hashedPassword})
@@ -208,28 +209,49 @@ server.post('/users/:id/passwordReset', async (req, res) => {
     
 })
 
-server.get('/user/status', (req, res) => {
+//===============================================
+//  Ruta para restrignir el logeo a un usuario que no recuerda su contraseña
+//===============================================
+server.post('/users/bloqued', (req, res) => {
+
     const { email } = req.body;
-    console.log('email', email)
+
+    User.findOne({
+        where: {
+                email
+            }
+    }).then(modified => {
+        if (!modified) {
+            return res.status(404).send('Usuario no encontrado')
+        }
+        modified.status = "Bloqueado";
+        modified.save();
+        
+        res.status(200).send('Usuario bloqueado')
+    })
+})
+
+//======================================
+// Ruta para devolver status de usuario
+//======================================
+server.post('/users/status', (req, res) => {
+    const { email } = req.body;
+    console.log('email:', email)
     User.findOne({
         where: {
             email
         }
     }).then(user => {
+        
         if(!user){
             return res.satatus(404).send('Usuario no encontrado')
         }
-        return res.status(200).json(user.status)
-    }).catch(err => {
-        return res.status(400).send(err)
+        console.log(user.status)
+        return res.status(200).send(user.status)
     })
-
-
+    // .catch(err => {
+    //     return res.status(400).send(err)
+    // })
 })
-
-
-
-
-
 
 module.exports = server;
