@@ -124,6 +124,9 @@
     text-transform: uppercase;
 }
 
+.modal-dialog{
+/*    background-color: #fff;*/
+}
 
 .modal-header{
     background-color: black;
@@ -165,4 +168,8 @@
 }
 .form-nacimiento {
     border: 1px solid #bababa !important;
+}
+
+.modal {
+    max-height: auto;
 }

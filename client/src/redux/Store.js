@@ -23,7 +23,8 @@ import {
   MOD_PROD,
   DELETE_CART,
   COUNTER_USER,
-  LOGIN
+  LOGIN,
+  ORDER_HISTORY
 } from "./Action";
 
 const initialState = {
@@ -36,6 +37,7 @@ const initialState = {
   countCart: '0',
   count: 1,
   orderDetail: [],
+  orderHistory: [],
   starsSelected: 0,
   loggedIn: false
 };
@@ -143,6 +145,11 @@ export function counterReducer(state = initialState, action) {
       return {
         ...state,
         orderDetail: action.payload
+      };
+    case ORDER_HISTORY:
+      return {
+        ...state,
+        orderHistory: action.payload
       };
     case STARS:
       return {

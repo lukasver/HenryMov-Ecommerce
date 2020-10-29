@@ -26,6 +26,7 @@ import Checkout from './components/carrito/pago/Ckeckout'
 import Profile from "./components/registration/Profile";
 import ComponenteError from "./components/ComponenteError"
 import ProfileAdmin from "./components/admin/ProfileAdmin";
+import OrderHistory from "./components/OrderHistory"
 
 
 function App() {
@@ -119,8 +120,9 @@ function App() {
       <Route exact path='/logIn' render={()=> <LoggedIn/>} />
       <Route exact path='/reset' render={()=> <Reset/>} />
       <Route exact path='/Menu' render={()=> <Menu />} />
-      <Route exact path='/order/:id' render={({ match })=> <OrdenDetalle orderId = {match.params.id}/>} />
+      <Route exact path='/order/:userId' render={({ match })=> <OrderHistory userId= {match.params.userId}/>} />
       <Route exact path='/profile/:id' render={({ match })=> <ProfileAdmin profileId = {match.params.id}/>} />
+      <Route exact path='/order/detail/:orderId' render={({ match })=> <OrdenDetalle orderId= {match.params.orderId}/>} />
       <Route exact path='/reviews' render={()=> <Reviews/>}/>
       <Route exact path='/checkout' render={()=> <Checkout/>}/>
       <Route exact path='/profile' render={()=> <Profile/>}/>

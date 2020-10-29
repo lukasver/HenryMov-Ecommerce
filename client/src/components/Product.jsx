@@ -28,7 +28,7 @@ export default function Product({ product }) {
 
 
 	function goBack() {
-		history.push('/products')
+		history.goBack()
 		return
 	}
 
