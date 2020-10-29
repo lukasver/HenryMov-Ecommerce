@@ -19,6 +19,7 @@ module.exports = function (passport) {
         if (!user) {return done(null, false, {message: 'Incorrect username'}); }
         if (!await bcrypt.compare(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
         // if (!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
+        console.log(user.id)
         return done(null, user);
 
     } catch (error) {
@@ -28,10 +29,12 @@ module.exports = function (passport) {
 
   passport.serializeUser(function(user, done) {
     // console.log('serializacion', user.id)
+    console.log('Serialize ',user.id)
     done(null, user.id);
   });
 
   passport.deserializeUser(function(id, done) {
+    console.log('Deserialize', id)
     User.findByPk(id).then((user,err) => {
       // console.log('deserializacion', user)
       done(err, user)

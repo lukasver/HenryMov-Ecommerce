@@ -1,5 +1,54 @@
 .adam-chng {
-	margin-top: -20px !important;
-	margin-bottom: -3rem !important;
-/*	background: #212529 !important;*/
+/*	margin-top: -20px ;
+	margin-bottom: -3rem t;
+	padding: -8px -60px ;*/
+	background: #454d55 ;
+    letter-spacing: 1px;
+    float: none;
+    background: black;
+    border-radius: 3px;
+    color: #fff;
+    border: 1px solid #fff;
+    font-weight: 300;
+    font-size: 14px;
+    transition: all .3s cubic-bezier(.64, .09, .08, 1);
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
+.ContainerStatus{
+    position: absolute;
+    top: 25px;
+    align-items: unset;
+    width: max-content;
+    margin-bottom: 80px;
+    left: 20px;
+}
+.FilterTitle{
+	font-size: 25px;
+}
+.Select{
+	display: flex;
+    width: fit-content;
+	align-self: center;
+	width: -webkit-fill-available;
+	font-size: 20px;
+}
+.block{
+	display: none;
+}
+.Select:hover {
+	cursor: pointer;
+}
+.adam-chng:hover {
+    background-color: #ffaf00 /*rgba(248, 148, 6, 1)*/;
+    color: black;
+    border-color: rgba(248, 148, 6, 1);
+    }
+
+.thfontsize {
+	font-size: 12px !important;
+	color: orange;
+}
+/*
+.trfontsize {
+	-webkit-text-stroke: 0.5px gray;
+}*/

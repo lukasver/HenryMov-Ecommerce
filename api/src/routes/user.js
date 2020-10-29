@@ -6,8 +6,8 @@ const auths = require('./auth');
 const passport = require('passport');
 
 // MIDDLEWARES //
-// auths[1]()  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
-// auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
+// auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable // IMP *NO* INVOCAR AL IMPLEMENTAR!!
+// auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests // IMP INVOCAR AL IMPLEMENTAR!!
 
 //==============================================
 //	Ruta para traer todods los usuarios.
@@ -73,9 +73,11 @@ server.post('/user' ,async (req, res, next) => {
 //===============================================
 //     Ruta para modificar usuario.
 //===============================================
-server.put('/user/:id', (req, res, next) => {
+server.put('/user/:id',auths[2](), (req, res, next) => {
+    // console.log(req.isAuthenticated())
+    // console.log(req.session.passport)
 
-    if(!req.isAuthenticated()) return res.sendStatus(401)
+    // if(!req.isAuthenticated()) return res.sendStatus(401)
 
     const { id } = req.params;
 
@@ -109,7 +111,10 @@ server.put('/user/:id', (req, res, next) => {
 //     Ruta para modificar imagen de usuario.
 //===============================================
 
-server.post('/user/:id/image', (req, res, next) => {
+server.post('/user/:id/image',auths[2](), (req, res, next) => {
+
+/*    console.log('imagen ', req.isAuthenticated())
+    if(!req.isAuthenticated()) return res.sendStatus(401)*/
 
     const { id } = req.params;
     let { image } = req.body;
@@ -119,7 +124,6 @@ server.post('/user/:id/image', (req, res, next) => {
     User.findOne({
         where: { id: id }
     }).then(usuario => {
-        console.log(usuario)
         usuario.image = image
         return usuario.save()
     }).then(newUsuario => res.status(200).send('Usuario actualizado'))
@@ -133,8 +137,9 @@ server.post('/user/:id/image', (req, res, next) => {
 //==============================================
 //  Ruta para eliminar usuario
 //==============================================
-server.delete('/user/:id', (req, res, next) => {
+server.delete('/user/:id',auths[1], (req, res, next) => {
 
+    // console.log('delete ', req.isAuthenticated())
     // if(!req.isAuthenticated()) return res.sendStatus(401)
     // if(!req.user.role === 'Cliente') return res.sendStatus(401)
 
@@ -173,7 +178,7 @@ server.get('/users', (req, res) => {
 })
 
 //===================================================
-//  Ruta para encontrar resetear la contraseña
+//  Ruta para resetear la contraseña
 //===================================================
 server.post('/users/:id/passwordReset', async (req, res) => {
 
