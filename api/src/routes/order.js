@@ -12,7 +12,33 @@ const auths = require('./auth');
 //	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
 //==============================================
 server.post('/users/:idUser/cart', async (req, res, next) => {
-  console.log('ESTA ACCION AGREGA')
+  const { idUser } = req.params;
+try {
+  const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
+    where: {userId: idUser, status: 'On Cart'}, 
+    include: {model: Product, attributes: ['id']}
+  })
+  // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
+  await req.body.forEach(async (orderline) => {
+    const { productId, quantity, amount } = orderline;
+
+    //asocia la orderline a la orden 'On Cart'
+    await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
+    return
+  })
+
+  return res.status(200).send(orden)
+} catch (error) {
+  console.log(error)
+  new Error(error)
+}
+
+});
+
+//==============================================
+//  Ruta CONFIRMAR un carrito cuando se paga, resta el stock de los productos
+//==============================================
+server.post('/users/:idUser/cart/paid', async (req, res, next) => {
   const { idUser } = req.params;
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
@@ -63,7 +89,7 @@ server.get('/users/:id/orders'/*,auths[2]()*/, (req, res, next) => {
     .catch(error => {
         return res.send(error);
     })
-    next()
+    // next() // no sacar el coment, rompe orderHistory
 });
 
 // ========================================================================
