@@ -19,7 +19,7 @@ export default function Checkout() {
     <div className="row">
         <div className="col-md-4 order-md-2 mb-4">
             <h4 className="d-flex justify-content-between align-items-center mb-3">
-                <span className="text-muted">Tu carrito</span>
+                <h2 className="text-dark">Tu carrito</h2><a className="text-warning stretched-link" href='./carrito'><small>editar</small></a>
     <span className="badge badge-secondary badge-pill">{countCart}</span>
             </h4>
             <ul className="list-group mb-3 sticky-top">
