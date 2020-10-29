@@ -99,7 +99,6 @@ server.put('/user/:id', (req, res, next) => {
     }).then(modified => {
         console.log(modified)
         if (modified[0] === 0) {
-            console.log('llegue aca??')
             return res.status(404).send('Usuario no encontrado')
         }
         res.status(200).send('Usuario modificado con exito')
@@ -166,7 +165,7 @@ server.get('/users', (req, res) => {
         if (!user) {
             return res.status(404).send('Usuario no encontrado')
         }
-        console.log(user.id)
+        
         return res.status(200).json(user.id);
     }).catch(err => {
         res.status(400).send(err)
@@ -204,25 +203,48 @@ server.post('/users/:id/passwordReset', async (req, res) => {
 })
 
 //===============================================
-server.put('/user/bloqued', (req, res, next) => {
+//  Ruta para restrignir el logeo a un usuario que no recuerda su contraseña
+//===============================================
+server.post('/users/bloqued', (req, res) => {
 
     const { email } = req.body;
 
-    User.update({
-        status: "Bloqueado"
-    }, {
+    User.findOne({
         where: {
-            email
-        }
+                email
+            }
     }).then(modified => {
-        if (modified[0] === 0) {
+        if (!modified) {
             return res.status(404).send('Usuario no encontrado')
         }
+        modified.status = "Bloqueado";
+        modified.save();
+        
         res.status(200).send('Usuario bloqueado')
     })
 })
 
-
-
+//======================================
+// Ruta para devolver status de usuario
+//======================================
+server.post('/users/status', (req, res) => {
+    const { email } = req.body;
+    console.log('email:', email)
+    User.findOne({
+        where: {
+            email
+        }
+    }).then(user => {
+        
+        if(!user){
+            return res.satatus(404).send('Usuario no encontrado')
+        }
+        console.log(user.status)
+        return res.status(200).send(user.status)
+    })
+    // .catch(err => {
+    //     return res.status(400).send(err)
+    // })
+})
 
 module.exports = server;

@@ -82,7 +82,7 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.NOW,
         },
         status: {
-            type: DataTypes.ENUM(["Activo","Inactivo", "Bloqueado"]),
+            type: DataTypes.ENUM(["Activo","Inactivo","Bloqueado"]),
             allowNull: true,
             defaultValue: "Activo"
         },
