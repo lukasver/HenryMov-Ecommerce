@@ -215,13 +215,13 @@ export function prodInStore(userId){
   if (userId!== null){
   return (dispatch)=>
   axios
-  .get(`http://localhost:3001/users/${userId}/cart`, {withCredentials: true })
+  .get(`http://localhost:3001/users/${userId}/cart`)
   .then(orden=>{
     let ordenId =orden.data.orders[0].id
     return ordenId
   })
   .then(ordenId=>{
-   return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
+   return axios.get(`http://localhost:3001/orders/${ordenId}/cart`)
   })
   .then(prod=>{
     let productoFinal=prod.data.products
@@ -237,8 +237,8 @@ export function prodInStore(userId){
 }
 
 export function updateCart (products , id){
+  
   let newProducts =[]
-
   products.forEach(prod=>{
     let newProd ={
       amount: prod.price,
@@ -251,4 +251,10 @@ export function updateCart (products , id){
   axios
   .post(`http://localhost:3001/users/${id}/cart`,newProducts)
 
+}
+
+export function deletedCart (id){
+  return (dispatch)=>
+  axios
+  .delete(`http://localhost:3001/users/${id}/cart`)
 }

@@ -91,11 +91,13 @@ export default function Carrito() {
     function deleteAllProd() {
         render ? setRender(false) : setRender(true)
         dispatch(action.removecountCart())
+        dispatch(action.deletedCart(user))
         let countCart = 0
         let newData = []
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
     }
+
     
     function handleUser(){
         render ? setRender(false) : setRender(true)

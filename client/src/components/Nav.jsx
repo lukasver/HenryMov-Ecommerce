@@ -46,6 +46,7 @@ function Nav() {
     render()
 
     const logout = (e) => {
+        dispatch(deletedCart(id))
         dispatch(action.updateCart(products,id))
         dispatch(action.logIn(false))
         localStorage.clear()
