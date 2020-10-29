@@ -238,7 +238,9 @@ export function prodInStore(userId){
 }
 
 export function updateCart (products , id){
+  console.log('entra a agregar')
   let newProducts =[]
+  products.length>1?
   products.forEach(prod=>{
     let newProd ={
       amount: prod.price,
@@ -246,20 +248,29 @@ export function updateCart (products , id){
       productId: prod.id
     }
     newProducts.push(newProd)
-  })
+  }): newProducts= products
+  console.log("esto es para agregar", newProducts)
   return (dispatch)=>
   axios
-  .post(`http://localhost:3001/users/${id}/cart`,newProducts, {withCredentials:true})
+  .post(`http://localhost:3001/users/${id}/cart`,newProducts)
 
 }
 
 export  function logOut (id,products){
-  return async dispatch=>{
- await axios
-  .delete(`http://localhost:3001/users/${id}/cart`)
- await  dispatch(updateCart(products, id))
-  }
-
+  axios
+  .get(`http://localhost:3001/users/${id}/cart`)
+  .then(orden=>{
+     orden = orden.data.orders[0].id
+    return orden
+  })
+  .then(orden=>{
+     if(orden == 'number'){  
+     return dispatch =>
+      axios.delete(`http://localhost:3001/users/${id}/cart`)
+     
+    }
+    })
+    return dispatch =>  dispatch(updateCart(products, id))
 }
 
 

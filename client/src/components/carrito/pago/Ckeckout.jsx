@@ -161,7 +161,7 @@ export default function Checkout() {
                 </div>
                 <hr className="mb-4"/>
                 <h4 className="mb-3">Metodo de pago</h4>
-                <div className="d-block my-3">
+                <div className="row my-3">
                     <div className="custom-control custom-radio">
                         <input id="credit" name="paymentMethod" type="radio" className="custom-control-input" checked="" required=""/>
                         <label className="custom-control-label" for="credit">Tarjeta de credito</label>
