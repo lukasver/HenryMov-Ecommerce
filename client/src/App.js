@@ -15,6 +15,7 @@ import Preguntas from "./components/footer/Preguntas";
 import Carousel from "./components/Carousel";
 import Carrito from "./components/carrito/Carrito"
 import Register from "./components/registration/Register"
+import './style.scss'
 import "./App.css";
 import LoggedIn from "./components/registration/LoggedIn";
 import Menu from "./components/Menu"
