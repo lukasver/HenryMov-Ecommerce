@@ -651,6 +651,38 @@ conn.sync({ force: true }).then(() => {
     		res.addProducts(2, { through: { quantity: 1, amount: 500 }})
     	})
 
+		await Order.create({
+    		shipping: 0,
+    		paymentMethod: 1,
+    		status: 'Created',
+    		received: "0",
+    		amount: 4533.23, // deberia ser la suma de los amount de productos...
+    		quantity: 34, // deberia ser la suma de las quantities?...
+    		productId: 3,
+    	}, {
+    		include: [ Product ]
+    	}).then(res => {
+    		res.setUser(2);
+    		res.addProducts(1, { through: { quantity: 3, amount: 13000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(2, { through: { quantity: 1, amount: 500 }})
+    	})
+
+		await Order.create({
+    		shipping: 0,
+    		paymentMethod: 1,
+    		status: 'Fulfilled',
+    		received: "1",
+    		amount: 12300, // deberia ser la suma de los amount de productos...
+    		quantity: 6, // deberia ser la suma de las quantities?...
+    		productId: 3,
+    	}, {
+    		include: [ Product ]
+    	}).then(res => {
+    		res.setUser(2);
+    		res.addProducts(1, { through: { quantity: 3, amount: 13000 }}) // ver forma de hacer q el amount persista en real...
+    		res.addProducts(2, { through: { quantity: 1, amount: 500 }})
+    	})
+
     	await Order.create({
     		shipping: 1,
     		paymentMethod: 2,

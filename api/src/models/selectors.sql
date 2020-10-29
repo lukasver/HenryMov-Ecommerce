@@ -41,3 +41,11 @@ JOIN users AS u ON u.id = orders."userId";
 -- WHERE o."orderId" = 4
 LIMIT 10;
 
+
+SELECT orders.id as order, p.id, p.name, ol.quantity, ol.amount from orders
+JOIN orderlines AS ol on ol."orderId" = orders.id
+JOIN products AS p on p.id = ol."productId"
+WHERE orders.id = 7
+LIMIT 10;
+
+

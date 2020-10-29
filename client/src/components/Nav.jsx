@@ -57,13 +57,17 @@ function Nav() {
     }
 
     const orderUser = (idUser) => {
+        // return window.location = `http://localhost:3000/order/${idUser}`
         return axios.get(`http://localhost:3001/users/${idUser}/orders`)
             .then(order => {
-                const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
-                if (!idOrder) {
+                if (!order.data.length) {
                     return window.location = `http://localhost:3000/order/ /error`;
-                } else { return window.location = `http://localhost:3000/order/${idOrder.id}` };
+                } else { return window.location = `http://localhost:3000/order/${idUser}`};
             })
+    }
+
+    const orderHist = (i) => {
+
     }
 
     return (
@@ -123,6 +127,7 @@ function Nav() {
                                 {localStorage.getItem('email') !== null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link">Perfil</Link></li>
                                     <li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link" onClick={(e) => {
                                         e.preventDefault();
+                             /*           history.push(`/order/${localStorage.getItem('id')}`);*/
                                         orderUser(localStorage.getItem('id'));
                                     }
                                     }>Mis Ordenes</Link></li>

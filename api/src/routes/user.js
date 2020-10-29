@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const auths = require('./auth');
 const passport = require('passport');
+const mailCreator = require('./mailgun/setUp.js')
 
 // MIDDLEWARES //
 // auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable // IMP *NO* INVOCAR AL IMPLEMENTAR!!

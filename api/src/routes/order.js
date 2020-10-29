@@ -21,6 +21,34 @@ try {
     include: {model: Product, attributes: ['id']}
   })
   // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
+    await req.body.forEach(async (orderline) => {
+    const { productId, quantity, amount } = orderline;
+    //asocia la orderline a la orden 'On Cart'
+    await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
+  })
+
+  await res.status(200).send(orden)
+
+
+} catch (error) {
+  console.log(error)
+  new Error(error)
+}
+
+next()
+});
+
+//==============================================
+//  Ruta CONFIRMAR un carrito cuando se paga, resta el stock de los productos
+//==============================================
+server.post('/users/:idUser/cart/paid', async (req, res, next) => {
+  const { idUser } = req.params;
+try {
+  const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
+    where: {userId: idUser, status: 'On Cart'}, 
+    include: {model: Product, attributes: ['id']}
+  })
+  // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
   await req.body.forEach(async (orderline) => {
     const { productId, quantity, amount } = orderline;
     // busca x cada orderline que el id de producto exista, y caso que exista updatea la cantidad
@@ -55,7 +83,7 @@ try {
 //=======================================================
 //	Ruta para retornar todas las ordenes de los usuarios
 //=======================================================
-server.get('/users/:id/orders',auths[2](), (req, res, next) => {
+server.get('/users/:id/orders'/*,auths[2]()*/, (req, res, next) => {
 	Order.findAll({
 		where: {userId: req.params.id}
 	}).then(orders => {
@@ -65,6 +93,7 @@ server.get('/users/:id/orders',auths[2](), (req, res, next) => {
     .catch(error => {
         return res.send(error);
     })
+    // next() // no sacar el coment, rompe orderHistory
 });
 
 // ========================================================================
@@ -87,7 +116,7 @@ server.get('/users/ordersByQuery', (req, res, next) => {
 //==============================================
 //  Ruta para retornar una orden en particular
 //==============================================
-server.get('/orders/:id',auths[2](), (req, res, next) => {
+server.get('/orders/:id'/*,auths[2]()*/, (req, res, next) => {
 
   Order.findByPk(req.params.id).then(order => {
     if (!order) return res.sendStatus(404);
@@ -124,7 +153,7 @@ server.get('/orders/:id/cart', async (req, res, next) => {
 //==============================================
 //  Ruta para modificar una orden
 //==============================================
-server.put('/orders/:id',auths[2](), (req, res, next) => {
+server.put('/orders/:id', (req, res, next) => {
   const { paymentMethod, status } = req.body;
   if(!paymentMethod || !status) {
     return res.sendStatus(400);
@@ -139,7 +168,7 @@ server.put('/orders/:id',auths[2](), (req, res, next) => {
   })
 });
 
-server.get('/users/orders',auths[2](), (req, res, next) => {
+server.get('/users/orders'/*,auths[2]()*/, (req, res, next) => {
 
     const { order } = req.query
     Order.findAll({
@@ -180,7 +209,7 @@ server.get('/users/:idUser/orders', async (req,res,next) => {
 //  Ruta para devolver el último carrito abierto de un usuario registrado - GET
 //======================================================================== 
 
-server.get('/users/:idUser/cart',auths[2](), async (req,res,next) => {
+server.get('/users/:idUser/cart', async (req,res,next) => {
 
     const { idUser } = req.params
     
@@ -228,7 +257,7 @@ server.delete('/users/:idUser/cart', async (req,res,next) => {
 //  Ruta para tener las ordenes y productos comprados x un cliente
 //======================================================================== 
 
-server.get('/users/orders/:userId', auths[2](), (req, res, next) => {
+server.get('/users/orders/:userId'/*, auths[2]()*/, (req, res, next) => {
   const { userId } = req.params
   console.log('paso el const')
   Order.findAll({

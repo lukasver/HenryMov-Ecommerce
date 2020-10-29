@@ -19,11 +19,13 @@ export const DELETE_COUNT ="DELETE_COUNT";
 export const STOCK = "STOCK";
 export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES";
 export const STARS = "STARS";
-export const PROD_IN_STORE = "PROD_IN_STORE"
+export const PROD_IN_STORE = "PROD_IN_STORE";
 export const LOGIN = "LOGIN";
-export const MOD_PROD = "MOD_PROD"
-export const DELETE_CART ="DELETE_CART"
-export const COUNTER_USER ="COUNTER_USER"
+export const MOD_PROD = "MOD_PROD";
+export const DELETE_CART ="DELETE_CART";
+export const COUNTER_USER ="COUNTER_USER";
+export const ORDER_HISTORY = "ORDER_HISTORY";
+
 
 
 export function logIn(user) {
@@ -210,6 +212,24 @@ export function orderDetail(id) {
       })
       .catch((error) => console.log(error));
   };
+}
+
+export function orderHistory(id) {
+  return (dispatch) => {
+    axios.get(`http://localhost:3001/users/${id}/orders`)
+    .then(orders => {
+      return orders.data
+    })
+    .then(data => {
+      dispatch({
+        type: ORDER_HISTORY,
+        payload: data
+      })
+    })
+    .catch(error => {
+      new Error(error)
+    })
+  }
 }
 
 export function prodInStore(userId){
