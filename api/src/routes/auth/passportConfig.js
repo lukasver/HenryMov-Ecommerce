@@ -6,6 +6,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const config = require('../config.js');
 
 module.exports = function (passport) {
+  
     passport.use(
       new LocalStrategy({
       usernameField: 'email',
@@ -13,7 +14,7 @@ module.exports = function (passport) {
     },
     async function(email, password, done) {
     try{  
-     const user = await User.findOne({where: { email: email, status: "Activo" }})
+      const user = await User.findOne({where: { email: email, status: "Activo" }})
         
         if (!user) {return done(null, false, {message: 'Incorrect username'}); }
         if (!await bcrypt.compare(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }

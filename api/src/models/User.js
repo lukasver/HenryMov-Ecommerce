@@ -72,9 +72,9 @@ module.exports = (sequelize) => {
             allowNull: true
         },
         image: {
-              type: DataTypes.STRING,
-              allowNull: true,
-              defaultValue: 'https://www.farma-erp.cl/img/no_photo.png'
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: 'https://www.farma-erp.cl/img/no_photo.png'
         },
         creationdate: {
             type: DataTypes.DATEONLY,
@@ -82,9 +82,12 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.NOW,
         },
         status: {
-            type: DataTypes.ENUM(["Activo","Inactivo"]),
+            type: DataTypes.ENUM(["Activo","Inactivo","Bloqueado"]),
             allowNull: true,
             defaultValue: "Activo"
+        },
+        passwordResetToken: {
+            type: DataTypes.STRING
         }
     }, { hooks: 
         {

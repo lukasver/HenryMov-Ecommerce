@@ -77,7 +77,6 @@ server.get('/login', (req, res, next) => {
 })
 
 server.get('/logout', isLoggedIn(), (req, res, next) => {
-
   req.session.destroy()
   req.logout();
   res.clearCookie('connect.sid');
@@ -86,7 +85,6 @@ server.get('/logout', isLoggedIn(), (req, res, next) => {
 })
 
 server.get('/profile', isLoggedIn(), (req, res, next) => {
-
   res.json(req.user)
   return
 })

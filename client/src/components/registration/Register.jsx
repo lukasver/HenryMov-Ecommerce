@@ -191,8 +191,7 @@ export default function Register() {
                                     onChange={handleOnChange}
                                     name='password'
                                     type="password"
-                                    id='Contraseña'
-                                    placeholder='**************'
+                                    id='Contraseña'                         
                                 />
                                 {error.password && <p className='danger'>{error.password}</p>}
                             </div>
@@ -203,7 +202,7 @@ export default function Register() {
                                     name='confirmedPassword'
                                     type="password"
                                     id='Confirme Contraseña'
-                                    placeholder='**************' />
+                                />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
                             </div><br/><br/><br/>
                             <div className="col-md-12">
