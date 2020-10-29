@@ -91,7 +91,7 @@ try {
 //=======================================================
 //	Ruta para retornar todas las ordenes de los usuarios
 //=======================================================
-server.get('/users/:id/orders',auths[1], (req, res, next) => {
+server.get('/users/:id/orders',auths[2](), (req, res, next) => {
 	Order.findAll({
 		where: {userId: req.params.id}
 	}).then(orders => {
@@ -106,7 +106,7 @@ server.get('/users/:id/orders',auths[1], (req, res, next) => {
 // ========================================================================
 // ============Get de las ordenes por status ==============================
 // ========================================================================
-server.get('/users/ordersByQuery',auths[1], (req, res, next) => {
+server.get('/users/ordersByQuery', (req, res, next) => {
     const { order } = req.query
     Order.findAll({
         order: ['id'],
@@ -135,7 +135,7 @@ server.get('/orders/:id',auths[2](), (req, res, next) => {
 //=============================================
 //  Ruta para retornar las orderlines de una orden particular
 //==============================================
-server.get('/orders/:id/cart',auths[1], async (req, res, next) => {
+server.get('/orders/:id/cart', async (req, res, next) => {
   const { id } = req.params
 
       Order.findOne({
@@ -193,7 +193,7 @@ server.get('/users/orders',auths[2](), (req, res, next) => {
 // ============Get todas las ordenes de cada usuario ======================
 // ========================================================================
 
-server.get('/users/:idUser/orders',auths[1], async (req,res,next) => {
+server.get('/users/:idUser/orders', async (req,res,next) => {
     const { idUser } = req.params
 
     try{
