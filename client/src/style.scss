@@ -1,0 +1,25 @@
+$background-color-dark: #292A32;
+$background-color-light: #FBFAF8;
+$complimentary-color-dark: #393B43;
+$complimentary-color-light: #FEFFFF;
+
+body {
+  background-color: $background-color-light;
+  color: $background-color-dark;
+}
+
+body.dark-mode {
+  background-color: $background-color-dark;
+  color: $background-color-light;
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #FEFFFF;
+  }
+  .hello{
+    color:#393B43; 
+  }
+  .link-producto {
+    color: #FEFFFF;
+}
+}

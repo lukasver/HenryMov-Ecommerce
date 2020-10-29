@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect , useState} from 'react';
 import { useHistory } from "react-router-dom";
+import Dark from "../DarkModeToggle"
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
@@ -55,15 +56,15 @@ function Nav() {
         })
     }
 
-    // const orderUser = (idUser) => {
-    //     return axios.get(`http://localhost:3001/users/${idUser}/orders`)
-    //         .then(order => {
-    //             const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
-    //             if (!idOrder) {
-    //                 return window.location = `http://localhost:3000/order/ /error`;
-    //             } else { return window.location = `http://localhost:3000/order/${idOrder.id}` };
-    //         })
-    // }
+    const orderUser = (idUser) => {
+        // return window.location = `http://localhost:3000/order/${idUser}`
+        return axios.get(`http://localhost:3001/users/${idUser}/orders`)
+            .then(order => {
+                if (!order.data.length) {
+                    return window.location = `http://localhost:3000/order/ /error`;
+                } else { return window.location = `http://localhost:3000/order/${idUser}`};
+            })
+    }
 
     const orderHist = (i) => {
 
@@ -126,7 +127,8 @@ function Nav() {
                                 {localStorage.getItem('email') !== null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link">Perfil</Link></li>
                                     <li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link" onClick={(e) => {
                                         e.preventDefault();
-                                        history.push(`/order/${localStorage.getItem('id')}`);
+                             /*           history.push(`/order/${localStorage.getItem('id')}`);*/
+                                        orderUser(localStorage.getItem('id'));
                                     }
                                     }>Mis Ordenes</Link></li>
                                     <li className="subutility-list-item nav-accounts-item nav-accounts-link">
@@ -135,7 +137,8 @@ function Nav() {
                         </div>
                     </div>
                     <div className="custom-control custom-switch ">
-                    <input type="checkbox" className="custom-control-input " onClick={()=> handleIdioma()} id="customSwitch1"  />
+                    {/* <input type="checkbox" className="custom-control-input " onClick={()=> handleIdioma()} id="customSwitch1"  /> */}
+                    <Dark/>
                     <label className="custom-control-label " for="customSwitch1"></label>
                 </div>
                 </div>

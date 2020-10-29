@@ -9,9 +9,6 @@ import { useHistory } from "react-router-dom";
 
 
 export default function Product({ product }) {
-	console.log(product)
-
-
 	const count = useSelector(store => store.count)
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
@@ -22,7 +19,7 @@ export default function Product({ product }) {
 		 product && first()
 	}, [ render,disponible])
 	
-	if (!product) {
+	if (!product) { 
 		return <div className="spinner-border text-info" role="status">
 			<span className="sr-only">Loading...</span>
 		</div>
@@ -31,7 +28,7 @@ export default function Product({ product }) {
 
 
 	function goBack() {
-		history.push('/products')
+		history.goBack()
 		return
 	}
 

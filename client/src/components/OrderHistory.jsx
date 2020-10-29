@@ -5,6 +5,7 @@ import * as action from '../redux/Action';
 import { dateFormat } from '../utils/utils.js';
 import { useHistory } from "react-router-dom";
 import ComponenteError from "./ComponenteError";
+import axios from 'axios';
 
 
 const OrderHistory = ({userId}) => {
@@ -15,15 +16,14 @@ const OrderHistory = ({userId}) => {
 	    history.push('/')
 	  }
 
-
-
-
 	 // TRAIGO HISTORIAL DE ORDENES
 	const dispatch = useDispatch()
 	const orderHistory = useSelector(store => store.orderHistory)
 	const orderDetailStore = useSelector(store => store.orderDetail)
 
 	const [ordersFiltered, setOrdersFiltered] = useState(orderHistory)
+    const [bool, setBool] = useState(true)
+
 
 	useEffect(() => {
 		dispatch(action.orderHistory(userId))
@@ -38,6 +38,7 @@ const OrderHistory = ({userId}) => {
         	setOrdersFiltered(orderHistory);
         	return
         } else {
+            console.log(orderHistory)
         setOrdersFiltered(orderHistory.filter(orders => orders.status == value))
         }
     }
@@ -47,8 +48,8 @@ const OrderHistory = ({userId}) => {
 	if (orderHistory.length === 0) return <ComponenteError/>
 
 	return (
-		 <div className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>
-        <div className="col-md-12 col-lg-12">
+		 <div id="test" className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>
+        <div id="contOrderHistory" className="col-md-12 col-lg-12">
 			<div className='ContainerStatus row pb-2' style={{top: "0px"}} >
 				<label className='FilterTitle col-sm-5'>Filtrar:</label>
 				<select className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">

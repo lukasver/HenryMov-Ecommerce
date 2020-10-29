@@ -143,9 +143,9 @@ export default function Carrito() {
                                                     <input class="btn btn-primary" type="button" value={prod.count} />
                                                     <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
                                                 </td>
-                                                <td className="text-right">$ {prod.price} </td>
-                                                <td className="text-right">$ {prod.price * prod.count} </td>
-                                                <td className="text-right"><button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
+                                                <td class="text-right">$ {prod.price} </td>
+                                                <td class="text-right">$ {prod.price * prod.count} </td>
+                                                <td class="text-right"><button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
                                             </tr>
                                         )}
                                     <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
