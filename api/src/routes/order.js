@@ -330,14 +330,14 @@ server.delete('/users/:idUser/cart',auths[2](), async (req,res,next) => {
     
     try{
 
-    const usuario = await User.findOne({ // Devuelve el carrito abierto del usuario solicitado
+    const order = await Order.findOne({ // Devuelve el carrito abierto del usuario solicitado
         where: {
-            id: idUser,
-        },
-        include: { model: Order, where: {status: 'On Cart'} }
+            userId: idUser,
+            status: 'On Cart'
+        }
     })
-    if (!usuario) return res.status(400).send('<h1>Usuario no encontrado o sin carrito con estado abierto<h1/>')
-    usuario.destroy();  // destruye la orden con estatus On Cart... ver si es lo mejor o capaz usar un set 
+    if (!order) return res.status(400).send('<h1>Orden no encontrada o sin carrito con estado abierto<h1/>')
+    order.destroy();  // destruye la orden con estatus On Cart... ver si es lo mejor o capaz usar un set 
 
     await res.json('Carrito eliminado con éxito')
         } catch (error) {
