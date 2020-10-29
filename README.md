@@ -215,3 +215,5 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm install passport-local
 - npm install passport-google-oauth
 - npm install passport-github2
+- npm install nodemailer 
+- npm install nodemailter-mailgun-transport
