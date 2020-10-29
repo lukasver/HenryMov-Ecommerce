@@ -53,7 +53,7 @@ try {
 //=======================================================
 //	Ruta para retornar todas las ordenes de los usuarios
 //=======================================================
-server.get('/users/:id/orders',auths[2](), (req, res, next) => {
+server.get('/users/:id/orders'/*,auths[2]()*/, (req, res, next) => {
 	Order.findAll({
 		where: {userId: req.params.id}
 	}).then(orders => {
@@ -63,6 +63,7 @@ server.get('/users/:id/orders',auths[2](), (req, res, next) => {
     .catch(error => {
         return res.send(error);
     })
+    next()
 });
 
 // ========================================================================

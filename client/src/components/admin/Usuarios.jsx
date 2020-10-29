@@ -110,6 +110,7 @@ export default function Usuarios({getUsers, rol}) {
                         {/* <option value="Todos">Todos</option> */}
                         <option value="Activo" selected>Activo</option> 
                         <option value="Inactivo">Inactivo</option>
+                        <option value="Bloqueado">Bloqueado</option>
                     </select>
                 </div>
                 <table className="table table-hover table-dark thfontsize">
@@ -146,7 +147,7 @@ export default function Usuarios({getUsers, rol}) {
                                     {rol === 'Admin' && <td>{dato.role === 'Cliente' && <button className="adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Responsable"?') && handlePromotion(e, dato.id))}>Promote</button>} 
                                     {dato.role === 'Responsable' && <button className="adam-chng" onClick={e => (window.confirm('Estas segur@ de querer cambiar el rol del usuario a: "Cliente"?') && handleDemotion(e, dato.id))}>Demote</button>}</td>}
                                     {(rol === 'Admin' && dato.role !== 'Admin') && (dato.status === "Activo") &&<td><button className="adam-chng" onClick={e => (window.confirm('Segur@ que quieres desactivar este usuario?') && handleDelete(e, dato.id))}>{dato.status}</button></td>}
-                                    {(rol === 'Admin' && dato.role !== 'Admin') && (dato.status === "Inactivo") &&<td><button className="adam-chng" onClick={e => (window.confirm('Segur@ que quieres reactivar este usuario?') && handleActivate(e, dato.id))}>{dato.status}</button></td>}
+                                    {(rol === 'Admin' && dato.role !== 'Admin') && (dato.status !== "Activo") &&<td><button className="adam-chng" onClick={e => (window.confirm('Segur@ que quieres reactivar este usuario?') && handleActivate(e, dato.id))}>{dato.status}</button></td>}
                                 </tr>
                                 )
                             // } else {return}

@@ -169,3 +169,7 @@
 .form-nacimiento {
     border: 1px solid #bababa !important;
 }
+
+.modal {
+    max-height: auto;
+}

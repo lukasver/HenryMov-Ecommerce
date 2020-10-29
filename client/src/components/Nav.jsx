@@ -55,14 +55,18 @@ function Nav() {
         })
     }
 
-    const orderUser = (idUser) => {
-        return axios.get(`http://localhost:3001/users/${idUser}/orders`)
-            .then(order => {
-                const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
-                if (!idOrder) {
-                    return window.location = `http://localhost:3000/order/ /error`;
-                } else { return window.location = `http://localhost:3000/order/${idOrder.id}` };
-            })
+    // const orderUser = (idUser) => {
+    //     return axios.get(`http://localhost:3001/users/${idUser}/orders`)
+    //         .then(order => {
+    //             const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
+    //             if (!idOrder) {
+    //                 return window.location = `http://localhost:3000/order/ /error`;
+    //             } else { return window.location = `http://localhost:3000/order/${idOrder.id}` };
+    //         })
+    // }
+
+    const orderHist = (i) => {
+
     }
 
     return (
@@ -122,7 +126,7 @@ function Nav() {
                                 {localStorage.getItem('email') !== null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link">Perfil</Link></li>
                                     <li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link" onClick={(e) => {
                                         e.preventDefault();
-                                        orderUser(localStorage.getItem('id'));
+                                        history.push(`/order/${localStorage.getItem('id')}`);
                                     }
                                     }>Mis Ordenes</Link></li>
                                     <li className="subutility-list-item nav-accounts-item nav-accounts-link">
