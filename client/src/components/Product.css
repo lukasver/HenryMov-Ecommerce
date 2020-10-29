@@ -73,3 +73,9 @@
     align-items: center;
     justify-content: center;
 } */
+
+.backbuttn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
