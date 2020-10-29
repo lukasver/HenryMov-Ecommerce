@@ -12,7 +12,6 @@ const auths = require('./auth');
 //	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
 //==============================================
 server.post('/users/:idUser/cart', async (req, res, next) => {
-  console.log('ESTA ACCION AGREGA')
   const { idUser } = req.params;
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
