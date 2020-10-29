@@ -1,4 +1,5 @@
 import axios from "axios";
+import Product from "../components/Product";
 import { handleAdd } from '../utils/product'
 export const ADD_COUNT = "ADD_COUNT";
 export const REMOVE_COUNT = "REMOVE_COUNT";
@@ -237,7 +238,6 @@ export function prodInStore(userId){
 }
 
 export function updateCart (products , id){
-  
   let newProducts =[]
   products.forEach(prod=>{
     let newProd ={
@@ -249,11 +249,21 @@ export function updateCart (products , id){
   })
   return (dispatch)=>
   axios
-  .post(`http://localhost:3001/users/${id}/cart`,newProducts)
+  .post(`http://localhost:3001/users/${id}/cart`,newProducts, {withCredentials:true})
 
 }
 
-export function deletedCart (id){
+export  function logOut (id,products){
+  return async dispatch=>{
+ await axios
+  .delete(`http://localhost:3001/users/${id}/cart`)
+ await  dispatch(updateCart(products, id))
+  }
+
+}
+
+
+export function deletedCart (id,products){
   return (dispatch)=>
   axios
   .delete(`http://localhost:3001/users/${id}/cart`)

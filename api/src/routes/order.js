@@ -12,6 +12,7 @@ const auths = require('./auth');
 //	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
 //==============================================
 server.post('/users/:idUser/cart', async (req, res, next) => {
+  console.log('ESTA ACCION AGREGA')
   const { idUser } = req.params;
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
@@ -196,14 +197,34 @@ server.get('/users/:idUser/cart', async (req,res,next) => {
 
 })
 
+//======================================================================== 
+//  Ruta para vaciar el carrito de un usuario registrado - DELETE
+//======================================================================== 
+
+server.delete('/users/:idUser/cart', async (req,res,next) => {
+  const { idUser } = req.params
+  try{
+  const order = await Order.findOne({ // Devuelve el carrito abierto del usuario solicitado
+      where: {
+          userId: idUser,
+          status: 'On Cart'
+      }
+  })
+  if (!order) return res.status(400).send('<h1>Orden no encontrada o sin carrito con estado abierto<h1/>')
+  order.destroy();  // destruye la orden con estatus On Cart... ver si es lo mejor o capaz usar un set 
+
+  await res.json('Carrito eliminado con éxito')
+      } catch (error) {
+          return res.status(400).send(error.name)
+      }
+})
+
 
 //======================================================================== 
 //  Ruta para tener las ordenes y productos comprados x un cliente
 //======================================================================== 
 
 server.get('/users/orders/:userId', auths[2](), (req, res, next) => {
-  console.log(auths)
-
   const { userId } = req.params
   console.log('paso el const')
   Order.findAll({
@@ -220,6 +241,4 @@ server.get('/users/orders/:userId', auths[2](), (req, res, next) => {
     console.log('Llega aca!')
     res.sendStatus(404)})
   })
-  
-
 module.exports = server;
