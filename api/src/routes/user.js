@@ -186,6 +186,8 @@ server.post('/users/:id/passwordReset', async (req, res) => {
    
     try {
         const usuario = await User.findOne({ where: {id}})
+        usuario.status = "Activo";
+        usuario.save();
         const hashedPassword = await bcrypt.hash(password, 9)
 
         await usuario.update({password: hashedPassword})

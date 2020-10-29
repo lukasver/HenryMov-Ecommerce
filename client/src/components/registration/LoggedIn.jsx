@@ -17,13 +17,16 @@ export default function LoggedIn() {
 
     const email = document.getElementById("inputEmail").value;
     const password = document.getElementById("inputPassword").value;
-    const boton = document.getElementById("bloqueado")
+    
     
     axios.post('http://localhost:3001/users/status', { email })
       .then(status => {
         
         if (status.data === 'Bloqueado') {
-          window.alert('Tu usario ha sido bloqueado. Por favor, cambia tu contraseña')
+          window.alert('Tu usario ha sido bloqueado. Por favor, cambia tu contraseña');
+          
+            
+          
         } else {
           axios.post('http://localhost:3001/auth/login', { email, password })
             .then((res) => {
@@ -70,7 +73,7 @@ export default function LoggedIn() {
                     {count > 0 && count < 3 && <p className='danger'>Te quedan {3 - count} intentos</p>}
                     {count >= 3 && <p className='danger'  >Superaste el maximo de intentos, por favor cambia tu contraseña</p>}
                   </div>
-                  {count >= 3 ? <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" disabled>Sign in</button> :
+                  {count >= 3 ? <button  className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" disabled>Sign in</button> :
                     <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" id='bloqueado'>Sign in</button>}
 
 
