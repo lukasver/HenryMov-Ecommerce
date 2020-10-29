@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import * as action from '../redux/Action';
 import { dateFormat } from '../utils/utils.js';
 import { useHistory } from "react-router-dom";
-import ComponenteError from "./ComponenteError";
+import LoadingBar from "./LoadingBar";
 import axios from 'axios';
 
 
@@ -22,13 +22,11 @@ const OrderHistory = ({userId}) => {
 	const orderDetailStore = useSelector(store => store.orderDetail)
 
 	const [ordersFiltered, setOrdersFiltered] = useState(orderHistory)
-    const [bool, setBool] = useState(true)
 
 
 	useEffect(() => {
 		dispatch(action.orderHistory(userId))
         dispatch(action.orderDetail(userId));
-       /* if (!ordersFiltered.length) setOrdersFiltered(orderHistory)*/
     }, [ordersFiltered]);
 
 
@@ -45,8 +43,8 @@ const OrderHistory = ({userId}) => {
 
 
 
-	if (orderHistory.length === 0) return <ComponenteError/>
-
+	if (orderHistory.length === 0) return <LoadingBar/>
+    if (!ordersFiltered.length) setOrdersFiltered(orderHistory)
 	return (
 		 <div id="test" className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>
         <div id="contOrderHistory" className="col-md-12 col-lg-12">
