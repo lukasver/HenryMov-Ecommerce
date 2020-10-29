@@ -22,7 +22,7 @@ import Menu from "./components/Menu"
 import OrdenDetalle from "./components/carrito/OrdenDetalle";
 import Reviews from "../src/components/reviews/Reviews"
 import Reset from "../src/components/registration/Reset"
-import Pago from '../src/components/carrito/pago/Pago'
+import Checkout from './components/carrito/pago/Ckeckout'
 import Profile from "./components/registration/Profile";
 import ComponenteError from "./components/ComponenteError"
 import ProfileAdmin from "./components/admin/ProfileAdmin";
@@ -122,7 +122,7 @@ function App() {
       <Route exact path='/order/:id' render={({ match })=> <OrdenDetalle orderId = {match.params.id}/>} />
       <Route exact path='/profile/:id' render={({ match })=> <ProfileAdmin profileId = {match.params.id}/>} />
       <Route exact path='/reviews' render={()=> <Reviews/>}/>
-      <Route exact path='/pago' render={()=> <Pago/>}/>
+      <Route exact path='/checkout' render={()=> <Checkout/>}/>
       <Route exact path='/profile' render={()=> <Profile/>}/>
       <Route exact path='/order/ /error' render={() => <ComponenteError/>}/>
       <Switch>
