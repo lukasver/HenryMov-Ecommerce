@@ -22,7 +22,7 @@ export const handleAdd = (product,dispatch, count)=> {
 
     let fined = search.find(prod => prod.id == product.id)
     if (fined) {
-        fined.count++
+        fined.count = fined.count + product.count
         let cleanData = search.filter((data) => data.id !== product.id)
         cleanData.push(fined)
         return localStorage.setItem('prod', JSON.stringify(cleanData))

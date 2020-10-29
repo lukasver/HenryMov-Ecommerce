@@ -11,54 +11,17 @@ const auths = require('./auth');
 //==============================================
 //	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
 //==============================================
-server.post('/users/:idUser/cart',auths[2](), async (req, res, next) => {
-
+server.post('/users/:idUser/cart', async (req, res, next) => {
+  console.log('ESTA ACCION AGREGA')
   const { idUser } = req.params;
-
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
     where: {userId: idUser, status: 'On Cart'}, 
     include: {model: Product, attributes: ['id']}
   })
-
   // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
   await req.body.forEach(async (orderline) => {
     const { productId, quantity, amount } = orderline;
-
-    //asocia la orderline a la orden 'On Cart'
-    await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
-    return
-  })
-
-  return res.status(200).send(orden)
-} catch (error) {
-  console.log(error)
-  new Error(error)
-}
-
-});
-
-//==============================================
-//  Ruta CONFIRMAR últimos cambios del carrito y el status a Created (cuando ya paga el user)
-//  PASA LA ORDEN A STATUS CREATED Y ESTA LA CANTIDAD COMPRADA DEL PRODUCT AL STOCK
-//==============================================
-server.post('/users/:idUser/cart/paid',auths[2](), async (req, res, next) => {
-
-  const { idUser } = req.params;
-
- console.log(req.body)
-
-try {
-  const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
-    where: {userId: idUser, status: 'On Cart'}, 
-    include: {model: Product, attributes: ['id']}
-  })
-
-  // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
-  await req.body.forEach(async (orderline) => {
-    const { productId, quantity, amount } = orderline;
-
-
     // busca x cada orderline que el id de producto exista, y caso que exista updatea la cantidad
     // en la BD en base a lo que compró el cliente 
     const producto = await Product.findByPk(productId)
@@ -72,7 +35,6 @@ try {
         where: {id: productId}
       })
     }
-
     //asocia la orderline a la orden 'On Cart'
     await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
     return
@@ -237,122 +199,34 @@ server.get('/users/:idUser/cart',auths[2](), async (req,res,next) => {
 
 })
 
-
-
-//======================================================================== 
-//  Ruta para editar cantidad del carrito - PUT
-//======================================================================== 
-
-server.put('/users/:idUser/cart',auths[2](), async (req,res,next) => {
-
-    // FRONT DEBE PASAR UN [] CON {} QUE CONTENGAN: ID DE PRODUCTO A UPDATEAR, CANTIDAD Y PRECIO UNITARIO (OPCIONAL)
-    const { idUser } = req.params
-
-    // ARRAY QUE SE ENVIARA COMO RESPUESTA AL CLIENTE... CONTENDRÁ SÓLO DE LOS PRODUCTOS QUE SE MODIFICARON
-    let respuesta = [];
-
-    // POR CADA OBJETO QUE SE PASE (POR CADA LINEA DE ORDEN DEL CARRITO) SE HARA UN UPDT EN LA BD ...
-    await req.body.forEach( async (lineaproducto) => {
-
-    const { productId, quantity, amount } = lineaproducto;
-
-
-    try{
-    // SI EL productId NO EXISTE O NO HAY SUFICIENTE STOCK - SE ENVÍA AVISO EN EL JSON DE RTA...
-    let producto = await Product.findByPk(productId)
-
-    if (!producto && req.body.length == 1) return res.send(`El producto ${productId} no existe en la base de datos...`);
-    !producto ? respuesta.push([`${productId}`,`El Id de producto: ${productId} - No encontrado en la base de datos `]) : null;
-    if (producto && producto.get('stock') < quantity && req.body.length == 1) {
-       respuesta.push([`${productId}`,`El Id de producto: ${productId} - No cuenta con stock suficiente `]);
-       return res.send(respuesta)
-    }
-    if (producto && producto.get('stock') < quantity && req.body.length > 1) {
-      respuesta.push([]);
-      return
-    }
-
-
-    // DEVUELVE EL CARRITO ABIERTO DEL USUARIO SOLICITADO - SI NO ENCUENTRA USUARIO, RECHAZA...
-    let usuario = await User.findOne({ 
-        where: {
-            id: idUser,
-        },
-        include: {model: Order, where: {status: 'On Cart'}, attributes: ['id','status']}
-    })
-    if (!usuario ) return res.status(400).send('<h1>Usuario no encontrado o sin carrito con estado abierto<h1/>')
-
-    // DEVUELVE LAS ORDERLINE QUE CORRESPONDAN A LA ORDENID DEL USUARIO - SI NO ENCUENTRA ORDERLINES...
-    // ... DEVUELVE U
-    let carrito = await Orderline.findAll({
-        where: {orderId: usuario.orders[0].id, productId: productId}
-    })
-    if (carrito.length === 0 && req.body.length === 1) res.send('no hay orderline')
-    if (carrito.length === 0 ) {
-      respuesta.push(carrito)
-      return
-    }
-
-    // UPDATEA CANTIDAD EN BD SI EL ID DEL PRODUCTO RECIBIDO X BODY MATCHEA CON ALGUNO EN LA ORDERLINE
-    carrito.forEach(orderline => {  
-        if (orderline.get('productId') == productId) {
-            orderline.setDataValue('quantity', quantity)
-            if(amount) orderline.setDataValue('amount', amount)
-            orderline.save();  // necesario para guardar los cambios en la DB
-        }
-            return;
-    })
-
-    if (lineaproducto)  respuesta.push(lineaproducto)
-
-    if(req.body.length === respuesta.length) return res.json(respuesta)
-
-      } catch (error) {
-      return res.status(400).send(error)
-    }
-  })
-
-  // await res.send('no tenia q llegar aca...')
-
-  return
-  next();
-
-})
-
-
 //======================================================================== 
 //  Ruta para vaciar el carrito de un usuario registrado - DELETE
 //======================================================================== 
 
-server.delete('/users/:idUser/cart',auths[2](), async (req,res,next) => {
+server.delete('/users/:idUser/cart', async (req,res,next) => {
+  const { idUser } = req.params
+  try{
+  const order = await Order.findOne({ // Devuelve el carrito abierto del usuario solicitado
+      where: {
+          userId: idUser,
+          status: 'On Cart'
+      }
+  })
+  if (!order) return res.status(400).send('<h1>Orden no encontrada o sin carrito con estado abierto<h1/>')
+  order.destroy();  // destruye la orden con estatus On Cart... ver si es lo mejor o capaz usar un set 
 
-    const { idUser } = req.params
-    
-    try{
-
-    const order = await Order.findOne({ // Devuelve el carrito abierto del usuario solicitado
-        where: {
-            userId: idUser,
-            status: 'On Cart'
-        }
-    })
-    if (!order) return res.status(400).send('<h1>Orden no encontrada o sin carrito con estado abierto<h1/>')
-    order.destroy();  // destruye la orden con estatus On Cart... ver si es lo mejor o capaz usar un set 
-
-    await res.json('Carrito eliminado con éxito')
-        } catch (error) {
-            return res.status(400).send(error.name)
-        }
-
+  await res.json('Carrito eliminado con éxito')
+      } catch (error) {
+          return res.status(400).send(error.name)
+      }
 })
+
 
 //======================================================================== 
 //  Ruta para tener las ordenes y productos comprados x un cliente
 //======================================================================== 
 
 server.get('/users/orders/:userId', auths[2](), (req, res, next) => {
-  console.log(auths)
-
   const { userId } = req.params
   console.log('paso el const')
   Order.findAll({
@@ -369,6 +243,4 @@ server.get('/users/orders/:userId', auths[2](), (req, res, next) => {
     console.log('Llega aca!')
     res.sendStatus(404)})
   })
-  
-
 module.exports = server;

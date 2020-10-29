@@ -1,4 +1,5 @@
 import axios from "axios";
+import Product from "../components/Product";
 import { handleAdd } from '../utils/product'
 export const ADD_COUNT = "ADD_COUNT";
 export const REMOVE_COUNT = "REMOVE_COUNT";
@@ -215,17 +216,18 @@ export function prodInStore(userId){
   if (userId!== null){
   return (dispatch)=>
   axios
-  .get(`http://localhost:3001/users/${userId}/cart`, {withCredentials: true })
+  .get(`http://localhost:3001/users/${userId}/cart`)
   .then(orden=>{
     let ordenId =orden.data.orders[0].id
     return ordenId
   })
   .then(ordenId=>{
-   return axios.get(`http://localhost:3001/orders/${ordenId}/cart`, {withCredentials: true })
+   return axios.get(`http://localhost:3001/orders/${ordenId}/cart`)
   })
   .then(prod=>{
-      let productoFinal=prod.data.products
-      productoFinal.map(product=>{      
+    let productoFinal=prod.data.products
+      productoFinal.forEach(product=>{ 
+       product.count = product.orderline.quantity    
       handleAdd(product, dispatch , productoFinal.count)
     })
     
@@ -233,4 +235,36 @@ export function prodInStore(userId){
 }else{
   return 
 }
+}
+
+export function updateCart (products , id){
+  let newProducts =[]
+  products.forEach(prod=>{
+    let newProd ={
+      amount: prod.price,
+      quantity: prod.count,
+      productId: prod.id
+    }
+    newProducts.push(newProd)
+  })
+  return (dispatch)=>
+  axios
+  .post(`http://localhost:3001/users/${id}/cart`,newProducts, {withCredentials:true})
+
+}
+
+export  function logOut (id,products){
+  return async dispatch=>{
+ await axios
+  .delete(`http://localhost:3001/users/${id}/cart`)
+ await  dispatch(updateCart(products, id))
+  }
+
+}
+
+
+export function deletedCart (id,products){
+  return (dispatch)=>
+  axios
+  .delete(`http://localhost:3001/users/${id}/cart`)
 }
