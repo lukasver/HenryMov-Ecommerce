@@ -8,9 +8,6 @@ import './Product.css'
 
 
 export default function Product({ product }) {
-	console.log(product)
-
-
 	const count = useSelector(store => store.count)
 	const [disponible, setDisponible] = useState(true)
 	const [render, setRen] = useState(true)
