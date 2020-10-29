@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect , useState} from 'react';
 import { useHistory } from "react-router-dom";
+import Dark from "../DarkModeToggle"
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
@@ -131,7 +132,8 @@ function Nav() {
                         </div>
                     </div>
                     <div className="custom-control custom-switch ">
-                    <input type="checkbox" className="custom-control-input " onClick={()=> handleIdioma()} id="customSwitch1"  />
+                    {/* <input type="checkbox" className="custom-control-input " onClick={()=> handleIdioma()} id="customSwitch1"  /> */}
+                    <Dark/>
                     <label className="custom-control-label " for="customSwitch1"></label>
                 </div>
                 </div>

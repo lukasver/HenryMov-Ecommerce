@@ -200,6 +200,7 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm install redux-thunk
 - npm axios
 - npm install bootstrap4-toggle
+- npm install node-sass --save
 
 ## En ./api
 - ( npm i sequelize cors multer bcrypt express-session express-session-sequelize passport passport-local passport-google-oauth passport-github2)
