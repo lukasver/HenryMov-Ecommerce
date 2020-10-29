@@ -275,6 +275,7 @@ export function updateCart (products , id){
 
 export  function logOut (id,products){
   return async dispatch=>{
+    console.log('entreeee')
  await axios
   .delete(`http://localhost:3001/users/${id}/cart`)
  await  dispatch(updateCart(products, id))
