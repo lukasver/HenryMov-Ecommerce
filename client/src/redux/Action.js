@@ -260,7 +260,7 @@ export function prodInStore(userId){
 export function updateCart (products , id){
   console.log('entra a agregar')
   let newProducts =[]
-  products.length>1?
+  products.length > 1 ?
   products.forEach(prod=>{
     let newProd ={
       amount: prod.price,
