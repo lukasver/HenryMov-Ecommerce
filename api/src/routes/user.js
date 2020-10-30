@@ -187,7 +187,7 @@ server.post('/users/mailValidator/reset', async (req, res) => {
         
     try {
         const user = await User.findOne({ where:{ email } })
-        const token = await cryptoString({ length: 32 });
+        const token = await cryptoString({ length: 6, type: 'numeric' });
       
         if (!user) {
             return res.status(404).send('Usuario no encontrado')
