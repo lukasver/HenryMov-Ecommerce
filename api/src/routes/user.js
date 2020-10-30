@@ -255,4 +255,18 @@ server.post('/users/status', (req, res) => {
     // })
 })
 
+server.post('/users/mailValidation/Register', (req, res) =>{
+    const {to, subject, text} = req.body
+    if (!to || !subject || !text ) res.send(`Error, datos erroneos`)
+    mailCreator(to, subject, text)
+    console.log(`
+    Mail sent...
+    from: henrymov.g05@gmail.com
+    to: ${to}
+    subject: ${subject}
+    text: ${text}
+    `)
+    res.send("mail sent")
+})
+
 module.exports = server;
