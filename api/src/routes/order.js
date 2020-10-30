@@ -16,10 +16,18 @@ server.post('/users/:idUser/cart', async (req, res, next) => {
   console.log('body', req.body)
   const { idUser } = req.params;
 try {
-  const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
-    where: {userId: idUser, status: 'On Cart'}, 
-    include: {model: Product, attributes: ['id']}
+  // let [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
+  //   where: {userId: idUser, status: 'On Cart'}, 
+  //   include: {model: Product, attributes: ['id']}
+  // })
+
+  let orden = await Order.findOne({where: {userId: idUser, status: 'On Cart'}})
+  if (orden) await orden.destroy()
+  orden = await Order.create({
+    userId: idUser
   })
+
+  console.log(orden)
   // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
     await req.body.forEach(async (orderline) => {
     const { productId, quantity, amount } = orderline;

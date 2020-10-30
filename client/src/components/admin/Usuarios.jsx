@@ -23,6 +23,7 @@ export default function Usuarios({getUsers, rol}) {
     const [users, setUsers] = useState([])
     const [role, setRole] = useState(false)
     const [usersFiltered, setUsersFiltered] = useState(users)
+    const [bool, setBool] = useState(false)
     
     // =======================================================
     //      PAGINACIÓN
@@ -87,7 +88,9 @@ export default function Usuarios({getUsers, rol}) {
 
     const handleSwitch = (e) => {
         const {value} = e.target
-        setUsersFiltered(users.filter(user => user.status == value))
+        let filter = users.filter(user => user.status == value)
+        if (!filter.length) setBool(true) // esto hace que si la selección es "bloqueado" no devuelva activos
+        setUsersFiltered(filter)
     } 
 
     
@@ -96,13 +99,13 @@ export default function Usuarios({getUsers, rol}) {
     getUsers().then(a=> {setUsers(a)})
 
     //     Condiciono para que cuando monte el componente renderize correctamente y pagine bien 
-    if (!usersFiltered.length) setUsersFiltered(users.filter(user => user.status == "Activo"))
+    if (!usersFiltered.length && !bool) setUsersFiltered(users.filter(user => user.status == "Activo"))
     },[role, usersFiltered])
     
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
             <div className="col-md-13 col-lg-13">
-                <h2 className="titleUsers">Todos los Usuarios</h2>
+                <h2 className="titleUsers" style={{"margin-left":"150px"}}>Todos los Usuarios</h2>
                 <p/>
                 <div className='ContainerStatus row' >
                     <label className='FilterTitle col-sm-5'>Filtrar:</label>
