@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const auths = require('./auth');
 const passport = require('passport');
-const mailCreator = require('./mailgun/setUp.js')
+const mailCreator = require('./mailgun/setUp.js');
+const cryptoString = require('crypto-random-string');
 
 // MIDDLEWARES //
 // auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable // IMP *NO* INVOCAR AL IMPLEMENTAR!!
@@ -13,7 +14,7 @@ const mailCreator = require('./mailgun/setUp.js')
 //==============================================
 //	Ruta para traer todods los usuarios.
 //==============================================
-server.get('/user', auths[1],(req, res, next) => {
+server.get('/user', auths[1], (req, res, next) => {
 
     User.findAll()
         .then(user => {
@@ -29,14 +30,14 @@ server.get('/user', auths[1],(req, res, next) => {
 //  Ruta para encotrar usuarios por id
 //=============================================
 
-server.get('/user/:id', auths[1],(req, res, next) => {
+server.get('/user/:id', auths[1], (req, res, next) => {
     const { id } = req.params;
     User.findByPk(id)
         .then(result => {
             if (!result) {
                 return res.status(404).send('Usuario no encontrado')
             }
-            result.password=null
+            result.password = null
             res.status(200).json(result)
         })
         .catch(err => {
@@ -47,11 +48,11 @@ server.get('/user/:id', auths[1],(req, res, next) => {
 //==============================================
 //	Ruta para crear/agregar un usuario.
 //============================================== 
-server.post('/user' ,async (req, res, next) => {
+server.post('/user', async (req, res, next) => {
 
     const { name, lastname, email, address, phone, password, birthdate } = req.body;
-    const hashedPassword = await bcrypt.hash(password,9)
-    if(!name) {
+    const hashedPassword = await bcrypt.hash(password, 9)
+    if (!name) {
         return res.status(400).send("Faltan datos");
     }
     User.create({
@@ -65,16 +66,16 @@ server.post('/user' ,async (req, res, next) => {
     }).then(createdUser => {
         return res.status(200).json(createdUser)
     }).catch(err => {
-            return res.status(400).json(err.errors[0].message);
-            next()
-        });
+        return res.status(400).json(err.errors[0].message);
+        next()
+    });
 });
 
 
 //===============================================
 //     Ruta para modificar usuario.
 //===============================================
-server.put('/user/:id',auths[2](), (req, res, next) => {
+server.put('/user/:id', auths[2](), (req, res, next) => {
     // console.log(req.isAuthenticated())
     // console.log(req.session.passport)
 
@@ -85,7 +86,7 @@ server.put('/user/:id',auths[2](), (req, res, next) => {
     console.log(id)
     console.log(req.body)
 
-    const { name, lastname, email, address, phone, birthdate, status} = req.body;
+    const { name, lastname, email, address, phone, birthdate, status } = req.body;
 
     User.update({
         name,
@@ -112,10 +113,10 @@ server.put('/user/:id',auths[2](), (req, res, next) => {
 //     Ruta para modificar imagen de usuario.
 //===============================================
 
-server.post('/user/:id/image',auths[2](), (req, res, next) => {
+server.post('/user/:id/image', auths[2](), (req, res, next) => {
 
-/*    console.log('imagen ', req.isAuthenticated())
-    if(!req.isAuthenticated()) return res.sendStatus(401)*/
+    /*    console.log('imagen ', req.isAuthenticated())
+        if(!req.isAuthenticated()) return res.sendStatus(401)*/
 
     const { id } = req.params;
     let { image } = req.body;
@@ -138,7 +139,7 @@ server.post('/user/:id/image',auths[2](), (req, res, next) => {
 //==============================================
 //  Ruta para eliminar usuario
 //==============================================
-server.delete('/user/:id',auths[1], (req, res, next) => {
+server.delete('/user/:id', auths[1], (req, res, next) => {
 
     // console.log('delete ', req.isAuthenticated())
     // if(!req.isAuthenticated()) return res.sendStatus(401)
@@ -159,19 +160,19 @@ server.delete('/user/:id',auths[1], (req, res, next) => {
 )
 
 //===================================================
-//  Ruta para encontrar usuario por email
+//  Ruta para encontrar usuario por token
 //===================================================
 server.get('/users', (req, res) => {
-    const { email } = req.query;
+    const { token } = req.query;
     User.findOne({
         where: {
-            email
+            passwordResetToken: token
         }
     }).then(user => {
         if (!user) {
             return res.status(404).send('Usuario no encontrado')
         }
-        
+
         return res.status(200).json(user.id);
     }).catch(err => {
         res.status(400).send(err)
@@ -179,27 +180,58 @@ server.get('/users', (req, res) => {
 })
 
 //===================================================
+//  Ruta para enviar email de recuperacion de clave
+//===================================================
+server.post('/users/mailValidator/reset', async (req, res) => {
+    const { email } = req.body;
+        
+    try {
+        const user = await User.findOne({ where:{ email } })
+        const token = await cryptoString({ length: 32 });
+      
+        if (!user) {
+            return res.status(404).send('Usuario no encontrado')
+        }
+        user.passwordResetToken = token;
+        user.save();
+        console.log(user)
+        const mailReset = 
+            `Este menesaje se envio por pedido de un resteto de clave: 
+            Haz click en el siguiente link http://localhost:3000/verify
+            He introduce el token de seguridad: ${token}
+            Si no has sido tu, ponte en contacto con atencion al cliente`
+        
+            await mailCreator(user.email, "Cambio de Clave", mailReset);
+    
+            return res.status(200).send('Email enviado con exito')
+
+        }
+
+    catch(err){
+        return res.status(500).send('Error, ', err)
+    }
+
+})
+
+//===================================================
 //  Ruta para resetear la contraseña
 //===================================================
 server.post('/users/:id/passwordReset', async (req, res) => {
-
-    console.log(req.isAuthenticated())
-
     const { id } = req.params;
     const { password } = req.body;
-
+    
     if (password.length < 8) return res.send(400).send('Password no cumple requisitos')
-   
+
     try {
-        const usuario = await User.findOne({ where: {id}})
+        const usuario = await User.findOne({ where: { id } })
+
+        if (!usuario) {
+            return res.sendStatus(404)
+        }
         usuario.status = "Activo";
         usuario.save();
         const hashedPassword = await bcrypt.hash(password, 9)
-
-        await usuario.update({password: hashedPassword})
-
-        if (!usuario) return res.sendStatus(404)
-
+        await usuario.update({ password: hashedPassword })
         return res.sendStatus(200)
 
     } catch (error) {
@@ -207,7 +239,7 @@ server.post('/users/:id/passwordReset', async (req, res) => {
         return res.sendStatus(401)
     }
 
-    
+
 })
 
 //===============================================
@@ -219,15 +251,15 @@ server.post('/users/bloqued', (req, res) => {
 
     User.findOne({
         where: {
-                email
-            }
+            email
+        }
     }).then(modified => {
         if (!modified) {
             return res.status(404).send('Usuario no encontrado')
         }
         modified.status = "Bloqueado";
         modified.save();
-        
+
         res.status(200).send('Usuario bloqueado')
     })
 })
@@ -243,8 +275,8 @@ server.post('/users/status', (req, res) => {
             email
         }
     }).then(user => {
-        
-        if(!user){
+
+        if (!user) {
             return res.satatus(404).send('Usuario no encontrado')
         }
         console.log(user.status)

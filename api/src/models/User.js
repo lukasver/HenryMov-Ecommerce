@@ -87,7 +87,8 @@ module.exports = (sequelize) => {
             defaultValue: "Activo"
         },
         passwordResetToken: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            defaultValue: ''
         }
     }, { hooks: 
         {
