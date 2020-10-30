@@ -18,8 +18,7 @@ export default function Register() {
 
     const [error, setErrors] = useState({});
     const [verify, setVerify] = useState('');
-    const [userCreated, setUserCreated] = useState(false);
-    const history = useHistory()
+    const [userCreated, setUserCreated] = useState(0);
 
     const [confirmationCode, setConfirmationCode] = useState(Math.floor(Math.random()*10000).toString());
 
@@ -52,8 +51,11 @@ export default function Register() {
         const { name } = e.target;
         axios.post(`http://localhost:3001/user`, values)
             .then(values => {
-                if(values) setUserCreated(true)
+                setUserCreated(1)
                 return values
+            })
+            .catch(error => {
+                setUserCreated(2)
             })
         setErrors(validate({
             ...values,
@@ -111,7 +113,9 @@ export default function Register() {
         return errors;
     }
 
-    useEffect(()=>{},[confirmationCode])
+    useEffect(()=>{
+        // axios.get(`http`)
+    },[confirmationCode,userCreated])
 
     return (
         <div className="container" style={{ width: "1600px" }}>
@@ -252,8 +256,10 @@ export default function Register() {
                                 <div className="modal-footer">
                                     <form onSubmit={handleSubmit}>    
                                         {!userCreated && <input id='codeConfirm' placeholder='Ingresa el codigo' onChange={handleOnChangeVerify} type="text"/>}
-                                        {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>}
-                                        {userCreated && <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>}
+                                        {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>} <p/>
+                                        {userCreated&& <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>} <p/>
+                                        {userCreated == 2 && <a style={{color:"white"}}>El usuario {values.email} ya existe</a>}
+                                        {/* {console.log('verify: ',verify,'\nconfirmation Code:', confirmationCode)} */}
                                     </form>
                                 </div>
                             </div>
