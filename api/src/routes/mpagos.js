@@ -15,19 +15,11 @@ server.get("/payment", function (req, res) {
 
 server.post("/process_payment", (req, res) => {
     console.log('========>>>>>>>>>>>>> ', req.body)
-
-//     email: 'l.verdiell@gmail.com',
-//   docType: 'DNI',
-//   docNumber: '34772979',
-//   installments: '1',
-//   transactionAmount: '10',
-//   paymentMethodId: 'visa',
-//   description: 'Some book',
     var payment_data = {
         transaction_amount: Number(req.body.transactionAmount),
         token: req.body.token,
         description: req.body.description,
-        installments: 1,
+        installments: Number(req.body.installments),
         payment_method_id: req.body.paymentMethodId,
         issuer_id: req.body.issuer,
         payer: {
@@ -38,22 +30,6 @@ server.post("/process_payment", (req, res) => {
           }
         }
       };
-
-    //   var payment_data = {
-    //     transaction_amount: 10,
-    //     token: req.body.token,
-    //     description: 'Some book',
-    //     installments: 1,
-    //     payment_method_id: 'visa',
-    //     // issuer_id: req.body.issuer,
-    //     payer: {
-    //       email: 'l.verdiell@gmail.com',
-    //       identification: {
-    //         type: 'DNI',
-    //         number: '34772979'
-    //       }
-    //     }
-    //   };
     
       mercadopago.payment.save(payment_data)
         .then(function(response) {
