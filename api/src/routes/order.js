@@ -4,6 +4,7 @@ const { Product, User, Order, Orderline } = require('../db.js');
 const { Sequelize, QueryTypes } = require('sequelize');
 const auths = require('./auth');
 
+
 // MIDDLEWARES //
 // auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
 // auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
@@ -12,6 +13,7 @@ const auths = require('./auth');
 //	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
 //==============================================
 server.post('/users/:idUser/cart', async (req, res, next) => {
+  console.log('body', req.body)
   const { idUser } = req.params;
 try {
   const [orden, created] = await Order.findOrCreate({ // true == crea -- false == encuentra
@@ -51,6 +53,7 @@ try {
     const { productId, quantity, amount } = orderline;
     // busca x cada orderline que el id de producto exista, y caso que exista updatea la cantidad
     // en la BD en base a lo que compró el cliente 
+    console.log('order', orderline)
     const producto = await Product.findByPk(productId)
     if (!producto) {return;
       } else {

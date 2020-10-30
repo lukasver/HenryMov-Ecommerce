@@ -276,8 +276,10 @@ server.post('/users/status', (req, res) => {
         }
     }).then(user => {
 
-        if (!user) {
-            return res.satatus(404).send('Usuario no encontrado')
+     
+        if(!user){
+           return res.status(404).send('Usuario no encontrado')
+
         }
         console.log(user.status)
         return res.status(200).send(user.status)
@@ -285,6 +287,20 @@ server.post('/users/status', (req, res) => {
     // .catch(err => {
     //     return res.status(400).send(err)
     // })
+})
+
+server.post('/users/mailValidation/Register', (req, res) =>{
+    const {to, subject, text} = req.body
+    if (!to || !subject || !text ) res.send(`Error, datos erroneos`)
+    mailCreator(to, subject, text)
+    console.log(`
+    Mail sent...
+    from: henrymov.g05@gmail.com
+    to: ${to}
+    subject: ${subject}
+    text: ${text}
+    `)
+    res.send("mail sent")
 })
 
 module.exports = server;
