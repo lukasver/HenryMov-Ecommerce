@@ -31,15 +31,13 @@ export default function Verify() {
 
         axios.get(`http://localhost:3001/users?token=${values.token}`)
             .then(result => {
-                console.log('result', result)
                 return result.data
             }).then(id => {
-                console.log('id', id)
                 return axios.post(`http://localhost:3001/users/${id}/passwordReset`, { password: values.password })
             }).then(result => {
                 if (result.status === 200) {
                     window.alert('Contraseña modificada con exito');
-                    history.push('/Login');
+                    history.push('/logIn');
                 }
             }).catch(err => {
                 console.log(err)
@@ -80,7 +78,7 @@ export default function Verify() {
                         <h4>Ingrese el token de seguridad</h4>
                         <form className="form-signin" onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <input name='token' type="text" className="form-control" id="token" placeholder="Token" />
+                                <input name='token' type="text" className="form-control" id="token" placeholder="Token" onChange={handleOnChange}/>
                                 {/* {error.email && <p className='danger'>{error.email}</p>} */}
                                 {/* {!error.email && values.email !== '' && <button className="adam-button verified-user" type='submit' >Verificar usuario</button>} */}
                             </div>
