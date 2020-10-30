@@ -4,17 +4,17 @@ const { conn } = require('../db.js');
 module.exports = (sequelize) => {
 	sequelize.define('order', {
 		shipping: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: "1", // hay que usar 1 como true porque sequelize no acepta true o false en este campo
+			type: DataTypes.ENUM('Retiro en Tienda','Envio a domicilio'),
+			defaultValue: "Envio a domicilio", // hay que usar 1 como true porque sequelize no acepta true o false en este campo
 			allowNull: true
 		},
 		paymentMethod: {
-			type: DataTypes.INTEGER, // Tipo entero??
+			type: DataTypes.ENUM('Efectivo','Tarjeta de Credito','Tarjeta de Debito','Rapipago','Pagofacil'), // Tipo entero??
 			allowNull: false,
-			defaultValue: 1
+			defaultValue: 'Tarjeta de Credito'
 		},
 		status: {
-			type: DataTypes.ENUM('On Cart','Created','Processing','Cancelled','Fulfilled'),
+			type: DataTypes.ENUM('On Cart','Creada','Procesando','Cancelada','Completa'),
 			defaultValue: 'On Cart',
 			allowNull: false
 		},

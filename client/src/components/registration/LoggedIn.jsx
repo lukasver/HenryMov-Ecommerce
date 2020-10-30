@@ -9,10 +9,6 @@ export default function LoggedIn() {
 
   const [count, setCount] = useState(0);
 
-
-
-
-
   const handleLogin = (e) => {
 
     e.preventDefault()
@@ -25,10 +21,11 @@ export default function LoggedIn() {
       .then(status => {
         
         if (status.data === 'Bloqueado') {
+          
           window.alert('Tu usario ha sido bloqueado. Por favor, cambia tu contraseña');
           
-            
-          
+        } else if (status.data === 'Inactivo'){
+          window.alert('Tu usario ha sido desactivado. Por favor, ponte en contacto con atención al cliente');
         } else {
           axios.post('http://localhost:3001/auth/login', { email, password })
             .then((res) => {
@@ -53,7 +50,6 @@ export default function LoggedIn() {
               console.log(err);
 
             });
-
         }
          return
       })

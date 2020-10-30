@@ -1,0 +1,64 @@
+.container-checkout {
+    margin: 40px;
+    background: #f6f6f6;
+    border-radius: 20px;
+    padding: 0px 50px;
+    -webkit-box-shadow: -1px 1px 45px -16px rgba(0,0,0,0.23);
+    -moz-box-shadow: -1px 1px 45px -16px rgba(0,0,0,0.23);
+    box-shadow: -1px 1px 45px -16px rgba(0,0,0,0.23);
+}
+.ul-carrito {
+    background: white;
+    border-bottom: 1px solid #d7d7d7;
+}
+.span-total-num {
+    color: #ffaf00 !important;
+    font-weight: 700;
+    font-size: 19px;
+}
+.total-carrito {
+    color: #ffaf00;
+    font-size: 22px;
+}
+.li-total {
+    background-color: #111111 !important;
+}
+.input-direccion {
+    border-bottom: 1px solid #c8e4e77d !important;
+    border: none;
+    border-radius: 0px;
+}
+.label-form {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #8C8C8C;
+    text-transform: uppercase;
+}
+.h4-checkout {
+    margin-top: 15px;
+    padding: 20px;
+    font-weight: 600;
+    color: #343a40;
+}
+.h4-checkout-item {
+    padding: 0px 20px 0px 10px !important;
+    margin: 0px !important;
+}
+.margen-derecho {
+    padding-right: 20px;
+}
+.cabecera-pago {
+    border-bottom: 1px solid #e2e2e28f;
+    padding: 10px 0px 13px 0px !important;
+    margin-bottom: 10px;
+}
+.expiration {
+    float: left;
+    padding: 0px;
+}
+.input-background {
+    background-position: 98% 50% !important;
+    background-repeat: no-repeat !important;
+    background-color: #fff !important;
+  }

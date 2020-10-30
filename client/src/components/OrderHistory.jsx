@@ -22,6 +22,7 @@ const OrderHistory = ({userId}) => {
 	const orderDetailStore = useSelector(store => store.orderDetail)
 
 	const [ordersFiltered, setOrdersFiltered] = useState(orderHistory)
+    const [bool, setBool] = useState(false)
 
 
 	useEffect(() => {
@@ -36,26 +37,29 @@ const OrderHistory = ({userId}) => {
         	setOrdersFiltered(orderHistory);
         	return
         } else {
-            console.log(orderHistory)
-        setOrdersFiltered(orderHistory.filter(orders => orders.status == value))
+        let filtro = orderHistory.filter(orders => orders.status == value)
+        if (!filtro.length) return setOrdersFiltered([])
+        setBool(true)
+        setOrdersFiltered(filtro)
         }
     }
 
 
 
 	if (orderHistory.length === 0) return <LoadingBar/>
-    if (!ordersFiltered.length) setOrdersFiltered(orderHistory)
+
+    if (!ordersFiltered.length && !bool) setOrdersFiltered(orderHistory)
 	return (
 		 <div id="test" className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>
         <div id="contOrderHistory" className="col-md-12 col-lg-12">
 			<div className='ContainerStatus row pb-2' style={{top: "0px"}} >
 				<label className='FilterTitle col-sm-5'>Filtrar:</label>
-				<select className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
+				<select id='selector' className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
 					<option value="Todas" selected>Todas</option>
-					<option value="Created">Created</option> 
-					<option value="Processing">Processing</option>
-					<option value="Cancelled">Cancelled</option>
-					<option value="Fulfilled">Fulfilled</option>
+					<option value="Creada">Creada</option> 
+					<option value="Procesando">Procesando</option>
+					<option value="Cancelada">Cancelada</option>
+					<option value="Completa">Completa</option>
 				</select>
 			</div>
             <h2 className="titleOrders">Mis Ordenes</h2>
@@ -81,7 +85,7 @@ const OrderHistory = ({userId}) => {
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.id}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.shipping.toString()}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.status}</Link></td>
-                                        <td><Link to={`/order/detail/${dato.id}`}>{dato.received.toString()}</Link></td>
+                                        <td><Link to={`/order/detail/${dato.id}`}>{dato.received === false ? 'No' : 'Si'}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod.toString()}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
                                { /*        <td><Link to={`/order/${dato.id}`}>{dato.userId}</Link></td>*/}
