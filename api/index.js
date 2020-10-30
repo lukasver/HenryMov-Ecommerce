@@ -636,8 +636,6 @@ conn.sync({ force: true }).then(() => {
 			  })
 		
 		await Order.create({
-    		shipping: 0,
-    		paymentMethod: 1,
     		status: 'On Cart',
     		received: "0",
     		amount: 4533.23, // deberia ser la suma de los amount de productos...
@@ -652,9 +650,7 @@ conn.sync({ force: true }).then(() => {
     	})
 
 		await Order.create({
-    		shipping: 0,
-    		paymentMethod: 1,
-    		status: 'Created',
+    		status: 'Creada',
     		received: "0",
     		amount: 4533.23, // deberia ser la suma de los amount de productos...
     		quantity: 34, // deberia ser la suma de las quantities?...
@@ -668,9 +664,9 @@ conn.sync({ force: true }).then(() => {
     	})
 
 		await Order.create({
-    		shipping: 0,
-    		paymentMethod: 1,
-    		status: 'Fulfilled',
+    		shipping: 'Retiro en Tienda',
+    		paymentMethod: 'Rapipago',
+    		status: 'Completa',
     		received: "1",
     		amount: 12300, // deberia ser la suma de los amount de productos...
     		quantity: 6, // deberia ser la suma de las quantities?...
@@ -684,9 +680,9 @@ conn.sync({ force: true }).then(() => {
     	})
 
     	await Order.create({
-    		shipping: 1,
-    		paymentMethod: 2,
-    		status: 'Created',
+    		shipping: 'Retiro en Tienda',
+    		paymentMethod: 'Efectivo',
+    		status: 'Creada',
     		received: "0",
     		amount: 4533.23,
     		quantity: 34,
@@ -700,8 +696,6 @@ conn.sync({ force: true }).then(() => {
     	})
 
     	    await Order.create({
-    		shipping: 1,
-    		paymentMethod: 2,
     		status: 'On Cart',
     		received: "0",
     		amount: 4533.23,
@@ -716,9 +710,7 @@ conn.sync({ force: true }).then(() => {
     	})
 
     	    await Order.create({
-    		shipping: 1,
-    		paymentMethod: 2,
-    		status: 'Processing',
+    		status: 'Procesando',
     		received: "0",
     		amount: 4533.23,
     		quantity: 34,
