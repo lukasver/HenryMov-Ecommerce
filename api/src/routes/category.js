@@ -1,5 +1,11 @@
 const server = require('express').Router();
 const { Category } = require('../db.js');
+const auths = require('./auth');
+
+// MIDDLEWARES //
+// auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable // IMP *NO* INVOCAR AL IMPLEMENTAR!!
+// auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests // IMP INVOCAR AL IMPLEMENTAR!!
+
 
 //==============================================
 //	Ruta para traer las categorias.
@@ -18,7 +24,7 @@ server.get('/category', (req, res, next) => {
 //==============================================
 //	Ruta para crear/agregar una categoría.
 //============================================== 
-server.post('/category', (req, res, next) => {
+server.post('/category', auths[1], (req, res, next) => {
 	if(!req.body.name) {
     return res.sendStatus(400);
   }
@@ -48,7 +54,7 @@ server.get('/category/:id', (req, res, next) => {
 //==============================================
 //	Ruta para modificar una categoría.
 //============================================== 
-server.put('/category/:id', (req, res, next) => {
+server.put('/category/:id', auths[1], (req, res, next) => {
 
 	if(!req.body.name) {
     return res.sendStatus(400);
@@ -66,7 +72,7 @@ server.put('/category/:id', (req, res, next) => {
 //==============================================
 //	Ruta para eliminar una categoría.
 //============================================== 
-server.delete('/category/:id', (req, res, next) => {
+server.delete('/category/:id', auths[1], (req, res, next) => {
   Category.destroy({
   	where: {id: req.params.id}
   }).then(deletedCategory => {

@@ -23,7 +23,8 @@ import {
   MOD_PROD,
   DELETE_CART,
   COUNTER_USER,
-  LOGIN
+  LOGIN,
+  ORDER_HISTORY
 } from "./Action";
 
 const initialState = {
@@ -36,9 +37,8 @@ const initialState = {
   countCart: '0',
   count: 1,
   orderDetail: [],
-  prodInStore:[],
+  orderHistory: [],
   starsSelected: 0,
-  counterUser: 0,
   loggedIn: false
 };
 
@@ -56,27 +56,6 @@ export function counterReducer(state = initialState, action) {
           count : action.payload
         }
       }
-      case COUNTER_USER:
-        return{
-          ...state,
-          counterUser: action.payload
-        }
-      case DELETE_CART:
-        return{
-        ...state,
-        prodInStore: action.payload
-        }
-      case MOD_PROD:
-        return{
-          ...state,
-          prodInStore: action.payload
-        }
-      case PROD_IN_STORE:
-        console.log('bbbbbb',action.payload)
-        return {
-          ...state,
-          prodInStore: action.payload
-        }
     case LOGIN:
       return {
         ...state,
@@ -167,6 +146,11 @@ export function counterReducer(state = initialState, action) {
         ...state,
         orderDetail: action.payload
       };
+    case ORDER_HISTORY:
+      return {
+        ...state,
+        orderHistory: action.payload
+      };
     case STARS:
       return {
         ...state,
@@ -181,5 +165,5 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default createStore(
   counterReducer,
-  composeEnhancers(applyMiddleware(thunk))
+  compose(applyMiddleware(thunk))
 );

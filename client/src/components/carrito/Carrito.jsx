@@ -9,17 +9,16 @@ import './Carrito.css';
 export default function Carrito() {
     const dispatch = useDispatch()
     let product = JSON.parse(localStorage.getItem('prod'))
+    let user= localStorage.getItem('id')
     const count = useSelector(store => store.count)
-    const prod = useSelector(store=> store.prodInStore)
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
-    const [user, setUser] = useState(null)
     let history = useHistory();
+    let users= localStorage.getItem('id')
     useEffect(() => {
-        let user= localStorage.getItem('id')
-        setUser(user)
+       
         
-    }, [render, count, user])
+    }, [render, count])
    
     
     if (product != null) {
@@ -46,18 +45,13 @@ export default function Carrito() {
         let envio = subtotal * 0.1
         let total = subtotal + envio
         switch (act) {
-            case 1: return dosDecimales(envio);
+            case 1: return envio.toFixed(2);
             case 2: return subtotal;
-            case 3: return dosDecimales(total);
+            case 3: return total.toFixed(2);
             default: return;
         }
     }
-    function dosDecimales(n) {
-        let t = n.toString();
-        let regex = /(\d*.\d{0,2})/;
-        return t.match(regex)[0];
-    }
-
+  
 
     function aumentar(prod) {
         render ? setRender(false) : setRender(true)
@@ -86,7 +80,6 @@ export default function Carrito() {
     }
     function handleDelete(id) {
         render ? setRender(false) : setRender(true)
-        // if(user==null){
         dispatch(action.removecountCart())
         let recoveredData = localStorage.getItem('prod')
         let data = JSON.parse(recoveredData)
@@ -94,29 +87,21 @@ export default function Carrito() {
         let countCart = newData.length
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
-        // }else{
-        //     let newData = product.filter((data) => data.id !== id)
-        //    dispatch(action.modifProd(newData))
-        // }
     }
     function deleteAllProd() {
         render ? setRender(false) : setRender(true)
-        // if(user==null){
         dispatch(action.removecountCart())
+        dispatch(action.deletedCart(user))
         let countCart = 0
         let newData = []
         localStorage.setItem('count', countCart)
         localStorage.setItem('prod', JSON.stringify(newData))
-        // }else{
-        //     dispatch(action.deleteCart())
-        // }
     }
+
     
     function handleUser(){
         render ? setRender(false) : setRender(true)
-       let user= localStorage.getItem('id')
-       setUser(user)
-       user !== null && history.push('/pago') 
+      history.push('/checkout') 
     }
 
 
@@ -158,18 +143,18 @@ export default function Carrito() {
                                                     <input class="btn btn-primary" type="button" value={prod.count} />
                                                     <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
                                                 </td>
-                                                <td className="text-right">$ {prod.price} </td>
-                                                <td className="text-right">$ {prod.price * prod.count} </td>
-                                                <td className="text-right"><button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
+                                                <td class="text-right">$ {prod.price} </td>
+                                                <td class="text-right">$ {prod.price * prod.count} </td>
+                                                <td class="text-right"><button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" onClick={() => setProdId(prod.id)}><i className="fa fa-trash"></i> </button> </td>
                                             </tr>
                                         )}
                                     <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog bg-dark" role="document">
                                             <div class="modal-content ">
                                                 <div class="modal-header bg-dark">
-                                                    <h5 class="card-header bg-warning text-white " id="exampleModalLabel">IMPORTANTE</h5>
+                                                    <h5 class="card-header bg-danger text-white " id="exampleModalLabel">IMPORTANTE</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <div class="spinner-grow text-danger" aria-hidden="true" role="status">
+                                                        <div class="spinner-grow text-danger close" aria-hidden="true" role="status">
                                                             <span class="sr-only" aria-hidden="true">&times;</span>
                                                         </div>
                                                     </button>
@@ -232,7 +217,7 @@ export default function Carrito() {
                                             <p>Estas por vaciar todo tu carrito...</p><p>deseas continuar?</p>
                                         </div>
                                         <div class="modal-footer bg-dark">
-                                            <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onClick={() => deleteAllProd()}> SI  </button>
+                                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => deleteAllProd()}> SI  </button>
                                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">NO</button>
                                         </div>
                                     </div>

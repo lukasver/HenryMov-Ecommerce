@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './Register.css'
 import axios from 'axios'
+import { useEffect } from 'react';
 
 
 export default function Register() {
@@ -16,6 +17,11 @@ export default function Register() {
     });
 
     const [error, setErrors] = useState({});
+    const [verify, setVerify] = useState('');
+    const [userCreated, setUserCreated] = useState(false);
+    const history = useHistory()
+
+    const [confirmationCode, setConfirmationCode] = useState(Math.floor(Math.random()*10000).toString());
 
     const handleOnChange = e => {
         const { name, value } = e.target;
@@ -28,12 +34,25 @@ export default function Register() {
             [name]: value
         }));
     }
-    
+    const handleOnChangeVerify = e =>{
+        setVerify(e.target.value)
+    } 
+    const handleMail = (e) => {
+        e.preventDefault()
+        axios
+        .post('http://localhost:3001/users/mailValidation/Register', {
+            to:values.email,
+            subject: "Confirmacion de cuenta",
+            text: `Codigo de confirmacion: ${confirmationCode}`
+        })
+        return
+    }
     const handleSubmit = e => {
+        e.preventDefault()
         const { name } = e.target;
-        e.preventDefault();
         axios.post(`http://localhost:3001/user`, values)
             .then(values => {
+                if(values) setUserCreated(true)
                 return values
             })
         setErrors(validate({
@@ -42,8 +61,6 @@ export default function Register() {
         }))
 
     }
-
-
 
     function validate(input) {
         let errors = {};
@@ -94,12 +111,14 @@ export default function Register() {
         return errors;
     }
 
+    useEffect(()=>{},[confirmationCode])
+
     return (
         <div className="container" style={{ width: "1600px" }}>
             <div className="row">
                 <div className="col-md-10 offset-md-1">
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleMail}>
                         <div className="form-heading tect-center">
                             <div className="title-description registfont">nuevo usuario</div>
                             <p className="title-description" style={{ color: "white" }}>¿Ya tienes una cuenta?
@@ -191,8 +210,7 @@ export default function Register() {
                                     onChange={handleOnChange}
                                     name='password'
                                     type="password"
-                                    id='Contraseña'
-                                    placeholder='**************'
+                                    id='Contraseña'                         
                                 />
                                 {error.password && <p className='danger'>{error.password}</p>}
                             </div>
@@ -203,7 +221,7 @@ export default function Register() {
                                     name='confirmedPassword'
                                     type="password"
                                     id='Confirme Contraseña'
-                                    placeholder='**************' />
+                                />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
                             </div><br/><br/><br/>
                             <div className="col-md-12">
@@ -217,27 +235,30 @@ export default function Register() {
 
                         <br/><br/>
 
-                        <div className="modal fade" id="pop-up" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div className="modal-dialog" role="document">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                            <span className='close' aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div className="modal-body">
-                                        <p>Usuario creado con exito. <br/>
-                                        Continua disfrutando de comprar con nosotros
-                                        </p>
-                                    </div>
-                                    <div className="modal-footer">
-                                    <a href="/" type="button" className="btn btn-outline-primary create-account">Continuar</a>
-                                        
-                                    </div>
+                    </form>
+                    <div className="modal fade" id="pop-up" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span className='close' aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <p>Te enviamos el codigo de verificaion a tu email<br/>
+                                    Completa el campo y presiona "Verificar"
+                                    </p> 
+                                </div>
+                                <div className="modal-footer">
+                                    <form onSubmit={handleSubmit}>    
+                                        {!userCreated && <input id='codeConfirm' placeholder='Ingresa el codigo' onChange={handleOnChangeVerify} type="text"/>}
+                                        {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>}
+                                        {userCreated && <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>}
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

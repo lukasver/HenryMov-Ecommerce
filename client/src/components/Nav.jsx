@@ -1,22 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect , useState} from 'react';
 import { useHistory } from "react-router-dom";
-import SingUp from '../img/cuentalogo.svg'
+import Dark from "../DarkModeToggle"
 import Logo from '../img/logoHenry.png'
 import SearchBar from './SearchBar.jsx';
 import * as action from '../redux/Action';
 import axios from 'axios';
 import './Nav.css';
-import ComponenteError from './ComponenteError.jsx';
+
 
 function Nav() {
     const dispatch = useDispatch()
+    //=============================
+    // este es el count del carrito
     let countCart = localStorage.getItem('count')
+    //==============================
     let count = useSelector(store => store.countCart)
     let user = useSelector(store => store.loggedIn)
+    let id = localStorage.getItem('id')
+    let products = JSON.parse(localStorage.getItem('prod'))
     !countCart ? countCart = 0 : countCart = countCart
+    const [idioma, setIdioma]= useState('esp')
+
 
     let history = useHistory();
     // (handleSelect) cuando se clickea en algun 'a' se filtra con ese nombre y en el componente menu se muestra
@@ -28,43 +35,39 @@ function Nav() {
         return;
     }
 
-    /*   function chatBot(){
-       window.watsonAssistantChatOptions = {
-         integrationID: "747d8b43-8cc8-4ee9-9dfd-4e5d4d129a98", // The ID of this integration.
-         region: "us-south", // The region your integration is hosted in.
-         serviceInstanceID: "0c27b141-8422-4ebb-b9e8-665418afc54b", // The ID of your service instance.
-         onLoad: function(instance) { instance.render(); }
-       };
-       (function(){
-       const t=document.createElement('script');
-       t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
-       document.head.appendChild(t);
-       })()
-       }*/
-
+    function handleIdioma(){
+        idioma== 'esp' ? setIdioma('eng') : setIdioma('esp') 
+    }
     useEffect(() => {
-    }, [count])
+        
+    }, [count, idioma])
     function render() {
         dispatch(action.countCart(0))
     }
     render()
 
-    const logout = (e) => { 
-        localStorage.clear()
+    const logout = (e) => {
+        
         dispatch(action.logIn(false))
-        axios.get('http://localhost:3001/auth/logout', {withCredentials:true}).then(logout => {
+        dispatch(action.logOut(id, products))
+        localStorage.clear()
+        axios.get('http://localhost:3001/auth/logout', { withCredentials: true }).then(logout => {
             return history.push('/')
-        }) 
+        })
     }
 
     const orderUser = (idUser) => {
+        // return window.location = `http://localhost:3000/order/${idUser}`
         return axios.get(`http://localhost:3001/users/${idUser}/orders`)
-            .then(order => { 
-                const idOrder = order.data.filter(data => data.status === 'On Cart')[0];
-                if (!idOrder) {
+            .then(order => {
+                if (!order.data.length) {
                     return window.location = `http://localhost:3000/order/ /error`;
-                } else {return window.location = `http://localhost:3000/order/${idOrder.id}`};
+                } else { return window.location = `http://localhost:3000/order/${idUser}`};
             })
+    }
+
+    const orderHist = (i) => {
+
     }
 
     return (
@@ -94,27 +97,29 @@ function Nav() {
                             </a>
                         </Link> 
                     </div>*/}
-                    <div className="col-md-6">
+                    <div className="col-md-5">
                         <Link to='/carrito' className="linkIcons">
                             <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                             </svg>
                             {countCart !== 0 && countCart !== null && <span className="cart-counter">{countCart}</span>}
                             <br />
-                            <span>Carrito</span>
+                           {idioma == 'esp' ? <span>Carrito</span>:
+                           <span>Shopping Cart</span>}
                         </Link>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-5">
                         <div className="js-utilities-item utilities-item transition-soft d-none d-md-inline-block" data-store="account-links">
                             <div className="utility-head text-center">
-                            {user.image && <img className="roundedAvatar" src={user.image} height="30px" width="30px"/>}
-                            {!user.image && <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                {user.image && <img className="roundedAvatar" src={user.image} height="30px" width="30px" />}
+                                {!user.image && <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                                 </svg>}
-                                <span className="utility-name transition-soft d-block">{user.name ? `Hola, ${user.name}!` : 'Mi Cuenta'}</span>
+                               { idioma == 'esp' ? <span className="utility-name transition-soft d-block">{user.name ? `Hola, ${user.name}!` : 'Mi Cuenta'}</span>:
+                               <span className="utility-name transition-soft d-block">{user.name ? `Hi, ${user.name}!` : 'My account'}</span>}
                             </div>
                             <ul className="js-subutility-list subutility-list ul-mi-cuenta">
-                               {/* {user.name? <p>Hola {user.name}!</p> : null}*/}
+                                {/* {user.name? <p>Hola {user.name}!</p> : null}*/}
                                 {localStorage.getItem('role') === 'Responsable' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
                                 {localStorage.getItem('role') === 'Admin' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
                                 {localStorage.getItem('email') === null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/Login' title="" className="nav-accounts-link">Iniciar sesión</Link></li>
@@ -122,14 +127,20 @@ function Nav() {
                                 {localStorage.getItem('email') !== null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link">Perfil</Link></li>
                                     <li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link" onClick={(e) => {
                                         e.preventDefault();
+                             /*           history.push(`/order/${localStorage.getItem('id')}`);*/
                                         orderUser(localStorage.getItem('id'));
                                     }
                                     }>Mis Ordenes</Link></li>
                                     <li className="subutility-list-item nav-accounts-item nav-accounts-link">
-                                    <Link to='/logout' title="" onClick={logout}>Logout</Link></li></div>}
+                                        <Link to='/logout' title="" onClick={logout}>Logout</Link></li></div>}
                             </ul>
                         </div>
                     </div>
+                    <div className="custom-control custom-switch ">
+                    {/* <input type="checkbox" className="custom-control-input " onClick={()=> handleIdioma()} id="customSwitch1"  /> */}
+                    <Dark/>
+                    <label className="custom-control-label " for="customSwitch1"></label>
+                </div>
                 </div>
             </div>
 
@@ -137,25 +148,33 @@ function Nav() {
 
                 <ul className="nav justify-content-center">
                     <li className="nav-item">
-                        <a className="nav-link" href="/products">PRODUCTOS</a>
+                        {idioma == 'esp' ? <a className="nav-link" href="/products">PRODUCTOS</a> :
+                            <a className="nav-link" href="/products">PRODUCTS</a>
+                        }
                     </li>
                     <li className="nav-item dropdown">
-                        <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a>
+                       {idioma == 'esp' ? <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a> :
+                        <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a> }
                     </li>
                     <li className="nav-item">
-                        <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>
+                        {idioma == 'esp' ? <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>:
+                          <a onClick={handleSelect} name='Patines' className="nav-link">ROLLERS</a>}
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>SKATES ELECTRICOS</a>
+                        {idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>SKATES ELECTRICOS</a>:
+                        <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>ELECTRICS SKATES</a>}
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" onClick={handleSelect} name='Zapatillas'>ZAPATILLAS</a>
+                       { idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Zapatillas'>ZAPATILLAS</a>:
+                        <a className="nav-link" onClick={handleSelect} name='Zapatillas'>SHOES</a>}
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" onClick={handleSelect} name='Indumentaria'>INDUMENTARIA</a>
+                       { idioma == 'esp' ?<a className="nav-link" onClick={handleSelect} name='Indumentaria'>INDUMENTARIA</a>:
+                       <a className="nav-link" onClick={handleSelect} name='Indumentaria'>CLOTHING</a>}
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESORIOS</a>
+                       {idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESORIOS</a>:
+                       <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESSORIES</a>}
                     </li>
                 </ul>
             </div>

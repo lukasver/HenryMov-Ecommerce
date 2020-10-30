@@ -36,6 +36,27 @@ const Profile = ({profileId}) => {
 	if (!user) return <LoadingBar done="80" />
 
 
+const handleReactivate = async () => {
+    const rta = await axios.put(`http://localhost:3001/user/${profileId}`, {status: "Activo"} ,{withCredentials: true})
+	if (rta.status === 200) {
+		window.alert('Usuario reactivado con éxito')
+		return history.push('/admin/users')}
+	if (rta.status !== 200) return window.alert('Hubo un error... Intentar más tarde.')
+    return
+
+}
+
+const handleDelete = async () => {
+	const rta = await axios.delete(`http://localhost:3001/user/${profileId}`, {status: "Activo"} ,{withCredentials: true})
+	console.log(rta)
+	if (rta.status === 200) {
+		window.alert('Usuario Eliminado definitivamente')
+		return history.push('/admin/users')}
+	if (rta.status !== 200) return window.alert('Hubo un error... Intentar más tarde.')
+    return
+}
+
+
 // const logout = () => { 
 //     dispatch(action.logIn(false))
 //     localStorage.removeItem('id')
@@ -112,20 +133,30 @@ const Profile = ({profileId}) => {
 		                                        <h6 className="text-muted f-w-400">{dateFormat(user.creationdate)}</h6>
 		                                    </div>
 		                                </div>
-		                       {/*         <div className="row mt-5 pt-5 justify-content-center">
-		                                	<div className="col-sm-6">
-		                                	<Link to="/reset"><button className="adam-button adamcustom">Reset password</button></Link>
-		                                	</div>
-		                                	<div className="col-sm-6">
-                							<button onClick={logout} className="adam-button adamcustom">Logout</button>
-		                                	</div>
-		                                </div>*/}
 
+		                                <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
+		                                {(user.status === "Inactivo") &&
+		                                <div className="row">
+											<div className="col-sm-12">
+												<p className="m-b-10 f-w-600">Dirección</p>
+												<p>{user.address}</p>
+											</div>
+		                                </div>}
+		                                {(user.status === "Inactivo") &&
+		                       	         <div className="row justify-content-center">
+		                                	<div className="col-sm-6">
+		                                	<button onClick={handleReactivate} className="adam-button adamcustom">Reactivar</button>
+		                                	</div>
+		                                	<div className="col-sm-6">
+                							<button onClick={e => (window.confirm("Eliminar un usuario de la Base de Datos es una acción irreversible, esta seguro de que desea eliminar al usuario definitivamente?") && handleDelete(e))} className="adam-button adamcustom">Eliminar Definitivo</button>
+		                                	</div>
+		                                </div>}
+{/*
 		                                <ul className="social-link list-unstyled m-t-40 m-b-10">
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i className="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i className="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i className="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-		                                </ul>
+		                                </ul>*/}
 		                                <Link to="/admin/users"><button className="adam-button adamcustom">Regresar...</button></Link>
 		                            </div>
 		                        </div>

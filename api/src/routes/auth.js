@@ -15,6 +15,7 @@ const Op = Sequelize.Op;
 const isLoggedIn = () => {
   return (req, res, next) => {
     console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+    console.log(req.isAuthenticated())
     if (req.isAuthenticated()) return next();
     // return next();
     return res.redirect('http://localhost:3000/login')
@@ -76,7 +77,6 @@ server.get('/login', (req, res, next) => {
 })
 
 server.get('/logout', isLoggedIn(), (req, res, next) => {
-
   req.session.destroy()
   req.logout();
   res.clearCookie('connect.sid');
@@ -85,7 +85,6 @@ server.get('/logout', isLoggedIn(), (req, res, next) => {
 })
 
 server.get('/profile', isLoggedIn(), (req, res, next) => {
-
   res.json(req.user)
   return
 })

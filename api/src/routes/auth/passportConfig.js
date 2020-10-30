@@ -6,6 +6,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const config = require('../config.js');
 
 module.exports = function (passport) {
+  
     passport.use(
       new LocalStrategy({
       usernameField: 'email',
@@ -13,11 +14,12 @@ module.exports = function (passport) {
     },
     async function(email, password, done) {
     try{  
-     const user = await User.findOne({where: { email: email }})
+      const user = await User.findOne({where: { email: email, status: "Activo" }})
         
         if (!user) {return done(null, false, {message: 'Incorrect username'}); }
         if (!await bcrypt.compare(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
         // if (!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Incorrect password'}); }
+        console.log(user.id)
         return done(null, user);
 
     } catch (error) {
@@ -27,10 +29,12 @@ module.exports = function (passport) {
 
   passport.serializeUser(function(user, done) {
     // console.log('serializacion', user.id)
+    console.log('Serialize ',user.id)
     done(null, user.id);
   });
 
   passport.deserializeUser(function(id, done) {
+    console.log('Deserialize', id)
     User.findByPk(id).then((user,err) => {
       // console.log('deserializacion', user)
       done(err, user)
@@ -66,6 +70,7 @@ module.exports = function (passport) {
               })
               .then(res => res[0])
               .then(user => {
+                  if(user.status === "Inactivo") return done(false,null) // esto es para evitar el login de un usuario inactivo
                   done(null, user);
               })
               .catch(err => done(err));
@@ -102,6 +107,7 @@ module.exports = function (passport) {
               })
               .then(res => res[0])
               .then(user => {
+                  if(user.status === "Inactivo") return done(false,null) // esto es para evitar el login de un usuario inactivo
                   done(null, user);
               })
               .catch(err => done(err));            

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector, useHistory } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as action from '../../redux/Action';
 import './OrdenDetalle.css';
 import { dateFormat } from '../../utils/utils.js';
+import { useHistory } from "react-router-dom";
 
 export default function OrdenDetalle({orderId}) {
 
     const orderDetailStore = useSelector(store => store.orderDetail)
 
+    const history = useHistory();
     const dispatch = useDispatch();
 
     let total = 0;
@@ -17,9 +19,15 @@ export default function OrdenDetalle({orderId}) {
         dispatch(action.orderDetail(orderId));
     }, []);
 
+    function goBack() {
+        history.push(`/order/${localStorage.getItem('id')}`)
+        return
+    }
+
     return (
         <div className="container">
-            <div className="content-order">
+            <div className="content-order" style={{position: 'relative'}} >
+                <button onClick={goBack}className="backbuttn-2 adam-chng"><i className='fas fa-arrow-circle-left'></i></button>
                 <h2>Orden de compra</h2>
                 <h3>Datos Personales</h3>
                 <br />
