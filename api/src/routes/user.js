@@ -245,7 +245,7 @@ server.post('/users/status', (req, res) => {
     }).then(user => {
         
         if(!user){
-            return res.satatus(404).send('Usuario no encontrado')
+            return res.status(404).send('Usuario no encontrado')
         }
         console.log(user.status)
         return res.status(200).send(user.status)
