@@ -5,6 +5,7 @@ import './Ordenes.css';
 import { dateFormat } from '../../utils/utils.js';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import ComponenteError from '../ComponenteError';
 
 
 // ========================= COMPONENT =================================================
@@ -22,8 +23,8 @@ export default function Ordenes({ getOrders }) {
     // =======================================================
 
     const [orders, setOrders] = useState([]);
+    const [filter, setFilter] = useState([]);
     const [bool, setBool] = useState(false);
-
     // =======================================================
     //      PAGINACIÓN
     // =======================================================
@@ -32,18 +33,22 @@ export default function Ordenes({ getOrders }) {
     const [prodsPorPage] = useState(10);
 
     const pageNumbers = []
-    for (let i = 1; i <= Math.ceil(orders.length / prodsPorPage); i++) {
+    for (let i = 1; i <= Math.ceil(filter.length / prodsPorPage); i++) {
         pageNumbers.push(i);
     }
 
     const indexOfLastPost = pageActual * prodsPorPage;
     const indexOfFirstPost = indexOfLastPost - prodsPorPage;
-    const currentPosts = orders.slice(indexOfFirstPost, indexOfLastPost);
+    const currentPosts = filter.slice(indexOfFirstPost, indexOfLastPost);
 
     // =======================================================
 
     useEffect(() => {
-        getOrders().then(a => setOrders(a))
+        getOrders()
+        .then(a => {
+            setOrders(a)
+            setFilter(a)
+        })
     }, [bool]);
 
 
@@ -65,11 +70,31 @@ export default function Ordenes({ getOrders }) {
         return
     } 
 
+    const handleFilter = (e)=>{
+        const {value} = e.target 
+        e.preventDefault()
+        if(value === 'Todas') {
+            setFilter(orders)
+        }
+        else{
+            setFilter(orders.filter(order => order.status === value ))
+        }
+    }
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
             <div className="col-md-12 col-lg-12">
                 <h2 className="titleOrders">Todas las Ordenes</h2>
                 <p />
+                <div className='selectContainer'>
+                    <h5 className='selectH5'>Filtrar por: </h5>
+                    <select onChange={handleFilter} className='selectOrder form-control' name="" id="">
+                        <option value="Todas" selected>Todas</option>
+                        <option value="Creada">Creadas</option>
+                        <option value="Procesando">Procesando</option>
+                        <option value="Cancelada">Canceladas</option>
+                        <option value="Completa">Completas</option>
+                    </select>
+                </div>
                 <table className="table table-hover table-dark thfontsize">
                     <thead>
                         <tr>
