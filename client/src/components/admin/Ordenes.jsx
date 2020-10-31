@@ -53,12 +53,13 @@ export default function Ordenes({ getOrders }) {
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">shipping</th>
-                            <th scope="col">status</th>
-                            <th scope="col">received</th>
-                            <th scope="col">paymentMethod</th>
-                            <th scope="col">buyDate</th>
-                            <th scope="col">userId</th>
+                            <th scope="col">Envío</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Recibido</th>
+                            <th scope="col">Metodo de Pago</th>
+                            <th scope="col">F. Compra</th>
+                            <th scope="col">Id Usuario</th>
+                            <th scope="col">Email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,6 +75,7 @@ export default function Ordenes({ getOrders }) {
                                             <td><Link to={`/order/${dato.id}`}>{dato.paymentMethod.toString()}</Link></td>
                                             <td><Link to={`/order/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
                                             <td><Link to={`/order/${dato.id}`}>{dato.userId}</Link></td>
+                                            <td><Link to={`/order/${dato.id}`}>{dato.user.email}</Link></td>
                                         </tr>
                                     )
                                 }

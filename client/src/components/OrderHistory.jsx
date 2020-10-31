@@ -6,15 +6,20 @@ import { dateFormat } from '../utils/utils.js';
 import { useHistory } from "react-router-dom";
 import LoadingBar from "./LoadingBar";
 import axios from 'axios';
+import ComponenteError from './ComponenteError';
+
 
 
 const OrderHistory = ({userId}) => {
 
 	// PROTECCION DE LA RUTA PARA QUE EL USER PUEDA VER SÓLO SUS ORDENES //
 	const history = useHistory()
+
+
+    if (localStorage.getItem('role') !== 'Admin' && localStorage.getItem('role') !== 'Responsable') {
 	 if (localStorage.getItem('id') !== userId) {
 	    history.push('/')
-	  }
+	  }}
 
 	 // TRAIGO HISTORIAL DE ORDENES
 	const dispatch = useDispatch()
@@ -22,13 +27,14 @@ const OrderHistory = ({userId}) => {
 	const orderDetailStore = useSelector(store => store.orderDetail)
 
 	const [ordersFiltered, setOrdersFiltered] = useState(orderHistory)
-    const [bool, setBool] = useState(false)
+    const [bool, setBool] = useState(0)
+    const [canx, setCanx] = useState(false)
 
 
 	useEffect(() => {
 		dispatch(action.orderHistory(userId))
         dispatch(action.orderDetail(userId));
-    }, [ordersFiltered]);
+    }, [canx, bool, ordersFiltered]);
 
 
     const handleSwitch = (e) => {
@@ -38,17 +44,31 @@ const OrderHistory = ({userId}) => {
         	return
         } else {
         let filtro = orderHistory.filter(orders => orders.status == value)
-        if (!filtro.length) return setOrdersFiltered([])
-        setBool(true)
+        console.log(filtro.length === 0)
+        if (!filtro.length) {
+            setOrdersFiltered([])
+            setBool(1)
+            } else {
         setOrdersFiltered(filtro)
+            }
         }
+    }
+
+    const handleCancel = async (e,id) => {
+        const ordenCancelada = await axios.put(`http://localhost:3001/orders/cancel/${id}`);
+        window.location.reload();
+        return setCanx(!canx)// pendiente arreglar use effect
     }
 
 
 
 	if (orderHistory.length === 0) return <LoadingBar/>
 
-    if (!ordersFiltered.length && !bool) setOrdersFiltered(orderHistory)
+    if (!ordersFiltered.length && !bool) {
+        setOrdersFiltered(orderHistory)
+        setBool(2)
+    }
+
 	return (
 		 <div id="test" className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>
         <div id="contOrderHistory" className="col-md-12 col-lg-12">
@@ -73,6 +93,7 @@ const OrderHistory = ({userId}) => {
                         <th scope="col">Entregada</th>
                         <th scope="col">Metodo de Pago</th>
                         <th scope="col">Fecha Compra</th>
+                        <th scope="col">Cancelar</th>
 {/*                        <th scope="col">userId</th>*/}
                     </tr>
                 </thead>
@@ -88,7 +109,7 @@ const OrderHistory = ({userId}) => {
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.received === false ? 'No' : 'Si'}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod.toString()}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
-                               { /*        <td><Link to={`/order/${dato.id}`}>{dato.userId}</Link></td>*/}
+                                        {(dato.status === 'Procesando' || dato.status === 'Creada') && <td><button onClick={e => handleCancel(e,dato.id)} className="adam-chng">cancelar</button></td>}
                                     </tr>
                                 )
                             }
@@ -96,6 +117,7 @@ const OrderHistory = ({userId}) => {
                     }
                 </tbody>
             </table>
+            { ordersFiltered.length < 1 && <ComponenteError/>}
 		</div>
 		</div>
 		)

@@ -180,8 +180,8 @@ server.get('/users/orders'/*,auths[2]()*/, (req, res, next) => {
 
     const { order } = req.query
     Order.findAll({
-        order: ['id'],
-	})
+      include: [{model: User, attributes: ['id','email']}]
+    })
     .then(orders => {
         if (!orders) {
             return res.send('<h1>No hay ordenes cargadas</h1>')
@@ -282,4 +282,31 @@ server.get('/users/orders/:userId'/*, auths[2]()*/, (req, res, next) => {
     console.log('Llega aca!')
     res.sendStatus(404)})
   })
+
+
+//======================================================================== 
+//  Ruta para modificar el estado de una orden
+//======================================================================== 
+
+server.put('/orders/cancel/:orderId', async (req, res, next) => {
+
+  const {orderId} = req.params
+
+  try {
+  const orderNew = await Order.update({
+    status: 'Cancelada'},
+    {where: {id: orderId}
+  })
+
+
+  // AGREGAR DISPARO DE EMAIL AVISANDO CANCELACION DE ORDEN
+
+  return res.send('Orden cancelada con éxito')
+  } catch (error) {
+    res.send(new Error(error))
+  }
+
+  })
+
+
 module.exports = server;

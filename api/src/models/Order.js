@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
 			defaultValue: 'Tarjeta de Credito'
 		},
 		status: {
-			type: DataTypes.ENUM('On Cart','Creada','Procesando','Cancelada','Completa'),
+			type: DataTypes.ENUM('On Cart','Creada','Procesando', 'Enviada','Cancelada','Completa'),
 			defaultValue: 'On Cart',
 			allowNull: false
 		},
