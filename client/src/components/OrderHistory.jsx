@@ -120,7 +120,7 @@ const OrderHistory = ({userId}) => {
                     }
                 </tbody>
             </table>
-            { ordersFiltered.length < 1 && <ComponenteError/>}
+            { ordersFiltered.length < 1 && <ComponenteError data={'ordenes'}/>}
 		</div>
 		</div>
 		)

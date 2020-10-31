@@ -148,6 +148,7 @@ export default function Ordenes({ getOrders }) {
                     </ul>
                 </nav>
             </div>
+            {!currentPosts.length && <ComponenteError data='ordenes'/>}
         </div>
     )
 }
