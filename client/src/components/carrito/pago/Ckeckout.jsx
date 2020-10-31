@@ -25,8 +25,6 @@ export default function Checkout() {
         e.preventDefault();
         if (!doSubmit) {
             let $form = document.getElementById('paymentForm');
-            localStorage.removeItem('prod');
-            localStorage.removeItem('count');
             window.Mercadopago.createToken($form, setCardTokenAndPay);
             return false;
         }
@@ -42,6 +40,8 @@ export default function Checkout() {
             form.appendChild(card);
             doSubmit = true;
             form.submit();
+            localStorage.removeItem('prod');
+            localStorage.removeItem('count');
         } else {
             alert("Error en los datos!\n" + JSON.stringify(response, null, 4));
         }
