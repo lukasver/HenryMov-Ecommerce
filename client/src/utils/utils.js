@@ -53,3 +53,17 @@ export const useDebouncedEffect = (effect, delay , deps) => {
     }, [callback, delay]);
 }
 
+
+
+export function formatProducts (products){
+  products = products || [];
+  let newProducts = products.map(prod=>{
+    let newProd ={
+      amount: prod.price,
+      quantity: prod.count,
+      productId: prod.id
+    }
+    return newProd
+})
+  return newProducts
+}

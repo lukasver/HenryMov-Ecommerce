@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect , useState } from 'react';
 import './Checkout.css';
-
+import * as action from '../../../redux/Action';
+import { useDispatch, useSelector } from 'react-redux';
+import { formatProducts }from '../../../utils/utils.js';
+import axios from 'axios';
 
 export default function Checkout() {
+    let userId = localStorage.getItem('id')
     let countCart = localStorage.getItem('count')
     let product = JSON.parse(localStorage.getItem('prod'))
     let subtotal = 0
     let envio = 0
     let total = 0
+    const dispatch = useDispatch;
 
     //INICIO FUNCIONES DE MERCADO PAGO!
 
@@ -16,7 +21,7 @@ export default function Checkout() {
 
     //Proceed with payment
     var doSubmit = false;
-    function onSubmit(e) {
+    async function onSubmit(e) {
         e.preventDefault();
         if (!doSubmit) {
             let $form = document.getElementById('paymentForm');
@@ -35,6 +40,8 @@ export default function Checkout() {
             form.appendChild(card);
             doSubmit = true;
             form.submit();
+            localStorage.removeItem('prod');
+            localStorage.removeItem('count');
         } else {
             alert("Error en los datos!\n" + JSON.stringify(response, null, 4));
         }
@@ -199,7 +206,7 @@ export default function Checkout() {
                     </div>
                     <div className="col-md-8 order-md-1 margen-derecho">
                         <h4 className="mb-3 h4-checkout">Direccion de envio</h4>
-                        <form action="http://localhost:3001/process_payment" method="post" id="paymentForm" onSubmit={onSubmit}>
+                        <form action="http://localhost:3001/process_payment" method="post" id="paymentForm" onSubmit={(e) => {onSubmit(e)}}>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label for="firstName" className="label-form">Nombres</label>
@@ -380,6 +387,8 @@ export default function Checkout() {
                                 </div>
                             </div>
                             <hr className="mb-4" />
+                            <input style={{display: "none"}} name='userId' value={localStorage.getItem('id')}/>
+                            <input style={{display: "none"}} name='products' value={JSON.stringify(formatProducts(product))}/>
                             <button className="btn btn-primary btn-lg btn-block" type="submit">Confirmar tu compra</button>
                         </form>
                     </div>

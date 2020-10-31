@@ -267,6 +267,7 @@ export function updateCart (products , id){
     }
     return newProd
   })
+  console.log('mando: ', newProducts)
   return (dispatch)=>
   axios
   .post(`http://localhost:3001/users/${id}/cart`,newProducts)

@@ -10,8 +10,8 @@ module.exports = (sequelize) => {
 		},
 		paymentMethod: {
 			type: DataTypes.ENUM('Efectivo','Tarjeta de Credito','Tarjeta de Debito','Rapipago','Pagofacil'), // Tipo entero??
-			allowNull: false,
-			defaultValue: 'Tarjeta de Credito'
+			allowNull: true,
+		/*	defaultValue: 'Tarjeta de Credito'*/
 		},
 		status: {
 			type: DataTypes.ENUM('On Cart','Creada','Procesando', 'Enviada','Cancelada','Completa'),
@@ -28,8 +28,16 @@ module.exports = (sequelize) => {
 			defaultValue: DataTypes.NOW,
 			allowNull: true,
 		},
-		paymentId: { // esto es para ingresar el codigo de confirmación del pago
+		paymentId: { // esto es para ingresar el codigo de confirmación del pago viene de MP
 			type: DataTypes.INTEGER,
+			allowNull: true,
+		},
+		paymentStatus: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
+		paymentDetail:{
+			type: DataTypes.STRING,
 			allowNull: true,
 		}
 
