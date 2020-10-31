@@ -68,14 +68,14 @@ export default function Ordenes({ getOrders }) {
                                 if (dato.status !== 'On Cart') {
                                     return (
                                         <tr key={dato.id} >
-                                            <td><Link to={`/order/${dato.id}`}>{dato.id}</Link></td>
-                                            <td><Link to={`/order/${dato.id}`}>{dato.shipping.toString()}</Link></td>
-                                            <td><Link to={`/order/${dato.id}`}>{dato.status}</Link></td>
-                                            <td><Link to={`/order/${dato.id}`}>{dato.received.toString()}</Link></td>
-                                            <td><Link to={`/order/${dato.id}`}>{dato.paymentMethod.toString()}</Link></td>
-                                            <td><Link to={`/order/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
-                                            <td><Link to={`/order/${dato.id}`}>{dato.userId}</Link></td>
-                                            <td><Link to={`/order/${dato.id}`}>{dato.user.email}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.id}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.shipping.toString()}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.status}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.received.toString()}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod.toString()}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.userId}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.user.email}</Link></td>
                                         </tr>
                                     )
                                 }
