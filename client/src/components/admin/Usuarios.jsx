@@ -42,6 +42,8 @@ export default function Usuarios({getUsers, rol}) {
     const currentPosts = usersFiltered.slice(indexOfFirstPost, indexOfLastPost);
 
     // =======================================================
+    //      HANDLERS
+    // =======================================================
 
     const handlePromotion = (e,id) => {
         axios.post(`http://localhost:3001/auth/promote/${id}`, {withCredentials: true})
@@ -84,24 +86,24 @@ export default function Usuarios({getUsers, rol}) {
 
     }
 
-
-
     const handleSwitch = (e) => {
         const {value} = e.target
         let filter = users.filter(user => user.status == value)
-        if (!filter.length) setBool(true) // esto hace que si la selección es "bloqueado" no devuelva activos
+        // if (!filter.length) setBool(true) // esto hace que si la selección es "bloqueado" no devuelva activos
         setUsersFiltered(filter)
     } 
 
-    
+    // =======================================================
+    //      LIFE CYCLE
+    // =======================================================
+
     useEffect(()=>{
+    getUsers().then(a=> {
+        setUsersFiltered(a.filter(user => user.status == document.getElementById('selector').value)); setUsers(a)
+    })
+    },[role])
 
-    getUsers().then(a=> {setUsers(a)})
 
-    //     Condiciono para que cuando monte el componente renderize correctamente y pagine bien 
-    if (!usersFiltered.length && !bool) setUsersFiltered(users.filter(user => user.status == "Activo"))
-    },[role, usersFiltered])
-    
     return (
         <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
             <div className="col-md-13 col-lg-13">
@@ -109,7 +111,7 @@ export default function Usuarios({getUsers, rol}) {
                 <p/>
                 <div className='ContainerStatus row' >
                     <label className='FilterTitle col-sm-5'>Filtrar:</label>
-                    <select className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
+                    <select id='selector' className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
                         {/* <option value="Todos">Todos</option> */}
                         <option value="Activo" selected>Activo</option> 
                         <option value="Inactivo">Inactivo</option>
