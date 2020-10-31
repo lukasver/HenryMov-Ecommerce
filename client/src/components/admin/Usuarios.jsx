@@ -5,7 +5,7 @@ import './Usuarios.css';
 import axios from 'axios';
 import {dateFormat} from '../../utils/utils.js' 
 import { useHistory } from "react-router-dom";
-
+import ComponenteError from '../ComponenteError'
 // ========================= COMPONENT ===============================================
 
 export default function Usuarios({getUsers, rol}) {
@@ -105,13 +105,13 @@ export default function Usuarios({getUsers, rol}) {
 
 
     return (
-        <div className="col-md-10 panel-right row" style={{ paddingTop: '25px' }}>
-            <div className="col-md-13 col-lg-13">
+        <div className="col-md-10 panel-right row">
+            <div className="cont col-md-12 col-lg-12">
                 <h2 className="titleUsers" style={{"margin-left":"150px"}}>Todos los Usuarios</h2>
-                <p/>
-                <div className='ContainerStatus row' >
-                    <label className='FilterTitle col-sm-5'>Filtrar:</label>
-                    <select id='selector' className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
+                <div className='ContainerStatus' >
+                    <label className='FilterTitle '>Filtrar:</label>
+                    <select className='Select form-control ' onChange={(e)=>handleSwitch(e)} name="select">
+
                         {/* <option value="Todos">Todos</option> */}
                         <option value="Activo" selected>Activo</option> 
                         <option value="Inactivo">Inactivo</option>
@@ -122,15 +122,15 @@ export default function Usuarios({getUsers, rol}) {
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Lastname</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Dirección</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">F. Nacimiento</th>
-                            <th scope="col">Rol</th>
-                            <th scope="col">F. Creación</th>
-                            {rol === 'Admin' && <th scope="col">Rol</th>}
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Birthdate</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Creation date</th>
+                            {rol === 'Admin' && <th scope="col">Role</th>}
                             {rol === 'Admin' && <th scope="col">Status</th>}
                         </tr>
                     </thead>
@@ -172,6 +172,7 @@ export default function Usuarios({getUsers, rol}) {
                     </ul>
                 </nav>
             </div>
+            {!currentPosts.length && <ComponenteError data="usuarios"/>}
         </div>
     )
 }
