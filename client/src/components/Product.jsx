@@ -17,7 +17,7 @@ export default function Product({ product }) {
 	
 	useEffect(() => {
 		 product && first()
-	}, [ render,disponible])
+	}, [ render,disponible, product, first])
 	
 	if (!product) { 
 		return <div className="spinner-border text-info" role="status">
@@ -48,7 +48,7 @@ export default function Product({ product }) {
 			<div className="main row single-page">
 				<br /><br />
 				<div className="col-md-7">
-					<img src={image} className="card-img" alt="Product Image" />
+					<img src={image} className="card-img" alt="" />
 				</div>
 				<div className="col-md-5 content-rigth">
 					<button onClick={goBack}className="backbuttn adam-chng"><i className='fas fa-arrow-circle-left'></i></button>
@@ -60,7 +60,7 @@ export default function Product({ product }) {
 
 					{/*BOTON DE AVISO CUANDO NO HAY STOCK*/}
 
-					{stock === 0 && <button className="btn btn-danger" style={{ "margin-bottom": "20px" }}>Producto sin Stock 😖 </button>}
+					{stock === 0 && <button className="btn btn-danger" style={{ "margin-bottom": "20px" }}>Producto sin Stock  </button>}
 					{stock !== 0 ?
 						disponible !== false ?
 							<div className="row buttom-comprar">

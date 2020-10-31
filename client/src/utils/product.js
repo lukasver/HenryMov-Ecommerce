@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import * as action from '../redux/Action'
 
 //==================================================================================
@@ -20,7 +18,7 @@ export const handleAdd = (product,dispatch, count)=> {
         return localStorage.setItem('prod', JSON.stringify([product]))
     }
 
-    let fined = search.find(prod => prod.id == product.id)
+    let fined = search.find(prod => prod.id === product.id)
     if (fined) {
         fined.count = fined.count + product.count
         let cleanData = search.filter((data) => data.id !== product.id)
@@ -42,10 +40,10 @@ export const handleAdd = (product,dispatch, count)=> {
 //==================================================================================
 export const stocker=(product)=>{
     let products = JSON.parse(localStorage.getItem('prod'))
-    if (products == null || products == undefined) {
+    if (products === null || products === undefined) {
         return true
     }else{
-    let cleanData = products.filter((data) => data.id == product.id)
+    let cleanData = products.filter((data) => data.id === product.id)
     if (cleanData.length != 0) {
         return false
         }

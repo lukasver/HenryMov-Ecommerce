@@ -8,7 +8,7 @@ const ComponenteError = () => {
 	return (
 		<div className='container center mt-5 mb-3'>
 			<h1 className='cperror'>No hay órdenes aún...</h1>
-			<img src={Sandbag} height="auto" width="auto"/>
+			<img src={Sandbag} height="auto" width="auto" alt=""/>
 		</div>
 	)
 

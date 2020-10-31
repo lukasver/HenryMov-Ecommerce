@@ -1,6 +1,6 @@
-import React, {useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import Promise from "bluebird";
 import axios from "axios";
 import * as action from "./redux/Action";
@@ -35,7 +35,6 @@ function App() {
   axios.defaults.withCredentials = true
 
   const totalProds = useSelector((store) => store.totalProds);
-  const loggedIn = useSelector((store) => store.loggedIn);
   const dispatch = useDispatch();
   
   useEffect(() => {
