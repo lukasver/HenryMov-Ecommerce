@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import './Checkout.css';
 
 
@@ -8,6 +9,15 @@ export default function Checkout() {
     let subtotal = 0
     let envio = 0
     let total = 0
+
+    const [values, setValues] = useState({
+        name: '',
+        lastname: '',
+        email: '',
+        address: ''
+    });
+
+    const [error, setError] = useState({});
 
     //INICIO FUNCIONES DE MERCADO PAGO!
 
@@ -149,6 +159,52 @@ export default function Checkout() {
 
     //FIN FUNCIONES DE MERCADO PAGO!
 
+    const handleChange = e => {
+        e.preventDefault();
+        const { name, value} = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        });
+        setError(validate({
+            ...values,
+            [name]: value
+        }));
+    }
+
+    function validate(input) {
+        let errors = {};
+
+        if (!input.name) {
+            errors.name = 'Este campo es requerido';
+        }
+        else if (typeof input.name !== 'string') {
+            errors.name = 'El nombre solo puede contener letras'
+        }
+        else if (input.name.length < 3) {
+            errors.name = 'El nombre debe contener como minimo 3 letras';
+        }
+
+        if (!input.lastname) {
+            errors.lastname = 'Este campo es requerido';
+        }
+
+        if (!input.email) {
+            errors.email = 'Este campo es requerido';
+        }
+        else if (!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(input.email)) {
+            errors.email = 'El mail debe ser valido'
+        }
+        if (!input.address) {
+            errors.address = 'Este campo es requerido';
+        }
+
+        setError(errors)
+        return errors;
+    }
+
+
+
     return (
         <div className="container">
             <div className="container-checkout">
@@ -203,19 +259,22 @@ export default function Checkout() {
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label for="firstName" className="label-form">Nombres</label>
-                                    <input type="text" className="form-control input-direccion" id="firstName" placeholder="Patrick" required="" />
-                                    <div className="invalid-feedback"> Valid first name is required. </div>
+                                    <input name='name' type="text" className="form-control input-direccion" id="firstName" placeholder="Patricio" onChange={handleChange}/>
+                                    {error.name && <p className='danger'>{error.name}</p>}
+                                    {/* <div className="invalid-feedback"> Valid first name is required. </div> */}
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label for="lastName" className="label-form">Apellidos</label>
-                                    <input type="text" className="form-control input-direccion" id="lastName" placeholder="Sherman" required="" />
-                                    <div className="invalid-feedback"> Valid last name is required. </div>
+                                    <input name='lastname' type="text" className="form-control input-direccion" id="lastName" placeholder="Estrella" onChange={handleChange}/>
+                                    {error.lastname && <p className='danger'>{error.lastname}</p>}
+                                    {/* <div className="invalid-feedback"> Valid last name is required. </div> */}
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label for="email" className="label-form">Email <span className="text-muted"></span></label>
-                                <input type="text" name="email" className="form-control input-direccion" id="email" placeholder="you@example.com" />
-                                <div className="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
+                                <input name='email' type="text" name="email" className="form-control input-direccion" id="email" placeholder="tu@email.com" onChange={handleChange}/>
+                                {error.email && <p className='danger'>{error.email}</p>}
+                                {/* <div className="invalid-feedback"> Please enter a valid email address for shipping updates. </div> */}
                             </div>
                             <div className="col-md-12 row">
                                 <div className="col-md-4 row">
@@ -240,8 +299,9 @@ export default function Checkout() {
                             </div>
                             <div className="mb-3">
                                 <label for="address" className="label-form">Dirección</label>
-                                <input type="text" className="form-control input-direccion" id="address" placeholder="Calle Wallaby 42" required="" />
-                                <div className="invalid-feedback"> Please enter your shipping address. </div>
+                                <input name="address" type="text" className="form-control input-direccion" id="address" placeholder="Calle Wallaby 42" onChange={handleChange}/>
+                                {/* <div className="invalid-feedback"> Please enter your shipping address. </div> */}
+                                {error.address && <p className='danger'>{error.address}</p>}
                             </div>
 
                             <div className="row">
@@ -251,7 +311,7 @@ export default function Checkout() {
                                         <option value="">Elige...</option>
                                         <option>Argentina</option>
                                         <option>Brasil</option>
-                                        <option>Bolibia</option>
+                                        <option>Bolivia</option>
                                         <option>Chile</option>
                                         <option>Peru</option>
                                         <option>Uruguay</option>
@@ -288,7 +348,7 @@ export default function Checkout() {
 
 
                                     </select>
-                                    <div className="invalid-feedback"> Please provide a valid state. </div>
+                                    {/* <div className="invalid-feedback"> Please provide a valid state. </div> */}
                                 </div>
                                 
                             </div>
@@ -380,7 +440,9 @@ export default function Checkout() {
                                 </div>
                             </div>
                             <hr className="mb-4" />
-                            <button className="btn btn-primary btn-lg btn-block" type="submit">Confirmar tu compra</button>
+                            {error.email || error.addres ? <button className="btn btn-primary btn-lg btn-block" type="submit" disabled>Confirmar tu compra</button> : 
+                            <button className="btn btn-primary btn-lg btn-block" type="submit" >Confirmar tu compra</button>}
+                            
                         </form>
                     </div>
                 </div>
