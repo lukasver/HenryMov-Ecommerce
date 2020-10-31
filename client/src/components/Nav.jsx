@@ -49,7 +49,7 @@ function Nav() {
     const logout = (e) => {
         
         dispatch(action.logIn(false))
-        dispatch(action.logOut(id, products))
+        dispatch(action.updateCart( products, id))
         localStorage.clear()
         axios.get('http://localhost:3001/auth/logout', { withCredentials: true }).then(logout => {
             return history.push('/')
