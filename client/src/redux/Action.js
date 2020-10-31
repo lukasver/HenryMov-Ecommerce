@@ -258,41 +258,21 @@ export function prodInStore(userId){
 }
 
 export function updateCart (products , id){
-  console.log('entra a agregar')
-  products = [] || products;
-  let newProducts =[];
-  products.length > 1 ?
-  products.forEach(prod=>{
+  products = products || [];
+  let newProducts = products.map(prod=>{
     let newProd ={
       amount: prod.price,
       quantity: prod.count,
       productId: prod.id
     }
-    newProducts.push(newProd)
-  }): newProducts= products
-  console.log("esto es para agregar", newProducts)
+    return newProd
+  })
   return (dispatch)=>
   axios
   .post(`http://localhost:3001/users/${id}/cart`,newProducts)
 
 }
 
-export  function logOut (id,products){
-  axios
-  .get(`http://localhost:3001/users/${id}/cart`)
-  .then(orden=>{
-     orden = orden.data.orders[0].id
-    return orden
-  })
-  .then(orden=>{
-     if(orden == 'number'){  
-     return dispatch =>
-      axios.delete(`http://localhost:3001/users/${id}/cart`)
-     
-    }
-    })
-    return dispatch =>  dispatch(updateCart(products, id))
-}
 
 
 export function deletedCart (id,products){
