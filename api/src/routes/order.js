@@ -285,7 +285,7 @@ server.get('/users/orders/:userId'/*, auths[2]()*/, (req, res, next) => {
 
 
 //======================================================================== 
-//  Ruta para modificar el estado de una orden
+//  Ruta para modificar el estado de una orden a CANCELADA
 //======================================================================== 
 
 server.put('/orders/cancel/:orderId', async (req, res, next) => {
@@ -304,6 +304,32 @@ server.put('/orders/cancel/:orderId', async (req, res, next) => {
   return res.send('Orden cancelada con éxito')
   } catch (error) {
     res.send(new Error(error))
+  }
+
+  })
+
+//======================================================================== 
+//  Ruta para modificar el estado de una orden (NO a cancelada)
+//======================================================================== 
+
+server.put('/orders/status/:orderId', async (req, res, next) => {
+
+  const {orderId} = req.params
+  const {status} = req.body
+
+  console.log('hola')
+  try {
+  const orderNew = await Order.update({
+    status: status},
+    {where: {id: orderId}
+  })
+
+  if (!orderNew[0]) return res.send('Orden no encontrada...')
+
+  return res.send('Status de orden modificado con éxito')
+  } catch (error) {
+    new Error(error)
+    res.status(400).send(error)
   }
 
   })
