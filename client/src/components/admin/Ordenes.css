@@ -1,0 +1,14 @@
+.selectOrder{
+    width: 160px;
+    margin-bottom: 20px;
+}
+.selectContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: baseline;
+}
+.selectH5{
+    font-size: 26px;
+    margin-right: 10px;
+}

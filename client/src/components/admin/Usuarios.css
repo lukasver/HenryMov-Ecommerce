@@ -14,14 +14,6 @@
     transition: all .3s cubic-bezier(.64, .09, .08, 1);
     box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
-.ContainerStatus{
-    position: absolute;
-    top: 25px;
-    align-items: unset;
-    width: max-content;
-    margin-bottom: 80px;
-    left: 20px;
-}
 .FilterTitle{
 	font-size: 25px;
 }
@@ -52,3 +44,20 @@
 .trfontsize {
 	-webkit-text-stroke: 0.5px gray;
 }*/
+.cont{
+    display: flex;
+    flex-direction: column;
+}
+.titleUsers{
+    margin-bottom: 10px;
+}
+.ContainerStatus{
+    position: relative;
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    align-items: baseline;
+    padding: 5px;
+    width: max-content;
+    margin-bottom: 10px;
+}
