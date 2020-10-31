@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import LoadingBar from '../LoadingBar';
-import { dateFormat } from '../../utils/utils.js'
+import { dateFormat, dateFormat2 } from '../../utils/utils.js'
 import * as action from '../../redux/Action'
 import './ProfileAdmin.css'
 import { useHistory } from "react-router-dom";
@@ -126,11 +126,11 @@ const handleDelete = async () => {
 		                                <div className="row">
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600">Cumpleaños</p>
-		                                        <h6 className="text-muted f-w-400">{dateFormat(user.birthdate)}</h6>
+		                                        <h6 className="text-muted f-w-400">{dateFormat2(user.birthdate)}</h6>
 		                                    </div>
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600"> Fecha Alta </p>
-		                                        <h6 className="text-muted f-w-400">{dateFormat(user.creationdate)}</h6>
+		                                        <h6 className="text-muted f-w-400">{dateFormat2(user.creationdate)}</h6>
 		                                    </div>
 		                                </div>
 

@@ -96,15 +96,15 @@ function newsletterDel(e) {
                             <div className="col-md-4 div-img-4">
                                <a className="crsrlnk" href='https://www.linkedin.com/in/cristian-lucatti/' target="_blank"><img className="img-footer" src={cristian} /></a>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4" style={{top: "10px", left: "40px"}}>
                                 <a className="crsrlnk" href='https://www.linkedin.com/in/federico-calder%C3%B3n-8146a71b0/' target="_blank"><img className="img-footer" src={fede} /></a>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4" style={{top: "10px", left: "40px"}}>
                                 <a className="crsrlnk" href='https://www.linkedin.com/in/sebastian-ariel-levin-656a84b0/' target="_blank"><img className="img-footer" src={seba} /></a>
                             </div>
-                            <div className="col-md-4">
+{/*                            <div className="col-md-4">
                                 <a className="crsrlnk" href='https://github.com/ArielR135' target="_blank"><img className="img-footer" src={ariel} /></a>
-                            </div>
+                            </div>*/}
                         </div>
                     </div>
                     <hr className="clearfix w-100 d-md-none" />

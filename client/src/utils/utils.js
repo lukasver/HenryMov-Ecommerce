@@ -20,8 +20,19 @@ export function counter() {
 //Formate la fecha a dd/mm/yyyy
 export function dateFormat(res) {
   let newdate = new Date(res);
-  let mes = newdate.getMonth() + 1;
-  let dia = newdate.getDate() + 1;
+  let mes = newdate.getMonth()+1;
+  let dia = newdate.getDate();
+  let ano = newdate.getFullYear();
+  res = JSON.stringify(`${dia}/${mes}/${ano}`)
+  return res.replace(/[ '"]+/g, ' ');
+}
+
+
+//IDEM Anterior pero se usa en los casos que por algun motivo resta 1 día ...
+export function dateFormat2(res) {
+  let newdate = new Date(res);
+  let mes = newdate.getMonth()+1;
+  let dia = newdate.getDate()+1;
   let ano = newdate.getFullYear();
   res = JSON.stringify(`${dia}/${mes}/${ano}`)
   return res.replace(/[ '"]+/g, ' ');

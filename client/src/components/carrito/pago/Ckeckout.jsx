@@ -293,14 +293,14 @@ export default function Checkout() {
                                 
                             </div>
                             <hr className="mb-4" />
-                            <div className="custom-control custom-checkbox">
+                          {/*  <div className="custom-control custom-checkbox">
                                 <input type="checkbox" className="custom-control-input" id="same-address" />
                                 <label className="custom-control-label" for="same-address">La direccion de envio es la misma de la de facturación</label>
                             </div>
                             <div className="custom-control custom-checkbox">
                                 <input type="checkbox" className="custom-control-input" id="save-info" />
                                 <label className="custom-control-label" for="save-info">Guarde esta información para la próxima vez</label>
-                            </div>
+                            </div>*/}
                             <hr className="mb-4" />
                             <h4 className="mb-3">Datos de la Tarjeta</h4>
                             {/* <div className="row my-3">
@@ -380,7 +380,7 @@ export default function Checkout() {
                                 </div>
                             </div>
                             <hr className="mb-4" />
-                            <button className="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                            <button className="btn btn-primary btn-lg btn-block" type="submit">Confirmar tu compra</button>
                         </form>
                     </div>
                 </div>

@@ -120,15 +120,15 @@ export default function Usuarios({getUsers, rol}) {
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Lastname</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Birthdate</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Creation date</th>
-                            {rol === 'Admin' && <th scope="col">Role</th>}
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">F. Nacimiento</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">F. Creación</th>
+                            {rol === 'Admin' && <th scope="col">Rol</th>}
                             {rol === 'Admin' && <th scope="col">Status</th>}
                         </tr>
                     </thead>

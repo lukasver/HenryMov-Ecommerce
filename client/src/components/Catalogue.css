@@ -57,3 +57,8 @@ div.sticky {
     place-content: center;
     margin-top: 1.5rem;
 }
+
+.arglbtn {
+    margin-top: 40px !important;
+    margin-bottom: -20px !important;
+}

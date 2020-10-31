@@ -20,7 +20,7 @@ export default function OrdenDetalle({orderId}) {
     }, []);
 
     function goBack() {
-        history.push(`/order/${localStorage.getItem('id')}`)
+        history.goBack()
         return
     }
 
