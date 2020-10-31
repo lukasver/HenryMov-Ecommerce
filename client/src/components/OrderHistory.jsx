@@ -56,6 +56,7 @@ const OrderHistory = ({userId}) => {
 
     const handleCancel = async (e,id) => {
         const ordenCancelada = await axios.put(`http://localhost:3001/orders/cancel/${id}`);
+        window.confirm('Esta seguro que quiere cancelar esta orden? esta acción es irreversible')
         window.location.reload();
         return setCanx(!canx)// pendiente arreglar use effect
     }
@@ -68,6 +69,7 @@ const OrderHistory = ({userId}) => {
         setOrdersFiltered(orderHistory)
         setBool(2)
     }
+
 
 	return (
 		 <div id="test" className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>
@@ -101,6 +103,7 @@ const OrderHistory = ({userId}) => {
                     {
                         ordersFiltered.length > 0 && ordersFiltered.map(dato => {
                             if (dato.status !== 'On Cart') {
+                                console.log(dato.buyDate)
                                 return (
                                     <tr key={dato.id} >
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.id}</Link></td>

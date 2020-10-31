@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingBar from '../LoadingBar';
-import { dateFormat } from '../../utils/utils.js'
+import { dateFormat, dateFormat2 } from '../../utils/utils.js'
 import * as action from '../../redux/Action'
 import './Profile.css'
 
@@ -220,11 +220,11 @@ const Profile = () => {
 		                                <div className="row">
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600">Cumpleaños</p>
-		                                        <h6 className="text-muted f-w-400">{!toogle ? dateFormat(user.birthdate) : <input name='birthdate' type="date" placeholder="Actualizar" value={modProfile.birthdate} className="form-control" onChange={handleModProfile}></input>}</h6>
+		                                        <h6 className="text-muted f-w-400">{!toogle ? dateFormat2(user.birthdate) : <input name='birthdate' type="date" placeholder="Actualizar" value={modProfile.birthdate} className="form-control" onChange={handleModProfile}></input>}</h6>
 		                                    </div>
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600"> Fecha Alta </p>
-		                                        <h6 className="text-muted f-w-400">{dateFormat(user.creationdate)}</h6>
+		                                        <h6 className="text-muted f-w-400">{dateFormat2(user.creationdate)}</h6>
 		                                    </div>
 		                                </div>
 		                                <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>

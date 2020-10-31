@@ -27,7 +27,11 @@ module.exports = (sequelize) => {
 			type: DataTypes.DATE,
 			defaultValue: DataTypes.NOW,
 			allowNull: true,
-		}, // ver si esto se genera al momento de confirmar una orden o cuando
+		},
+		paymentId: { // esto es para ingresar el codigo de confirmación del pago
+			type: DataTypes.INTEGER,
+			allowNull: true,
+		}
 
 	},{ timestamps: false })
 }
