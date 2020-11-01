@@ -54,8 +54,9 @@ const OrderHistory = ({userId}) => {
         }
     }
 
-    const handleCancel = async (e,id) => {
-        const ordenCancelada = await axios.put(`http://localhost:3001/orders/cancel/${id}`);
+    const handleCancel = async (e, id, buyDate) => {
+
+        const ordenCancelada = await axios.put(`http://localhost:3001/orders/cancel/${id}`, {userId: localStorage.getItem('id'), buyDate: buyDate } );
         window.confirm('Esta seguro que quiere cancelar esta orden? esta acción es irreversible')
         window.location.reload();
         return setCanx(!canx)// pendiente arreglar use effect
@@ -112,7 +113,7 @@ const OrderHistory = ({userId}) => {
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.received === false ? 'No' : 'Si'}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
-                                        {(dato.status === 'Procesando' || dato.status === 'Creada') && <td><button onClick={e => handleCancel(e,dato.id)} className="adam-chng">cancelar</button></td>}
+                                        {(dato.status === 'Procesando' || dato.status === 'Creada') && <td><button onClick={e => handleCancel(e , dato.id, dato.buyDate)} className="adam-chng">cancelar</button></td>}
                                     </tr>
                                 )
                             }
