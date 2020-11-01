@@ -3,12 +3,12 @@ import Sandbag from '../img/sandbag.png';
 import './ComponenteError.css';
 
 
-const ComponenteError = () => {
+const ComponenteError = ({data}) => {
 
 	return (
 		<div className='container center mt-5 mb-3'>
-			<h1 className='cperror'>No hay órdenes aún...</h1>
-			<img src={Sandbag} height="auto" width="auto" alt=""/>
+			<h1 className='cperror'>No hay {data} aún...</h1>
+			<img src={Sandbag} height="auto" width="auto" alt=''/>
 		</div>
 	)
 
