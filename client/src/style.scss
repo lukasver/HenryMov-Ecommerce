@@ -21,5 +21,25 @@ body.dark-mode {
   }
   .link-producto {
     color: #FEFFFF;
-}
+  }
+
+  #test {
+    background-color: $background-color-dark;
+    color: $background-color-light;
+  }
+  .container-checkout {
+    background-color: $background-color-dark;
+    color: $background-color-light;
+  }
+
+  h2, h4 {
+    color: #FEFFFF !important;
+  }
+
+  .ul-carrito {
+    background-color: $background-color-dark;
+    color: $background-color-light;
+    border-color: 2px white;
+  }
+
 }
