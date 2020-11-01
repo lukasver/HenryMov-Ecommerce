@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import React from 'react';
-import { useState } from 'react';
-=======
 import React, { useEffect , useState } from 'react';
->>>>>>> master
 import './Checkout.css';
 import * as action from '../../../redux/Action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -451,12 +446,12 @@ export default function Checkout() {
                                 </div>
                             </div>
                             <hr className="mb-4" />
-                            {error.email || error.addres ? <button className="btn btn-primary btn-lg btn-block" type="submit" disabled>Confirmar tu compra</button> : 
+                            { !values.email || error.email || error.address ? <button className="btn btn-primary btn-lg btn-block" type="submit" disabled>Confirmar tu compra</button> : 
                             <button className="btn btn-primary btn-lg btn-block" type="submit" >Confirmar tu compra</button>}
                             
                             <input style={{display: "none"}} name='userId' value={localStorage.getItem('id')}/>
                             <input style={{display: "none"}} name='products' value={JSON.stringify(formatProducts(product))}/>
-                            <button className="btn btn-primary btn-lg btn-block" type="submit">Confirmar tu compra</button>
+                            
                         </form>
                     </div>
                 </div>
