@@ -13,7 +13,7 @@ const [email,setEmail] = useState('');
 const [error,setError] = useState(true); 
 
 function handleError(value) {
-    if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(value))  {
+    if(!(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/).test(value))  {
       setError('Ingresar un Email válido');
       console.log(error)
     } else {

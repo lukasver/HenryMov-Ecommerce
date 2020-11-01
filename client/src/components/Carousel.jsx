@@ -26,7 +26,7 @@ export default function Carousel() {
 return (
     <div className="container">
         <br/>
-        <h3><img src={qr} width={200} /><div>Productos Destacados</div></h3>
+        <h3><img src={qr} width={200} alt='' /><div>Productos Destacados</div></h3>
         <br />
         <div className="main row">
             {randomDes && randomDes.map(prod =>
@@ -49,7 +49,7 @@ return (
             <div className="col-md-6 row test-izq">
                 <div className="col-md-6">
                 <div className="embed-responsive embed-responsive-4by3">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/XEUzbeu2foY?start=23" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                <iframe title='' width="560" height="315" src="https://www.youtube.com/embed/XEUzbeu2foY?start=23" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -70,7 +70,7 @@ return (
                     <h5>Tony Hawk</h5>
                     <p className="perfil">Skate Legend</p>
                     <p className="test-text">
-                        “Desde que conocí Henry-mov, compro todos mis skate con ellos 🤘. You rock guys!!”.
+                        “Desde que conocí Henry-mov, compro todos mis skate con ellos . You rock guys!!”.
 					</p>
                 </div>
             </div>
@@ -78,7 +78,7 @@ return (
         <br /><br /><br />
         <div className="main row">
             <div className="col-md-12 test-izq testimonial-cuadro">
-                <img className="img-testimonial" src="https://www.jovenesprogramadores.cl/wp/wp-content/uploads/2020/07/comillas.png" />
+                <img className="img-testimonial" src="https://www.jovenesprogramadores.cl/wp/wp-content/uploads/2020/07/comillas.png"alt='' />
                 <br /><br />
                 <h5 className="titulo-testimonial">
                     “Supe de ustedes por un amigo. Estaba buscando un scooter eléctrico para movilizarme de casa al trabajo, pero no encontraba ningún lugar de confianza para comprarlo.

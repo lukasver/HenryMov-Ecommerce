@@ -1,7 +1,6 @@
 import React, {  useState } from 'react';
 import Confetti from 'react-confetti';
 import './Checkout.css';
-import { useDispatch } from 'react-redux';
 import { formatProducts }from '../../../utils/utils.js';
 import bag from '../../../img/bag.png'
 
@@ -9,11 +8,9 @@ export default function Checkout() {
     let userId = localStorage.getItem('id')
     let countCart = localStorage.getItem('count')
     let product = JSON.parse(localStorage.getItem('prod'))
-    const [confetis , setConfeti] =useState(false)
     let subtotal = 0
     let envio = 0
     let total = 0
-    const dispatch = useDispatch;
 
     const [values, setValues] = useState({
         name: '',
@@ -152,7 +149,7 @@ export default function Checkout() {
             );
 
         } else {
-            // alert(`issuers method info error: ${response}`);
+            return
         }
     }
 
@@ -270,8 +267,6 @@ export default function Checkout() {
                                 </div>
                                 <span className="text-success span-total-num">{`$ ${total.toFixed(2)}`}</span>
                             </li>
-
-
                         </ul>
                     </div>
                     <div className="col-md-8 order-md-1 margen-derecho">
@@ -282,20 +277,17 @@ export default function Checkout() {
                                     <label for="firstName" className="label-form">Nombres</label>
                                     <input name='name' type="text" className="form-control input-direccion" id="firstName" placeholder="Patricio" onChange={handleChange}/>
                                     {error.name && <p className='danger'>{error.name}</p>}
-                                    {/* <div className="invalid-feedback"> Valid first name is required. </div> */}
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label for="lastName" className="label-form">Apellidos</label>
                                     <input name='lastname' type="text" className="form-control input-direccion" id="lastName" placeholder="Estrella" onChange={handleChange}/>
                                     {error.lastname && <p className='danger'>{error.lastname}</p>}
-                                    {/* <div className="invalid-feedback"> Valid last name is required. </div> */}
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label for="email" className="label-form">Email <span className="text-muted"></span></label>
                                 <input name='email' type="text" name="email" className="form-control input-direccion" id="email" placeholder="tu@email.com" onChange={handleChange}/>
                                 {error.email && <p className='danger'>{error.email}</p>}
-                                {/* <div className="invalid-feedback"> Please enter a valid email address for shipping updates. </div> */}
                             </div>
                             <div className="col-md-12 row">
                                 <div className="col-md-4 row">
@@ -310,7 +302,6 @@ export default function Checkout() {
                                     <input id="docNumber" name="docNumber" className="form-control input-direccion" data-checkout="docNumber" type="text" placeholder="13246587" />
                                 </div>
                                 <div className="col-md-1 row">
-
                                 </div>
                                 <div className="col-md-3">
                                     <label for="zip" className="label-form">Codigo postal</label>
@@ -321,7 +312,6 @@ export default function Checkout() {
                             <div className="mb-3">
                                 <label for="address" className="label-form">Dirección</label>
                                 <input name="address" type="text" className="form-control input-direccion" id="address" placeholder="Calle Wallaby 42" onChange={handleChange}/>
-                                {/* <div className="invalid-feedback"> Please enter your shipping address. </div> */}
                                 {error.address && <p className='danger'>{error.address}</p>}
                             </div>
 
@@ -366,38 +356,13 @@ export default function Checkout() {
                                         <option>S. del Estero</option>
                                         <option>T. del Fuego</option>
                                         <option> Tucumán</option>
-
-
                                     </select>
-                                    {/* <div className="invalid-feedback"> Please provide a valid state. </div> */}
                                 </div>
                                 
                             </div>
                             <hr className="mb-4" />
-                          {/*  <div className="custom-control custom-checkbox">
-                                <input type="checkbox" className="custom-control-input" id="same-address" />
-                                <label className="custom-control-label" for="same-address">La direccion de envio es la misma de la de facturación</label>
-                            </div>
-                            <div className="custom-control custom-checkbox">
-                                <input type="checkbox" className="custom-control-input" id="save-info" />
-                                <label className="custom-control-label" for="save-info">Guarde esta información para la próxima vez</label>
-                            </div>*/}
                             <hr className="mb-4" />
                             <h4 className="mb-3">Datos de la Tarjeta</h4>
-                            {/* <div className="row my-3">
-                                <div className="custom-control custom-radio">
-                                    <input id="credit" name="paymentMethod" type="radio" className="custom-control-input" checked="" required="" />
-                                    <label className="custom-control-label label-form" for="credit">Tarjeta de credito</label>
-                                </div>
-                                <div className="custom-control custom-radio">
-                                    <input id="debit" name="paymentMethod" type="radio" className="custom-control-input" required="" />
-                                    <label className="custom-control-label label-form" for="debit">Tarjeta de debito</label>
-                                </div>
-                                <div className="custom-control custom-radio">
-                                    <input id="paypal" name="paymentMethod" type="radio" className="custom-control-input" required="" />
-                                    <label className="custom-control-label label-form" for="paypal">PayPal</label>
-                                </div>
-                            </div> */}
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label for="cc-name" className="label-form">Nombre del titular</label>
@@ -476,7 +441,6 @@ export default function Checkout() {
     <div class="modal-dialog modal-full" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>

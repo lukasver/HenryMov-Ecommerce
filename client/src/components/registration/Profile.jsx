@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingBar from '../LoadingBar';
-import { dateFormat, dateFormat2 } from '../../utils/utils.js'
+import {  dateFormat2 } from '../../utils/utils.js'
 import * as action from '../../redux/Action'
 import './Profile.css'
 
@@ -14,7 +14,6 @@ const Profile = () => {
 	let id = localStorage.getItem('id')
 	let user = useSelector(store => store.loggedIn)
 	const dispatch = useDispatch()
-	const history = useHistory()
 
 	// ESTADOS LOCALES GENERADOS
 
@@ -191,7 +190,7 @@ const Profile = () => {
 		                <div className="row user-card-full">
 		                        <div className="col-sm-4 bg-c-lite-green user-profile">
 		                            <div className="card-block text-center text-white">
-		                                <div className="m-b-25"> <img src={user.image} className="img-radius" alt="User-Profile-Image"/> </div>
+		                                <div className="m-b-25"> <img src={user.image} className="img-radius" alt="User-Profile"/> </div>
 		                                <h6>{!toogle ? `${user.name} ${user.lastname}` : (<form><input className="form-control" onChange={handleModProfile} name='name' value={modProfile.name} type="text" placeholder="Nombre"/><input style={{"margin-top": "5px"}}className="form-control" onChange={handleModProfile} value={modProfile.lastname} name='lastname' type="text" placeholder="Apellido"></input></form>)}</h6>
 		                                <p >{user.role}</p> <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
 		                            </div>
@@ -205,7 +204,7 @@ const Profile = () => {
 		                        <div className="col-sm-8">
 		                            <div className="card-block">
 		                                <h3 className="m-b-20 p-b-5 b-b-default f-w-600">Información 	 
-		                                <a style={{color: "black", cursor: "pointer"}} className="iconTable"> <i className="far fa-edit" id={user.id} onClick={handleModify}></i></a></h3>
+		                                <a style={{color: "black", cursor: "pointer"}} href='#'className="iconTable"> <i className="far fa-edit" id={user.id} onClick={handleModify}></i></a></h3>
 		                                <div className="row">
 		                                    <div className="col-sm-6">
 		                                        <p className="m-b-10 f-w-600">Email</p>

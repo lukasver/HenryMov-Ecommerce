@@ -127,7 +127,7 @@ function Nav() {
                         <a className="nav-link" href="/products">PRODUCTOS</a> 
                     </li>
                     <li className="nav-item dropdown">
-                       <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a> 
+                       <a className="nav-link " name='Skates'  onClick={handleSelect}>SKATES</a> 
                     </li>
                     <li className="nav-item">
                         <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>

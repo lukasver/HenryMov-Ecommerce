@@ -23,14 +23,13 @@ export default function Usuarios({getUsers, rol}) {
     const [users, setUsers] = useState([])
     const [role, setRole] = useState(false)
     const [usersFiltered, setUsersFiltered] = useState(users)
-    const [bool, setBool] = useState(false)
     
     // =======================================================
     //      PAGINACIÓN
     // =======================================================
     
     const [pageActual, setPageActual] = useState(1);
-    const [prodsPorPage, setProdsPorPage] = useState(10); 
+    const prodsPorPage = 10
 
     const pageNumbers = []
     for (let i = 1; i <= Math.ceil(usersFiltered.length / prodsPorPage); i++) {
@@ -88,7 +87,7 @@ export default function Usuarios({getUsers, rol}) {
 
     const handleSwitch = (e) => {
         const {value} = e.target
-        let filter = users.filter(user => user.status == value)
+        let filter = users.filter(user => user.status === value)
         // if (!filter.length) setBool(true) // esto hace que si la selección es "bloqueado" no devuelva activos
         setUsersFiltered(filter)
     } 
@@ -99,7 +98,7 @@ export default function Usuarios({getUsers, rol}) {
 
     useEffect(()=>{
     getUsers().then(a=> {
-        setUsersFiltered(a.filter(user => user.status == document.getElementById('selector').value)); setUsers(a)
+        setUsersFiltered(a.filter(user => user.status === document.getElementById('selector').value)); setUsers(a)
     })
     },[role])
 

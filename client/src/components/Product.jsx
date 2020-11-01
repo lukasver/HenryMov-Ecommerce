@@ -24,7 +24,7 @@ export default function Product({ product }) {
 			<span className="sr-only">Loading...</span>
 		</div>
 	}
-			const { name, image, price, description, id, stock } = product
+			const { name, image, price, description, stock } = product
 
 
 	function goBack() {
