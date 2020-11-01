@@ -67,30 +67,6 @@ function App() {
         console.log(error);
       });
 
-      
-
-    // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
-
-    // axios
-    //   .get("http://localhost:3001/products")
-    //   .then((productosDB) => {
-    //     const { data } = productosDB;
-    //     return data;
-    //   })
-    //   .then((listadoProductos) => {
-    //     dispatch(action.totalProds(listadoProductos));
-    //   })
-    //   .catch((err) => new Error(err));
-
-    // axios
-    //   .get("http://localhost:3001/category")
-    //   .then((recurso) => {
-    //     dispatch(action.categories(recurso.data));
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
   }, []);
 
 

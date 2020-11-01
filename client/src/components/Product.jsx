@@ -64,40 +64,39 @@ export default function Product({ product }) {
 					{stock !== 0 ?
 						disponible !== false ?
 							<div className="row buttom-comprar">
-								<div className="col-md-4">
-									<td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => count > 1 && dispatch(action.removecount())} />
-										<input class="btn btn-primary" type="button" value={count} />
-										<input type="button" class="btn btn-outline-primary" value='+' onClick={() => dispatch(action.addcount(stock))} />
-									</td>
-								</div>
+								<tr className="col-md-4">
+									<td><input type="button" className="btn btn-outline-primary" value='-' onClick={() => count > 1 && dispatch(action.removecount())} /></td>
+									<td><input className="btn btn-primary" type="button" value={count} /></td>
+									<td><input type="button" className="btn btn-outline-primary" value='+' onClick={() => dispatch(action.addcount(stock))} /></td>
+								</tr>
 								<div className="col-md-8">
-									<button type="button" class="btn btn-primary btn-m" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={()=>complete()} >Agregar a su carrito</button>
+									<button type="button" className="btn btn-primary btn-m" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="atencion" onClick={()=>complete()} >Agregar a su carrito</button>
 									{/* <input type="submit" className="js-addtocart js-prod-submit-form btn btn-primary btn-block mb-4 cart" value="Agregar al carrito" onClick={e=>handleAdd}/> */}
 								</div>
-								<div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered" role="document">
-										<div class="modal-content">
-											<div class="modal-header-title ">
+								<div className="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									<div className="modal-dialog modal-dialog-centered" role="document">
+										<div className="modal-content">
+											<div className="modal-header-title ">
 												<button type="button" className="close mr-3" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
-												<h6 class="modal-title p-3 mb-2 bg-dark text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
+												<h6 className="modal-title p-3 mb-2 bg-dark text-white" id="exampleModalLongTitle">Felicitaciones!!!!</h6>
 											</div>
 											<div className="modal-body alert alert-success ">
 												Tu producto se agrego al carrito con exito
 										</div>
-											<a href="/carrito" type="button" class="btn btn-outline-success"  >Ir al carrito</a>
+											<a href="/carrito" type="button" className="btn btn-outline-success"  >Ir al carrito</a>
 										</div>
 									</div>
 								</div>
 							</div>
 							:
-							<div class="alert alert-success" role="alert">
-								Este producto ya esta en el carrito  <a type="button" class="btn btn-outline-primary" href='/carrito'>Ir al carrito</a>
+							<div className="alert alert-success" role="alert">
+								Este producto ya esta en el carrito  <a type="button" className="btn btn-outline-primary" href='/carrito'>Ir al carrito</a>
 							</div> : null}
 
-					{/* <button type="checkbox" class="btn btn-outline-primary far fa-thumbs-up"></button>
-					<i class="far fa-thumbs-down"></i> */}
+					{/* <button type="checkbox" className="btn btn-outline-primary far fa-thumbs-up"></button>
+					<i className="far fa-thumbs-down"></i> */}
 
 					<p>Local Microcentro - Tacuarí 28 CABA, Buenos Aires. Horario: de Lunes a Viernes de 11 hs a 14.30 hs y de 15.30 hs.</p>
 					<div className="form-row mb-4 ">
