@@ -55,10 +55,11 @@ const OrderHistory = ({userId}) => {
     }
 
     const handleCancel = async (e,id) => {
-        const ordenCancelada = await axios.put(`http://localhost:3001/orders/cancel/${id}`);
-        window.confirm('Esta seguro que quiere cancelar esta orden? esta acción es irreversible')
+        if(window.confirm('Esta seguro que quiere cancelar esta orden? esta acción es irreversible')) {
+        const orderCanx = await axios.put(`http://localhost:3001/orders/cancel/${id}`) 
         window.location.reload();
-        return setCanx(!canx)// pendiente arreglar use effect
+        return setCanx(!canx)
+        }
     }
 
 
@@ -74,7 +75,7 @@ const OrderHistory = ({userId}) => {
 	return (
 		 <div id="test" className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>
         <div id="contOrderHistory" className="col-md-12 col-lg-12">
-			<div className='ContainerStatus row pb-2' style={{top: "0px"}} >
+			<div className='ContainerStatus row' style={{position: "absolute", "margin-top": "-10px"}} >
 				<label className='FilterTitle col-sm-5'>Filtrar:</label>
 				<select id='selector' className='Select form-control col-sm-7' onChange={(e)=>handleSwitch(e)} name="select">
 					<option value="Todas" selected>Todas</option>
@@ -94,6 +95,7 @@ const OrderHistory = ({userId}) => {
                         <th scope="col">Estado</th>
                         <th scope="col">Entregada</th>
                         <th scope="col">Metodo de Pago</th>
+                        <th scope="col">N° Pago TC</th>
                         <th scope="col">Fecha Compra</th>
                         <th scope="col">Cancelar</th>
 {/*                        <th scope="col">userId</th>*/}
@@ -103,7 +105,6 @@ const OrderHistory = ({userId}) => {
                     {
                         ordersFiltered.length > 0 && ordersFiltered.map(dato => {
                             if (dato.status !== 'On Cart') {
-                                console.log(dato.buyDate)
                                 return (
                                     <tr key={dato.id} >
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.id}</Link></td>
@@ -111,6 +112,7 @@ const OrderHistory = ({userId}) => {
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.status}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.received === false ? 'No' : 'Si'}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod}</Link></td>
+                                        <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentId}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
                                         {(dato.status === 'Procesando' || dato.status === 'Creada') && <td><button onClick={e => handleCancel(e,dato.id)} className="adam-chng">cancelar</button></td>}
                                     </tr>

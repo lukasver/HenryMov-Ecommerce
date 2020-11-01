@@ -136,7 +136,7 @@ function Nav() {
                             </ul>
                         </div>
                     </div>
-                    <div className="custom-control custom-switch ">
+                    <div style={{position: "absolute",right: "0px",top: "-20px"}} className="custom-control custom-switch ">
                     {/* <input type="checkbox" className="custom-control-input " onClick={()=> handleIdioma()} id="customSwitch1"  /> */}
                     <Dark/>
                     <label className="custom-control-label " for="customSwitch1"></label>
