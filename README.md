@@ -218,3 +218,4 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm install passport-github2
 - npm install nodemailer 
 - npm install nodemailter-mailgun-transport
+- npm install crypto-random-string

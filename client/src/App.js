@@ -28,6 +28,7 @@ import ComponenteError from "./components/ComponenteError"
 import ProfileAdmin from "./components/admin/ProfileAdmin";
 import OrderHistory from "./components/OrderHistory"
 import Verify from "./components/registration/Verify"
+import PaymentSuccess from "./components/carrito/pago/Success"
 
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
       <Route exact path='/profile' render={()=> <Profile/>}/>
       <Route exact path='/order/ /error' render={() => <ComponenteError/>}/>
       <Route exact path='/verify' render={() => <Verify/>}/>
+      <Route exact path='/payment_success' render={() => <PaymentSuccess/>}/>
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />

@@ -56,44 +56,16 @@ const handleDelete = async () => {
     return
 }
 
+function goBack() {
+    history.goBack()
+    return
+}
 
-// const logout = () => { 
-//     dispatch(action.logIn(false))
-//     localStorage.removeItem('id')
-// 	localStorage.removeItem('role')
-// 	localStorage.removeItem('email')
-//     axios.get('http://localhost:3001/auth/logout', {withCredentials:true})
-//     window.location.replace('http://localhost:3000')
-// }
-
-
-
-
-// 	const handleImage = (e) => {
-//         const imagenUrl = document.getElementById('customFile').files[0] //como lo ves? funcara?
-
-//         console.log(imagenUrl)
-//         const formData = new FormData(); 
-//         formData.append('image', imagenUrl) 
-
-//         axios({
-//             method: 'post',
-//             url: `http://localhost:3001/user/${user.id}/image`,
-//             data: formData,
-//             config: { headers: { 'Content-Type': 'multipart/form-data'}, withCredentials: true }
-//         })
-//         .then(data => { 
-//         	window.location.reload()
-//         	console.log(data)})
-//         .catch(error =>{
-//         	new Error(error)
-//         })
-//     return
-// 	}
 
 	return(
 		<div className="container mt-5 mb-5" id="page-content">
 		    <div className="padding">
+{/*		    	<button onClick={goBack} className="adam-chng"><i className='fas fa-arrow-circle-left'></i></button>*/}
 		        <div className="row container d-flex justify-content-center">
 		            <div className="col-xl-6 col-md-12">
 		                <div className="row user-card-full">
@@ -157,7 +129,7 @@ const handleDelete = async () => {
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i className="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
 		                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i className="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
 		                                </ul>*/}
-		                                <Link to="/admin/users"><button className="adam-button adamcustom">Regresar...</button></Link>
+		                                <button onClick={goBack} className="adam-button adamcustom">Regresar...</button>
 		                            </div>
 		                        </div>
 		                    </div>

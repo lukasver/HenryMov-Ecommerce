@@ -59,7 +59,7 @@ export default function Ordenes({ getOrders }) {
     const handleCancel = async (e,id) => {
         const cancel = await axios.put(`http://localhost:3001/orders/cancel/${id}`)
         setBool(!bool)
-        cancel.status === 200 ? window.alert(cancel.data) : window.alert('Ocurrió un error...')
+        cancel.status === 200 ? window.alert('Orden cancelada con éxito') : window.alert('Ocurrió un error...')
         return
     }
 
@@ -91,6 +91,7 @@ export default function Ordenes({ getOrders }) {
                         <option value="Todas" selected>Todas</option>
                         <option value="Creada">Creadas</option>
                         <option value="Procesando">Procesando</option>
+                        <option value="Enviada">Enviada</option>
                         <option value="Cancelada">Canceladas</option>
                         <option value="Completa">Completas</option>
                     </select>
@@ -117,19 +118,20 @@ export default function Ordenes({ getOrders }) {
                                     return (
                                         <tr key={dato.id} >
                                             <td><Link to={`/order/detail/${dato.id}`}>{dato.id}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.shipping.toString()}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.shipping}</Link></td>
                                             <td><Link to={`/order/detail/${dato.id}`}>{dato.status}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.received.toString()}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod.toString()}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.received}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod}</Link></td>
                                             <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.userId}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.user.email}</Link></td>
+                                            <td><Link to={`/profile/${dato.userId}`}>{dato.userId}</Link></td>
+                                            <td><Link to={`/profile/${dato.userId}`}>{dato.user.email}</Link></td>
                                             <td>
                                             {dato.status === 'Creada' && <button name='Procesando' onClick={(e) => handleStatus(e, dato.id)} className='adam-chng'>Procesando</button>}
-                                            {(dato.status === 'Procesando') && <div><button name='Creada' onClick={(e) => handleStatus(e, dato.id)} className='adam-chng mr-1'>Creada</button><button name="Completa" onClick={(e) => handleStatus(e, dato.id)} className='adam-chng ml-1'>Completa</button></div>}
+                                            {(dato.status === 'Procesando') && <div><button name='Creada' onClick={(e) => handleStatus(e, dato.id)} className='adam-chng mr-1'>Creada</button><button name="Enviada" onClick={(e) => handleStatus(e, dato.id)} className='adam-chng ml-1'>Enviada</button></div>}
+                                            {(dato.status === 'Enviada') && <div><button name='Procesando' onClick={(e) => handleStatus(e, dato.id)} className='adam-chng mr-1'>Procesando</button><button name="Completa" onClick={(e) => handleStatus(e, dato.id)} className='adam-chng ml-1'>Completa</button></div>}
                                             {dato.status === 'Completa' && <button name='Procesando' onClick={(e) => (window.confirm('Esta orden ya ha sido completada, seguro quieres volverla a el status anterior?') &&handleStatus(e, dato.id))} className='adam-chng'>Procesando</button>} 
                                             </td>
-                                            <td>{dato.status !== 'Cancelada' && <button onClick={(e) => handleCancel(e, dato.id)} className='adam-chng'>x</button>}</td>
+                                            <td>{dato.status !== 'Cancelada' && <button onClick={(e) => (window.confirm('Seguro desea cancelar esta orden? El cliente será notificado con un e-mail') && handleCancel(e, dato.id))} className='adam-chng'>x</button>}</td>
                                         </tr>
                                     )
                                 }

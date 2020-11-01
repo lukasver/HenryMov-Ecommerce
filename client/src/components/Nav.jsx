@@ -113,7 +113,7 @@ function Nav() {
                             </ul>
                         </div>
                     </div>
-                    <div className="custom-control custom-switch ">
+                    <div style={{position: "absolute",right: "0px",top: "-20px"}} className="custom-control custom-switch ">
                     <Dark/>
                     <label className="custom-control-label " htmlFor="customSwitch1"></label>
                 </div>
@@ -133,7 +133,7 @@ function Nav() {
                         <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>SKATES ELECTRICOS</a>
+                        <a className="nav-link" onClick={handleSelect} name='Hoverboards'>HOVERBOARDS</a>
                     </li>
                     <li className="nav-item">
                        <a className="nav-link" onClick={handleSelect} name='Zapatillas'>ZAPATILLAS</a>

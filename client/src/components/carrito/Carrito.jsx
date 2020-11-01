@@ -14,6 +14,7 @@ export default function Carrito() {
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
     let history = useHistory();
+
     useEffect(() => {
     }, [render, count])
    
@@ -244,7 +245,7 @@ export default function Carrito() {
                                         </div>
                                         <div class="modal-body p-3 mb-2 ">
                                             Debes iniciar sesion para finalizar tu compra
-      </div>
+                                        </div>
                                         <div class="modal-footer bg-dark">
                                             <a href="/register" type="button" class="btn btn-outline-primary">Registrate</a>
                                             <a href="/login" type="button" class="btn btn-outline-success">Iniciar sesion</a>

@@ -109,7 +109,7 @@ export default function Usuarios({getUsers, rol}) {
                 <h2 className="titleUsers" style={{"margin-left":"150px"}}>Todos los Usuarios</h2>
                 <div className='ContainerStatus' >
                     <label className='FilterTitle '>Filtrar:</label>
-                    <select className='Select form-control ' onChange={(e)=>handleSwitch(e)} name="select">
+                    <select id='selector' className='Select form-control ' onChange={(e)=>handleSwitch(e)} name="select">
 
                         {/* <option value="Todos">Todos</option> */}
                         <option value="Activo" selected>Activo</option> 

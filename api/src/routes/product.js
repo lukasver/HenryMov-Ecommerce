@@ -8,6 +8,29 @@ const auths = require('./auth');
 // auths[1] <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
 // auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
+
+
+//======================================================================== 
+//	Ruta para devolver el stock de los productos en el carrito del user
+//======================================================================== 
+
+server.post('/products/stock', async (req, res, next) => {
+
+const ids = await req.body.product.map(prod =>{
+	return prod.id
+})
+
+let prods = await Product.findAll({where: {id: ids}})
+
+let prodsStock = await prods.map(prod => {
+	return {id: prod.id, stock: prod.stock}
+})
+
+await res.send(prodsStock)
+
+return
+})
+
 //======================================================================== 
 //	Ruta para devolver todos los productos DISPONIBLES y sus categorias asociadas
 //======================================================================== 

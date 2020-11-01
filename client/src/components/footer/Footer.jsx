@@ -7,6 +7,7 @@ import cristian from '../../img/cristian.png';
 import fede from '../../img/fede.png';
 import seba from '../../img/seba.png';
 
+
 export default function Footer() {
 
 const [email,setEmail] = useState('');
@@ -100,9 +101,6 @@ function newsletterDel(e) {
                             <div className="col-md-4" style={{top: "10px", left: "40px"}}>
                                 <a className="crsrlnk" href='https://www.linkedin.com/in/sebastian-ariel-levin-656a84b0/' rel='noopener'><img className="img-footer" src={seba} alt='Sebas'/></a>
                             </div>
-{/*                            <div className="col-md-4">
-                                <a className="crsrlnk" href='https://github.com/ArielR135' target="_blank"><img className="img-footer" src={ariel} /></a>
-                            </div>*/}
                         </div>
                     </div>
                     <hr className="clearfix w-100 d-md-none" />

@@ -12,6 +12,7 @@ const Profile = () => {
 	// INFO QUE VIENE DE REDUX Y LOCALSTORAGE SOBRE EL USUARIO
 
 	let id = localStorage.getItem('id')
+	let products = JSON.parse(localStorage.getItem('prod'))
 	let user = useSelector(store => store.loggedIn)
 	const dispatch = useDispatch()
 
@@ -96,9 +97,8 @@ const Profile = () => {
 	// FUNCION PARA DESLOGEAR AL USER Y BORRAR LOS INDICADORES/STORAGE/REDUX/COOKIES
 	const logout = () => {
 		dispatch(action.logIn(false))
-		localStorage.removeItem('id')
-		localStorage.removeItem('role')
-		localStorage.removeItem('email')
+        dispatch(action.updateCart( products, id))
+		localStorage.clear()
 		axios.get('http://localhost:3001/auth/logout', { withCredentials: true })
 		window.location.replace('http://localhost:3000')
 	}
