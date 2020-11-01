@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import './Register.css'
 import axios from 'axios'
 import { useEffect } from 'react';
@@ -20,7 +20,7 @@ export default function Register() {
     const [verify, setVerify] = useState('');
     const [userCreated, setUserCreated] = useState(0);
 
-    const [confirmationCode, setConfirmationCode] = useState(Math.floor(Math.random()*10000).toString());
+    const confirmationCode = useState(Math.floor(Math.random()*10000).toString());
 
     const handleOnChange = e => {
         const { name, value } = e.target;
@@ -88,7 +88,7 @@ export default function Register() {
         if (!input.email) {
             errors.email = 'Este campo es requerido';
         }
-        else if (!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(input.email)) {
+        else if (!(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/).test(input.email)) {
             errors.email = 'El mail debe ser valido'
         }
 
@@ -234,7 +234,7 @@ export default function Register() {
                             </div>
                         </div>
                         <div className="col-md-12">
-                        {JSON.stringify(error) == '{}' && values.name !== '' ? <button  className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button  className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
+                        {JSON.stringify(error) === '{}' && values.name !== '' ? <button  className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button  className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
                         </div>
 
                         <br/><br/>
@@ -258,7 +258,7 @@ export default function Register() {
                                         {!userCreated && <input id='codeConfirm' placeholder='Ingresa el codigo' onChange={handleOnChangeVerify} type="text"/>}
                                         {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>} <p/>
                                         {userCreated&& <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>} <p/>
-                                        {userCreated == 2 && <a style={{color:"white"}}>El usuario {values.email} ya existe</a>}
+                                        {userCreated === 2 && <a style={{color:"white"}}>El usuario {values.email} ya existe</a>}
                                         {/* {console.log('verify: ',verify,'\nconfirmation Code:', confirmationCode)} */}
                                     </form>
                                 </div>

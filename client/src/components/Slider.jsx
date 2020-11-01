@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import slider1 from '../img/slider1.jpg';
-import slider2 from '../img/slider2.jpg';
-import slider3 from '../img/slider3.jpg';
+import React from 'react';
 import './Slider.css';
 
 export default function Slider() {

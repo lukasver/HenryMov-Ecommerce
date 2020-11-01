@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Rating.css";
 import * as action from '../../redux/Action'
 import { useSelector, useDispatch } from "react-redux";

@@ -22,7 +22,7 @@ export function getReviewsProd (id){
     .then(reviews=>{
         let prom = 0;
         reviews.data.map(review=>{
-                prom = prom + review.value
+               return  prom = prom + review.value
             })
             prom = Math.floor(prom / reviews.data.length)
         return {
