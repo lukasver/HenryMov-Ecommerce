@@ -72,3 +72,5 @@
 .modal-full .modal-content {
     min-height: 50vh;
 }
+
+::placeholder { color: #dcdcdc !important; }

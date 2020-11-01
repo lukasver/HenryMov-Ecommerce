@@ -39,7 +39,7 @@ export default function Register() {
     const handleMail = (e) => {
         e.preventDefault()
         axios
-        .post('http://localhost:3001/users/mailValidation/Register', {
+        .post('http://localhost:3001/users/mailValidation', {
             to:values.email,
             subject: "Confirmacion de cuenta",
             text: `Codigo de confirmacion: ${confirmationCode}`
