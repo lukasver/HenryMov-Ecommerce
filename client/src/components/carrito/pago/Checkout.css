@@ -61,4 +61,5 @@
     background-position: 98% 50% !important;
     background-repeat: no-repeat !important;
     background-color: #fff !important;
-  }
+}
+::placeholder { color: #dcdcdc !important; }
