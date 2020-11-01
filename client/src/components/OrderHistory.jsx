@@ -114,7 +114,7 @@ const OrderHistory = ({userId}) => {
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentId}</Link></td>
                                         <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
-                                        {(dato.status === 'Procesando' || dato.status === 'Creada') && <td><button onClick={e => handleCancel(e,dato.id)} className="adam-chng">cancelar</button></td>}
+                                        {(dato.status === 'Procesando' || dato.status === 'Creada') && <td><button onClick={e => handleCancel(e , dato.id, dato.buyDate)} className="adam-chng">cancelar</button></td>}
                                     </tr>
                                 )
                             }
