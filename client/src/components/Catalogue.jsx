@@ -127,7 +127,7 @@ function Catalogue() {
 							)}
 							<button onClick={handleFilter} type="button" className="btn btn-primary mt-2 arglbtn">Filtrar</button>
 							<p/>
-							<button onClick={handle} type="button" className="btn btn-primary mt-2">Mostrar todo</button>
+							<button onClick={handle} type="button" className="btn btn-primary mt-3">Mostrar todo</button>
 						</div>
 					</div>
 					<div className="col-md-9 row border-left">

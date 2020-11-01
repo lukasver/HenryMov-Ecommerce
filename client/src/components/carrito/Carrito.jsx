@@ -14,7 +14,8 @@ export default function Carrito() {
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
     let history = useHistory();
-    let users= localStorage.getItem('id')
+
+
     useEffect(() => {
        
         

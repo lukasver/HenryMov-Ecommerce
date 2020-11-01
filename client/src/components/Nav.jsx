@@ -161,7 +161,7 @@ function Nav() {
                           <a onClick={handleSelect} name='Patines' className="nav-link">ROLLERS</a>}
                     </li>
                     <li className="nav-item">
-                        {idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>SKATES ELECTRICOS</a>:
+                        {idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Hoverboards'>HOVERBOARDS</a>:
                         <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>ELECTRICS SKATES</a>}
                     </li>
                     <li className="nav-item">
