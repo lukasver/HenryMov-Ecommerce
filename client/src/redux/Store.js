@@ -19,10 +19,6 @@ import {
   STOCK,
   FILTER_BY_CATEGORIES,
   STARS,
-  PROD_IN_STORE,
-  MOD_PROD,
-  DELETE_CART,
-  COUNTER_USER,
   LOGIN,
   ORDER_HISTORY
 } from "./Action";
@@ -85,7 +81,7 @@ export function counterReducer(state = initialState, action) {
       // Hago un map del array con elementos a quitar y filtro sobre el estado totalProdsFilter cuando matchee el id
       // del elemento a quitar con el elemento del estado totalProdsFilter
       action.payload.map(x => {
-        state.totalProdsFilter = state.totalProdsFilter.filter(f => f.id !== x.id)
+        return state.totalProdsFilter = state.totalProdsFilter.filter(f => f.id !== x.id)
       })
       return {
         ...state,
@@ -161,7 +157,7 @@ export function counterReducer(state = initialState, action) {
   }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 
 export default createStore(
   counterReducer,

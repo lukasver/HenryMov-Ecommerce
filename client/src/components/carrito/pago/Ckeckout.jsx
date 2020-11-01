@@ -8,7 +8,9 @@ import img_debito from '../../../img/d-card.png';
 import img_efectivo from '../../../img/p-card.png';
 import rapipago from '../../../img/rapipago.png';
 import pagofacil from '../../../img/pagofacil.png';
+import Confetti from 'react-confetti';
 import axios from 'axios';
+import bag from '../../../img/bag.png'
 
 export default function Checkout() {
     let userId = localStorage.getItem('id')
@@ -17,7 +19,6 @@ export default function Checkout() {
     let subtotal = 0
     let envio = 0
     let total = 0
-    const dispatch = useDispatch;
 
     const [values, setValues] = useState({
         name: '',
@@ -27,6 +28,20 @@ export default function Checkout() {
     });
 
     const [error, setError] = useState({});
+    const config = {
+        angle: "161",
+        spread: 360,
+        startVelocity: "16",
+        elementCount: "121",
+        dragFriction: "0.03",
+        duration: "5810",
+        stagger: "19",
+        width: "32px",
+        height: "35px",
+        perspective: "500px",
+        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+      };
+ 
 
     //INICIO FUNCIONES DE MERCADO PAGO!
 
@@ -169,7 +184,7 @@ export default function Checkout() {
             );
 
         } else {
-            // alert(`issuers method info error: ${response}`);
+            return
         }
     }
 
@@ -316,8 +331,6 @@ export default function Checkout() {
                                 </div>
                                 <span className="text-success span-total-num">{`$ ${total.toFixed(2)}`}</span>
                             </li>
-
-
                         </ul>
                     </div>
                     <div className="col-md-8 order-md-1 margen-derecho">
@@ -328,20 +341,17 @@ export default function Checkout() {
                                     <label for="firstName" className="label-form">Nombres</label>
                                     <input name='name' type="text" className="form-control input-direccion" id="firstName" placeholder="Patricio" onChange={handleChange} />
                                     {error.name && <p className='danger'>{error.name}</p>}
-                                    {/* <div className="invalid-feedback"> Valid first name is required. </div> */}
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label for="lastName" className="label-form">Apellidos</label>
                                     <input name='lastname' type="text" className="form-control input-direccion" id="lastName" placeholder="Estrella" onChange={handleChange} />
                                     {error.lastname && <p className='danger'>{error.lastname}</p>}
-                                    {/* <div className="invalid-feedback"> Valid last name is required. </div> */}
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label for="email" className="label-form">Email <span className="text-muted"></span></label>
                                 <input type="text" name="email" className="form-control input-direccion" id="email" placeholder="tu@email.com" onChange={handleChange} />
                                 {error.email && <p className='danger'>{error.email}</p>}
-                                {/* <div className="invalid-feedback"> Please enter a valid email address for shipping updates. </div> */}
                             </div>
                             <div className="col-md-12 row">
                                 <div className="col-md-4 row">
@@ -356,7 +366,6 @@ export default function Checkout() {
                                     <input id="docNumber" name="docNumber" className="form-control input-direccion" data-checkout="docNumber" type="text" placeholder="13246587" />
                                 </div>
                                 <div className="col-md-1 row">
-
                                 </div>
                                 <div className="col-md-3">
                                     <label for="zip" className="label-form">Codigo postal</label>
@@ -366,8 +375,7 @@ export default function Checkout() {
                             </div>
                             <div className="mb-3">
                                 <label for="address" className="label-form">Dirección</label>
-                                <input name="address" type="text" className="form-control input-direccion" id="address" placeholder="Calle Wallaby 42" onChange={handleChange} />
-                                {/* <div className="invalid-feedback"> Please enter your shipping address. </div> */}
+                                <input name="address" type="text" className="form-control input-direccion" id="address" placeholder="Calle Wallaby 42" onChange={handleChange}/>
                                 {error.address && <p className='danger'>{error.address}</p>}
                             </div>
 
@@ -412,10 +420,7 @@ export default function Checkout() {
                                         <option>S. del Estero</option>
                                         <option>T. del Fuego</option>
                                         <option> Tucumán</option>
-
-
                                     </select>
-                                    {/* <div className="invalid-feedback"> Please provide a valid state. </div> */}
                                 </div>
 
                             </div>
@@ -547,14 +552,37 @@ export default function Checkout() {
                             </div>
 
                             <hr className="mb-4" />
-                            {!values.email || error.email || error.address ? <button className="btn btn-primary btn-lg btn-block" type="submit" disabled>Confirmar tu compra</button> :
-                                <button className="btn btn-primary btn-lg btn-block" type="submit" >Confirmar tu compra</button>}
-                            {/* {document.getElementById('ck2a'). = true && <button className="btn btn-primary btn-lg btn-block" type="submit" >Confirmarasdasd tu compra</button>} */}
-
-                            <input style={{ display: "none" }} name='userId' id="userId" value={localStorage.getItem('id')} />
-                            <input style={{ display: "none" }} name='products' id="products" value={JSON.stringify(formatProducts(product))} />
+                            { !values.email || error.email || error.address ? <button className="btn btn-primary btn-lg btn-block" type="submit" disabled>Confirmar tu compra</button> : 
+                            <button className="btn btn-primary btn-lg btn-block" type="submit" >Confirmar tu compra</button>}
+                            
+                            <input style={{display: "none"}} name='userId' value={localStorage.getItem('id')}/>
+                            <input style={{display: "none"}} name='products' value={JSON.stringify(formatProducts(product))}/>
+                            
 
                         </form>
+                        
+                        <a href="#myModal"  class="btn btn-primary" data-toggle="modal">Launch modal</a>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+<Confetti active={ true} config={ config }/>
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body p-4" id="result">
+                <h1>Gracias por su compra</h1>
+                <img src={bag} width={150} alt='bag'/>
+            </div>
+            <p>Le enviamos un mail con los detalles de su compra</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                     </div>
                 </div>
             </div>

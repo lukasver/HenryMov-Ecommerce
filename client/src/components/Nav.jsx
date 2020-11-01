@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect , useState} from 'react';
+import { useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Dark from "../DarkModeToggle"
 import Logo from '../img/logoHenry.png'
@@ -22,7 +22,7 @@ function Nav() {
     let id = localStorage.getItem('id')
     let products = JSON.parse(localStorage.getItem('prod'))
     !countCart ? countCart = 0 : countCart = countCart
-    const [idioma, setIdioma]= useState('esp')
+    const idioma = 'esp'
 
 
     let history = useHistory();
@@ -35,9 +35,6 @@ function Nav() {
         return;
     }
 
-    function handleIdioma(){
-        idioma== 'esp' ? setIdioma('eng') : setIdioma('esp') 
-    }
     useEffect(() => {
         
     }, [count, idioma])
@@ -57,17 +54,12 @@ function Nav() {
     }
 
     const orderUser = (idUser) => {
-        // return window.location = `http://localhost:3000/order/${idUser}`
         return axios.get(`http://localhost:3001/users/${idUser}/orders`)
             .then(order => {
                 if (!order.data.length) {
                     return window.location = `http://localhost:3000/order/ /error`;
                 } else { return window.location = `http://localhost:3000/order/${idUser}`};
             })
-    }
-
-    const orderHist = (i) => {
-
     }
 
     return (
@@ -84,19 +76,6 @@ function Nav() {
             </div>
             <div className="col-md-3 utilidades">
                 <div className="main row">
-                    {/*  <div className="col-md-3">
-                        <Link to='#'>
-                        <Link to='#' onClick={e => {e.preventDefault(); chatBot()}}>
-                           <a className="linkIcons">
-                                <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z" />
-                                    <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                </svg>
-                                <br />
-                                <span>Chat</span>
-                            </a>
-                        </Link> 
-                    </div>*/}
                     <div className="col-md-5">
                         <Link to='/carrito' className="linkIcons">
                             <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -104,22 +83,21 @@ function Nav() {
                             </svg>
                             {countCart !== 0 && countCart !== null && <span className="cart-counter">{countCart}</span>}
                             <br />
-                           {idioma == 'esp' ? <span>Carrito</span>:
+                           {idioma === 'esp' ? <span>Carrito</span>:
                            <span>Shopping Cart</span>}
                         </Link>
                     </div>
                     <div className="col-md-5">
                         <div className="js-utilities-item utilities-item transition-soft d-none d-md-inline-block" data-store="account-links">
                             <div className="utility-head text-center">
-                                {user.image && <img className="roundedAvatar" src={user.image} height="30px" width="30px" />}
+                                {user.image && <img className="roundedAvatar" src={user.image} height="30px" width="30px" alt=''/>}
                                 {!user.image && <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" className="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                                 </svg>}
-                               { idioma == 'esp' ? <span className="utility-name transition-soft d-block">{user.name ? `Hola, ${user.name}!` : 'Mi Cuenta'}</span>:
+                               { idioma === 'esp' ? <span className="utility-name transition-soft d-block">{user.name ? `Hola, ${user.name}!` : 'Mi Cuenta'}</span>:
                                <span className="utility-name transition-soft d-block">{user.name ? `Hi, ${user.name}!` : 'My account'}</span>}
                             </div>
                             <ul className="js-subutility-list subutility-list ul-mi-cuenta">
-                                {/* {user.name? <p>Hola {user.name}!</p> : null}*/}
                                 {localStorage.getItem('role') === 'Responsable' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
                                 {localStorage.getItem('role') === 'Admin' && <li className="subutility-list-item nav-accounts-item nav-accounts-link"><Link to='/admin' title="">Panel</Link></li>}
                                 {localStorage.getItem('email') === null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/Login' title="" className="nav-accounts-link">Iniciar sesión</Link></li>
@@ -127,7 +105,6 @@ function Nav() {
                                 {localStorage.getItem('email') !== null && <div><li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link">Perfil</Link></li>
                                     <li className="subutility-list-item nav-accounts-item"><Link to='/profile' title="" className="nav-accounts-link" onClick={(e) => {
                                         e.preventDefault();
-                             /*           history.push(`/order/${localStorage.getItem('id')}`);*/
                                         orderUser(localStorage.getItem('id'));
                                     }
                                     }>Mis Ordenes</Link></li>
@@ -137,9 +114,8 @@ function Nav() {
                         </div>
                     </div>
                     <div style={{position: "absolute",right: "0px",top: "-20px"}} className="custom-control custom-switch ">
-                    {/* <input type="checkbox" className="custom-control-input " onClick={()=> handleIdioma()} id="customSwitch1"  /> */}
                     <Dark/>
-                    <label className="custom-control-label " for="customSwitch1"></label>
+                    <label className="custom-control-label " htmlFor="customSwitch1"></label>
                 </div>
                 </div>
             </div>
@@ -148,33 +124,25 @@ function Nav() {
 
                 <ul className="nav justify-content-center">
                     <li className="nav-item">
-                        {idioma == 'esp' ? <a className="nav-link" href="/products">PRODUCTOS</a> :
-                            <a className="nav-link" href="/products">PRODUCTS</a>
-                        }
+                        <a className="nav-link" href="/products">PRODUCTOS</a> 
                     </li>
                     <li className="nav-item dropdown">
-                       {idioma == 'esp' ? <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a> :
-                        <a className="nav-link " name='Skates' onClick={handleSelect}>SKATES</a> }
+                       <a className="nav-link " name='Skates'  onClick={handleSelect}>SKATES</a> 
                     </li>
                     <li className="nav-item">
-                        {idioma == 'esp' ? <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>:
-                          <a onClick={handleSelect} name='Patines' className="nav-link">ROLLERS</a>}
+                        <a onClick={handleSelect} name='Patines' className="nav-link">PATINES</a>
                     </li>
                     <li className="nav-item">
-                        {idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Hoverboards'>HOVERBOARDS</a>:
-                        <a className="nav-link" onClick={handleSelect} name='Skates Electricos'>ELECTRICS SKATES</a>}
+                        <a className="nav-link" onClick={handleSelect} name='Hoverboards'>HOVERBOARDS</a>
                     </li>
                     <li className="nav-item">
-                       { idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Zapatillas'>ZAPATILLAS</a>:
-                        <a className="nav-link" onClick={handleSelect} name='Zapatillas'>SHOES</a>}
+                       <a className="nav-link" onClick={handleSelect} name='Zapatillas'>ZAPATILLAS</a>
                     </li>
                     <li className="nav-item">
-                       { idioma == 'esp' ?<a className="nav-link" onClick={handleSelect} name='Indumentaria'>INDUMENTARIA</a>:
-                       <a className="nav-link" onClick={handleSelect} name='Indumentaria'>CLOTHING</a>}
+                       <a className="nav-link" onClick={handleSelect} name='Indumentaria'>INDUMENTARIA</a>
                     </li>
                     <li className="nav-item">
-                       {idioma == 'esp' ? <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESORIOS</a>:
-                       <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESSORIES</a>}
+                        <a className="nav-link" onClick={handleSelect} name='Accesorios'>ACCESORIOS</a>
                     </li>
                 </ul>
             </div>

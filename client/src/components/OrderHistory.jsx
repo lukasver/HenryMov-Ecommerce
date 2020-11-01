@@ -24,7 +24,6 @@ const OrderHistory = ({userId}) => {
 	 // TRAIGO HISTORIAL DE ORDENES
 	const dispatch = useDispatch()
 	const orderHistory = useSelector(store => store.orderHistory)
-	const orderDetailStore = useSelector(store => store.orderDetail)
 
 	const [ordersFiltered, setOrdersFiltered] = useState(orderHistory)
     const [bool, setBool] = useState(0)

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { counter } from '../utils/utils';
 import {useDispatch, useSelector} from 'react-redux';
 import ProductCard from './ProductCard.jsx';
@@ -19,7 +19,7 @@ function Catalogue() {
 	// =================================================
 
 	const [pageActual, setPageActual] = useState(1); // pagina mostrando actualmente
-    const [prodsPorPage, setProdsPorPage] = useState(12); // cantidad de items por página
+    const prodsPorPage =12  // cantidad de items por página
 
     const indexOfLastProd = pageActual * prodsPorPage; // indice primer prod de la página
     const indexOfFirstProd = indexOfLastProd - prodsPorPage; // indice último prod de la página
@@ -34,7 +34,6 @@ function Catalogue() {
 	//	 FILTRADO POR CATEGORÍAS
 	// =================================================
 	
-	let listado = [];
 	let categorias = [];
 	
 	function ValidatedCategories(){
@@ -49,13 +48,15 @@ function Catalogue() {
 					categoriesIds.push(cat.id)
 				}
 			})
+			return
 		})
 		// ordena categoriesIds de menor a mayor
 		categoriesIds.sort((a, b) => a - b)
 		
 		categories.map(category =>{
-			if (categoriesIds.includes(category.id)) show.push(category)
-		})
+			if (categoriesIds.includes(category.id)) show.push(category)	
+			return 
+		});
 		return show
 	}
 
@@ -149,7 +150,7 @@ function Catalogue() {
 		                    <ul className="pagination">
 		                        {pageNumbers.map((numero, i) => (
 		                        	<li key={i} className="page-item">
-		                         		<a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} href="#" className="page-link">{numero}</a>
+		                         		<a onClick={(e) => {e.preventDefault(); setPageActual(numero)}} className="page-link">{numero}</a>
 		                        	</li>
 		                   		 ))}
 		                    </ul>

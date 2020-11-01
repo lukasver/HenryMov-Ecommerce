@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch , useSelector } from 'react-redux';
 import axios from 'axios';
-import * as action from '../../redux/Action';
-import { Link } from 'react-router-dom'
 import './LoggedIn.css';
+
 
 export default function LoggedIn() {
 
@@ -78,8 +76,8 @@ export default function LoggedIn() {
                   <a href='/reset' className='forgotten'>Has olvidado tu contraseña? Click aqui</a>
                   <br /><br />
                   <div className="row">
-                    <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" /> Sign in Google</a> </div>
-                    <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/github"><img src="https://github.githubassets.com/favicons/favicon.png" style={{ width: '16px' }} /> Sign in GITHUB</a> </div>
+                    <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" alt=''/> Sign in Google</a> </div>
+                    <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/github"><img src="https://github.githubassets.com/favicons/favicon.png" style={{ width: '16px' }}alt='' /> Sign in GITHUB</a> </div>
                   </div>
                 </form>
               </div>

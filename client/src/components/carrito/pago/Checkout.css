@@ -61,5 +61,16 @@
     background-position: 98% 50% !important;
     background-repeat: no-repeat !important;
     background-color: #fff !important;
+  }
+  .modal-full {
+    min-width: 50%;
+    min-height: 50%;
+    opacity: 0.8;
+    
 }
+
+.modal-full .modal-content {
+    min-height: 50vh;
+}
+
 ::placeholder { color: #dcdcdc !important; }
