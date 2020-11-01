@@ -289,7 +289,7 @@ server.post('/users/status', (req, res) => {
     // })
 })
 
-server.post('/users/mailValidation/Register', (req, res) =>{
+server.post('/users/mailValidation', (req, res) =>{
     const {to, subject, text} = req.body
     if (!to || !subject || !text ) res.send(`Error, datos erroneos`)
     mailCreator(to, subject, text)
