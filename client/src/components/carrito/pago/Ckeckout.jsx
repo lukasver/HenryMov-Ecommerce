@@ -1,14 +1,15 @@
-import React, { useEffect , useState } from 'react';
+import React, {  useState } from 'react';
+import Confetti from 'react-confetti';
 import './Checkout.css';
-import * as action from '../../../redux/Action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { formatProducts }from '../../../utils/utils.js';
-import axios from 'axios';
+import bag from '../../../img/bag.png'
 
 export default function Checkout() {
     let userId = localStorage.getItem('id')
     let countCart = localStorage.getItem('count')
     let product = JSON.parse(localStorage.getItem('prod'))
+    const [confetis , setConfeti] =useState(false)
     let subtotal = 0
     let envio = 0
     let total = 0
@@ -22,6 +23,20 @@ export default function Checkout() {
     });
 
     const [error, setError] = useState({});
+    const config = {
+        angle: "161",
+        spread: 360,
+        startVelocity: "16",
+        elementCount: "121",
+        dragFriction: "0.03",
+        duration: "5810",
+        stagger: "19",
+        width: "32px",
+        height: "35px",
+        perspective: "500px",
+        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+      };
+ 
 
     //INICIO FUNCIONES DE MERCADO PAGO!
 
@@ -452,7 +467,32 @@ export default function Checkout() {
                             <input style={{display: "none"}} name='userId' value={localStorage.getItem('id')}/>
                             <input style={{display: "none"}} name='products' value={JSON.stringify(formatProducts(product))}/>
                             
+
                         </form>
+                        
+                        <a href="#myModal"  class="btn btn-primary" data-toggle="modal">Launch modal</a>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+<Confetti active={ true} config={ config }/>
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body p-4" id="result">
+                <h1>Gracias por su compra</h1>
+                <img src={bag} width={150} alt='bag'/>
+            </div>
+            <p>Le enviamos un mail con los detalles de su compra</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                     </div>
                 </div>
             </div>
