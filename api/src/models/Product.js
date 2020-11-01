@@ -51,11 +51,11 @@ sequelize.define('product', {
     },
     like:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     dislike:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     }
   } , {
   	timestamps: false

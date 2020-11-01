@@ -10,9 +10,24 @@ import rapipago from '../../../img/rapipago.png';
 import pagofacil from '../../../img/pagofacil.png';
 import Confetti from 'react-confetti';
 import axios from 'axios';
-import bag from '../../../img/bag.png'
+import bag from '../../../img/bag.png';
+import { useHistory } from 'react-router-dom';
 
 export default function Checkout() {
+
+
+
+  // === PROTECCION DE RUTA ===
+      const history = useHistory();
+    if (!localStorage.getItem('prod') || !localStorage.getItem('role')) {
+    history.push('/');
+    }
+
+
+
+
+
+
     let userId = localStorage.getItem('id')
     let countCart = localStorage.getItem('count')
     let product = JSON.parse(localStorage.getItem('prod'))
@@ -28,19 +43,6 @@ export default function Checkout() {
     });
 
     const [error, setError] = useState({});
-    const config = {
-        angle: "161",
-        spread: 360,
-        startVelocity: "16",
-        elementCount: "121",
-        dragFriction: "0.03",
-        duration: "5810",
-        stagger: "19",
-        width: "32px",
-        height: "35px",
-        perspective: "500px",
-        colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
-      };
  
 
     //INICIO FUNCIONES DE MERCADO PAGO!
@@ -64,9 +66,15 @@ export default function Checkout() {
             if (document.getElementById('ck2a').checked) {
                 axios.post('http://localhost:3001/process_payment', formCash)
                     .then(response => {
+                        console.log(response)
+                        if(response.status === 200) {
                         localStorage.removeItem('prod');
                         localStorage.removeItem('count');
+                        history.push('/payment_success')
                         return response;
+                        } else {
+                            history.push('/payment_error')
+                        }
                     });
             } else {
                 let $form = document.getElementById('paymentForm');
@@ -552,36 +560,14 @@ export default function Checkout() {
                             </div>
 
                             <hr className="mb-4" />
-                            { !values.email || error.email || error.address ? <button className="btn btn-primary btn-lg btn-block" type="submit" disabled>Confirmar tu compra</button> : 
-                            <button className="btn btn-primary btn-lg btn-block" type="submit" >Confirmar tu compra</button>}
+                            { !values.email || error.email || error.address ? <button className="adam-button" type="submit" disabled>Confirmar tu compra</button> : 
+                            <button className="adam-button" type="submit" >Confirmar tu compra</button>}
                             
-                            <input style={{display: "none"}} name='userId' value={localStorage.getItem('id')}/>
-                            <input style={{display: "none"}} name='products' value={JSON.stringify(formatProducts(product))}/>
+                            <input style={{display: "none"}} name='userId' id='userId' value={localStorage.getItem('id')}/>
+                            <input style={{display: "none"}} name='products' id='products' value={JSON.stringify(formatProducts(product))}/>
                             
 
                         </form>
-                        
-                        <a href="#myModal"  class="btn btn-primary" data-toggle="modal">Launch modal</a>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-<Confetti active={ true} config={ config }/>
-    <div class="modal-dialog modal-full" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body p-4" id="result">
-                <h1>Gracias por su compra</h1>
-                <img src={bag} width={150} alt='bag'/>
-            </div>
-            <p>Le enviamos un mail con los detalles de su compra</p>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
 
                     </div>
                 </div>

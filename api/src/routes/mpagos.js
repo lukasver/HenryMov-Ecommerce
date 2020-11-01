@@ -76,14 +76,29 @@ server.post("/process_payment", (req, res) => {
         return
       })
 
+      let pago = 'Tarjeta de Credito'
+      if (req.body.paymentMethodId === 'rapipago') {
+        pago = 'Rapipago'
+      } else if (req.body.paymentMethodId === 'pagofacil') {
+        pago = 'Pagofacil'
+      } else if (req.body.paymentMethodId.slice(0, 3) === 'deb') {
+        pago = 'Tarjeta de Debito'
+      } 
+
       await orden.update({
         status: 'Creada',
         paymentId: response.body.id,
         paymentStatus: response.body.status,
         paymentDetail: response.body.status_detail,
-        paymentMethod: 'Tarjeta de Credito'
+        paymentMethod: pago
       })
-      res.status(200).redirect('http://localhost:3000/payment_success')
+
+      if (pago === "Rapipago" || pago === "Pagofacil") {
+        return res.sendStatus(200) 
+      } else {
+        return res.status(302).redirect('http://localhost:3000/payment_success')
+      }
+      
     })
     .catch(function (error) {
       console.log('ERRORRRR: ', error);

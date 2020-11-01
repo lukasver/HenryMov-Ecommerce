@@ -271,7 +271,7 @@ server.post('/products/category/filter', (req, res, next) => {
 //============================================== 
 //recordar que la categoría a recibir por body debe ser un id correspondiente a una categoria creada
 //pendiente validar un handler error si se le pasa un id de una categoria invalida
-server.post('/products',auths[1], (req, res, next) => {
+server.post('/products', (req, res, next) => {
 
 	const { name, description, price, availability, stock, quantity, image, categories } = req.body;
 
@@ -282,8 +282,10 @@ server.post('/products',auths[1], (req, res, next) => {
 	if (!name || !description || !price || !availability || !stock) {
 		return res.sendStatus(400);
 	}
+	console.log('antes de sequelize', bodyComplete)
 
 	Product.create(bodyComplete).then(createdProduct => {
+		console.log('producto creado: ', createdProduct)
 		createdProduct.setCategories(categories);
 	}).then(() => {
 		return res.status(201).send(req.body);
