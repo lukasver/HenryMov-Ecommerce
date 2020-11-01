@@ -76,7 +76,7 @@ server.post("/process_payment", (req, res) => {
                     paymentMethod: 'Tarjeta de Credito'
                   })
 
-             res.status(200).json(orden)
+             res.status(200).redirect('http://localhost:3000/payment_success')
         })
         .catch(function(error) {
             console.log('ERRORRRR: ',error);

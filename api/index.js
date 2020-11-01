@@ -651,6 +651,10 @@ conn.sync({ force: true }).then(() => {
 
 		await Order.create({
     		status: 'Creada',
+    		paymentMethod: 'Tarjeta de Debito',
+    		paymentId: 1230820051,
+    		paymentStatus: 'approved',
+    		paymentDetail: 'accredited',
     		received: "0",
     		amount: 4533.23, // deberia ser la suma de los amount de productos...
     		quantity: 34, // deberia ser la suma de las quantities?...

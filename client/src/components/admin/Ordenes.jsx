@@ -92,10 +92,10 @@ export default function Ordenes({ getOrders }) {
                                     return (
                                         <tr key={dato.id} >
                                             <td><Link to={`/order/detail/${dato.id}`}>{dato.id}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.shipping.toString()}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.shipping}</Link></td>
                                             <td><Link to={`/order/detail/${dato.id}`}>{dato.status}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.received.toString()}</Link></td>
-                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod.toString()}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.received}</Link></td>
+                                            <td><Link to={`/order/detail/${dato.id}`}>{dato.paymentMethod}</Link></td>
                                             <td><Link to={`/order/detail/${dato.id}`}>{dateFormat(dato.buyDate)}</Link></td>
                                             <td><Link to={`/order/detail/${dato.id}`}>{dato.userId}</Link></td>
                                             <td><Link to={`/order/detail/${dato.id}`}>{dato.user.email}</Link></td>
