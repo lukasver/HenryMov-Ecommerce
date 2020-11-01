@@ -60,6 +60,7 @@ export default function Checkout() {
             userId: document.getElementById('userId').value,
             products: document.getElementById('products').value
         };
+        console.log(formCash)
         if (!doSubmit) {
             if (document.getElementById('ck2a').checked) {
                 axios.post('http://localhost:3001/process_payment', formCash)
@@ -74,6 +75,14 @@ export default function Checkout() {
                 return false;
             }
         }
+        window.alert(`Recivirás en el correo ${formCash.email} el detalle de la compra`)
+        axios
+        .post('http://localhost:3001/users/mailValidation', {
+            to:formCash.email,
+            type: "Checkout",
+            
+            data: {product, subtotal, envio, total}
+        })
     }
 
     function setCardTokenAndPay(status, response) {
