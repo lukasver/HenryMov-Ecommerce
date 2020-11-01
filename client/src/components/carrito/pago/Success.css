@@ -1,0 +1,9 @@
+.success {
+	position: absolute !important;
+	display: flex !important;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	opacity: 100% !important;
+}

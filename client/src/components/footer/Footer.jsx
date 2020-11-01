@@ -87,19 +87,19 @@ function newsletterDel(e) {
                         <h4 className="font-weight-bold text-muted text-uppercase mt-2 mb-4 tituloH5 h5-center">Webft05<b className="webft05"> G5</b></h4>
                         <div className="row">
                             <div className="col-md-4 div-img-4">
-                                <a className="crsrlnk" href='https://www.linkedin.com/in/diegotolaba09/' rel='noopener'><img className="img-footer" src={diego} alt='Diego' /></a>
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/diegotolaba09/' target="_blank" rel='noopener'><img className="img-footer" src={diego} alt='Diego' /></a>
                             </div>
                             <div className="col-md-4 div-img-4">
-                                <a className="crsrlnk" href='https://www.linkedin.com/in/lverdiell/' rel='noopener'><img className="img-footer" src={lucas} alt='Lucas'/></a>
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/lverdiell/' target="_blank" rel='noopener'><img className="img-footer" src={lucas} alt='Lucas'/></a>
                             </div>
                             <div className="col-md-4 div-img-4">
-                               <a className="crsrlnk" href='https://www.linkedin.com/in/cristian-lucatti/' rel='noopener'><img className="img-footer" src={cristian} alt='Cristian' /></a>
+                               <a className="crsrlnk" href='https://www.linkedin.com/in/cristian-lucatti/' target="_blank" rel='noopener'><img className="img-footer" src={cristian} alt='Cristian' /></a>
                             </div>
                             <div className="col-md-4" style={{top: "10px", left: "40px"}}>
-                                <a className="crsrlnk" href='https://www.linkedin.com/in/federico-calder%C3%B3n-8146a71b0/' rel='noopener'><img className="img-footer" src={fede} alt='Fede'/></a>
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/federico-calder%C3%B3n-8146a71b0/' target="_blank" rel='noopener'><img className="img-footer" src={fede} alt='Fede'/></a>
                             </div>
                             <div className="col-md-4" style={{top: "10px", left: "40px"}}>
-                                <a className="crsrlnk" href='https://www.linkedin.com/in/sebastian-ariel-levin-656a84b0/' rel='noopener'><img className="img-footer" src={seba} alt='Sebas'/></a>
+                                <a className="crsrlnk" href='https://www.linkedin.com/in/sebastian-ariel-levin-656a84b0/' target="_blank" rel='noopener'><img className="img-footer" src={seba} alt='Sebas'/></a>
                             </div>
                         </div>
                     </div>
