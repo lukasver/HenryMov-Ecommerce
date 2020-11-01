@@ -3,11 +3,22 @@ const server = require('express').Router();
 const { Product, User, Order, Orderline } = require('../db.js');
 const { Sequelize, QueryTypes } = require('sequelize');
 const auths = require('./auth');
-
+const mailCreator = require('./mailgun/setUp.js')
 
 // MIDDLEWARES //
 // auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
 // auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
+
+function dateFormat(res) {
+  let newdate = new Date(res);
+  let mes = newdate.getMonth()+1;
+  let dia = newdate.getDate();
+  let ano = newdate.getFullYear();
+  res = JSON.stringify(`${dia}/${mes}/${ano}`)
+  return res.replace(/[ '"]+/g, ' ');
+}
+
+
 
 //==============================================
 //	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
@@ -19,7 +30,8 @@ try {
   let orden = await Order.findOne({where: {userId: idUser, status: 'On Cart'}})
   if (orden) await orden.destroy()
   orden = await Order.create({
-    userId: idUser
+    userId: idUser,
+    email: email
   })
 
   // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
@@ -289,15 +301,28 @@ server.get('/users/orders/:userId'/*, auths[2]()*/, (req, res, next) => {
 //======================================================================== 
 
 server.put('/orders/cancel/:orderId', async (req, res, next) => {
-
-  const {orderId} = req.params
+  const { userId, buyDate } = req.body;
+  const {orderId} = req.params;
 
   try {
   const orderNew = await Order.update({
     status: 'Cancelada'},
     {where: {id: orderId}
   })
+  const user = await User.findOne({
+    where: {
+      id: userId
+    }
+  })
+  console.log('email, ', user.email)
+  const mailReset = 
+            `Tu orden numero ${orderId}, con fecha de creacion de ${new Date (buyDate)} ha sido cancelada con exito.
+            Lamentamos que tu compra no haya sido completada satisfactoriamente. 
+            Saludos cordiales,  \n  
+            Equipo de Henry-Mov`
 
+    await mailCreator(user.email, "Cancelacion de Orden", mailReset);
+    
 
   // AGREGAR DISPARO DE EMAIL AVISANDO CANCELACION DE ORDEN
 
