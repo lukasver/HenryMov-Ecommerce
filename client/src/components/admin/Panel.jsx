@@ -142,7 +142,7 @@ export default function Panel({ tablaAccion, usuario }) {
     };
     function getOrders() {
         return axios
-            .get(`http://localhost:3001/users/orders`, {withCredentials: true})
+            .get(`http://localhost:3001/order/admin`, {withCredentials: true})
             .then(orders => orders.data)
             .then(data => data)
             .catch(error => console.log(error))

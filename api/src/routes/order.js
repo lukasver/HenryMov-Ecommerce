@@ -188,9 +188,12 @@ server.put('/orders/:id', (req, res, next) => {
   })
 });
 
-server.get('/users/orders'/*,auths[2]()*/, (req, res, next) => {
+//==============================================
+//  Ruta para traer ordenes
+//==============================================
 
-    const { order } = req.query
+server.get('/order/admin', auths[1], (req, res, next) => {
+
     Order.findAll({
       include: [{model: User, attributes: ['id','email']}]
     })
@@ -198,7 +201,7 @@ server.get('/users/orders'/*,auths[2]()*/, (req, res, next) => {
         if (!orders) {
             return res.send('<h1>No hay ordenes cargadas</h1>')
         }
-        res.json(orders);
+        return res.json(orders);
     })
 });
 
