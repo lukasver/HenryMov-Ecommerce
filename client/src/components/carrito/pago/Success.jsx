@@ -2,9 +2,16 @@ import React from 'react'
 import './Success.css';
 import Bag from '../../../img/bag.png';
 import Confetti from 'react-confetti';
-
+import { useHistory } from 'react-router-dom';
 
 export default function PaymentSucess() {
+
+	// === PROTECCION DE RUTA ===
+    const history = useHistory();
+    if (!localStorage.getItem('role')) {
+    history.push('/');
+    }
+
 
 	const config = {
 		angle: "161",
@@ -40,9 +47,9 @@ return (
 					</div>
 					<div class="modal-body p-4" id="result">
 					<h1>Gracias por su compra</h1>
-					<img src={Bag} width={150} alt='Bag'/>
+					<img src={Bag} width="30%" heigth="30%" alt='Bag' className="mt-2" />
 					</div>
-					<p>Le enviamos un mail con los detalles de su orden.</p>
+					<h4>Le enviamos un mail con los detalles de su orden.</h4>
 					<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={handleRedirect}>OK</button>
 					</div>

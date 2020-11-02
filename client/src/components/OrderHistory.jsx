@@ -70,6 +70,10 @@ const OrderHistory = ({userId}) => {
         setBool(2)
     }
 
+    if (ordersFiltered.length === 1 && (ordersFiltered.filter(x => x.status === 'On Cart'))) {
+        return <ComponenteError/>
+    }
+
 
 	return (
 		 <div id="test" className="col-md-12 panel-right row" style={{ paddingTop: '25px' }}>

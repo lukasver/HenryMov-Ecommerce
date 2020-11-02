@@ -42,4 +42,50 @@ body.dark-mode {
     border-color: 2px white;
   }
 
+  .success {
+    color: $background-color-dark;
+
+    h4 {
+      color: $background-color-dark !important;
+    }
+  }
+
+  .reviewsContainer {
+    background-color: $background-color-dark;
+    color: $background-color-light;
+
+    h3 {
+      color: $background-color-light !important;
+    }
+
+    .hello {
+    color: $background-color-light;
+    }
+  }
+
+  .titulo-link, .card {
+    background-color: $background-color-dark;
+    color: $background-color-light;
+
+    p {
+      color: $background-color-light !important;
+    }
+  }
+
+  .nostockadv, .nostockadv2 {
+    opacity: 90%;
+  }
+
+  .card-body {
+    
+    .col-md-6 {
+      background-color: $background-color-light;
+    }
+  }
+
+  .panel-right {
+    background-color: $background-color-dark;
+    color: $background-color-light;
+  }
+
 }
