@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+
 import { Link} from 'react-router-dom'
+
 import './Register.css'
 import axios from 'axios'
 import { useEffect } from 'react';
+import PasswordStrenghtMeter from './PasswordStrenghtMeter'
 
 
 export default function Register() {
@@ -22,9 +25,10 @@ export default function Register() {
 
     const [confirmationCode, setConfirm] = useState(Math.floor(Math.random()*10000).toString());
 
+
     const handleOnChange = e => {
         const { name, value } = e.target;
-            setValues({
+        setValues({
             ...values,
             [name]: value
         })
@@ -33,9 +37,9 @@ export default function Register() {
             [name]: value
         }));
     }
-    const handleOnChangeVerify = e =>{
+    const handleOnChangeVerify = e => {
         setVerify(e.target.value)
-    } 
+    }
     const handleMail = (e) => {
         e.preventDefault()
         axios
@@ -44,6 +48,7 @@ export default function Register() {
             type: "Register",
             data: `${confirmationCode}`
         })
+
         return
     }
     const handleSubmit = e => {
@@ -77,7 +82,7 @@ export default function Register() {
             errors.name = 'El nombre debe contener como minimo 3 letras';
         }
 
-        else if(!(/^[a-zA-Z ]*$/).test(input.name)){
+        else if (!(/^[a-zA-Z ]*$/).test(input.name)) {
             errors.name = 'El nombre no puede contener numeros'
         }
 
@@ -99,7 +104,7 @@ export default function Register() {
             errors.password = 'La clave es invalida'
         }
 
-        if(!input.birthdate){
+        if (!input.birthdate) {
             errors.birthdate = 'Este campo es requerido'
         }
         if (!input.password) {
@@ -113,9 +118,9 @@ export default function Register() {
         return errors;
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         // axios.get(`http`)
-    },[confirmationCode,userCreated])
+    }, [confirmationCode, userCreated])
 
     return (
         <div className="container" style={{ width: "1600px" }}>
@@ -185,7 +190,7 @@ export default function Register() {
                             <h4 className="page-header col-md-6">Fecha de Nacimiento</h4>
                             <div className="col-md-6">
                                 <input
-                                    onChange={handleOnChange} 
+                                    onChange={handleOnChange}
                                     className="user"
                                     name='phone'
                                     type="text"
@@ -205,18 +210,20 @@ export default function Register() {
                                 {error.birthdate && <p className='danger'>{error.birthdate}</p>}
                             </div>
                         </div>
-                        <div className="row form-group">
+                        <div className="row form-group mb-1 ">
                             <h4 className="page-header col-md-6">Contraseña</h4>
                             <h4 className="page-header col-md-6">Repita contraseña</h4>
                             <div className="col-md-6">
                                 <input
-                                    className="user"
+                                    className="user shadow-none mb-1 "
                                     onChange={handleOnChange}
                                     name='password'
                                     type="password"
-                                    id='Contraseña'                         
+                                    id='Contraseña'
                                 />
                                 {error.password && <p className='danger'>{error.password}</p>}
+                                {!!values.password  && <PasswordStrenghtMeter password={values.password}/>}
+                                
                             </div>
                             <div className="col-md-6">
                                 <input
@@ -225,40 +232,47 @@ export default function Register() {
                                     name='confirmedPassword'
                                     type="password"
                                     id='Confirme Contraseña'
-                                />
+                                    />
                                 {error.confirmedPassword && <p className='danger'>{error.confirmedPassword}</p>}
-                            </div><br/><br/><br/>
+                                    
+                            </div><br /><br /><br />
                             <div className="col-md-12">
                                 <label className="inputref">Mínimo 8 caracteres:</label><br />
                                 <label className="inputref">Debe contener al menos: 1 caractér mayúscula, especial y número </label><br />
                             </div>
                         </div>
                         <div className="col-md-12">
+
+                       
                         {JSON.stringify(error) === '{}' && values.name !== '' ? <button  className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button  className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
+
                         </div>
 
-                        <br/><br/>
+                        <br /><br />
 
                     </form>
                     <div className="modal fade" id="pop-up" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span className='close' aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div className="modal-body">
-                                    <p>Te enviamos el codigo de verificaion a tu email<br/>
+                                    <p>Te enviamos el codigo de verificaion a tu email<br />
                                     Completa el campo y presiona "Verificar"
-                                    </p> 
+                                    </p>
                                 </div>
                                 <div className="modal-footer">
+
+                                   
                                     <form onSubmit={handleSubmit}>    
                                         {!userCreated && <input id='codeConfirm' placeholder='Ingresa el codigo' onChange={handleOnChangeVerify} type="text"/>}
                                         {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>} <p/>
                                         {userCreated&& <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>} <p/>
                                         {userCreated === 2 && <a style={{color:"white"}}>El usuario {values.email} ya existe</a>}
+
                                         {/* {console.log('verify: ',verify,'\nconfirmation Code:', confirmationCode)} */}
                                     </form>
                                 </div>
