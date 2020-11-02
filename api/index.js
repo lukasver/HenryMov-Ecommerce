@@ -640,7 +640,7 @@ conn.sync({ force: true }).then(() => {
     	}, {
     		include: [ Product ]
     	}).then(res => {
-    		res.setUser(1);
+    		res.setUser(4);
     		res.addProducts(1, { through: { quantity: 3, amount: 13000 }}) // ver forma de hacer q el amount persista en real...
     		res.addProducts(2, { through: { quantity: 1, amount: 500 }})
     	})
@@ -694,7 +694,7 @@ conn.sync({ force: true }).then(() => {
     	}, {
     		include: [ Product ]
     	}).then(res => {
-    		res.setUser(1);
+    		res.setUser(3);
     		res.addProducts(19, { through: { quantity: 4, amount: 74000 }}) // ver forma de hacer q el amount persista en real...
     		res.addProducts(11, { through: { quantity: 5, amount: 8300 }})
     	})
