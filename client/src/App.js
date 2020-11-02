@@ -11,7 +11,7 @@ import Catalogue from "./components/Catalogue";
 import ContentSearch from "./components/ContentSearch";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin.js";
-import Preguntas from "./components/footer/Preguntas";
+import Under from "./components/footer/Preguntas";
 import Carousel from "./components/Carousel";
 import Carrito from "./components/carrito/Carrito"
 import Register from "./components/registration/Register"
@@ -90,7 +90,7 @@ function App() {
       <Route exact path='/' render={() => <Slider />} />
       <Route exact path='/products' render={() => <Catalogue />} />
       <Route exact path='/products/:productId' render={({ match }) => (<Product product={onFilter(match.params.productId)} />)} />
-      <Route exact path='/preguntas' render={() => <Preguntas />} />
+      <Route exact path='/under' render={() => <Under />} />
       <Route exact path='/' render={() => <Carousel />} />
       <Route exact path='/carrito' render={()=> <Carrito/>}/>
       <Route exact path='/register' render={()=> <Register/>} />
