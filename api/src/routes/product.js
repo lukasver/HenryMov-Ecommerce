@@ -280,13 +280,11 @@ server.post('/products', (req, res, next) => {
 	if (!image) bodyComplete = { ...req.body, image: `http://localhost:3001/uploads/${req.file.originalname}` };
 	if(!req.file) bodyComplete = { ...req.body, image: 'https://i.ibb.co/JCm626W/logoround.png'}
 
-	if (!name || !description || !price || !availability || !stock) {
+	if (!name || !description || !price || !stock) {
 		return res.sendStatus(400);
 	}
-	console.log('antes de sequelize', bodyComplete)
 
 	Product.create(bodyComplete).then(createdProduct => {
-		console.log('producto creado: ', createdProduct)
 		createdProduct.setCategories(categories);
 	}).then(() => {
 		return res.status(201).send(req.body);
