@@ -70,7 +70,7 @@ const OrderHistory = ({userId}) => {
         setBool(2)
     }
 
-    if (ordersFiltered.length === 1 && (ordersFiltered.filter(x => x.status === 'On Cart'))) {
+    if (ordersFiltered.length === 1 && (ordersFiltered.filter(x => x.status === 'On Cart').length)) {
         return <ComponenteError/>
     }
 
@@ -98,7 +98,7 @@ const OrderHistory = ({userId}) => {
                         <th scope="col">Estado</th>
                         <th scope="col">Entregada</th>
                         <th scope="col">Metodo de Pago</th>
-                        <th scope="col">N° Pago TC</th>
+                        <th scope="col">N° Pago</th>
                         <th scope="col">Fecha Compra</th>
                         <th scope="col">Cancelar</th>
 {/*                        <th scope="col">userId</th>*/}
