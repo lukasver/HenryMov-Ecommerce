@@ -664,9 +664,11 @@ conn.sync({ force: true }).then(() => {
     	})
 
 		await Order.create({
-    		shipping: 'Retiro en Tienda',
     		paymentMethod: 'Rapipago',
     		status: 'Completa',
+    		paymentId: 1230820047,
+    		paymentStatus: 'approved',
+    		paymentDetail: 'accredited',
     		received: "1",
     		amount: 12300, // deberia ser la suma de los amount de productos...
     		quantity: 6, // deberia ser la suma de las quantities?...
@@ -680,9 +682,11 @@ conn.sync({ force: true }).then(() => {
     	})
 
     	await Order.create({
-    		shipping: 'Retiro en Tienda',
-    		paymentMethod: 'Efectivo',
+    		paymentMethod: 'Pagofacil',
     		status: 'Creada',
+    		paymentId: 1230820057,
+    		paymentStatus: 'pending',
+    		paymentDetail: 'pending_waiting_payment',
     		received: "0",
     		amount: 4533.23,
     		quantity: 34,
