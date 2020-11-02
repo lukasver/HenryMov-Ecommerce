@@ -65,8 +65,7 @@
   .modal-full {
     min-width: 50%;
     min-height: 50%;
-    opacity: 0.8;
-    
+    opacity: 1.0;    
 }
 
 .modal-full .modal-content {
