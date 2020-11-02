@@ -270,8 +270,8 @@ export default function Register() {
                                    
                                     <form onSubmit={handleSubmit}>    
                                         {!userCreated && <input id='codeConfirm' placeholder='Ingresa el codigo' onChange={handleOnChangeVerify} type="text"/>}
-                                        {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>}
-                                        {userCreated&& <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>}
+                                        {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>} <p/>
+                                        {userCreated&& <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>} <p/>
                                         {userCreated === 2 && <a style={{color:"white"}}>El usuario {values.email} ya existe</a>}
 
                                         {/* {console.log('verify: ',verify,'\nconfirmation Code:', confirmationCode)} */}
