@@ -1,13 +1,6 @@
 const {apiKey, domain} = process.env
 const mailGun = require('mailgun-js')({apiKey, domain})
 
-const auth = {
-    auth: {
-        api_key: apiKey, 
-        domain: domain
-    }
-};
-
 // const transporter = nodeMailer.createTransport(mailGun(auth));
 
 function mailCreator (to, type, dataFront){
@@ -66,15 +59,30 @@ function mailCreator (to, type, dataFront){
             </html>`
         }
     }
+//{token:response.body.id, pago}
+    if (type === "Mpago"){
+        mailOptions = {
+            from: "henrymov.g05@gmail.com",
+            to,
+            subject: "Verificacion de pago",
+            html:`
+            <html>
+                <head>
+                </head>
+                <body>
+                    <div>
+                        <p>Dicte el siguiente código al operador de ${dataFront.pago}<p/>
+                        <h2>códido: ${dataFront.token}</h2>
+                    </div>
+                </body>
+            </html>`
+        }
+    }
+
     mailGun.messages().send(mailOptions, (err, data)=>{
         if (err) {
-            console.log('==============================')
             console.log("Error => ",err)
         } else {
-            console.log('==============================')
-            console.log("Data: \n",data)
-            console.log('===============DATA===============')
-            console.log(dataFront)
         }
     })
 }
