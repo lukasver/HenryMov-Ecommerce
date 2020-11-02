@@ -63,7 +63,7 @@ function newsletterDel(e) {
                         <p className="textoDatos">Somos un grupo de estudiantes de Henry dispuestos a dar todo de cada uno para mejorar el futuro nuestro y del mundo</p>
                         <ul className="list-unstyled">
                             <li>
-                                <a className="menus" href="#!">Conocenos</a>
+                                <a className="menus"  href="/Under">Conocenos</a>
                             </li>
                         </ul>
                     </div>
@@ -72,13 +72,13 @@ function newsletterDel(e) {
                         <h5 className="font-weight-bold text-muted text-uppercase mt-2 mb-4 tituloH5">Informacion </h5>
                         <ul className="list-unstyled">
                             <li>
-                                <a className="menus" href="#!">Como comprar</a>
+                                <a className="menus"  href="/under">Como comprar</a>
                             </li>
                             <li>
-                                <a className="menus" href="/Preguntas">Preguntas frecuentes</a>
+                                <a className="menus" href="/under">Preguntas frecuentes</a>
                             </li>
                             <li>
-                                <a className="menus" href="#!">Cambios y devoluciones</a>
+                                <a className="menus"  href="/under">Cambios y devoluciones</a>
                             </li>
                         </ul>
                     </div>
