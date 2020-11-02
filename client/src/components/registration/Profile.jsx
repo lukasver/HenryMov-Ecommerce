@@ -201,7 +201,7 @@ const Profile = () => {
 									  <p style={{color: "white", "-webkit-text-stroke": "0.5px #f9ab1f"}} id="sendAvatar"></p>
 									</div>}
 		                        </div>
-		                        <div className="col-sm-8">
+		                        <div className="col-sm-8 data-profile">
 		                            <div className="card-block">
 		                                <h3 className="m-b-20 p-b-5 b-b-default f-w-600">Información 	 
 		                                <a style={{color: "black", cursor: "pointer"}} href='#'className="iconTable"> <i className="far fa-edit" id={user.id} onClick={handleModify}></i></a></h3>
@@ -234,7 +234,7 @@ const Profile = () => {
 											</div>
 		                                </div>
 		                                {!toogle && <div className="row pt-2 justify-content-center"> {/* Contenedor de los 2 botones*/}
-											<div className="col-sm-6">
+											<div className="col-sm-6 button-profile">
 											<button className="adam-button adamcustom" data-toggle="modal" data-target='#modalLoginForm' >Reset password</button>
 											<div className="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 												aria-hidden="true">
@@ -263,7 +263,7 @@ const Profile = () => {
 												</div>
 											</div>
 										</div>
-		                                	<div className="col-sm-6">
+		                                	<div className="col-sm-6 button-profile">
                 							<button onClick={logout} className="adam-button adamcustom">Logout</button>
 		                                	</div>
 		                                </div>}
