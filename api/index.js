@@ -714,7 +714,11 @@ conn.sync({ force: true }).then(() => {
     	})
 
     	    await Order.create({
+	    	paymentMethod: 'Tarjeta de Credito',
     		status: 'Procesando',
+    		paymentId: 1230820071,
+    		paymentStatus: 'approved',
+    		paymentDetail: 'accredited',
     		received: "0",
     		amount: 4533.23,
     		quantity: 34,
