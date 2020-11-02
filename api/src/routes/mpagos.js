@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mercadopago = require("mercadopago");
 const { Product, User, Order, Orderline } = require('../db.js');
+const mailCreator = require('./mailgun/setUp.js');
 
 //REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
 mercadopago.configurations.setAccessToken("TEST-4183331195724963-102618-87a5f0dddc6e633ad9bcf4b2cee6df45-25502682");
@@ -84,7 +85,10 @@ server.post("/process_payment", (req, res) => {
       } else if (req.body.paymentMethodId.slice(0, 3) === 'deb') {
         pago = 'Tarjeta de Debito'
       } 
-
+      if (pago === "Rapipago" || pago === "Pagofacil") {
+        
+        mailCreator(req.body.email, "Mpago",{token:response.body.id, pago})
+      }
       await orden.update({
         status: 'Creada',
         paymentId: response.body.id,

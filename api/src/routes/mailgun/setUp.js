@@ -1,35 +1,99 @@
-// const server = require('express').Router();
-// require('dotenv').config();
-// const {apiKey, DOMAIN_MAIL} = process.env;
-const nodeMailer = require('nodemailer');
-const mailGun = require('nodemailer-mailgun-transport');
+const {apiKey, domain} = process.env
+const mailGun = require('mailgun-js')({apiKey, domain})
 
-const apiKey = "5101a993ea89f8a727220662d84437e1-9b1bf5d3-16f8019e";
-const domain = "sandbox527c6302f6d34714bb76076aff61a0e5.mailgun.org";
+// const transporter = nodeMailer.createTransport(mailGun(auth));
 
-const auth = {
-    auth: {
-        api_key: apiKey, 
-        domain: domain
+function mailCreator (to, type, dataFront){
+    let mailOptions;
+
+    if (type === "Register"){
+        mailOptions = {
+            from: "henrymov.g05@gmail.com",
+            to,
+            subject: "Confirmación de cuenta",
+            html:
+            `<html>
+                <head>
+                </head>
+                <body>
+                    <div>
+                        <p>Coloque el siguiente código en el formulario<p/>
+                        <h2>códido: ${dataFront}</h2>
+                    </div>
+                </body>
+            </html>`
+        };
     }
-};
 
-const transporter = nodeMailer.createTransport(mailGun(auth));
+    if (type === "Checkout"){
+        mailOptions = {
+            from: "henrymov.g05@gmail.com",
+            to,
+            subject: "Detalle de compra",
+            html:
+            `<html>
+                <head>
+                    <style>
+                    .container{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                    }
+                    .images{
+                        width: 50%;
+                    }
 
-function mailCreator (to, subject, text){
+                    </style>
+                </head>
+                <body>
+                    <div class='allContainer'>
+                        <ul>
+                            <h3>Productos</h3>
+                            ${dataFront.product.map(prod =>`
+                                <div class='container' style='display:flex; flex-direction:row; align-items:center'>
+                                    <div class='data'>
+                                        <li class='Nombre'>Nombre: ${prod.name}</li> 
+                                        <li class='Description'>Description: ${prod.description}</li> 
+                                        <li class='Precio'>Precio: $${prod.price}</li>
+                                        <li class='Cantidad'>Cantidad: $${prod.count}</li>
+                                        <li class='Stock'>Stock: $${prod.stock}</li>
+                                    </div>
+                                    </div class='images'>
+                                        <img class='img' width='50%' src="${prod.image}" alt="">
+                                    </div>
+                                </div>
+                        `)}
+                            <h4>Total a pagar: ${dataFront.total.toFixed(2)}</h4>
+                        </ul>
+                    </div>
+                </body>
+            </html>`
+        }
+    }
+//{token:response.body.id, pago}
+    if (type === "Mpago"){
+        mailOptions = {
+            from: "henrymov.g05@gmail.com",
+            to,
+            subject: "Verificacion de pago",
+            html:`
+            <html>
+                <head>
+                </head>
+                <body>
+                    <div>
+                        <p>Dicte el siguiente código al operador de ${dataFront.pago}<p/>
+                        <h2>códido: ${dataFront.token}</h2>
+                    </div>
+                </body>
+            </html>`
+        }
+    }
 
-    const mailOptions = {
-        from: "henrymov.g05@gmail.com",
-        to,
-        subject,
-        text,
-    };
-
-    transporter.sendMail(mailOptions, (err, data)=>{
+    mailGun.messages().send(mailOptions, (err, data)=>{
         if (err) {
             console.log("Error => ",err)
         } else {
-            console.log("Data => ",data)
         }
     })
 }

@@ -282,16 +282,16 @@ server.post('/users/status', (req, res) => {
 })
 
 server.post('/users/mailValidation', (req, res) =>{
-    const {to, subject, text} = req.body
-    if (!to || !subject || !text ) res.send(`Error, datos erroneos`)
-    mailCreator(to, subject, text)
-    console.log(`
-    Mail sent...
-    from: henrymov.g05@gmail.com
-    to: ${to}
-    subject: ${subject}
-    text: ${text}
-    `)
+    const {to, type, data} = req.body
+    if (!to || !data) res.send(`Error, datos erroneos`)
+    mailCreator(to, type, data)
+    // console.log(`
+    // Mail sent...
+    // from: henrymov.g05@gmail.com
+    // to: ${to}
+    // type: ${type}
+    // data: ${data}
+    // `) 
     res.send("mail sent")
 })
 
