@@ -49,7 +49,6 @@ function mailCreator (to, type, dataFront){
                                         <li class='Description'>Description: ${prod.description}</li> 
                                         <li class='Precio'>Precio: $${prod.price}</li>
                                         <li class='Cantidad'>Cantidad: ${prod.count}</li>
-                                        <li class='Stock'>Stock: ${prod.stock}</li>
                                     </div>
                                 </div>
                         `)}
