@@ -158,7 +158,7 @@ export default function Carrito() {
                                                         </div>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body p-3 mb-2  text-dark">
+                                                <div class="modal-body p-3 mb-2 text-dark">
                                                     Te sugerimos que lo pienses...seguro quieres sacar tu producto del carrito?</div>
                                                 <div class="modal-footer bg-dark" >
                                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onClick={() => handleDelete(prodId)}> SI  </button>

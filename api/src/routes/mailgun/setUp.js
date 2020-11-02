@@ -82,8 +82,10 @@ function mailCreator (to, type, dataFront){
                 </head>
                 <body>
                     <div>
-                        <p>Dicte el siguiente código al operador de ${dataFront.pago}<p/>
-                        <h2>códido: ${dataFront.token}</h2>
+                        <h1> Gracias por su compra! </h1>
+                        <hr/>
+                        <p>Para proceder con el pago dicte el siguiente código al operador de ${dataFront.pago}<p/>
+                        <h2>código de pago: ${dataFront.token}</h2>
                     </div>
                 </body>
             </html>`
