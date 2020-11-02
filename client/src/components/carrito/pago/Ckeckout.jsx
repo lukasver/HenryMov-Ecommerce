@@ -22,12 +22,6 @@ export default function Checkout() {
     if (!localStorage.getItem('prod') || !localStorage.getItem('role')) {
     history.push('/');
     }
-
-
-
-
-
-
     let userId = localStorage.getItem('id')
     let countCart = localStorage.getItem('count')
     let product = JSON.parse(localStorage.getItem('prod'))
@@ -64,33 +58,33 @@ export default function Checkout() {
         };
         console.log(formCash)
         if (!doSubmit) {
+
+            axios.post('http://localhost:3001/users/mailValidation', {
+            to:formCash.email,
+            type: "Checkout",
+            data: {product, subtotal, envio, total}
+            })
+            
             if (document.getElementById('ck2a').checked) {
-                axios.post('http://localhost:3001/process_payment', formCash)
-                    .then(response => {
-                        console.log(response)
-                        if(response.status === 200) {
-                        localStorage.removeItem('prod');
-                        localStorage.removeItem('count');
-                        history.push('/payment_success')
-                        return response;
-                        } else {
-                            history.push('/payment_error')
-                        }
-                    });
+                axios.
+                post('http://localhost:3001/process_payment', formCash)
+                .then(response => {
+                    console.log(response)
+                    if(response.status === 200) {
+                    localStorage.removeItem('prod');
+                    localStorage.removeItem('count');
+                    history.push('/payment_success')
+                    return response;
+                    } else {
+                        history.push('/payment_error')
+                    }
+                })
             } else {
                 let $form = document.getElementById('paymentForm');
                 window.Mercadopago.createToken($form, setCardTokenAndPay);
                 return false;
             }
         }
-        window.alert(`Recivirás en el correo ${formCash.email} el detalle de la compra`)
-        axios
-        .post('http://localhost:3001/users/mailValidation', {
-            to:formCash.email,
-            type: "Checkout",
-            
-            data: {product, subtotal, envio, total}
-        })
     }
 
     function setCardTokenAndPay(status, response) {
