@@ -11,6 +11,7 @@ mercadopago.configurations.setAccessToken("TEST-4183331195724963-102618-87a5f0dd
 // app.use(express.urlencoded({ extended: false }));
 // app.use(express.json());
 
+
 server.get("/payment", function (req, res) {
   res.status(200);
 });

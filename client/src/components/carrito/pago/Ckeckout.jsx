@@ -7,7 +7,7 @@ import img_efectivo from '../../../img/p-card.png';
 import rapipago from '../../../img/rapipago.png';
 import pagofacil from '../../../img/pagofacil.png';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import paises from '../../../utils/countries.json'
 import estados from '../../../utils/states.json'
 import ciudades from '../../../utils/cities.json'
@@ -325,7 +325,7 @@ function changeFunc2() {
                 <div className="row">
                     <div className="col-md-4 order-md-2 mb-4">
                         <h4 className="d-flex justify-content-between align-items-center mb-3 h4-checkout-item">
-                            <h4 className="text-dark mb-3 h4-checkout">Tu carrito</h4><a className="text-warning stretched-link" href='./carrito'><small>editar</small></a>
+                            <h4 className="text-dark mb-3 h4-checkout">Tu carrito</h4><Link className="text-warning" to='/carrito'><small>editar</small></Link>
                             <span className="badge badge-secondary badge-pill">{countCart}</span>
                         </h4>
                         <ul className="list-group mb-3 sticky-top ul-carrito">

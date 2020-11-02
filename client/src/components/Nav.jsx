@@ -70,8 +70,8 @@ function Nav() {
                         <img id="logoHenry" src={Logo} className="d-inline-block align-top" alt="" />
                     </span>
                 </Link>
-                <button class="navbar-toggler navbar-toggler-nav collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler navbar-toggler-nav collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
             </div>
             <div className="col-md-6 barraSuperiorSearch" >

@@ -93,7 +93,7 @@ export default function Register() {
         if (!input.email) {
             errors.email = 'Este campo es requerido';
         }
-        else if (!(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/).test(input.email)) {
+        else if (!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(input.email)) {
             errors.email = 'El mail debe ser valido'
         }
 
