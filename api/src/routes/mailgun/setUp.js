@@ -53,7 +53,7 @@ function mailCreator (to, type, dataFront){
                                     </div>
                                 </div>
                         `)}
-                            <h4 style="text-align: right; color: #dedede; font-size: 26px;">Total a pagar: ${dataFront.total.toFixed(2)}</h4>
+                            <h4 style="text-align: right; color: #dedede; font-size: 26px;">Total a pagar: $${dataFront.total.toFixed(2)}</h4>
                             <br/><br/>
                             <div style="text-align: center">
                                 <img class="img" src="https://periconoticias.com.ar/logoHenryMov.png" alt="" style="padding: 20px;width:200px;height:80px;padding-bottom: 0px !important;">
