@@ -53,9 +53,9 @@ const OrderHistory = ({userId}) => {
         }
     }
 
-    const handleCancel = async (e,id) => {
+    const handleCancel = async (e,id,buyDate) => {
         if(window.confirm('Esta seguro que quiere cancelar esta orden? esta acción es irreversible')) {
-        const orderCanx = await axios.put(`http://localhost:3001/orders/cancel/${id}`) 
+        const orderCanx = await axios.put(`http://localhost:3001/orders/cancel/${id}`,{userId, buyDate}) 
         window.location.reload();
         return setCanx(!canx)
         }

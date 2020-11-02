@@ -5,7 +5,6 @@ const mailGun = require('mailgun-js')({apiKey, domain})
 
 function mailCreator (to, type, dataFront){
     let mailOptions;
-
     if (type === "Register"){
         mailOptions = {
             from: "henrymov.g05@gmail.com",
@@ -49,7 +48,6 @@ function mailCreator (to, type, dataFront){
                                         <li class='Description'>Description: ${prod.description}</li> 
                                         <li class='Precio'>Precio: $${prod.price}</li>
                                         <li class='Cantidad'>Cantidad: ${prod.count}</li>
-                                        <li class='Stock'>Stock: ${prod.stock}</li>
                                     </div>
                                 </div>
                         `)}
@@ -85,6 +83,41 @@ function mailCreator (to, type, dataFront){
                 </body>
             </html>`
         }
+    }
+    if (type === "mailCancel"){
+        mailOptions = {
+            from: "henrymov.g05@gmail.com",
+            to,
+            subject: "Cancelacion de Orden",
+            html:
+            `<html>
+                <head>
+                </head>
+                <body>
+                    <div>
+                        <p>${dataFront}<p/>
+                        
+                    </div>
+                </body>
+            </html>`
+        };
+    }
+    if (type === "mailReset"){
+        mailOptions = {
+            from: "henrymov.g05@gmail.com",
+            to,
+            subject: "Cambio de Clave",
+            html:
+            `<html>
+                <head>
+                </head>
+                <body>
+                    <div>
+                        <p>${dataFront}<p/>
+                    </div>
+                </body>
+            </html>`
+        };
     }
 
     mailGun.messages().send(mailOptions, (err, data)=>{
