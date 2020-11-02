@@ -74,7 +74,11 @@ function changeFunc2() {
             userId: document.getElementById('userId').value,
             products: document.getElementById('products').value
         };
-        console.log(formCash)
+        if ((document.getElementById('rapipago').checked || document.getElementById('pagofacil').checked) && total.toFixed(2) > 180000) {
+            window.alert('Lo sentimos, pero la compra en efectivo no puede superar los $180.000, puedes intentar abonar con tarjeta')
+            return
+        }
+
         if (!doSubmit) {
 
             axios.post('http://localhost:3001/users/mailValidation', {
@@ -331,8 +335,8 @@ function changeFunc2() {
                         <ul className="list-group mb-3 sticky-top ul-carrito">
                             {product !== undefined && product.map(prod => {
                                 subtotal = subtotal + (prod.price * prod.count)
-                                envio = envio + subtotal * 0.1
-                                total = total + (subtotal + envio)
+                                envio = subtotal * 0.1
+                                total = (subtotal + envio)
                                 return (
                                     <li className="list-group-item d-flex justify-content-between lh-condensed">
                                         <div className='row'>
@@ -358,7 +362,7 @@ function changeFunc2() {
                                 <div className="text-success">
                                     <h6 className="my-0 total-carrito">Total:</h6>
                                 </div>
-                                <span className="text-success span-total-num">{`$ ${total.toFixed(2)}`}</span>
+                                <span className="text-success span-total-num">{`$ ${(envio+subtotal).toFixed(2)}`}</span>
                             </li>
                         </ul>
                     </div>
@@ -561,7 +565,7 @@ function changeFunc2() {
                                     <select type="text" id="installments" name="installments" className="form-control input-direccion"></select>
                                 </div>
                                 <div className="col-md-4 mb-3">
-                                    <input type="hidden" name="transactionAmount" id="amount" value={total.toFixed(2)} />
+                                    <input type="hidden" name="transactionAmount" id="amount" value={(envio+subtotal).toFixed(2)} />
                                     <input type="hidden" name="paymentMethodId" id="paymentMethodId" />
                                     <input type="hidden" name="description" id="description" value="compra" />
                                 </div>
