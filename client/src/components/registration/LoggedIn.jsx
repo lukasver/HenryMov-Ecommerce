@@ -88,7 +88,7 @@ export default function LoggedIn() {
                     <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" alt=''/> Sign in Google</a> </div>
                     <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/github"><img src="https://github.githubassets.com/favicons/favicon.png" style={{ width: '16px' }}alt='' /> Sign in GITHUB</a> </div>
                   </div>
-                </form>
+                </form> 
             </div>
           </div>
         </div>
