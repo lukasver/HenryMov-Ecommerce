@@ -1,6 +1,6 @@
-import React, {useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import Promise from "bluebird";
 import axios from "axios";
 import * as action from "./redux/Action";
@@ -28,6 +28,7 @@ import ComponenteError from "./components/ComponenteError"
 import ProfileAdmin from "./components/admin/ProfileAdmin";
 import OrderHistory from "./components/OrderHistory"
 import Verify from "./components/registration/Verify"
+import PaymentSuccess from "./components/carrito/pago/Success"
 
 
 function App() {
@@ -35,7 +36,6 @@ function App() {
   axios.defaults.withCredentials = true
 
   const totalProds = useSelector((store) => store.totalProds);
-  const loggedIn = useSelector((store) => store.loggedIn);
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -67,30 +67,6 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-
-      
-
-    // axios.get("http://localhost:3001/auth/login", {withCredentials: true})
-
-    // axios
-    //   .get("http://localhost:3001/products")
-    //   .then((productosDB) => {
-    //     const { data } = productosDB;
-    //     return data;
-    //   })
-    //   .then((listadoProductos) => {
-    //     dispatch(action.totalProds(listadoProductos));
-    //   })
-    //   .catch((err) => new Error(err));
-
-    // axios
-    //   .get("http://localhost:3001/category")
-    //   .then((recurso) => {
-    //     dispatch(action.categories(recurso.data));
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
 
   }, []);
 
@@ -129,6 +105,7 @@ function App() {
       <Route exact path='/profile' render={()=> <Profile/>}/>
       <Route exact path='/order/ /error' render={() => <ComponenteError/>}/>
       <Route exact path='/verify' render={() => <Verify/>}/>
+      <Route exact path='/payment_success' render={() => <PaymentSuccess/>}/>
       <Switch>
         <Route path='/admin' />
         <Route path='/' render={() => <Footer />} />

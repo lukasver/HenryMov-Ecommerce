@@ -201,6 +201,7 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm axios
 - npm install bootstrap4-toggle
 - npm install node-sass --save
+- npm install react-confetti  
 
 ## En ./api
 - ( npm i sequelize cors multer bcrypt express-session express-session-sequelize passport passport-local passport-google-oauth passport-github2)
@@ -217,3 +218,4 @@ Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abru
 - npm install passport-github2
 - npm install nodemailer 
 - npm install nodemailter-mailgun-transport
+- npm install crypto-random-string

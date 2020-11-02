@@ -1,18 +1,39 @@
-import React, { useEffect , useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Checkout.css';
-import * as action from '../../../redux/Action';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatProducts }from '../../../utils/utils.js';
+import { formatProducts } from '../../../utils/utils.js';
+import credito from '../../../img/credito.png';
+import img_credito from '../../../img/credit-card.png';
+import img_debito from '../../../img/d-card.png';
+import img_efectivo from '../../../img/p-card.png';
+import rapipago from '../../../img/rapipago.png';
+import pagofacil from '../../../img/pagofacil.png';
+import Confetti from 'react-confetti';
 import axios from 'axios';
+import bag from '../../../img/bag.png';
+import { useHistory } from 'react-router-dom';
 
 export default function Checkout() {
+
+
+
+  // === PROTECCION DE RUTA ===
+      const history = useHistory();
+    if (!localStorage.getItem('prod') || !localStorage.getItem('role')) {
+    history.push('/');
+    }
+
+
+
+
+
+
     let userId = localStorage.getItem('id')
     let countCart = localStorage.getItem('count')
     let product = JSON.parse(localStorage.getItem('prod'))
     let subtotal = 0
     let envio = 0
     let total = 0
-    const dispatch = useDispatch;
 
     const [values, setValues] = useState({
         name: '',
@@ -22,6 +43,7 @@ export default function Checkout() {
     });
 
     const [error, setError] = useState({});
+ 
 
     //INICIO FUNCIONES DE MERCADO PAGO!
 
@@ -32,10 +54,33 @@ export default function Checkout() {
     var doSubmit = false;
     async function onSubmit(e) {
         e.preventDefault();
+        let formCash = {
+            transactionAmount: total.toFixed(2),
+            description: 'compra',
+            paymentMethodId: document.getElementById('rapipago').checked ? 'rapipago' : 'pagofacil',
+            email: document.getElementById('email').value,
+            userId: document.getElementById('userId').value,
+            products: document.getElementById('products').value
+        };
         if (!doSubmit) {
-            let $form = document.getElementById('paymentForm');
-            window.Mercadopago.createToken($form, setCardTokenAndPay);
-            return false;
+            if (document.getElementById('ck2a').checked) {
+                axios.post('http://localhost:3001/process_payment', formCash)
+                    .then(response => {
+                        console.log(response)
+                        if(response.status === 200) {
+                        localStorage.removeItem('prod');
+                        localStorage.removeItem('count');
+                        history.push('/payment_success')
+                        return response;
+                        } else {
+                            history.push('/payment_error')
+                        }
+                    });
+            } else {
+                let $form = document.getElementById('paymentForm');
+                window.Mercadopago.createToken($form, setCardTokenAndPay);
+                return false;
+            }
         }
     }
 
@@ -59,8 +104,7 @@ export default function Checkout() {
     function guessPaymentMethod(e) {
         e.preventDefault();
         cleanCardInfo();
-        let cardNum = e.target.value
-        console.log('event: ', cardNum);
+        let cardNum = e.target.value;
         if (cardNum >= 6) {
             let bin = cardNum.substring(0, 6);
             window.Mercadopago.getPaymentMethod({
@@ -75,6 +119,16 @@ export default function Checkout() {
             if (status == 200) {
                 let paymentMethod = response[0];
                 console.log(paymentMethod);
+                if (document.getElementById('ck2c').checked && paymentMethod.id.slice(0, 3) === 'deb') {
+                    alert('Ingresar una tarjeta de crébito válida!');
+                    document.getElementById('cardNumber').value = '';
+                    return;
+                }
+                if (document.getElementById('ck2b').checked && paymentMethod.id.slice(0, 3) !== 'deb') {
+                    alert('Ingresar una tarjeta de débito válida!');
+                    document.getElementById('cardNumber').value = '';
+                    return;
+                }
                 document.getElementById('paymentMethodId').value = paymentMethod.id;
                 document.getElementById('cardNumber').style.backgroundImage = 'url(' + paymentMethod.thumbnail + ')';
 
@@ -84,11 +138,12 @@ export default function Checkout() {
                 }
                 else {
                     document.getElementById('issuerInput').classList.add("hidden");
-
-                    getInstallments(
-                        paymentMethod.id,
-                        document.getElementById('amount').value
-                    );
+                    if (paymentMethod.id.slice(0, 3) !== 'deb') {
+                        getInstallments(
+                            paymentMethod.id,
+                            document.getElementById('amount').value
+                        );
+                    }
                 }
             } else {
                 alert(`payment method info error: ${response}`);
@@ -137,7 +192,7 @@ export default function Checkout() {
             );
 
         } else {
-            // alert(`issuers method info error: ${response}`);
+            return
         }
     }
 
@@ -151,6 +206,7 @@ export default function Checkout() {
 
     function setInstallments(status, response) {
         if (status == 200) {
+            console.log('response: ', response[0].payer_costs);
             document.getElementById('installments').options.length = 0;
             response[0].payer_costs.forEach(payerCost => {
                 let opt = document.createElement('option');
@@ -167,7 +223,7 @@ export default function Checkout() {
 
     const handleChange = e => {
         e.preventDefault();
-        const { name, value} = e.target;
+        const { name, value } = e.target;
         setValues({
             ...values,
             [name]: value
@@ -207,6 +263,34 @@ export default function Checkout() {
 
         setError(errors)
         return errors;
+    }
+
+    function checkMedioDePago(e) {
+        const checkboxSelected = e.target.id;
+        if (checkboxSelected === 'ck2a') {
+            document.getElementById('metodos-pago-efectivo').style.display = 'block';
+            document.getElementById('metodos-pago-debito').style.display = 'none';
+            document.getElementById('metodos-pago').style.display = 'none';
+            document.getElementById('metodos-pago-credito').style.display = 'none';
+        }
+        if (checkboxSelected === 'ck2b') {
+            document.getElementById('metodos-pago-efectivo').style.display = 'none';
+            document.getElementById('metodos-pago-debito').style.display = 'block';
+            document.getElementById('metodos-pago').style.display = 'none';
+            document.getElementById('metodos-pago-credito').style.display = 'none';
+            document.getElementById('pagofacil').checked = false;
+            document.getElementById('rapipago').checked = false;
+            document.getElementById('cardNumber').value = '';
+        }
+        if (checkboxSelected === 'ck2c') {
+            document.getElementById('metodos-pago-efectivo').style.display = 'none';
+            document.getElementById('metodos-pago-debito').style.display = 'block';
+            document.getElementById('metodos-pago').style.display = 'block';
+            document.getElementById('metodos-pago-credito').style.display = 'block';
+            document.getElementById('pagofacil').checked = false;
+            document.getElementById('rapipago').checked = false;
+            document.getElementById('cardNumber').value = '';
+        }
     }
 
 
@@ -255,32 +339,27 @@ export default function Checkout() {
                                 </div>
                                 <span className="text-success span-total-num">{`$ ${total.toFixed(2)}`}</span>
                             </li>
-
-
                         </ul>
                     </div>
                     <div className="col-md-8 order-md-1 margen-derecho">
                         <h4 className="mb-3 h4-checkout">Direccion de envio</h4>
-                        <form action="http://localhost:3001/process_payment" method="post" id="paymentForm" onSubmit={(e) => {onSubmit(e)}}>
+                        <form action="http://localhost:3001/process_payment" method="post" id="paymentForm" onSubmit={(e) => { onSubmit(e) }}>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label for="firstName" className="label-form">Nombres</label>
-                                    <input name='name' type="text" className="form-control input-direccion" id="firstName" placeholder="Patricio" onChange={handleChange}/>
+                                    <input name='name' type="text" className="form-control input-direccion" id="firstName" placeholder="Patricio" onChange={handleChange} />
                                     {error.name && <p className='danger'>{error.name}</p>}
-                                    {/* <div className="invalid-feedback"> Valid first name is required. </div> */}
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label for="lastName" className="label-form">Apellidos</label>
-                                    <input name='lastname' type="text" className="form-control input-direccion" id="lastName" placeholder="Estrella" onChange={handleChange}/>
+                                    <input name='lastname' type="text" className="form-control input-direccion" id="lastName" placeholder="Estrella" onChange={handleChange} />
                                     {error.lastname && <p className='danger'>{error.lastname}</p>}
-                                    {/* <div className="invalid-feedback"> Valid last name is required. </div> */}
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label for="email" className="label-form">Email <span className="text-muted"></span></label>
-                                <input name='email' type="text" name="email" className="form-control input-direccion" id="email" placeholder="tu@email.com" onChange={handleChange}/>
+                                <input type="text" name="email" className="form-control input-direccion" id="email" placeholder="tu@email.com" onChange={handleChange} />
                                 {error.email && <p className='danger'>{error.email}</p>}
-                                {/* <div className="invalid-feedback"> Please enter a valid email address for shipping updates. </div> */}
                             </div>
                             <div className="col-md-12 row">
                                 <div className="col-md-4 row">
@@ -295,7 +374,6 @@ export default function Checkout() {
                                     <input id="docNumber" name="docNumber" className="form-control input-direccion" data-checkout="docNumber" type="text" placeholder="13246587" />
                                 </div>
                                 <div className="col-md-1 row">
-
                                 </div>
                                 <div className="col-md-3">
                                     <label for="zip" className="label-form">Codigo postal</label>
@@ -306,7 +384,6 @@ export default function Checkout() {
                             <div className="mb-3">
                                 <label for="address" className="label-form">Dirección</label>
                                 <input name="address" type="text" className="form-control input-direccion" id="address" placeholder="Calle Wallaby 42" onChange={handleChange}/>
-                                {/* <div className="invalid-feedback"> Please enter your shipping address. </div> */}
                                 {error.address && <p className='danger'>{error.address}</p>}
                             </div>
 
@@ -351,108 +428,147 @@ export default function Checkout() {
                                         <option>S. del Estero</option>
                                         <option>T. del Fuego</option>
                                         <option> Tucumán</option>
-
-
                                     </select>
-                                    {/* <div className="invalid-feedback"> Please provide a valid state. </div> */}
                                 </div>
-                                
+
                             </div>
                             <hr className="mb-4" />
-                          {/*  <div className="custom-control custom-checkbox">
-                                <input type="checkbox" className="custom-control-input" id="same-address" />
-                                <label className="custom-control-label" for="same-address">La direccion de envio es la misma de la de facturación</label>
-                            </div>
-                            <div className="custom-control custom-checkbox">
-                                <input type="checkbox" className="custom-control-input" id="save-info" />
-                                <label className="custom-control-label" for="save-info">Guarde esta información para la próxima vez</label>
-                            </div>*/}
-                            <hr className="mb-4" />
-                            <h4 className="mb-3">Datos de la Tarjeta</h4>
-                            {/* <div className="row my-3">
-                                <div className="custom-control custom-radio">
-                                    <input id="credit" name="paymentMethod" type="radio" className="custom-control-input" checked="" required="" />
-                                    <label className="custom-control-label label-form" for="credit">Tarjeta de credito</label>
-                                </div>
-                                <div className="custom-control custom-radio">
-                                    <input id="debit" name="paymentMethod" type="radio" className="custom-control-input" required="" />
-                                    <label className="custom-control-label label-form" for="debit">Tarjeta de debito</label>
-                                </div>
-                                <div className="custom-control custom-radio">
-                                    <input id="paypal" name="paymentMethod" type="radio" className="custom-control-input" required="" />
-                                    <label className="custom-control-label label-form" for="paypal">PayPal</label>
-                                </div>
-                            </div> */}
+                            <h4 className="mb-3">Elige el medio de pago</h4>
                             <div className="row">
-                                <div className="col-md-6 mb-3">
-                                    <label for="cc-name" className="label-form">Nombre del titular</label>
-                                    <input type="text" className="form-control input-direccion" id="cc-name" placeholder="" required="" data-checkout="cardholderName" />
-                                    <small className="text-muted">El Nombre que figura en la tarjeta</small>
-                                    <div className="invalid-feedback"> Name on card is required </div>
+                                <div className="col-md-4">
+                                    <div className="custom-control custom-radio image-checkbox">
+                                        <input type="radio" className="custom-control-input" id="ck2a" name="ck2" onClick={checkMedioDePago} />
+                                        <label className="custom-control-label" for="ck2a">
+                                            <img src={img_efectivo} alt="#" className="img-fluid" />
+                                        </label>
+                                    </div>
                                 </div>
-                                <div className="col-md-6 mb-3">
-                                    <label for="cc-number" className="label-form">Numero de tarjeta</label>
-                                    <input type="text" className="form-control input-direccion input-background" id="cardNumber" data-checkout="cardNumber" placeholder="" required="" onselectstart="return false"
-                                        onCopy="return false" onCut="return false"
-                                        onDrag="return false" onDrop="return false" autoComplete="off" onBlur={guessPaymentMethod} />
-                                    <div className="invalid-feedback"> Trajeta de Crédito requerida </div>
+                                <div className="col-md-4">
+                                    <div className="custom-control custom-radio image-checkbox">
+                                        <input type="radio" className="custom-control-input" id="ck2b" name="ck2" onClick={checkMedioDePago} />
+                                        <label className="custom-control-label" for="ck2b">
+                                            <img src={img_debito} alt="#" className="img-fluid" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="custom-control custom-radio image-checkbox">
+                                        <input type="radio" className="custom-control-input" id="ck2c" name="ck2" onClick={checkMedioDePago} />
+                                        <label class="custom-control-label" for="ck2c">
+                                            <img src={img_credito} alt="#" className="img-fluid" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr className="mb-4" />
+
+                            {/* INICIO DIV EFECTIVO */}
+
+                            <div id="metodos-pago-efectivo" style={{ display: 'none' }}>
+                                <h4 className="mb-3">Seleccione el tipo de pago a generarse</h4>
+                                <div className="row">
+                                    <div className="col-md-2"></div>
+                                    <div className="col-md-4">
+                                        <div className="custom-control custom-radio image-checkbox">
+                                            <input type="radio" className="custom-control-input" id="rapipago" name="ck3" onClick={checkMedioDePago} />
+                                            <label class="custom-control-label" for="rapipago">
+                                                <img src={rapipago} alt="#" className="img-fluid" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="custom-control custom-radio image-checkbox">
+                                            <input type="radio" className="custom-control-input" id="pagofacil" name="ck3" onClick={checkMedioDePago} />
+                                            <label class="custom-control-label" for="pagofacil">
+                                                <img src={pagofacil} alt="#" className="img-fluid" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-2"></div>
+                                </div>
+                            </div>
+
+                            {/* FIN DIV EFECTIVO */}
+
+                            {/* INICIO DIV TARJETA DE DEBITO */}
+
+                            <div id="metodos-pago-debito" style={{ display: 'none' }}>
+                                <h4 className="mb-3">Datos de la Tarjeta</h4>
+                                <div className="row">
+                                    <div className="col-md-6 mb-3">
+                                        <label for="cc-name" className="label-form">Nombre del titular</label>
+                                        <input type="text" className="form-control input-direccion" id="cc-name" placeholder="" required="" data-checkout="cardholderName" />
+                                        <small className="text-muted">El Nombre que figura en la tarjeta</small>
+                                        <div className="invalid-feedback"> Name on card is required </div>
+                                    </div>
+                                    <div className="col-md-6 mb-3">
+                                        <label for="cc-number" className="label-form">Numero de tarjeta</label>
+                                        <input type="text" className="form-control input-direccion input-background" id="cardNumber" data-checkout="cardNumber" placeholder="" required="" onselectstart="return false"
+                                            onCopy="return false" onCut="return false"
+                                            onDrag="return false" onDrop="return false" autoComplete="off" onBlur={guessPaymentMethod} />
+                                        <div className="invalid-feedback"> Trajeta de Crédito requerida </div>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-md-5 mb-3">
+                                        <label for="cc-expiration" className="label-form">Fecha de Vencimiento</label>
+                                        <div className="col-md-5 expiration">
+                                            <input className="form-control input-direccion" type="text" placeholder="MM" id="cardExpirationMonth" data-checkout="cardExpirationMonth"
+                                                onselectstart="return false" onPaste="return false"
+                                                onCopy="return false" onCut="return false"
+                                                onDrag="return false" onDrop="return false" autoComplete="off" />
+                                        </div>
+                                        <div className="col-md-1 expiration">
+                                            <span class="date-separator">/</span>
+                                        </div>
+                                        <div className="col-md-5 expiration">
+                                            <input className="form-control input-direccion" type="text" placeholder="YY" id="cardExpirationYear" data-checkout="cardExpirationYear"
+                                                onselectstart="return false" onPaste="return false"
+                                                onCopy="return false" onCut="return false"
+                                                onDrag="return false" onDrop="return false" autoComplete="off" />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-3 mb-3">
+                                        <label for="cc-cvv" className="label-form">CVV</label>
+                                        <input className="form-control input-direccion" id="cc-cvv securityCode" placeholder="123" required="" data-checkout="securityCode" type="text"
+                                            onselectstart="return false" onPaste="return false"
+                                            onCopy="return false" onCut="return false"
+                                            onDrag="return false" onDrop="return false" autoComplete="off" />
+                                        <div className="invalid-feedback"> Codigo de Seguridad Requerido </div>
+                                    </div>
+                                    <div className="col-md-4 mb-3" id="metodos-pago" style={{ display: 'none' }}>
+                                        <div id="issuerInput">
+                                            <label for="issuer" className="label-form">Banco emisor</label>
+                                            <br />
+                                            <select id="issuer" name="issuer" className="form-control input-direccion" data-checkout="issuer"></select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div className="row">
-                                <div className="col-md-5 mb-3">
-                                    <label for="cc-expiration" className="label-form">Fecha de Vencimiento</label>
-                                    <div className="col-md-5 expiration">
-                                        <input className="form-control input-direccion" type="text" placeholder="MM" id="cardExpirationMonth" data-checkout="cardExpirationMonth"
-                                            onselectstart="return false" onPaste="return false"
-                                            onCopy="return false" onCut="return false"
-                                            onDrag="return false" onDrop="return false" autoComplete="off" />
-                                    </div>
-                                    <div className="col-md-1 expiration">
-                                        <span class="date-separator">/</span>
-                                    </div>
-                                    <div className="col-md-5 expiration">
-                                        <input className="form-control input-direccion" type="text" placeholder="YY" id="cardExpirationYear" data-checkout="cardExpirationYear"
-                                            onselectstart="return false" onPaste="return false"
-                                            onCopy="return false" onCut="return false"
-                                            onDrag="return false" onDrop="return false" autoComplete="off" />
-                                    </div>
-                                </div>
-                                <div className="col-md-3 mb-3">
-                                    <label for="cc-cvv" className="label-form">CVV</label>
-                                    <input className="form-control input-direccion" id="cc-cvv securityCode" placeholder="123" required="" data-checkout="securityCode" type="text"
-                                        onselectstart="return false" onPaste="return false"
-                                        onCopy="return false" onCut="return false"
-                                        onDrag="return false" onDrop="return false" autoComplete="off" />
-                                    <div className="invalid-feedback"> Codigo de Seguridad Requerido </div>
-                                </div>
-                                <div className="col-md-4 mb-3">
-                                    <div id="issuerInput">
-                                        <label for="issuer" className="label-form">Banco emisor</label>
-                                        <br />
-                                        <select id="issuer" name="issuer" className="form-control input-direccion" data-checkout="issuer"></select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-4 mb-3">
+                                <div className="col-md-4 mb-3" id="metodos-pago-credito" style={{ display: 'none' }}>
                                     <label for="installments" className="label-form">Cuotas</label>
-                                    <select type="text" id="installments" name="installments" value="1" className="form-control input-direccion"></select>
+                                    <select type="text" id="installments" name="installments" className="form-control input-direccion"></select>
                                 </div>
                                 <div className="col-md-4 mb-3">
                                     <input type="hidden" name="transactionAmount" id="amount" value={total.toFixed(2)} />
                                     <input type="hidden" name="paymentMethodId" id="paymentMethodId" />
-                                    <input type="hidden" name="description" id="description" value="compra"/>
+                                    <input type="hidden" name="description" id="description" value="compra" />
                                 </div>
                             </div>
+
                             <hr className="mb-4" />
-                            { !values.email || error.email || error.address ? <button className="btn btn-primary btn-lg btn-block" type="submit" disabled>Confirmar tu compra</button> : 
-                            <button className="btn btn-primary btn-lg btn-block" type="submit" >Confirmar tu compra</button>}
+                            { !values.email || error.email || error.address ? <button className="adam-button" type="submit" disabled>Confirmar tu compra</button> : 
+                            <button className="adam-button" type="submit" >Confirmar tu compra</button>}
                             
-                            <input style={{display: "none"}} name='userId' value={localStorage.getItem('id')}/>
-                            <input style={{display: "none"}} name='products' value={JSON.stringify(formatProducts(product))}/>
+                            <input style={{display: "none"}} name='userId' id='userId' value={localStorage.getItem('id')}/>
+                            <input style={{display: "none"}} name='products' id='products' value={JSON.stringify(formatProducts(product))}/>
                             
+
                         </form>
+
                     </div>
                 </div>
             </div>

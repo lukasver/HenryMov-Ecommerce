@@ -57,11 +57,11 @@ export default function Reviews({id, value, name}) {
             if (usuarioId && productExist){
                 return (
                     <form onSubmit={handlePost} id="formReviews" action="">
-                        <h3 class='hello'>Escribe tu reseña</h3>
+                        <h3 className='hello'>Escribe tu reseña</h3>
                         <p>Deja tu calificación</p>
                         <Rating bool={true} />
                         <input id="title" className='inpTitle' placeholder="Escribe un titulo" type="text"/>
-                        <textarea id="Desc" placeholder="Escribe una descripción" class="form-control"  rows="4"></textarea>
+                        <textarea id="Desc" placeholder="Escribe una descripción" className="form-control"  rows="4"></textarea>
                         <button id='submitRev' type='submit'>Enviar Reseña</button>
                     </form>
                 )
@@ -90,7 +90,7 @@ export default function Reviews({id, value, name}) {
                     <div>
                         {form()}
                         <div className='reviewsContainer'>
-                            <h3 class='hello'>Opiniones sobre {name}</h3>
+                            <h3 className='hello'>Opiniones sobre {name}</h3>
                             {allReviews.map(review => (
                             <div className='reviewContainer'>
                                 <Rating bool={false} value={review.value} />
@@ -108,7 +108,7 @@ export default function Reviews({id, value, name}) {
                 <div>
                     {form()}
                     <div className='reviewsContainer'>
-                        <h5 class='hello'>No hay opiniones</h5>
+                        <h5 className='hello'>No hay opiniones</h5>
                     </div>
                 </div>
             )

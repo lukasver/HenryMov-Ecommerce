@@ -14,10 +14,8 @@ export default function Carrito() {
     const [prodId, setProdId] = useState('')
     const [render, setRender] = useState(true)
     let history = useHistory();
-    let users= localStorage.getItem('id')
+
     useEffect(() => {
-       
-        
     }, [render, count])
    
     
@@ -67,7 +65,7 @@ export default function Carrito() {
     }
     function disminuir(prod) {
         render ? setRender(false) : setRender(true)
-        if (prod.count == 1) {
+        if (prod.count === 1) {
             return
         }
         prod.count = prod.count - 1
@@ -133,7 +131,7 @@ export default function Carrito() {
                                     {product &&
                                         product.map(prod =>
                                             <tr>
-                                                <td><Link className="titulo-link" to={`/products/${prod.id}`} ><img src={prod.image} width={80} href='`/product/${id}`' /></Link> </td>
+                                                <td><Link className="titulo-link" to={`/products/${prod.id}`} ><img src={prod.image} width={80} alt="" /></Link> </td>
                                                 <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
                                                 <td>{prod.count < prod.stock ? <div class="alert alert-success" role="alert">
                                                    Stock Disponible
@@ -247,7 +245,7 @@ export default function Carrito() {
                                         </div>
                                         <div class="modal-body p-3 mb-2 ">
                                             Debes iniciar sesion para finalizar tu compra
-      </div>
+                                        </div>
                                         <div class="modal-footer bg-dark">
                                             <a href="/register" type="button" class="btn btn-outline-primary">Registrate</a>
                                             <a href="/login" type="button" class="btn btn-outline-success">Iniciar sesion</a>

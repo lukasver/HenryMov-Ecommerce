@@ -108,20 +108,16 @@ conn.sync({ force: true }).then(() => {
 			description: 'Descripción 7',
 			status: 'Activado'
 		})).then(Category.create({
-			name: 'Skates Electricos',
+			name: 'Zapatillas',
 			description: 'Descripción 8',
 			status: 'Activado'
 		})).then(Category.create({
-			name: 'Zapatillas',
+			name: 'Indumentaria',
 			description: 'Descripción 9',
 			status: 'Activado'
 		})).then(Category.create({
-			name: 'Indumentaria',
-			description: 'Descripción 10',
-			status: 'Activado'
-		})).then(Category.create({
 			name: 'Accesorios',
-			description: 'Descripción 11',
+			description: 'Descripción 10',
 			status: 'Activado'
 		}));
 	
@@ -131,7 +127,7 @@ conn.sync({ force: true }).then(() => {
 	  		description: 'Un vela para tabla de windsurf de color celeste',
 	  		price: 23000,
 	  		availability: true,
-			stock: 0,
+			stock: 2,
 			count: 1,
 			like: 33,
 			dislike: 2,   
@@ -229,7 +225,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 24, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/casco-noname-rosa-1-21-ffaebc33792f6e6e6415900886785140-640-0.jpg'
 		}).then(createdProduct => {
-				  createdProduct.setCategories([11]);
+				  createdProduct.setCategories([10]);
 			})
 		await Product.create({
 				name: 'Rollers Radius 633 Extensibles Base Aluminio',
@@ -255,7 +251,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 2, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/zapatillas-huf-soto-black-31-76232f6b4c699e9eae15997728362910-640-0.png'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([9]);
+				  createdProduct.setCategories([8]);
 			  })
 	 	await Product.create({
 				name: 'Zapatillas Dc Shoes Pure Negro/blanco',
@@ -268,7 +264,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 21, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/1661-3fb85721265fe466d815887005517584-640-0.jpg	'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([9]);
+				  createdProduct.setCategories([8]);
 			  })
 		await Product.create({
 				name: 'Zapatillas Dc Heathrow Negro (bkw)',
@@ -281,7 +277,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 7, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/3931-90e1bd9e6cd28b2a0815884478454641-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([9]);
+				  createdProduct.setCategories([8]);
 			  })
 		await Product.create({
 				name: 'Zapatillas Vans Sk8 Hi Negro',
@@ -294,7 +290,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 28, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2141-8bba392f6d3979a3b315884422233072-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([9]);
+				  createdProduct.setCategories([8]);
 			  })
 		await Product.create({
 				name: 'Zapatillas Huf Galaxy Skate Urbana Negro / Azul',
@@ -307,7 +303,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 6, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/zapatillas-hufgalaxy-black-gum1-362068c23be1e83e0b15914002176559-640-0.png'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([9]);
+				  createdProduct.setCategories([8]);
 			  })
 		await Product.create({
 				name: 'Remera Powell Peralta Frankie Hill Verano 2020 100% Original',
@@ -320,7 +316,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 2, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/1811-68a374a4b8091df2ce15880342841356-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([10]);
+				  createdProduct.setCategories([9]);
 			  })
 		await Product.create({
 				name: 'Remera Powell Peralta Mc Gill Skull And Snake',
@@ -333,7 +329,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 8, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/2711-547008059e8ca6e0c515883835046272-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([10]);
+				  createdProduct.setCategories([9]);
 			  })
 		await Product.create({
 				name: 'Camisa Dc Arrowood',
@@ -346,7 +342,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 17, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6201-2d4a0b42b2f3d6870815887072186453-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([10]);
+				  createdProduct.setCategories([9]);
 			  })
 		await Product.create({
 				name: 'Malla Bermuda Short De Baño Playa Quiksilver Techtonics Boys',
@@ -359,7 +355,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 8, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/acero11-1bdcd6443ab65e6bb615879959523320-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([10]);
+				  createdProduct.setCategories([9]);
 			  })
 		await Product.create({
 				name: 'Malla Dc Lanai Ii Boardshort De Playa Bermuda Baño 18 Largo',
@@ -372,7 +368,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 19, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/81-09fe09b0cb4e4beeeb15879984952437-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([10]);
+				  createdProduct.setCategories([9]);
 			  })
 		await Product.create({
 				name: 'Pantalon Dc Jean Wrk Slim Med Stone',
@@ -385,7 +381,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 12, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6551-bd082bb589e4fa5f0015887048790512-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([10]);
+				  createdProduct.setCategories([9]);
 			  })
 		await Product.create({
 				name: 'Campera Quiksilver Wanna Negra 2019',
@@ -398,7 +394,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 20, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/11211-18ad3ad0daa67bc69d15886296499645-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([10]);
+				  createdProduct.setCategories([9]);
 			  })
 		await Product.create({
 				name: 'Mochila Dc Shoes Backstack Cb',
@@ -411,7 +407,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 26, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/991-0fdf1ee8debca1764515886289931793-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([11]);
+				  createdProduct.setCategories([10]);
 			  })
 		await Product.create({
 				name: 'Riñonera Thrasher Flame',
@@ -424,7 +420,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 19, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/521-5a6bd3140b2a3b37f315886984024789-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([11]);
+				  createdProduct.setCategories([10]);
 			  })
 		await Product.create({
 				name: 'Mochila Quiksilver Everyday Poster',
@@ -437,7 +433,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 6, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/6821-ca82226cb7b86af19915884504558586-640-0.jpg'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([11]);
+				  createdProduct.setCategories([10]);
 			  })
 		await Product.create({
 				name: 'Medias Huf Importadas Og Logo Media Caña Degrade Blanco Negro',
@@ -450,7 +446,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 25, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/medias-huf-henry-crew1-63f2d8575f7a8f2bd216021925636092-640-0.png'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([11]);
+				  createdProduct.setCategories([10]);
 			  })
 		await Product.create({
 				name: 'Medias Huf Importadas Og Logo Media Caña Black',
@@ -463,7 +459,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 21, 
 				image: 'https://d26lpennugtm8s.cloudfront.net/stores/001/049/128/products/huf-og-logo_black-11-210afe5db5089c800e15911494614271-640-0.png'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([11]);
+				  createdProduct.setCategories([10]);
 			  })
 		await Product.create({
 				name: 'Skate Completo 7,75 Maple Banga Maple Abec7 Skull',
@@ -554,7 +550,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 13, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_728530-MLA43214211601_082020-O.webp'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([8]);
+				  createdProduct.setCategories([5]);
 			  })
 		await Product.create({
 				name: 'Skate eléctrico hoverboard Kanji KJ-HV002C 6.5"',
@@ -567,7 +563,7 @@ conn.sync({ force: true }).then(() => {
 				dislike: 2, 
 				image: 'https://http2.mlstatic.com/D_NQ_NP_762822-MLA43481932680_092020-O.webp'
 			}).then(createdProduct => {
-				  createdProduct.setCategories([8]);
+				  createdProduct.setCategories([5]);
 			  })
 		await Product.create({
 				name: 'Roller Patin Expert Aluminio Extensible Abec + Bolso El Rey',
@@ -651,6 +647,10 @@ conn.sync({ force: true }).then(() => {
 
 		await Order.create({
     		status: 'Creada',
+    		paymentMethod: 'Tarjeta de Debito',
+    		paymentId: 1230820051,
+    		paymentStatus: 'approved',
+    		paymentDetail: 'accredited',
     		received: "0",
     		amount: 4533.23, // deberia ser la suma de los amount de productos...
     		quantity: 34, // deberia ser la suma de las quantities?...

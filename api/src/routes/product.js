@@ -8,6 +8,29 @@ const auths = require('./auth');
 // auths[1] <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
 // auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
+
+
+//======================================================================== 
+//	Ruta para devolver el stock de los productos en el carrito del user
+//======================================================================== 
+
+server.post('/products/stock', async (req, res, next) => {
+
+const ids = await req.body.product.map(prod =>{
+	return prod.id
+})
+
+let prods = await Product.findAll({where: {id: ids}})
+
+let prodsStock = await prods.map(prod => {
+	return {id: prod.id, stock: prod.stock}
+})
+
+await res.send(prodsStock)
+
+return
+})
+
 //======================================================================== 
 //	Ruta para devolver todos los productos DISPONIBLES y sus categorias asociadas
 //======================================================================== 
@@ -248,7 +271,7 @@ server.post('/products/category/filter', (req, res, next) => {
 //============================================== 
 //recordar que la categoría a recibir por body debe ser un id correspondiente a una categoria creada
 //pendiente validar un handler error si se le pasa un id de una categoria invalida
-server.post('/products',auths[1], (req, res, next) => {
+server.post('/products', (req, res, next) => {
 
 	const { name, description, price, availability, stock, quantity, image, categories } = req.body;
 
@@ -259,8 +282,10 @@ server.post('/products',auths[1], (req, res, next) => {
 	if (!name || !description || !price || !availability || !stock) {
 		return res.sendStatus(400);
 	}
+	console.log('antes de sequelize', bodyComplete)
 
 	Product.create(bodyComplete).then(createdProduct => {
+		console.log('producto creado: ', createdProduct)
 		createdProduct.setCategories(categories);
 	}).then(() => {
 		return res.status(201).send(req.body);

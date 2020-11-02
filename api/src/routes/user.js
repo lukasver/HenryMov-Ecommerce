@@ -175,16 +175,20 @@ server.get('/users', (req, res) => {
 server.post('/users/mailValidator/reset', async (req, res) => {
     const { email } = req.body;
         
+        console.log(email)
     try {
         const user = await User.findOne({ where:{ email } })
+
         const token = await cryptoString({ length: 6, type: 'numeric' });
       
+        console.log(token)
         if (!user) {
             return res.status(404).send('Usuario no encontrado')
         }
         user.passwordResetToken = token;
         user.save();
         console.log(user)
+
         const mailReset = 
             `Este menesaje se envio por pedido de un resteto de clave: 
             Haz click en el siguiente link http://localhost:3000/verify
@@ -198,7 +202,7 @@ server.post('/users/mailValidator/reset', async (req, res) => {
         }
 
     catch(err){
-        return res.status(500).send('Error, ', err)
+        return res.status(500).send(err)
     }
 
 })
@@ -277,7 +281,7 @@ server.post('/users/status', (req, res) => {
     // })
 })
 
-server.post('/users/mailValidation/Register', (req, res) =>{
+server.post('/users/mailValidation', (req, res) =>{
     const {to, subject, text} = req.body
     if (!to || !subject || !text ) res.send(`Error, datos erroneos`)
     mailCreator(to, subject, text)

@@ -9,39 +9,39 @@ const mailCreator = require('./mailgun/setUp.js')
 // auths[1]  <<== Esto permite el ingreso a usuarios con role: Admin o Responsable
 // auths[2]() <<== Esto permite el ingreso a cualquier usuario registrado, pero no a guests
 
-function dateFormat(res) {
-  let newdate = new Date(res);
-  let mes = newdate.getMonth()+1;
-  let dia = newdate.getDate();
-  let ano = newdate.getFullYear();
-  res = JSON.stringify(`${dia}/${mes}/${ano}`)
-  return res.replace(/[ '"]+/g, ' ');
-}
-
-
-
 //==============================================
 //	Ruta para agregar orderlines a carrito 'On Cart' o crearlo si no existe
 //==============================================
 server.post('/users/:idUser/cart', async (req, res, next) => {
   const { idUser } = req.params;
 
+
 try {
+  let sinStock = []
   let orden = await Order.findOne({where: {userId: idUser, status: 'On Cart'}})
   if (orden) await orden.destroy()
   orden = await Order.create({
-    userId: idUser,
-    email: email
+    userId: idUser
   })
 
   // Itera sobre cada {} de orderlines enviado del carrito del front del usuario
     await req.body.forEach(async (orderline) => {
     const { productId, quantity, amount } = orderline;
     //asocia la orderline a la orden 'On Cart'
+    const producto = await Product.findOne({where: {id: productId}})
+
+    // if ((producto.stock - quantity) < 0) {
+    //   sinStock.push(orderline)
+    //   return 
+    // }
+
     await orden.addProducts(productId, { through: { quantity: quantity, amount: amount }})
+
+    return sinStock
   })
 
-  await res.status(200).send(orden)
+
+  await res.status(200).json([orden, sinStock])
 
 
 } catch (error) {
@@ -309,6 +309,17 @@ server.put('/orders/cancel/:orderId', async (req, res, next) => {
     status: 'Cancelada'},
     {where: {id: orderId}
   })
+
+  const canxOL = await Orderline.findAll({
+    where: {orderId: orderId}
+  })
+
+  // INCREMENTA EL STOCK DEL PRODUCTO YA QUE LAS ORDENES FUERON CANCELADAS
+  await canxOL.forEach(async(productOL) => {
+    await Product.increment(['stock'], { by: productOL.quantity, where: { id: productOL.productId } });
+  })
+
+
   const user = await User.findOne({
     where: {
       id: userId
@@ -342,7 +353,6 @@ server.put('/orders/status/:orderId', async (req, res, next) => {
   const {orderId} = req.params
   const {status} = req.body
 
-  console.log('hola')
   try {
   const orderNew = await Order.update({
     status: status},

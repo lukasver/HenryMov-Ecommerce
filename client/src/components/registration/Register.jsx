@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+
+import { Link} from 'react-router-dom'
+
 import './Register.css'
 import axios from 'axios'
 import { useEffect } from 'react';
@@ -21,7 +23,9 @@ export default function Register() {
     const [verify, setVerify] = useState('');
     const [userCreated, setUserCreated] = useState(0);
 
-    const confirmationCode = useState(Math.floor(Math.random() * 10000).toString());
+
+    const confirmationCode = useState(Math.floor(Math.random()*10000).toString());
+
 
     const handleOnChange = e => {
         const { name, value } = e.target;
@@ -40,11 +44,12 @@ export default function Register() {
     const handleMail = (e) => {
         e.preventDefault()
         axios
-            .post('http://localhost:3001/users/mailValidation', {
-                to: values.email,
-                subject: "Confirmacion de cuenta",
-                text: `Codigo de confirmacion: ${confirmationCode}`
-            })
+        .post('http://localhost:3001/users/mailValidation', {
+            to:values.email,
+            subject: "Confirmacion de cuenta",
+            text: `Codigo de confirmacion: ${confirmationCode}`
+        })
+
         return
     }
     const handleSubmit = e => {
@@ -238,7 +243,10 @@ export default function Register() {
                             </div>
                         </div>
                         <div className="col-md-12">
-                            {JSON.stringify(error) === '{}' && values.name !== '' ? <button className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
+
+                       
+                        {JSON.stringify(error) === '{}' && values.name !== '' ? <button  className="adam-button " type='submit' data-target='#pop-up' data-toggle='modal' >Crear cuenta</button> : <button  className="adam-button btn-disabled" type='submit' data-target='#pop-up' data-toggle='modal' disabled>Crear cuenta</button>}
+
                         </div>
 
                         <br /><br />
@@ -258,11 +266,14 @@ export default function Register() {
                                     </p>
                                 </div>
                                 <div className="modal-footer">
-                                    <form onSubmit={handleSubmit}>
-                                        {!userCreated && <input id='codeConfirm' placeholder='Ingresa el codigo' onChange={handleOnChangeVerify} type="text" />}
-                                        {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>} <p />
-                                        {userCreated && <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>} <p />
-                                        {userCreated === 2 && <a style={{ color: "white" }}>El usuario {values.email} ya existe</a>}
+
+                                   
+                                    <form onSubmit={handleSubmit}>    
+                                        {!userCreated && <input id='codeConfirm' placeholder='Ingresa el codigo' onChange={handleOnChangeVerify} type="text"/>}
+                                        {verify === confirmationCode && !userCreated && <button className="adam-button" type='submit'>Verificar</button>} <p/>
+                                        {userCreated&& <a className="adam-button" href='/logIn'>Inicia sesion aqui</a>} <p/>
+                                        {userCreated === 2 && <a style={{color:"white"}}>El usuario {values.email} ya existe</a>}
+
                                         {/* {console.log('verify: ',verify,'\nconfirmation Code:', confirmationCode)} */}
                                     </form>
                                 </div>

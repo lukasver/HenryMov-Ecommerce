@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import * as action from '../../redux/Action';
-import { Link } from 'react-router-dom'
 import './LoggedIn.css';
+
 
 export default function LoggedIn() {
 
@@ -16,6 +15,7 @@ export default function LoggedIn() {
     const email = document.getElementById("inputEmail").value;
     const password = document.getElementById("inputPassword").value;
 
+
     axios.get(`http://localhost:3001/users/${email}`,  {withCredentials: true})
       .then(res=> {
           if (res.data === 404) {
@@ -24,11 +24,8 @@ export default function LoggedIn() {
         else {
           axios.post('http://localhost:3001/users/status', { email })
             .then(status => {
-
               if (status.data === 'Bloqueado') {
-
                 window.alert('Tu usario ha sido bloqueado. Por favor, cambia tu contraseña');
-
               } else if (status.data === 'Inactivo') {
                 window.alert('Tu usario ha sido desactivado. Por favor, ponte en contacto con atención al cliente');
               } else {
@@ -41,6 +38,7 @@ export default function LoggedIn() {
                       localStorage.setItem('role', res.data.role);
                       window.location = "http://localhost:3000/";
                     }
+
                   })
                   .catch(err => {
                     console.log('Entro')
@@ -83,14 +81,15 @@ export default function LoggedIn() {
                   <button onClick={handleLogin} className="btn btn-lg btn-block text-uppercase botonlogin" type="submit" id='bloqueado'>Sign in</button>}
 
 
-                <hr className="my-4" />
-                <a href='/reset' className='forgotten'>Has olvidado tu contraseña? Click aqui</a>
-                <br /><br />
-                <div className="row">
-                  <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" /> Sign in Google</a> </div>
-                  <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/github"><img src="https://github.githubassets.com/favicons/favicon.png" style={{ width: '16px' }} /> Sign in GITHUB</a> </div>
-                </div>
-              </form>
+                  <hr className="my-4" />
+                  <a href='/reset' className='forgotten'>Has olvidado tu contraseña? Click aqui</a>
+                  <br /><br />
+                  <div className="row">
+                    <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" alt=''/> Sign in Google</a> </div>
+                    <div className="col-md-6"> <a className="btn btn-lg btn-google btn-block text-uppercase btn-outline" style={{ fontSize: '15px' }} href="http://localhost:3001/auth/github"><img src="https://github.githubassets.com/favicons/favicon.png" style={{ width: '16px' }}alt='' /> Sign in GITHUB</a> </div>
+                  </div>
+                </form>
+r
             </div>
           </div>
         </div>
