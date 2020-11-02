@@ -33,7 +33,7 @@ export default function PaymentSucess() {
 	}
 
 return (
-	<div className='container' style={{height: "65%", width: "100%"}}>
+	<div className='container' style={{height: "70%", width: "100%"}}>
 		<br/><br/>
 
 			<div class="modal success" id="myModal" role="dialog" aria-hidden="false">

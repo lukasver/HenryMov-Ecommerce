@@ -87,5 +87,8 @@ body.dark-mode {
     background-color: $background-color-dark;
     color: $background-color-light;
   }
+  .modal-body {
+    color: black !important;
+  }
 
 }
