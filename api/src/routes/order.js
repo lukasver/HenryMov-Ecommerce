@@ -282,7 +282,6 @@ server.delete('/users/:idUser/cart', async (req,res,next) => {
 
 server.get('/users/orders/:userId'/*, auths[2]()*/, (req, res, next) => {
   const { userId } = req.params
-  console.log('paso el const')
   Order.findAll({
     where:{userId},
     attributes: ['id','userId','status'],
@@ -294,7 +293,6 @@ server.get('/users/orders/:userId'/*, auths[2]()*/, (req, res, next) => {
       return res.status(200).json(carrito)
     })
   .catch(err => {
-    console.log('Llega aca!')
     res.sendStatus(404)})
   })
 
@@ -322,20 +320,17 @@ server.put('/orders/cancel/:orderId', async (req, res, next) => {
     await Product.increment(['stock'], { by: productOL.quantity, where: { id: productOL.productId } });
   })
 
-
   const user = await User.findOne({
     where: {
       id: userId
     }
   })
-  console.log('email, ', user.email)
-  const mailReset = 
-            `Tu orden numero ${orderId}, con fecha de creacion de ${new Date (buyDate)} ha sido cancelada con exito.
+  const mailCancel = `Tu orden numero ${orderId}, con fecha de creacion de ${new Date (buyDate)} ha sido cancelada con exito.
             Lamentamos que tu compra no haya sido completada satisfactoriamente. 
             Saludos cordiales,  \n  
             Equipo de Henry-Mov`
 
-    await mailCreator(user.email, "Cancelacion de Orden", mailReset);
+    await mailCreator(user.email, "mailCancel", mailCancel);
     
 
   // AGREGAR DISPARO DE EMAIL AVISANDO CANCELACION DE ORDEN

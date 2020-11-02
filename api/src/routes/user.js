@@ -195,7 +195,7 @@ server.post('/users/mailValidator/reset', async (req, res) => {
             He introduce el token de seguridad: ${token}
             Si no has sido tu, ponte en contacto con atencion al cliente`
         
-            await mailCreator(user.email, "Cambio de Clave", mailReset);
+            await mailCreator(user.email, "mailReset", mailReset);
     
             return res.status(200).send('Email enviado con exito')
 
