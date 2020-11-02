@@ -33,13 +33,24 @@ function mailCreator (to, type, dataFront){
             html:
             `<html>
                 <head>
+                    <style>
+                    .container{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                    }
+                    .images{
+                        width: 50%;
+                    }
+
+                    </style>
                 </head>
                 <body>
                     <div class='allContainer'>
                         <ul>
                             <h3>Productos</h3>
                             ${dataFront.product.map(prod =>`
-                                <div class='container'>
+                                <div class='container' style='display:flex; flex-direction:row; align-items:center'>
                                     <div class='data'>
                                         <li class='Nombre'>Nombre: ${prod.name}</li> 
                                         <li class='Description'>Description: ${prod.description}</li> 
@@ -48,7 +59,7 @@ function mailCreator (to, type, dataFront){
                                         <li class='Stock'>Stock: $${prod.stock}</li>
                                     </div>
                                     </div class='images'>
-                                        <img class='img' src="${prod.image}" alt="">
+                                        <img class='img' width='50%' src="${prod.image}" alt="">
                                     </div>
                                 </div>
                         `)}
