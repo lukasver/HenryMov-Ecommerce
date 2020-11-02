@@ -9,10 +9,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                is: {
-                    args: /^[a-zA-Z ]*$/i,
-                    msg: "El nombre debe contener solo letras"
-                },
+                // is: {
+                //     args: /^[a-zA-Z ]*$/i,
+                //     msg: "El nombre debe contener solo letras"
+                // },
                 len: {
                     args: [4, 45],
                     msg: "El nombre debe contener minimo 4 letras"
@@ -23,10 +23,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isAlpha: {
-                    args: true,
-                    msg: "El nombre debe contener solo letras"
-                },
+                // isAlpha: {
+                //     args: true,
+                //     msg: "El nombre debe contener solo letras"
+                // },
                 len: {
                     args: [2, 45],
                     msg: "El nombre debe contener minimo 2 letras"
