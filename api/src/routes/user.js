@@ -76,15 +76,8 @@ server.post('/user', async (req, res, next) => {
 //     Ruta para modificar usuario.
 //===============================================
 server.put('/user/:id', auths[2](), (req, res, next) => {
-    // console.log(req.isAuthenticated())
-    // console.log(req.session.passport)
-
-    // if(!req.isAuthenticated()) return res.sendStatus(401)
-
+    
     const { id } = req.params;
-
-    console.log(id)
-    console.log(req.body)
 
     const { name, lastname, email, address, phone, birthdate, status } = req.body;
 
@@ -115,9 +108,6 @@ server.put('/user/:id', auths[2](), (req, res, next) => {
 
 server.post('/user/:id/image', auths[2](), (req, res, next) => {
 
-    /*    console.log('imagen ', req.isAuthenticated())
-        if(!req.isAuthenticated()) return res.sendStatus(401)*/
-
     const { id } = req.params;
     let { image } = req.body;
 
@@ -141,7 +131,7 @@ server.post('/user/:id/image', auths[2](), (req, res, next) => {
 //==============================================
 server.delete('/user/:id', auths[1], (req, res, next) => {
 
-    // console.log('delete ', req.isAuthenticated())
+    
     // if(!req.isAuthenticated()) return res.sendStatus(401)
     // if(!req.user.role === 'Cliente') return res.sendStatus(401)
 
@@ -216,7 +206,6 @@ server.post('/users/mailValidator/reset', async (req, res) => {
     }
 
 })
-
 //===================================================
 //  Ruta para resetear la contraseña
 //===================================================
@@ -242,7 +231,6 @@ server.post('/users/:id/passwordReset', async (req, res) => {
 
         return res.sendStatus(401)
     }
-
 
 })
 
@@ -306,5 +294,28 @@ server.post('/users/mailValidation', (req, res) =>{
     `)
     res.send("mail sent")
 })
+
+//================================================
+// Ruta para verificar que un usuario existe
+//================================================
+server.get('/users/:email', async (req, res) => {
+    const { email } = req.params;
+    
+    try {
+        const user = await User.findOne({ where: { email } })
+        if(!user){
+            
+            return res.send("404");
+        }
+        return res.status(200).send('Usuario encontrado');
+
+    } catch (error) {
+       
+        return res.sendStatus(404) 
+    }
+    
+        
+   
+});
 
 module.exports = server;
