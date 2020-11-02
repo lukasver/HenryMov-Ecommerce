@@ -113,7 +113,7 @@ export default function Carrito() {
             </section>
             <div className="container mb-4">
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-12 cart-mobile">
                         <div className="table-responsive">
                             <table className="table table-striped">
                                 <thead>
@@ -131,15 +131,16 @@ export default function Carrito() {
                                     {product &&
                                         product.map(prod =>
                                             <tr>
-                                                <td><Link className="titulo-link" to={`/products/${prod.id}`} ><img src={prod.image} width={80} alt="" /></Link> </td>
+                                                <td><Link className="titulo-link" to={`/products/${prod.id}`} ><img className="img-phone" src={prod.image} width={80} alt="" /></Link> </td>
                                                 <h5 className='card-title w-auto p-3' >{prod.name.substring(0, 30) + '...'}</h5>
                                                 <td>{prod.count < prod.stock ? <div class="alert alert-success" role="alert">
                                                    Stock Disponible
                                             </div> : <div class="alert alert-danger" role="alert">
                                                         Stock maximo</div>}</td>
-                                                <td><input type="button" class="btn btn-outline-primary" value='-' onClick={() => { disminuir(prod) }} />
-                                                    <input class="btn btn-primary" type="button" value={prod.count} />
-                                                    <input type="button" class="btn btn-outline-primary" value='+' onClick={() => { aumentar(prod) }} />
+                                                <td className="column-count">
+                                                    <input type="button" class="btn btn-outline-primary count-cant-cart" value='-' onClick={() => { disminuir(prod) }} />
+                                                    <input class="btn btn-primary count-cant-cart" type="button" value={prod.count} />
+                                                    <input type="button" class="btn btn-outline-primary count-cant-cart" value='+' onClick={() => { aumentar(prod) }} />
                                                 </td>
                                                 <td class="text-right">$ {prod.price} </td>
                                                 <td class="text-right">$ {prod.price * prod.count} </td>
@@ -196,7 +197,7 @@ export default function Carrito() {
                     </div>
                     <div className="col mb-2">
                         <div className="row">
-                            <div className="col-sm-6  col-md-3">
+                            <div className="col-sm-4  col-md-3">
                                 {product !== null && product.length !== 0 && <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal1" >Vaciar el carrito</button>}
                             </div>
                             <div class="modal fade shadow-lg p-2 mb-5 rounded" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -224,7 +225,7 @@ export default function Carrito() {
 
 
 
-                            <div className="col-sm-6  col-md-3">
+                            <div className="col-sm-4  col-md-3">
                                 <a className="btn btn-block btn-light" href='./products'>Continuar comprando</a>
                             </div>
                            { user != null ? <div className="col-sm-12 col-md-6 text-right">
