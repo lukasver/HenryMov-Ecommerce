@@ -1,20 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Checkout.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { formatProducts } from '../../../utils/utils.js';
-import credito from '../../../img/credito.png';
 import img_credito from '../../../img/credit-card.png';
 import img_debito from '../../../img/d-card.png';
 import img_efectivo from '../../../img/p-card.png';
 import rapipago from '../../../img/rapipago.png';
 import pagofacil from '../../../img/pagofacil.png';
-import Confetti from 'react-confetti';
 import axios from 'axios';
-import bag from '../../../img/bag.png';
 import { useHistory } from 'react-router-dom';
+import paises from '../../../utils/countries.json'
+import estados from '../../../utils/states.json'
+import ciudades from '../../../utils/cities.json'
+import { useEffect } from 'react';
 
 export default function Checkout() {
+const pais = paises.countries
+const [states, setStates]= useState ([])
+const [cities, setCities]= useState ([])
 
+useEffect(()=>{
+
+},[states])
+function changeFunc() {
+    let selectBox = document.getElementById("country");
+    let pasiId = selectBox.options[selectBox.selectedIndex].value;
+    setStates(estados.states.filter(s=> s.id_country == pasiId))
+    return 
+}
+function changeFunc2() {
+    let selectBox = document.getElementById("state");
+    let stateId = selectBox.options[selectBox.selectedIndex].value;
+    setCities(ciudades.cities.filter(s=> s.id_state == stateId))
+    return 
+}
 
 
   // === PROTECCION DE RUTA ===
@@ -388,47 +406,34 @@ export default function Checkout() {
                             </div>
 
                             <div className="row">
-                                <div className="col-md-5 mb-3">
+                                <div className="col-md-4 mb-3">
                                     <label for="country" className="label-form">Pais</label>
-                                    <select className="custom-select d-block w-100 input-direccion" id="country" required="">
-                                        <option value="">Elige...</option>
-                                        <option>Argentina</option>
-                                        <option>Brasil</option>
-                                        <option>Bolivia</option>
-                                        <option>Chile</option>
-                                        <option>Peru</option>
-                                        <option>Uruguay</option>
+                                    <select className="custom-select d-block w-100 input-direccion"  id="country" name='country' required="" onChange={()=>changeFunc()}>
+                                        <option value="0">Elige...</option>
+                                        {pais.map(p=>{
+                                           return  <option value={p.id}>{p.name}</option>
+                                        })}
                                     </select>
                                     <div className="invalid-feedback"> Please select a valid country. </div>
                                 </div>
                                 <div className="col-md-4 mb-3">
                                     <label for="state" className="label-form">Provincia</label>
-                                    <select className="custom-select d-block w-100 input-direccion" id="state" required="">
+                                    <select className="custom-select d-block w-100 input-direccion" id="state" required="" onChange={()=>changeFunc2()}>
                                         <option value="">Elige...</option>
-                                        <option>Buenos Aires</option>
-                                        <option>Catamarca</option>
-                                        <option>Chaco</option>
-                                        <option>Chubut</option>
-                                        <option>Córdoba</option>
-                                        <option>Corrientes</option>
-                                        <option>Entre Ríos</option>
-                                        <option>Formosa</option>
-                                        <option>Jujuy</option>
-                                        <option>La Pampa</option>
-                                        <option>La Rioja</option>
-                                        <option>Mendoza</option>
-                                        <option>Misiones</option>
-                                        <option>Neuquén</option>
-                                        <option>Río Negro</option>
-                                        <option>Salta</option>
-                                        <option>San Juan</option>
-                                        <option>San Luis</option>
-                                        <option>Santa Cruz</option>
-                                        <option>Santa Fe</option>
-                                        <option>S. del Estero</option>
-                                        <option>T. del Fuego</option>
-                                        <option> Tucumán</option>
+                                   {states.map(s=>{
+                                        return  <option value={s.id}>{s.name}</option>
+                                   })}
                                     </select>
+                                </div>
+                                <div className="col-md-4 mb-3">
+                                    <label for="cities" className="label-form">Ciudad</label>
+                                    <select className="custom-select d-block w-100 input-direccion"  id="cities" name='country' required="" onChange={()=>changeFunc()}>
+                                        <option value="0">Elige...</option>
+                                        {cities.map(c=>{
+                                           return  <option value={c.id}>{c.name}</option>
+                                        })}
+                                    </select>
+                                    <div className="invalid-feedback"> Please select a valid country. </div>
                                 </div>
 
                             </div>
