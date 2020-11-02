@@ -33,37 +33,32 @@ function mailCreator (to, type, dataFront){
             html:
             `<html>
                 <head>
-                    <style>
-                    .container{
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                    }
-                    .images{
-                        width: 50%;
-                    }
-
-                    </style>
+                    
                 </head>
                 <body>
                     <div class='allContainer'>
-                        <ul>
-                            <h3>Productos</h3>
+                        <ul style="background: black;padding: 35px 70px;text-align:center;">
+                            <h3 style="color: #dedede; font-size: 28px; font-weight: 500;">Detalle de Productos</h3>
                             ${dataFront.product.map(prod =>`
-                                <div class='container' style='display:flex; flex-direction:row; align-items:center'>
-                                    <div class='data'>
+                                <div class='container' style='display: flex; background: linear-gradient(135deg, #fad961 0%,#f76b1c 100%);'>                                    
+                                    <div class='images' style="width: 10% !important; float: left !important;">
+                                        <img class='img' width='70%' src="${prod.image}" alt="" style="padding: 20px;">
+                                    </div>
+                                    <div class='data' style="width: 90% !important; padding: 20px; font-weight: 600; font-size: 14px; list-style-type: circle; text-align: left; width: 75%;">
                                         <li class='Nombre'>Nombre: ${prod.name}</li> 
                                         <li class='Description'>Description: ${prod.description}</li> 
                                         <li class='Precio'>Precio: $${prod.price}</li>
-                                        <li class='Cantidad'>Cantidad: $${prod.count}</li>
-                                        <li class='Stock'>Stock: $${prod.stock}</li>
-                                    </div>
-                                    </div class='images'>
-                                        <img class='img' width='50%' src="${prod.image}" alt="">
+                                        <li class='Cantidad'>Cantidad: ${prod.count}</li>
+                                        <li class='Stock'>Stock: ${prod.stock}</li>
                                     </div>
                                 </div>
                         `)}
-                            <h4>Total a pagar: ${dataFront.total.toFixed(2)}</h4>
+                            <h4 style="text-align: right; color: #dedede; font-size: 26px;">Total a pagar: ${dataFront.total.toFixed(2)}</h4>
+                            <br/><br/>
+                            <div style="text-align: center">
+                                <img class="img" src="https://periconoticias.com.ar/logoHenryMov.png" alt="" style="padding: 20px;width:200px;height:80px;padding-bottom: 0px !important;">
+                                <h3 style="color: #dedede;font-size: 28px;font-weight: 500;margin-top: 0px !important;">¡Gracias por su compra!</h3>
+                            </div><br><br><br/>
                         </ul>
                     </div>
                 </body>
