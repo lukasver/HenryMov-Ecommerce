@@ -283,10 +283,8 @@ server.post('/products', (req, res, next) => {
 	if (!name || !description || !price || !stock) {
 		return res.sendStatus(400);
 	}
-	console.log('antes de sequelize', bodyComplete)
 
 	Product.create(bodyComplete).then(createdProduct => {
-		console.log('producto creado: ', createdProduct)
 		createdProduct.setCategories(categories);
 	}).then(() => {
 		return res.status(201).send(req.body);
