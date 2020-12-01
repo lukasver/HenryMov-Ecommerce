@@ -5,7 +5,6 @@
 # Henry
 
 ## Objetivos del Proyecto
-asdasd
 - Construir una App JavaScript desde cero.
 - Afirmar y conectar los conceptos aprendidos en la carrera.
 - Aprender asdasdmejores prácticas.
