@@ -4,11 +4,14 @@
 
 # Henry
 
+testestes asdsdasdasdas dasdasd
+asdasd
+
 ## Objetivos del Proyecto
 
 - Construir una App JavaScript desde cero.
 - Afirmar y conectar los conceptos aprendidos en la carrera.
-- Aprender mejores prácticas.
+- Aprender mejores práctasdasdasdicas.
 - Aprender y practicar el workflow de GIT.
 - Utilizar Metodologías Ágiles.
 - Trabajar en equipo.
