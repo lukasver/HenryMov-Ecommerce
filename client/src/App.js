@@ -92,34 +92,16 @@ function App() {
       <Route exact path='/products/:productId' render={({ match }) => (<Product product={onFilter(match.params.productId)} />)} />
       <Route exact path='/under' render={() => <Under />} />
       <Route exact path='/' render={() => <Carousel />} />
-      <Route exact path='/carrito' render={()kjadlkajskldasd
-      
-        
-        
-        asdlkhalkdjalkdsjlakjdkalsd
-        => <Carrito/>}/>
+      <Route exact path='/carrito' render={()=> <Carrito/>}/>
       <Route exact path='/register' render={()=> <Register/>} />
       <Route exact path='/logIn' render={()=> <LoggedIn/>} />
       <Route exact path='/reset' render={()=> <Reset/>} />
       <Route exact path='/Menu' render={()=> <Menu />} />
-      adjklsdjaklsjdakskd
-      asdklajdlskjalkdsjakl
-      d
       <Route exact path='/order/:userId' render={({ match })=> <OrderHistory userId= {match.params.userId}/>} />
       <Route exact path='/profile/:id' render={({ match })=> <ProfileAdmin profileId = {match.params.id}/>} />
-      <
-        
-        ajsdaklsdjalksjdlajdskas
-        Route exact path='/order/detail/:orderId' render={({ match })=> <OrdenDetalle orderId= {match.params.orderId}/>} />
+      <Route exact path='/order/detail/:orderId' render={({ match })=> <OrdenDetalle orderId= {match.params.orderId}/>} />
       <Route exact path='/reviews' render={()=> <Reviews/>}/>
-      <R
-      
-      
-      adaskjdklasjdlajsdkljasdj
-      d
-      asd
-      adlñakdak
-      doute exact path='/checkout' render={()=> <Checkout/>}/>
+      <Route exact path='/checkout' render={()=> <Checkout/>}/>
       <Route exact path='/profile' render={()=> <Profile/>}/>
       <Route exact path='/order/ /error' render={() => <ComponenteError/>}/>
       <Route exact path='/verify' render={() => <Verify/>}/>
